@@ -1,0 +1,4 @@
+*.sln
+.vs/*
+OpenGL Renderer/*.vcxproj
+OpenGL Renderer/*.vcxproj.*
