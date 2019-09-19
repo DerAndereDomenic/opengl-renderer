@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <OpenGLObjects/VertexBuffer.h>
+#include <OpenGLObjects/VertexBufferLayout.h>
 
 
 int main(void)
@@ -32,9 +33,18 @@ int main(void)
 	};
 
 	VertexBuffer vbo = VertexBuffer::createObject(vertices, sizeof(float) * 6);
+	VertexBufferLayout layout;
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (const void*)0);
+	layout.add<float>(2);
+	unsigned int offset = 0;
+	for (unsigned int i = 0; i < layout.getElements().size(); ++i)
+	{
+		BufferElement element = layout.getElements()[i];
+		glEnableVertexAttribArray(i);
+		glVertexAttribPointer(i, element._count, element._type, element._normalized, layout.getVertexSize(), (const void*)offset);
+		offset += element._count * BufferElement::getSizeOfType(element._type);
+	}
+	
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
