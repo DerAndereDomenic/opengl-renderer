@@ -5,7 +5,7 @@ VertexBuffer
 VertexBuffer::createObject(float* data, unsigned int count)
 {
 	VertexBuffer result;
-	glGenBuffers(0, &result._ID);
+	glGenBuffers(1, &result._ID);
 	glBindBuffer(GL_ARRAY_BUFFER, result._ID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*count, data, GL_STATIC_DRAW);
 
