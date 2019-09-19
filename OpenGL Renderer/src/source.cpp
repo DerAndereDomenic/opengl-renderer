@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <OpenGLObjects/VertexBuffer.h>
 #include <OpenGLObjects/VertexBufferLayout.h>
+#include <OpenGLObjects/IndexBuffer.h>
 #include <Shader/Shader.h>
 
 
@@ -27,16 +28,17 @@ int main(void)
 	if (glewInit() != GLEW_OK)
 		return -1;
 
-	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.vs",
-								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.fs");
+	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.vert",
+								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.frag");
 
 	float vertices[] = {
 	-0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
 	0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-	0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f
+	-0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+	0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
 	};
 
-	VertexBuffer vbo = VertexBuffer::createObject(vertices, sizeof(float) * 24);
+	VertexBuffer vbo = VertexBuffer::createObject(vertices, 32);
 	VertexBufferLayout layout;
 
 	layout.add<float>(4);
@@ -50,6 +52,12 @@ int main(void)
 		offset += element._count * BufferElement::getSizeOfType(element._type);
 	}
 	
+	unsigned int indices[] = {
+		0, 1, 2,
+		2, 3, 1
+	};
+
+	IndexBuffer ibo = IndexBuffer::createObject(indices, 6);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -58,8 +66,10 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		vbo.bind();
+		ibo.bind();
 		shader.bind();
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
@@ -67,6 +77,7 @@ int main(void)
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
+
 
 	glfwTerminate();
 	return 0;
