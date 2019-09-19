@@ -24,7 +24,7 @@ public:
 	*	\brief Destroys the Index Buffer object
 	*	\param[in] ibo The Index Buffer object
 	*/
-	static void IndexBuffer destroyObject(IndexBuffer& ibo);
+	static void destroyObject(IndexBuffer& ibo);
 
 	/**
 	*	\brief Binds the Index Buffer
