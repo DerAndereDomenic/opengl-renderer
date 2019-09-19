@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <OpenGLObjects/VertexBuffer.h>
 #include <OpenGLObjects/VertexBufferLayout.h>
+#include <Shader/Shader.h>
 
 
 int main(void)
@@ -25,6 +26,9 @@ int main(void)
 
 	if (glewInit() != GLEW_OK)
 		return -1;
+
+	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.vs",
+								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.fs");
 
 	float vertices[] = {
 	-0.5f, -0.5f,
@@ -53,6 +57,7 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		vbo.bind();
+		shader.bind();
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		/* Swap front and back buffers */
