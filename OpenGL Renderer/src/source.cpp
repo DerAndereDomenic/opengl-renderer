@@ -31,15 +31,15 @@ int main(void)
 								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.fs");
 
 	float vertices[] = {
-	-0.5f, -0.5f,
-	0.5f, -0.5f,
-	0.0f, 0.5f
+	-0.5f, -0.5f, 0.0f, 1.0f,
+	0.5f, -0.5f, 0.0f, 1.0f,
+	0.0f, 0.5f, 0.0f, 1.0f
 	};
 
-	VertexBuffer vbo = VertexBuffer::createObject(vertices, sizeof(float) * 6);
+	VertexBuffer vbo = VertexBuffer::createObject(vertices, sizeof(float) * 12);
 	VertexBufferLayout layout;
 
-	layout.add<float>(2);
+	layout.add<float>(4);
 	unsigned int offset = 0;
 	for (unsigned int i = 0; i < layout.getElements().size(); ++i)
 	{
