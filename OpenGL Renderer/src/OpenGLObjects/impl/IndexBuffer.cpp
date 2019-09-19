@@ -18,7 +18,7 @@ IndexBuffer::createObject(unsigned int* data, unsigned int count)
 void 
 IndexBuffer::destroyObject(IndexBuffer& ibo)
 {
-	glDeleteBuffers(0, &ibo._ID);
+	glDeleteBuffers(1, &ibo._ID);
 	ibo._count = 0;
 }
 

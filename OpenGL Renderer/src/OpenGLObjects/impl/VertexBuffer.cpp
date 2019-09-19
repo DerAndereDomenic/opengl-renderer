@@ -17,7 +17,7 @@ VertexBuffer::createObject(float* data, unsigned int count)
 void 
 VertexBuffer::destroyObject(VertexBuffer& vbo)
 {
-	glDeleteBuffers(0, &vbo._ID);
+	glDeleteBuffers(1, &vbo._ID);
 	vbo._size = 0;
 }
 
