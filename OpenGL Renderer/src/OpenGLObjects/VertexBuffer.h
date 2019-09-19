@@ -15,9 +15,9 @@ public:
 	/**
 	*	\brief Create a Vertex Buffer Object
 	*	\param[in] data The Vertices Data
-	*	\param[in] size Size of the data array in bytes
+	*	\param[in] count The count of elements in the array
 	*/
-	static VertexBuffer createObject(float* data, unsigned int size);
+	static VertexBuffer createObject(float* data, unsigned int count);
 
 	/**
 	*	\brief Destroys the Vertex Buffer object
