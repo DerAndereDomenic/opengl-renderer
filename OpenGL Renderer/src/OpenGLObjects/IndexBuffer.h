@@ -35,6 +35,14 @@ public:
 	*	\brief Unbinds the Index Buffer (bind 0)
 	*/
 	void unbind();
+
+	/**
+	*	\brief Gives the Element count
+	*	\return The Element count
+	*/
+	inline unsigned int
+	getCount() { return _count; }
+
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the Buffer*/
 	unsigned int _count; /**<< The Index count*/
