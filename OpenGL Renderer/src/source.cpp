@@ -3,6 +3,7 @@
 #include <OpenGLObjects/VertexBuffer.h>
 #include <OpenGLObjects/VertexBufferLayout.h>
 #include <OpenGLObjects/IndexBuffer.h>
+#include <OpenGLObjects/VertexArray.h>
 #include <Shader/Shader.h>
 
 
@@ -43,14 +44,9 @@ int main(void)
 
 	layout.add<float>(4);
 	layout.add<float>(4);
-	unsigned int offset = 0;
-	for (unsigned int i = 0; i < layout.getElements().size(); ++i)
-	{
-		BufferElement element = layout.getElements()[i];
-		glEnableVertexAttribArray(i);
-		glVertexAttribPointer(i, element._count, element._type, element._normalized, layout.getVertexSize(), (const void*)offset);
-		offset += element._count * BufferElement::getSizeOfType(element._type);
-	}
+	
+	VertexArray vao = VertexArray::createObject();
+	vao.addBuffer(vbo, layout);
 	
 	unsigned int indices[] = {
 		0, 1, 2,
@@ -68,6 +64,8 @@ int main(void)
 		vbo.bind();
 		ibo.bind();
 		shader.bind();
+
+		vao.bind();
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
 
