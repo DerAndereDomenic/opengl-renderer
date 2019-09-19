@@ -7,6 +7,6 @@ Installation:
 The Project comes with all necessary libraries:
 * glew
 * glm
-* glf
+* glfw
 
 After cloning the project, only linking has to be done.
