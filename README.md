@@ -1,4 +1,4 @@
-OpenGL Renderer
+*OpenGL Renderer*
 
 A basic Renderer wrapping OpenGL functions
 
