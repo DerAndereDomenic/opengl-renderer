@@ -8,9 +8,10 @@ VertexBuffer::createObject(float* data, unsigned int size)
 	glGenBuffers(0, &result._ID);
 	glBindBuffer(GL_ARRAY_BUFFER, result._ID);
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+	return result;
 }
 
-VertexBuffer 
+void 
 VertexBuffer::destroyObject(VertexBuffer& vbo)
 {
 	glDeleteBuffers(0, &vbo._ID);
