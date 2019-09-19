@@ -78,6 +78,9 @@ int main(void)
 		glfwPollEvents();
 	}
 
+	VertexBuffer::destroyObject(vbo);
+	IndexBuffer::destroyObject(ibo);
+	Shader::destroyObject(shader);
 
 	glfwTerminate();
 	return 0;
