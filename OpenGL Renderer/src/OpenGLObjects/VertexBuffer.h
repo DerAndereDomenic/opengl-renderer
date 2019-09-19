@@ -23,7 +23,7 @@ public:
 	*	\brief Destroys the Vertex Buffer object
 	*	\param[in] vbo The object
 	*/
-	static VertexBuffer destroyObject(VertexBuffer& vbo);
+	static void destroyObject(VertexBuffer& vbo);
 
 	/**
 	*	\brief Bind the Buffer
