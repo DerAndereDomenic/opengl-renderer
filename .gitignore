@@ -1,4 +1,5 @@
 *.sln
 .vs/*
+Debug/
 OpenGL Renderer/*.vcxproj
 OpenGL Renderer/*.vcxproj.*
