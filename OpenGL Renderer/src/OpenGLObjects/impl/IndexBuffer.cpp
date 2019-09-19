@@ -6,7 +6,7 @@ IndexBuffer::createObject(unsigned int* data, unsigned int count)
 {
 	IndexBuffer result;
 
-	result._count = 0;
+	result._count = count;
 
 	glGenBuffers(0, &result._ID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result._ID);
