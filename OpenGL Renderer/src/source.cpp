@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <OpenGLObjects/VertexBuffer.h>
 
 
 int main(void)
@@ -30,10 +31,7 @@ int main(void)
 	0.0f, 0.5f
 	};
 
-	unsigned int vbo;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6, vertices, GL_STATIC_DRAW);
+	VertexBuffer vbo = VertexBuffer::createObject(vertices, sizeof(float) * 6);
 
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (const void*)0);
@@ -44,6 +42,7 @@ int main(void)
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		vbo.bind();
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		/* Swap front and back buffers */
