@@ -77,7 +77,7 @@ private:
 	GLFWwindow* _window; /**<< The window the camera is operating at*/
 	glm::mat4 _view; /**<< The view matrix*/
 	glm::mat4 _projection; /**<< The projection matrix*/
-	glm::vec3 _cameraPos = glm::vec3(8.0f, 66.0f, 8.0f); /**<< The initial camera position*/
+	glm::vec3 _cameraPos = glm::vec3(0.0f, 0.0f, 0.0f); /**<< The initial camera position*/
 	glm::vec3 _cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); /**<< The initial camera front*/
 	glm::vec3 _cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); /**<< The direction that defines the y-axis of the camera*/
 
