@@ -7,6 +7,7 @@ Camera
 Camera::createObject(GLFWwindow* window)
 {
 	Camera result;
+	result._window = window;
 	result._projection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 500.0f);
 	result._view = glm::lookAt(result._cameraPos, result._cameraPos + result._cameraFront, result._cameraUp);
 	return result;
