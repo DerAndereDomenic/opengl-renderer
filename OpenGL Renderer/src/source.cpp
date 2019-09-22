@@ -30,6 +30,8 @@ int main(void)
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window);
 
@@ -89,13 +91,14 @@ int main(void)
 	while (!glfwWindowShouldClose(window))
 	{
 
-		//camera.processInput(0);
+		camera.processInput(1);
 
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		shader.bind();
 		shader.setInt("u_set", 0);
+		shader.setMat4("MVP", camera.getProjection()*camera.getView(), GL_FALSE);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		vao.bind();
 		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
@@ -109,6 +112,11 @@ int main(void)
 
 		/* Poll for and process events */
 		glfwPollEvents();
+
+		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
+		{
+			return 0;
+		}
 	}
 
 	VertexBuffer::destroyObject(vbo);
