@@ -55,7 +55,7 @@ Texture::destroyObject(Texture& texture)
 }
 
 void 
-Texture::bind(const unsigned int tex = 0) const
+Texture::bind(const unsigned int tex) const
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(GL_TEXTURE_2D, _ID);
