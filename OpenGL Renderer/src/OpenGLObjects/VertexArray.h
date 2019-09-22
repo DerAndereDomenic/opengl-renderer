@@ -30,19 +30,19 @@ public:
 	/**
 	*	\brief Bind die Vertex Array object
 	*/
-	void bind();
+	void bind() const;
 
 	/**
 	*	\brief Unbinds the Vertex Array object (bind 0)
 	*/
-	void unbind();
+	void unbind() const;
 
 	/**
 	*	\brief Add a Layout for the given Vertex Buffer object
 	*	\param[in] vbo The Vertex Buffer
 	*	\param[in] layout The Layout for the Vertex Buffer
 	*/
-	void addBuffer(VertexBuffer &vbo, VertexBufferLayout &layout);
+	void addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout);
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the Vertex Array*/
 };

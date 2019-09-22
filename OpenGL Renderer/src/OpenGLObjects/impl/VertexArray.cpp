@@ -15,19 +15,19 @@ VertexArray::destroyObject(VertexArray &vao)
 }
 
 void 
-VertexArray::bind()
+VertexArray::bind() const
 {
 	glBindVertexArray(_ID);
 }
 
 void 
-VertexArray::unbind()
+VertexArray::unbind() const
 {
 	glBindVertexArray(0);
 }
 
 void 
-VertexArray::addBuffer(VertexBuffer &vbo, VertexBufferLayout &layout)
+VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout)
 {
 	vbo.bind();
 	bind();

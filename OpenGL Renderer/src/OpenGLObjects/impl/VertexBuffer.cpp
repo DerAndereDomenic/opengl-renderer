@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 
 VertexBuffer 
-VertexBuffer::createObject(float* data, unsigned int count)
+VertexBuffer::createObject(const float* data, const unsigned int count)
 {
 	VertexBuffer result;
 	glGenBuffers(1, &result._ID);
@@ -22,13 +22,13 @@ VertexBuffer::destroyObject(VertexBuffer& vbo)
 }
 
 void 
-VertexBuffer::bind()
+VertexBuffer::bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, _ID);
 }
 
 void 
-VertexBuffer::unbind()
+VertexBuffer::unbind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

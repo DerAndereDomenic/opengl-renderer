@@ -17,7 +17,7 @@ public:
 	*	\param[in] data The Vertices Data
 	*	\param[in] count The count of elements in the array
 	*/
-	static VertexBuffer createObject(float* data, unsigned int count);
+	static VertexBuffer createObject(const float* data, const unsigned int count);
 
 	/**
 	*	\brief Destroys the Vertex Buffer object
@@ -28,12 +28,12 @@ public:
 	/**
 	*	\brief Bind the Buffer
 	*/
-	void bind();
+	void bind() const;
 
 	/**
 	*	\brief Unbind the buffer (bind default)
 	*/
-	void unbind();
+	void unbind() const;
 private:
 	unsigned int _ID; /**<< The OpenGL identifier for the Vertex Buffer*/
 	unsigned int _size; /**<< The Size of the Buffer in Bytes*/

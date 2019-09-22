@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 
 IndexBuffer 
-IndexBuffer::createObject(unsigned int* data, unsigned int count)
+IndexBuffer::createObject(const unsigned int* data, const unsigned int count)
 {
 	IndexBuffer result;
 
@@ -23,13 +23,13 @@ IndexBuffer::destroyObject(IndexBuffer& ibo)
 }
 
 void 
-IndexBuffer::bind()
+IndexBuffer::bind() const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ID);
 }
 
 void 
-IndexBuffer::unbind()
+IndexBuffer::unbind() const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }

@@ -18,7 +18,7 @@ public:
 	*	\param[in] count The indice count
 	*	return The Index Buffer Object
 	*/
-	static IndexBuffer createObject(unsigned int* data, unsigned int count);
+	static IndexBuffer createObject(const unsigned int* data, const unsigned int count);
 
 	/**
 	*	\brief Destroys the Index Buffer object
@@ -29,19 +29,19 @@ public:
 	/**
 	*	\brief Binds the Index Buffer
 	*/
-	void bind();
+	void bind() const;
 
 	/**
 	*	\brief Unbinds the Index Buffer (bind 0)
 	*/
-	void unbind();
+	void unbind() const;
 
 	/**
 	*	\brief Gives the Element count
 	*	\return The Element count
 	*/
 	inline unsigned int
-	getCount() { return _count; }
+	getCount() const { return _count; }
 
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the Buffer*/
