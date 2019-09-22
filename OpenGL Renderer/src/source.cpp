@@ -7,6 +7,9 @@
 #include <OpenGLObjects/Texture.h>
 #include <Shader/Shader.h>
 
+#include <IO/KeyManager.h>
+#include <Renderer/Camera.h>
+
 
 int main(void)
 {
@@ -26,6 +29,9 @@ int main(void)
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
+
+	KeyManager::instance()->setup(window);
+	Camera camera = Camera::createObject(window);
 
 	if (glewInit() != GLEW_OK)
 		return -1;
@@ -82,6 +88,9 @@ int main(void)
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
+
+		//camera.processInput(0);
+
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
