@@ -4,6 +4,7 @@
 #include <OpenGLObjects/VertexBufferLayout.h>
 #include <OpenGLObjects/IndexBuffer.h>
 #include <OpenGLObjects/VertexArray.h>
+#include <OpenGLObjects/Texture.h>
 #include <Shader/Shader.h>
 
 
@@ -30,22 +31,26 @@ int main(void)
 		return -1;
 	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.vert",
 								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.frag");
+
+	Texture texture = Texture::createObject("res/sprite.png");
 	shader.bind();
 	shader.setVec4("u_color", glm::vec4(0.3, 0.1, 0.4, 1));
 	shader.setInt("u_set", 0);
+	shader.setInt("sprite", 0);
 
 	float vertices[] = {
-	-0.75f, -0.25f, 0.0f, 1.0f,// 1.0f, 0.0f, 0.0f, 1.0f,
-	-0.25f, -0.25f, 0.0f, 1.0f,// 0.0f, 1.0f, 0.0f, 1.0f,
-	-0.75f, 0.25f, 0.0f, 1.0f,// 0.0f, 0.0f, 1.0f, 1.0f,
-	-0.25f, 0.25f, 0.0f, 1.0f,// 1.0f, 1.0f, 0.0f, 1.0f
+	-0.75f, -0.25f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+	-0.25f, -0.25f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+	-0.75f, 0.25f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+	-0.25f, 0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f
 	};
 
-	VertexBuffer vbo = VertexBuffer::createObject(vertices, 16);
+	VertexBuffer vbo = VertexBuffer::createObject(vertices, 44);
 	VertexBufferLayout layout;
 
 	layout.add<float>(4);
-	//layout.add<float>(4);
+	layout.add<float>(4);
+	layout.add<float>(2);
 	
 	unsigned int indices[] = {
 		0, 1, 2,
