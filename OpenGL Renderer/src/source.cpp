@@ -69,13 +69,10 @@ int main(void)
 	VertexArray vao = VertexArray::createObject();
 	VertexArray vao2 = VertexArray::createObject();
 
-	vao.bind();
-	ibo.bind();
-	vao.addBuffer(vbo, layout);
+	
+	vao.addBuffer(vbo, layout, ibo);
 
-	vao2.bind();
-	ibo.bind();
-	vao2.addBuffer(vbo2, layout2);
+	vao2.addBuffer(vbo2, layout2, ibo);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
