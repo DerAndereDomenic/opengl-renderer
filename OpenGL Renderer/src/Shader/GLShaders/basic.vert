@@ -10,9 +10,11 @@ flat out int frag_set;
 uniform vec4 u_color;
 uniform int u_set;
 
+uniform mat4 MVP;
+
 void main()
 {
-	gl_Position = position;
+	gl_Position = MVP*position;
 	if(u_set == 0)
 	{
 		frag_color = u_color;
