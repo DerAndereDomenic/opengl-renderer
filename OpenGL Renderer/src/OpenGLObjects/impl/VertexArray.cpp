@@ -40,3 +40,10 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 		offset += element._count * BufferElement::getSizeOfType(element._type);
 	}
 }
+
+void 
+VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout, const IndexBuffer &ibo)
+{
+	addBuffer(vbo, layout);
+	ibo.bind();
+}
