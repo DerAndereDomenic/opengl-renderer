@@ -91,7 +91,7 @@ int main(void)
 	while (!glfwWindowShouldClose(window))
 	{
 
-		camera.processInput(1);
+		camera.processInput(0.005f);
 
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
