@@ -1,8 +1,7 @@
 #ifndef IO_KEY_MANAGER_H
 #define IO_KEY_MANAGER_H
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <Renderer/RenderWindow.h>
 
 class KeyManager
 {
@@ -17,7 +16,7 @@ public:
 	*	\brief Setup the KeyManager
 	*	\param[in] window The window the keys should be registered in
 	*/
-	void setup(GLFWwindow* window);
+	void setup(RenderWindow window);
 
 	/**
 	*	\brief Checks if a key is pressed
@@ -43,7 +42,7 @@ private:
 	KeyManager() = default; /**<< Make KeyManager private*/
 	KeyManager(const KeyManager&); /**<< Make KeyManager private*/
 
-	GLFWwindow* _window = nullptr; /**<< The Window of the KeyManager*/
+	RenderWindow _window; /**<< The Window of the KeyManager*/
 };
 
 #endif
