@@ -86,6 +86,11 @@ int main(void)
 		window.render(vao2, ibo, shader);
 
 		window.spinOnce();
+
+		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
+		{
+			window.close();
+		}
 	}
 
 	VertexBuffer::destroyObject(vbo);

@@ -73,11 +73,6 @@ RenderWindow::spinOnce()
 {
 	glfwSwapBuffers(_window);
 	glfwPollEvents();
-
-	if (glfwGetKey(_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwDestroyWindow(_window);
-	}
 }
 
 bool 
