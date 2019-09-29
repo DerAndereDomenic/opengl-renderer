@@ -49,13 +49,6 @@ public:
 	void render(VertexArray& vao, IndexBuffer& ibo, Shader& shader);
 
 	/**
-	*	\brief Renders the given vertex array object
-	*	\param[in] vao The vertex buffer object
-	*	\param[in] shader The shader used for this drawcall
-	*/
-	void render(VertexArray& vao, Shader& shader);
-
-	/**
 	*	\brief Clears the window
 	*	\param[in] r = 0.0f The red channel
 	*	\param[in] g = 0.0f The green channel
