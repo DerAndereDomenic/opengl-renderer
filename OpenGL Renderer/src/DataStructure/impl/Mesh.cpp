@@ -27,12 +27,11 @@ Mesh::destroyObject(Mesh& mesh)
 void 
 Mesh::create()
 {
-	_vbo = VertexBuffer::createObject(_vertices.data(), _vertices.size() * sizeof(float));
-	_ibo = IndexBuffer::createObject(_indices.data(), _indices.size());
-	_vbo.bind();
-	_ibo.bind();
+	_vbo = VertexBuffer::createObject(_vertices.data(), _vertices.size());
 	_vao = VertexArray::createObject();
 	_vao.addBuffer(_vbo, _layout);
+	_ibo = IndexBuffer::createObject(_indices.data(), _indices.size());
+
 
 	_vertices.clear();
 	_indices.clear();
