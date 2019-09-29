@@ -8,35 +8,16 @@
 #include <Shader/Shader.h>
 
 #include <IO/KeyManager.h>
+#include <Renderer/RenderWindow.h>
 #include <Renderer/Camera.h>
 
 
 int main(void)
 {
-	GLFWwindow* window;
+	RenderWindow window = RenderWindow::createObject(800, 800, "Render Window");
+	KeyManager::instance()->setup(window.getWindow());
+	Camera camera = Camera::createObject(window.getWindow());
 
-	/* Initialize the library */
-	if (!glfwInit())
-		return -1;
-
-	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(800, 800, "Hello World", NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		return -1;
-	}
-
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
-
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-	KeyManager::instance()->setup(window);
-	Camera camera = Camera::createObject(window);
-
-	if (glewInit() != GLEW_OK)
-		return -1;
 	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.vert",
 								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.frag");
 
@@ -88,35 +69,23 @@ int main(void)
 	vao2.addBuffer(vbo2, layout2, ibo);
 
 	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(window))
+	while (window.isOpen())
 	{
 
 		camera.processInput(0.005f);
 
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
+		window.clear();
 
 		shader.bind();
 		shader.setInt("u_set", 0);
 		shader.setMat4("MVP", camera.getProjection()*camera.getView(), GL_FALSE);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		vao.bind();
-		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
+		window.render(vao, ibo, shader);
 
 		vao2.bind();
 		shader.setInt("u_set", 1);
-		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
+		window.render(vao2, ibo, shader);
 
-		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
-
-		/* Poll for and process events */
-		glfwPollEvents();
-
-		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
-		{
-			return 0;
-		}
+		window.spinOnce();
 	}
 
 	VertexBuffer::destroyObject(vbo);
@@ -125,7 +94,7 @@ int main(void)
 	VertexArray::destroyObject(vao2);
 	IndexBuffer::destroyObject(ibo);
 	Shader::destroyObject(shader);
+	RenderWindow::destroyObject(window);
 
-	glfwTerminate();
 	return 0;
 }
