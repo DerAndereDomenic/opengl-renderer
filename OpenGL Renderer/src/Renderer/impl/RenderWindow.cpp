@@ -62,7 +62,7 @@ RenderWindow::render(VertexArray& vao, IndexBuffer& ibo, Shader& shader)
 }
 
 void 
-RenderWindow::clear(GLclampf r = 0.0f, GLclampf g = 0.0f, GLclampf b = 0.0f, GLclampf a = 1.0f)
+RenderWindow::clear(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 {
 	glClearColor(r, g, b, a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
