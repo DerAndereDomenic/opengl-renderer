@@ -1,8 +1,7 @@
 #ifndef RENDERER_CAMERA_H
 #define RENDERER_CAMERA_H
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <Renderer/RenderWindow.h>
 #include <glm/glm.hpp>
 
 /**
@@ -21,7 +20,7 @@ public:
 	*	\param[in] window The camera the window should be bound to
 	*	\return The camera object
 	*/
-	static Camera createObject(GLFWwindow* window);
+	static Camera createObject(RenderWindow window);
 
 	/**
 	*	\brief Destroys the given camera
@@ -74,7 +73,7 @@ private:
 
 	const float _sensitivity = 0.25f; /**<< The mouse sensitivity*/
 
-	GLFWwindow* _window; /**<< The window the camera is operating at*/
+	RenderWindow _window; /**<< The window the camera is operating at*/
 	glm::mat4 _view; /**<< The view matrix*/
 	glm::mat4 _projection; /**<< The projection matrix*/
 	glm::vec3 _cameraPos = glm::vec3(0.0f, 0.0f, 0.0f); /**<< The initial camera position*/

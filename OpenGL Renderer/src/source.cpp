@@ -16,7 +16,7 @@ int main(void)
 {
 	RenderWindow window = RenderWindow::createObject(800, 800, "Render Window");
 	KeyManager::instance()->setup(window.getWindow());
-	Camera camera = Camera::createObject(window.getWindow());
+	Camera camera = Camera::createObject(window);
 
 	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.vert",
 								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.frag");

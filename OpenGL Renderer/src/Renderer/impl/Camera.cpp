@@ -4,7 +4,7 @@
 #include <IO/KeyManager.h>
 
 Camera
-Camera::createObject(GLFWwindow* window)
+Camera::createObject(RenderWindow window)
 {
 	Camera result;
 	result._window = window;
@@ -32,7 +32,7 @@ Camera::processInput(float deltaTime)
 {
 
 	double xpos, ypos;
-	glfwGetCursorPos(_window, &xpos, &ypos);
+	glfwGetCursorPos(_window.getWindow(), &xpos, &ypos);
 
 	processMouse(xpos, ypos);
 
