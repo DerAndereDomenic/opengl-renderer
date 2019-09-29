@@ -83,5 +83,5 @@ RenderWindow::spinOnce()
 bool 
 RenderWindow::isOpen()
 {
-
+	return !glfwWindowShouldClose(_window);
 }
