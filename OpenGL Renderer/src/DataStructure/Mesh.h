@@ -64,7 +64,7 @@ private:
 	std::vector<float> _vertices; /**<< A buffer to safe vertex information*/
 	std::vector<unsigned int> _indices; /**<< A buffer to safe index information*/
 
-	unsigned int vertex_count; /**<< The count of vertices in the mesh*/
+	unsigned int _vertex_count; /**<< The count of vertices in the mesh*/
 
 	VertexArray _vao; /**<< The vertex array object of the mesh*/
 	VertexBuffer _vbo; /**<< The vertex buffer object of the mesh*/
