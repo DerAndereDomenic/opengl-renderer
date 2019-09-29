@@ -29,6 +29,8 @@ RenderWindow::createObject(const unsigned int width, const unsigned int height, 
 	}
 
 	glfwSetInputMode(result._window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	
+	result._isOpen = true;
 
 	return result;
 }
@@ -39,6 +41,7 @@ RenderWindow::destroyObject(RenderWindow& window)
 	window._width = 0;
 	window._height = 0;
 	window._aspect_ratio = 0.0f;
+	window._isOpen = false;
 	if (window._window != nullptr)
 	{
 		window.close();
@@ -48,6 +51,7 @@ RenderWindow::destroyObject(RenderWindow& window)
 void 
 RenderWindow::close()
 {
+	_isOpen = false;
 	glfwDestroyWindow(_window);
 	_window = nullptr;
 	glfwTerminate();
@@ -78,5 +82,5 @@ RenderWindow::spinOnce()
 bool 
 RenderWindow::isOpen()
 {
-	return !glfwWindowShouldClose(_window);
+	return !glfwWindowShouldClose(_window) && _isOpen;
 }

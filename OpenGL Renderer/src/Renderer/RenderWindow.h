@@ -96,6 +96,7 @@ private:
 	unsigned int _width; /**<< The width*/
 	unsigned int _height; /**<< The height*/
 	float _aspect_ratio; /**<< The apsect ratio*/
+	bool _isOpen; /**<< Wether the window is open*/
 };
 
 
