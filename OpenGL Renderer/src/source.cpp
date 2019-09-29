@@ -5,6 +5,7 @@
 #include <OpenGLObjects/IndexBuffer.h>
 #include <OpenGLObjects/VertexArray.h>
 #include <OpenGLObjects/Texture.h>
+#include <DataStructure/Mesh.h>
 #include <Shader/Shader.h>
 
 #include <IO/KeyManager.h>
@@ -27,46 +28,29 @@ int main(void)
 	shader.setInt("u_set", 0);
 	shader.setInt("sprite", 0);
 
-	float vertices[] = {
-	-0.75f, -0.25f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-	-0.25f, -0.25f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-	-0.75f, 0.25f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-	-0.25f, 0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f
-	};
+	Mesh mesh = Mesh::createObject();
 
-	VertexBuffer vbo = VertexBuffer::createObject(vertices, 44);
-	VertexBufferLayout layout;
+	unsigned int id1 = mesh.addVertex(glm::vec4(-0.75f, -0.25f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
+	unsigned int id2 = mesh.addVertex(glm::vec4(-0.25f, -0.25f, 0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f));
+	unsigned int id3 = mesh.addVertex(glm::vec4(-0.75f, 0.25f, 0.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f));
+	unsigned int id4 = mesh.addVertex(glm::vec4(-0.25f, 0.25f, 0.0f, 1.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f));
 
-	layout.add<float>(4);
-	layout.add<float>(4);
-	layout.add<float>(2);
-	
-	unsigned int indices[] = {
-		0, 1, 2,
-		2, 3, 1
-	};
+	mesh.addTriangle(id1, id2, id3);
+	mesh.addTriangle(id3, id4, id2);
 
-	IndexBuffer ibo = IndexBuffer::createObject(indices, 6);
+	mesh.create();
 
-	float vertices2[] = {
-	0.25f, -0.25f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-	0.75f, -0.25f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-	0.25f, 0.25f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-	0.75f, 0.25f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
-	};
-	VertexBuffer vbo2 = VertexBuffer::createObject(vertices2, 32);
-	VertexBufferLayout layout2;
-	layout2.add<float>(4);
-	layout2.add<float>(4);
+	Mesh mesh2 = Mesh::createObject();
 
+	id1 = mesh2.addVertex(glm::vec4(0.25f, -0.25f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
+	id2 = mesh2.addVertex(glm::vec4(0.75f, -0.25f, 0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f));
+	id3 = mesh2.addVertex(glm::vec4(0.25f, 0.25f, 0.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f) , glm::vec2(0.0f, 1.0f));
+	id4 = mesh2.addVertex(glm::vec4(0.75f, 0.25f, 0.0f, 1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f));
 
-	VertexArray vao = VertexArray::createObject();
-	VertexArray vao2 = VertexArray::createObject();
+	mesh2.addTriangle(id1, id2, id3);
+	mesh2.addTriangle(id3, id4, id2);
 
-	
-	vao.addBuffer(vbo, layout, ibo);
-
-	vao2.addBuffer(vbo2, layout2, ibo);
+	mesh2.create();
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -79,11 +63,10 @@ int main(void)
 		shader.bind();
 		shader.setInt("u_set", 0);
 		shader.setMat4("MVP", camera.getProjection()*camera.getView(), GL_FALSE);
-		window.render(vao, ibo, shader);
+		mesh.render(window, shader);
 
-		vao2.bind();
 		shader.setInt("u_set", 1);
-		window.render(vao2, ibo, shader);
+		mesh2.render(window, shader);
 
 		window.spinOnce();
 
@@ -93,13 +76,12 @@ int main(void)
 		}
 	}
 
-	VertexBuffer::destroyObject(vbo);
-	VertexBuffer::destroyObject(vbo2);
-	VertexArray::destroyObject(vao);
-	VertexArray::destroyObject(vao2);
-	IndexBuffer::destroyObject(ibo);
 	Shader::destroyObject(shader);
 	RenderWindow::destroyObject(window);
+	Texture::destroyObject(texture);
+	Camera::destroyObject(camera);
+	Mesh::destroyObject(mesh);
+	Mesh::destroyObject(mesh2);
 
 	return 0;
 }
