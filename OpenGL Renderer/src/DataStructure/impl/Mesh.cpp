@@ -44,7 +44,7 @@ Mesh::render(RenderWindow window, Shader shader)
 }
 
 unsigned int 
-Mesh::addVertex(glm::vec4 position, glm::vec4 color, glm::vec2 texture)
+Mesh::addVertex(glm::vec4 position, glm::vec4 color, glm::vec2 texture, glm::vec3 normal)
 {
 	_vertices.push_back(position.x);
 	_vertices.push_back(position.y);
@@ -58,6 +58,10 @@ Mesh::addVertex(glm::vec4 position, glm::vec4 color, glm::vec2 texture)
 	
 	_vertices.push_back(texture.x);
 	_vertices.push_back(texture.y);
+
+	_vertices.push_back(normal.x);
+	_vertices.push_back(normal.y);
+	_vertices.push_back(normal.z);
 
 	return _vertex_count++;
 }

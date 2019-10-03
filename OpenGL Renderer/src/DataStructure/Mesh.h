@@ -47,10 +47,11 @@ public:
 	*	\param[in] position The position of the vertex
 	*	\param[in] color The color of the vertex
 	*	\param[in] texture The texture coordinate of the vertex
+	*	\param[in] normal The normal
 	*	\return The number of vertex in the buffer (count)
 	*	\note The return can be used for the ibo initialized with 'addTriangle'
 	*/
-	unsigned int addVertex(glm::vec4 position, glm::vec4 color, glm::vec2 texture);
+	unsigned int addVertex(glm::vec4 position, glm::vec4 color, glm::vec2 texture, glm::vec3 normal);
 
 	/**
 	*	\brief Add a triangle to the ibo
