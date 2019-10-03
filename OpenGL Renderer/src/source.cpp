@@ -54,9 +54,21 @@ int main(void)
 	fbo.unbind();
 	texture.bind();
 
+	double lastTime = glfwGetTime();
+	int nbFrames = 0;
+
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
+
+		double currentTime = glfwGetTime();
+		nbFrames++;
+		if (currentTime - lastTime >= 1.0)
+		{
+			printf("%f fps\n", double(nbFrames));
+			nbFrames = 0;
+			lastTime += 1.0;
+		}
 
 		camera.processInput(0.005f);
 
