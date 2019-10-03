@@ -8,6 +8,7 @@ Mesh::createObject()
 	result._layout.add<float>(4);
 	result._layout.add<float>(4);
 	result._layout.add<float>(2);
+	result._layout.add<float>(3);
 	result._vertex_count = 0;
 
 	return result;
