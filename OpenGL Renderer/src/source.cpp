@@ -85,6 +85,7 @@ int main(void)
 		lightPos = rot * glm::vec4(lightPos, 1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
 		shader.setVec3("lightPos", lightPos);
+		shader.setVec3("viewPos", camera.getPosition());
 		shader.setInt("isLight", 1);
 		light.render(window, shader);
 
