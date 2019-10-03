@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
 #include <OpenGLObjects/FrameBuffer.h>
 #include <DataStructure/Mesh.h>
 #include <DataStructure/MeshHelper.h>
@@ -45,6 +46,9 @@ int main(void)
 	Mesh mesh = MeshHelper::cubeMesh(glm::vec4(1, 0, 0, 1));
 	mesh.create();
 
+	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
+	light.create();
+
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
 
 	fbo.unbind();
@@ -65,6 +69,8 @@ int main(void)
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		mesh.render(window, shader);
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-4, 3, 1)), GL_FALSE);
+		light.render(window, shader);
 
 		fbo.unbind();
 		window.clear();
