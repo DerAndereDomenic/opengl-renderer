@@ -10,10 +10,11 @@ namespace MeshHelper
 {
 	/**
 	*	\brief Creates a 1x1x1 cube at (0,0,0)
+	*	\param[in] color The color of the cube
 	*	\return The cube mesh
 	*	\note: The mesh still has to be created
 	*/
-	Mesh cubeMesh();
+	Mesh cubeMesh(glm::vec4 color);
 }
 
 #endif
