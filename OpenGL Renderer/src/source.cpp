@@ -17,17 +17,14 @@ int main(void)
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window);
 
-	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.vert",
-								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.frag");
+	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Lightning.vert",
+								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Lightning.frag");
 
 	Shader post = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Post.vert",
 		                               "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Post.frag");
 
 	Texture texture = Texture::createObject("res/sprite.png");
 	shader.bind();
-	shader.setVec4("u_color", glm::vec4(0.3, 0.1, 0.4, 1));
-	shader.setInt("u_set", 0);
-	shader.setInt("sprite", 0);
 
 	Mesh quad = Mesh::createObject();
 
@@ -76,7 +73,6 @@ int main(void)
 		window.clear();
 		shader.bind();
 		texture.bind();
-		shader.setInt("u_set", 1);
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
