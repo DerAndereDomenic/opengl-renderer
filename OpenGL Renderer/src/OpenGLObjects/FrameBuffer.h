@@ -38,6 +38,12 @@ public:
 	*	\brief Unbinds the render buffer object (bind = 0)
 	*/
 	void unbind();
+
+	/**
+	*	\brief The color attachement of the fbo
+	*	\return The Texture for the Color attachement
+	*/
+	inline Texture getTexture() { return _render_texture; }
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the fbo*/
 	Texture _render_texture; /**<< The Color texture of this fbo*/
