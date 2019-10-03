@@ -1,12 +1,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <OpenGLObjects/VertexBuffer.h>
-#include <OpenGLObjects/VertexBufferLayout.h>
-#include <OpenGLObjects/IndexBuffer.h>
-#include <OpenGLObjects/VertexArray.h>
-#include <OpenGLObjects/Texture.h>
 #include <OpenGLObjects/FrameBuffer.h>
 #include <DataStructure/Mesh.h>
+#include <DataStructure/MeshHelper.h>
 #include <Shader/Shader.h>
 
 #include <IO/KeyManager.h>
@@ -32,31 +28,9 @@ int main(void)
 	shader.setInt("u_set", 0);
 	shader.setInt("sprite", 0);
 
-	Mesh mesh = Mesh::createObject();
-
-	unsigned int id1 = mesh.addVertex(glm::vec4(-0.75f, -0.25f, -1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
-	unsigned int id2 = mesh.addVertex(glm::vec4(-0.25f, -0.25f, -1.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f));
-	unsigned int id3 = mesh.addVertex(glm::vec4(-0.75f, 0.25f, -1.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f));
-	unsigned int id4 = mesh.addVertex(glm::vec4(-0.25f, 0.25f, -1.0f, 1.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f));
-
-	mesh.addTriangle(id1, id2, id3);
-	mesh.addTriangle(id3, id4, id2);
-
-	mesh.create();
-
-	Mesh mesh2 = Mesh::createObject();
-
-	id1 = mesh2.addVertex(glm::vec4(0.25f, -0.25f, -1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
-	id2 = mesh2.addVertex(glm::vec4(0.75f, -0.25f, -1.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f));
-	id3 = mesh2.addVertex(glm::vec4(0.25f, 0.25f, -1.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f) , glm::vec2(0.0f, 1.0f));
-	id4 = mesh2.addVertex(glm::vec4(0.75f, 0.25f, -1.0f, 1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f));
-
-	mesh2.addTriangle(id1, id2, id3);
-	mesh2.addTriangle(id3, id4, id2);
-
-	mesh2.create();
-
 	Mesh quad = Mesh::createObject();
+
+	unsigned int id1, id2, id3, id4;
 
 	id1 = quad.addVertex(glm::vec4(-1, -1, 0, 1), glm::vec4(1), glm::vec2(0));
 	id2 = quad.addVertex(glm::vec4(1, -1, 0, 1), glm::vec4(1), glm::vec2(1, 0));
@@ -67,6 +41,9 @@ int main(void)
 	quad.addTriangle(id1, id3, id4);
 
 	quad.create();
+
+	Mesh mesh = MeshHelper::cubeMesh(glm::vec4(1, 0, 0, 1));
+	mesh.create();
 
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
 
@@ -83,11 +60,9 @@ int main(void)
 		window.clear();
 		shader.bind();
 		texture.bind();
-		shader.setInt("u_set", 0);
-		shader.setMat4("MVP", camera.getProjection()*camera.getView(), GL_FALSE);
-		mesh.render(window, shader);
 		shader.setInt("u_set", 1);
-		mesh2.render(window, shader);
+		shader.setMat4("MVP", camera.getProjection(), GL_FALSE);
+		mesh.render(window, shader);
 
 		fbo.unbind();
 		window.clear();
@@ -108,7 +83,6 @@ int main(void)
 	Texture::destroyObject(texture);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
-	Mesh::destroyObject(mesh2);
 
 	return 0;
 }
