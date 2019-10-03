@@ -8,7 +8,7 @@ uniform sampler2D screenTexture;
 
 void main()
 {
-	const float offset = 1.0f/100.0f;
+	/*const float offset = 1.0f/100.0f;
 
 	vec2 offsets[9] = vec2[](
         vec2(-offset,  offset), // top-left
@@ -38,7 +38,7 @@ void main()
 	for(int i = 0; i < 9;++i)
 	{
 		col += kernel[i]*sampleTex[i];
-	}
+	}*/
 
-	FragColor = vec4(col, 1.0f);
+	FragColor = texture(screenTexture, frag_tex);
 }
