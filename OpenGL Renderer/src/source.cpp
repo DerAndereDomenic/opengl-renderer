@@ -25,6 +25,7 @@ int main(void)
 
 	Texture texture = Texture::createObject("res/sprite.png");
 	shader.bind();
+	shader.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
 	Mesh quad = Mesh::createObject();
 
@@ -76,8 +77,10 @@ int main(void)
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
+		shader.setInt("isLight", 0);
 		mesh.render(window, shader);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-4, 3, 1)), GL_FALSE);
+		shader.setInt("isLight", 1);
 		light.render(window, shader);
 
 		fbo.unbind();
