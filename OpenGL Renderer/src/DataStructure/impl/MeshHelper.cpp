@@ -68,5 +68,5 @@ MeshHelper::cubeMesh(glm::vec4 color)
 	mesh.addTriangle(v6, v5, v2);
 	mesh.addTriangle(v6, v2, v1);
 
-	return mesh
+	return mesh;
 }
