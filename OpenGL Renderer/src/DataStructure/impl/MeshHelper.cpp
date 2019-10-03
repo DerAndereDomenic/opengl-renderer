@@ -3,7 +3,7 @@
 Mesh
 MeshHelper::cubeMesh(glm::vec4 color)
 {
-	Mesh mesh;
+	Mesh mesh = Mesh::createObject();
 	float x = 0.0f, y = 0.0f, z = 0.0f;
 	glm::vec4 p1(x - 0.5, y - 0.5, z + 0.5, 1);
 	glm::vec4 p2(x + 0.5, y - 0.5, z + 0.5, 1);
