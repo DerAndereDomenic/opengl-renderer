@@ -5,6 +5,7 @@
 #include <OpenGLObjects/IndexBuffer.h>
 #include <OpenGLObjects/VertexArray.h>
 #include <OpenGLObjects/Texture.h>
+#include <OpenGLObjects/FrameBuffer.h>
 #include <DataStructure/Mesh.h>
 #include <Shader/Shader.h>
 
@@ -22,6 +23,9 @@ int main(void)
 	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.vert",
 								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/basic.frag");
 
+	Shader post = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Post.vert",
+		                               "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Post.frag");
+
 	Texture texture = Texture::createObject("res/sprite.png");
 	shader.bind();
 	shader.setVec4("u_color", glm::vec4(0.3, 0.1, 0.4, 1));
@@ -30,10 +34,10 @@ int main(void)
 
 	Mesh mesh = Mesh::createObject();
 
-	unsigned int id1 = mesh.addVertex(glm::vec4(-0.75f, -0.25f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
-	unsigned int id2 = mesh.addVertex(glm::vec4(-0.25f, -0.25f, 0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f));
-	unsigned int id3 = mesh.addVertex(glm::vec4(-0.75f, 0.25f, 0.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f));
-	unsigned int id4 = mesh.addVertex(glm::vec4(-0.25f, 0.25f, 0.0f, 1.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f));
+	unsigned int id1 = mesh.addVertex(glm::vec4(-0.75f, -0.25f, -1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
+	unsigned int id2 = mesh.addVertex(glm::vec4(-0.25f, -0.25f, -1.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f));
+	unsigned int id3 = mesh.addVertex(glm::vec4(-0.75f, 0.25f, -1.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f));
+	unsigned int id4 = mesh.addVertex(glm::vec4(-0.25f, 0.25f, -1.0f, 1.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f));
 
 	mesh.addTriangle(id1, id2, id3);
 	mesh.addTriangle(id3, id4, id2);
@@ -42,15 +46,32 @@ int main(void)
 
 	Mesh mesh2 = Mesh::createObject();
 
-	id1 = mesh2.addVertex(glm::vec4(0.25f, -0.25f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
-	id2 = mesh2.addVertex(glm::vec4(0.75f, -0.25f, 0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f));
-	id3 = mesh2.addVertex(glm::vec4(0.25f, 0.25f, 0.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f) , glm::vec2(0.0f, 1.0f));
-	id4 = mesh2.addVertex(glm::vec4(0.75f, 0.25f, 0.0f, 1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f));
+	id1 = mesh2.addVertex(glm::vec4(0.25f, -0.25f, -1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
+	id2 = mesh2.addVertex(glm::vec4(0.75f, -0.25f, -1.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f));
+	id3 = mesh2.addVertex(glm::vec4(0.25f, 0.25f, -1.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f) , glm::vec2(0.0f, 1.0f));
+	id4 = mesh2.addVertex(glm::vec4(0.75f, 0.25f, -1.0f, 1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f));
 
 	mesh2.addTriangle(id1, id2, id3);
 	mesh2.addTriangle(id3, id4, id2);
 
 	mesh2.create();
+
+	Mesh quad = Mesh::createObject();
+
+	id1 = quad.addVertex(glm::vec4(-1, -1, 0, 1), glm::vec4(1), glm::vec2(0));
+	id2 = quad.addVertex(glm::vec4(1, -1, 0, 1), glm::vec4(1), glm::vec2(1, 0));
+	id3 = quad.addVertex(glm::vec4(1, 1, 0, 1), glm::vec4(1), glm::vec2(1, 1));
+	id4 = quad.addVertex(glm::vec4(-1, 1, 0, 1), glm::vec4(1), glm::vec2(0, 1));
+
+	quad.addTriangle(id1, id2, id3);
+	quad.addTriangle(id1, id3, id4);
+
+	quad.create();
+
+	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
+
+	fbo.unbind();
+	texture.bind();
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -58,15 +79,21 @@ int main(void)
 
 		camera.processInput(0.005f);
 
+		fbo.bind();
 		window.clear();
-
 		shader.bind();
+		texture.bind();
 		shader.setInt("u_set", 0);
 		shader.setMat4("MVP", camera.getProjection()*camera.getView(), GL_FALSE);
 		mesh.render(window, shader);
-
 		shader.setInt("u_set", 1);
 		mesh2.render(window, shader);
+
+		fbo.unbind();
+		window.clear();
+		post.bind();
+		fbo.getTexture().bind();
+		quad.render(window, post);
 
 		window.spinOnce();
 
