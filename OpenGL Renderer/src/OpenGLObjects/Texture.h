@@ -41,6 +41,12 @@ public:
 	*	\brief Unbinds the texture (bind 0)
 	*/
 	void unbind() const;
+
+	/**
+	*	\brief The OpenGL handle of this texture
+	*	\return The integer handle that opengl uses for this texture
+	*/
+	inline unsigned int getID(){return _ID;}
 private:
 	unsigned int _ID; /**<< The internal openGL handle for the texture*/
 };
