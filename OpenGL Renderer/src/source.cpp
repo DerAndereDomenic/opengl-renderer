@@ -61,7 +61,9 @@ int main(void)
 		shader.bind();
 		texture.bind();
 		shader.setInt("u_set", 1);
-		shader.setMat4("MVP", camera.getProjection(), GL_FALSE);
+		shader.setMat4("P", camera.getProjection(), GL_FALSE);
+		shader.setMat4("V", camera.getView(), GL_FALSE);
+		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		mesh.render(window, shader);
 
 		fbo.unbind();
