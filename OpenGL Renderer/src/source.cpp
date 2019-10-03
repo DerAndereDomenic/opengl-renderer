@@ -55,6 +55,9 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
+	glm::mat4 rot = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
+	glm::vec3 lightPos(0, 1, -4);
+
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
@@ -79,8 +82,9 @@ int main(void)
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		shader.setInt("isLight", 0);
 		mesh.render(window, shader);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-4, 3, 1)), GL_FALSE);
-		shader.setVec3("lightPos", glm::vec3(-4, 3, 1));
+		lightPos = rot * glm::vec4(lightPos, 1);
+		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
+		shader.setVec3("lightPos", lightPos);
 		shader.setInt("isLight", 1);
 		light.render(window, shader);
 
