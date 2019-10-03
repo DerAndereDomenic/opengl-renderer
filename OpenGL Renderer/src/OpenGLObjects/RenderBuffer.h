@@ -35,6 +35,12 @@ public:
 	*	\brief Unbinds the render buffer (bind 0)
 	*/
 	void unbind();
+
+	/**
+	*	\brief The opengl handle of the rbo
+	*	\return The frame buffer ID
+	*/
+	inline unsigned int getID() { return _ID; }
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle of the rbo*/
 };
