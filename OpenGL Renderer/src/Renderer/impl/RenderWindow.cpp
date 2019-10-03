@@ -30,6 +30,8 @@ RenderWindow::createObject(const unsigned int width, const unsigned int height, 
 
 	glfwSetInputMode(result._window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	
+	glEnable(GL_DEPTH_TEST);
+
 	result._isOpen = true;
 
 	return result;
