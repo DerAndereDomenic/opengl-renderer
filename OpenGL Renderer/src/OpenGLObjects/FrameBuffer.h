@@ -7,13 +7,13 @@
 /**
 *	\brief A class to model a frame buffer object
 */
-class Framebuffer
+class FrameBuffer
 {
 public:
 	/**
 	*	\brief Create an empty frame buffer object
 	*/
-	Framebuffer() = default;
+	FrameBuffer() = default;
 
 	/**
 	*	\brief Create a frame buffer object
@@ -21,13 +21,13 @@ public:
 	*	\param[in] height The height of the buffer
 	*	\return The render buffer object
 	*/
-	static Framebuffer createObject(unsigned int width, unsigned int height);
+	static FrameBuffer createObject(unsigned int width, unsigned int height);
 
 	/**
 	*	\brief Destroy the render buffer object
 	*	\param[in] object The object to be destroyed
 	*/
-	static void destroyObject(Framebuffer& object);
+	static void destroyObject(FrameBuffer& object);
 
 	/**
 	*	\brief Binds the render buffer object
