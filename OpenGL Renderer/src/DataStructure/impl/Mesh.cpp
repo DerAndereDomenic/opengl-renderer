@@ -5,7 +5,7 @@ Mesh::createObject()
 {
 	Mesh result;
 
-	result._layout.add<float>(4);
+	result._layout.add<float>(3);
 	result._layout.add<float>(4);
 	result._layout.add<float>(2);
 	result._layout.add<float>(3);
@@ -45,12 +45,11 @@ Mesh::render(RenderWindow window, Shader shader)
 }
 
 unsigned int 
-Mesh::addVertex(glm::vec4 position, glm::vec4 color, glm::vec2 texture, glm::vec3 normal)
+Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec2 texture, glm::vec3 normal)
 {
 	_vertices.push_back(position.x);
 	_vertices.push_back(position.y);
 	_vertices.push_back(position.z);
-	_vertices.push_back(position.w);
 	
 	_vertices.push_back(color.x);
 	_vertices.push_back(color.y);

@@ -5,14 +5,14 @@ MeshHelper::cubeMesh(glm::vec4 color)
 {
 	Mesh mesh = Mesh::createObject();
 	float x = 0.0f, y = 0.0f, z = 0.0f;
-	glm::vec4 p1(x - 0.5, y - 0.5, z + 0.5, 1);
-	glm::vec4 p2(x + 0.5, y - 0.5, z + 0.5, 1);
-	glm::vec4 p3(x + 0.5, y + 0.5, z + 0.5, 1);
-	glm::vec4 p4(x - 0.5, y + 0.5, z + 0.5, 1);
-	glm::vec4 p5(x + 0.5, y - 0.5, z - 0.5, 1);
-	glm::vec4 p6(x - 0.5, y - 0.5, z - 0.5, 1);
-	glm::vec4 p7(x - 0.5, y + 0.5, z - 0.5, 1);
-	glm::vec4 p8(x + 0.5, y + 0.5, z - 0.5, 1);
+	glm::vec3 p1(x - 0.5, y - 0.5, z + 0.5);
+	glm::vec3 p2(x + 0.5, y - 0.5, z + 0.5);
+	glm::vec3 p3(x + 0.5, y + 0.5, z + 0.5);
+	glm::vec3 p4(x - 0.5, y + 0.5, z + 0.5);
+	glm::vec3 p5(x + 0.5, y - 0.5, z - 0.5);
+	glm::vec3 p6(x - 0.5, y - 0.5, z - 0.5);
+	glm::vec3 p7(x - 0.5, y + 0.5, z - 0.5);
+	glm::vec3 p8(x + 0.5, y + 0.5, z - 0.5);
 
 	unsigned int v1, v2, v3, v4, v5, v6, v7, v8;
 
