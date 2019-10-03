@@ -80,6 +80,7 @@ int main(void)
 		shader.setInt("isLight", 0);
 		mesh.render(window, shader);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-4, 3, 1)), GL_FALSE);
+		shader.setVec3("lightPos", glm::vec3(-4, 3, 1));
 		shader.setInt("isLight", 1);
 		light.render(window, shader);
 
