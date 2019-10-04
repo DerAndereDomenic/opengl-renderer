@@ -17,5 +17,5 @@ void main()
 	gl_Position = P*V*M*vec4(position, 1);
 	frag_position = vec3(M*vec4(position,1));
 	frag_color = color;
-	frag_normal = normal;
+	frag_normal = vec3(M*vec4(normal,0));
 }
