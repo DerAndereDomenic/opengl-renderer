@@ -84,6 +84,10 @@ int main(void)
 		shader.setMat4("M", m, GL_FALSE);
 		m *= glm::rotate(glm::mat4(1), 0.002f, glm::vec3(0, 1, 0));
 		shader.setInt("isLight", 0);
+		shader.setVec3("material.ambient", glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setVec3("material.diffuse", glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f));
+		shader.setFloat("material.shininess", 32.0f);
 		mesh.render(window, shader);
 		lightPos = rot * glm::vec4(lightPos, 1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
