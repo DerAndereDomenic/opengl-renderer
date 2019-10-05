@@ -8,6 +8,8 @@
 #include <sstream>
 #include <iostream>
 #include <glm/glm.hpp>
+#include <DataStructure/Light.h>
+#include <DataStructure/Material.h>
 
 /**
 *	\brief Class to model an OpenGL Shader
@@ -85,6 +87,20 @@ public:
 	*	\param[in] value The value the variable should be initialized with
 	*/
 	void setMat4(const std::string& name, glm::mat4 value, bool transpose);
+
+	/**
+	*	\brief Set the material of the objects in the next draw call
+	*	\param[in] name The name of the material struct in the shader
+	*	\param[in] material The material for the next draw call
+	*/
+	void setMaterial(const std::string& name, Material material);
+
+	/**
+	*	\brief Set the light for the next draw call
+	*	\param[in] name The name of the light struct in the shader
+	*	\param[in] light The light for the next draw call
+	*/
+	void setLight(const std::string& name, Light light);
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the shader*/
 };
