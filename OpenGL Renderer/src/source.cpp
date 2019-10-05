@@ -59,6 +59,21 @@ int main(void)
 	glm::mat4 m = glm::rotate(glm::mat4(1), 0.002f, glm::vec3(0, 1, 0));
 	glm::vec3 lightPos(0, 1, -4);
 
+	Material material;
+	material.ambient = glm::vec3(1.0f, 0.0f, 0.0f);
+	material.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
+	material.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+	material.shininess =  32.0f;
+
+	Light licht;
+	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+	licht.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	licht.specular = glm::vec3(0.8f, 0.8f, 0.8f);
+	licht.position =  lightPos;
+
+	shader.setMaterial("material", material);
+	shader.setLight("light", licht);
+
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
@@ -80,17 +95,9 @@ int main(void)
 		texture.bind();
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
-
 		shader.setMat4("M", m, GL_FALSE);
 		m *= glm::rotate(glm::mat4(1), 0.002f, glm::vec3(0, 1, 0));
 		shader.setInt("isLight", 0);
-		shader.setVec3("material.ambient", glm::vec3(1.0f, 0.0f, 0.0f));
-		shader.setVec3("material.diffuse", glm::vec3(1.0f, 0.0f, 0.0f));
-		shader.setVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f));
-		shader.setFloat("material.shininess", 32.0f);
-		shader.setVec3("light.ambient", glm::vec3(0.1f, 0.1f, 0.1f));
-		shader.setVec3("light.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-		shader.setVec3("light.specular", glm::vec3(0.8f, 0.8f, 0.8f));
 		mesh.render(window, shader);
 		lightPos = rot * glm::vec4(lightPos, 1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
