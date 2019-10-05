@@ -5,14 +5,8 @@ in vec3 frag_position;
 in vec4 frag_color;
 in vec3 frag_normal;
 
-uniform sampler2D sprite;
-uniform vec4 lightcolor;
 uniform int isLight;
 uniform vec3 viewPos;
-uniform vec3 lightPos;
-
-float ambientStrength = 0.1;
-float specularStrength = 0.8;
 
 struct Light{
 	vec3 position;
@@ -37,7 +31,7 @@ void main(){
 	{
 
 		vec3 norm = normalize(frag_normal);
-		vec3 lightDir = normalize(lightPos - frag_position);
+		vec3 lightDir = normalize(light.position - frag_position);
 
 		float diff = max(dot(norm, lightDir), 0.0);
 		vec3 diffuse = (diff*material.diffuse)*light.diffuse;
