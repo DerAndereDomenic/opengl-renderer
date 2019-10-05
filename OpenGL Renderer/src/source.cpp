@@ -63,7 +63,7 @@ int main(void)
 	material.ambient = glm::vec3(0.25f, 0.25f, 0.25f);
 	material.diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
 	material.specular = glm::vec3(0.774597f, 0.774597f, 0.774597f);
-	material.shininess =  0.6f;
+	material.shininess =  128.0f*0.6f;
 
 	Light licht;
 	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
