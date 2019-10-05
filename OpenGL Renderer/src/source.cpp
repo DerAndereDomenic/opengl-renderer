@@ -56,19 +56,19 @@ int main(void)
 	int nbFrames = 0;
 
 	glm::mat4 rot = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
-	glm::mat4 m = glm::rotate(glm::mat4(1), 0.002f, glm::vec3(0, 1, 0));
+	glm::mat4 m = glm::rotate(glm::mat4(1), 0.004f, glm::vec3(0, 0, 1));
 	glm::vec3 lightPos(0, 1, -4);
 
 	Material material;
-	material.ambient = glm::vec3(1.0f, 0.0f, 0.0f);
-	material.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
-	material.specular = glm::vec3(1.0f, 0.0f, 0.0f);
-	material.shininess =  32.0f;
+	material.ambient = glm::vec3(0.25f, 0.25f, 0.25f);
+	material.diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
+	material.specular = glm::vec3(0.774597f, 0.774597f, 0.774597f);
+	material.shininess =  0.6f;
 
 	Light licht;
 	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	licht.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	licht.specular = glm::vec3(0.8f, 0.8f, 0.8f);
+	licht.specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	licht.position =  lightPos;
 
 	shader.setMaterial("material", material);
@@ -96,7 +96,7 @@ int main(void)
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", m, GL_FALSE);
-		m *= glm::rotate(glm::mat4(1), 0.002f, glm::vec3(0, 1, 0));
+		m *= glm::rotate(glm::mat4(1), 0.004f, glm::vec3(0, 0, 1));
 		shader.setInt("isLight", 0);
 		mesh.render(window, shader);
 		lightPos = rot * glm::vec4(lightPos, 1);
