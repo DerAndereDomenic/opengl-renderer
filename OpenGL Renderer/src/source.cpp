@@ -88,6 +88,9 @@ int main(void)
 		shader.setVec3("material.diffuse", glm::vec3(1.0f, 0.0f, 0.0f));
 		shader.setVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f));
 		shader.setFloat("material.shininess", 32.0f);
+		shader.setVec3("light.ambient", glm::vec3(0.1f, 0.1f, 0.1f));
+		shader.setVec3("light.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setVec3("light.specular", glm::vec3(0.8f, 0.8f, 0.8f));
 		mesh.render(window, shader);
 		lightPos = rot * glm::vec4(lightPos, 1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
