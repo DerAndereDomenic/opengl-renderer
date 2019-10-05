@@ -155,5 +155,8 @@ Shader::setMaterial(const std::string& name, Material material)
 void
 Shader::setLight(const std::string& name, Light light)
 {
-
+	setVec3(name + ".ambient", light.ambient);
+	setVec3(name + ".diffuse", light.diffuse);
+	setVec3(name + ".specular", light.specular);
+	setVec3(name + ".position", light.position);
 }
