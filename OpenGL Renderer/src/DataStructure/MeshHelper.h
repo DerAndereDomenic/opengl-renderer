@@ -25,7 +25,7 @@ namespace MeshHelper
 	*	\return The cuboid mesh
 	*	\note: The mesh still has to be created
 	*/
-	Mesh createCuboid(glm::vec4 color, float lenX, float lenY, float lenZ);
+	Mesh cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ);
 }
 
 #endif
