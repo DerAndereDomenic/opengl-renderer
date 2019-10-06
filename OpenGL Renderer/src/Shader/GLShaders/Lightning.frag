@@ -7,9 +7,11 @@ in vec2 frag_tex;
 in vec3 frag_normal;
 
 uniform bool isLight;
+uniform bool useMap;
 uniform vec3 viewPos;
 
-struct Light{
+struct Light
+{
 	vec3 position;
 	vec3 ambient;
 	vec3 diffuse;
@@ -18,7 +20,8 @@ struct Light{
 
 uniform Light light;
 
-struct Material{
+struct Material
+{
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
@@ -26,6 +29,15 @@ struct Material{
 };
 
 uniform Material material;
+
+struct MaterialMap
+{
+	sampler2D diffuse;
+	sampler2D specular;
+	float shininess;
+};
+
+uniform MaterialMap materialmap;
 
 void main(){
 	if(!isLight)
