@@ -71,6 +71,11 @@ int main(void)
 	licht.specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	licht.position =  lightPos;
 
+	MaterialMap materialmap;
+	materialmap.diffuse = 0;
+	materialmap.specular = 1;
+	materialmap.shininess = 128.0f*0.4;
+
 	shader.setMaterial("material", material);
 	shader.setLight("light", licht);
 
@@ -89,6 +94,7 @@ int main(void)
 
 		camera.processInput(0.005f);
 
+		//Render scene
 		fbo.bind();
 		window.clear();
 		shader.bind();
@@ -97,6 +103,8 @@ int main(void)
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		shader.setInt("isLight", false);
 		mesh.render(window, shader);
+
+		//Render light
 		lightPos = rot * glm::vec4(lightPos, 1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
 		shader.setVec3("light.position", lightPos);
@@ -104,6 +112,8 @@ int main(void)
 		shader.setInt("isLight", true);
 		light.render(window, shader);
 
+
+		//Render to quad
 		fbo.unbind();
 		window.clear();
 		post.bind();
