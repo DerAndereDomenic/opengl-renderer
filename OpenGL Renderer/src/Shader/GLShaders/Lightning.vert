@@ -6,6 +6,7 @@ layout (location = 3) in vec3 normal;
 
 out vec3 frag_position;
 out vec4 frag_color;
+out vec2 frag_tex;
 out vec3 frag_normal;
 
 uniform mat4 M;
@@ -17,5 +18,6 @@ void main()
 	gl_Position = P*V*M*vec4(position, 1);
 	frag_position = vec3(M*vec4(position,1));
 	frag_color = color;
+	frag_tex = tex;
 	frag_normal = vec3(M*vec4(normal,0));
 }
