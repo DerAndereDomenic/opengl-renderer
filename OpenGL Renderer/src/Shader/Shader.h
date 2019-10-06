@@ -61,6 +61,13 @@ public:
 	void setFloat(const std::string& name, float value);
 
 	/**
+	*	\brief Set a uniform bool
+	*	\param[in] name The name of the uniform variable at the shader
+	*	\param[in] value The value the variable should be initialized with
+	*/
+	void setBool(const std::string& name, bool value);
+
+	/**
 	*	\brief Set a uniform Vector2
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
