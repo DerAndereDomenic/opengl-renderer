@@ -56,7 +56,6 @@ int main(void)
 	int nbFrames = 0;
 
 	glm::mat4 rot = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
-	glm::mat4 m = glm::rotate(glm::mat4(1), 0.004f, glm::vec3(0, 0, 1));
 	glm::vec3 lightPos(0, 1, -4);
 
 	Material material;
@@ -95,8 +94,7 @@ int main(void)
 		texture.bind();
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
-		shader.setMat4("M", m, GL_FALSE);
-		m *= glm::rotate(glm::mat4(1), 0.004f, glm::vec3(0, 0, 1));
+		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		shader.setInt("isLight", 0);
 		mesh.render(window, shader);
 		lightPos = rot * glm::vec4(lightPos, 1);
