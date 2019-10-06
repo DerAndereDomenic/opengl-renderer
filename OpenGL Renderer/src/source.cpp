@@ -59,10 +59,10 @@ int main(void)
 	glm::vec3 lightPos(0, 0, -5);
 
 	Material material;
-	material.ambient = glm::vec3(0.25f, 0.25f, 0.25f);
-	material.diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
-	material.specular = glm::vec3(0.774597f, 0.774597f, 0.774597f);
-	material.shininess =  128.0f*0.6f;
+	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
+	material.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
+	material.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
+	material.shininess =  128.0f*0.4f;
 
 	Light licht;
 	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
