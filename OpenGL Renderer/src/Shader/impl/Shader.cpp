@@ -153,6 +153,14 @@ Shader::setMaterial(const std::string& name, Material material)
 }
 
 void
+Shader::setMaterial(const std::string& name, MaterialMap material)
+{
+	setInt(name + ".diffuse", material.diffuse);
+	setInt(name + ".specular", material.specular);
+	setFloat(name + ".shininess", material.shininess);
+}
+
+void
 Shader::setLight(const std::string& name, Light light)
 {
 	setVec3(name + ".ambient", light.ambient);
