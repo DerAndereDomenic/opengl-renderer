@@ -42,11 +42,27 @@ uniform MaterialMap materialmap;
 void main(){
 	if(!isLight)
 	{
-		vec3 mat_ambient = material.ambient;
-		vec3 mat_diffuse = material.diffuse;
-		vec3 mat_specular = material.specular;
-		float mat_shininess = material.shininess;
 
+		vec3 mat_ambient;
+		vec3 mat_diffuse;
+		vec3 mat_specular;
+		float mat_shininess;
+
+		if(useMap)
+		{
+			vec3 mat_ambient = vec3(texture(materialmap.diffuse, frag_tex));
+			vec3 mat_diffuse = vec3(texture(materialmap.diffuse, frag_tex));
+			vec3 mat_specular = vec3(texture(materialmap.specular, frag_tex));
+			float mat_shininess = materialmap.shininess;
+		}
+		else
+		{
+			mat_ambient = material.ambient;
+			mat_diffuse = material.diffuse;
+			mat_specular = material.specular;
+			mat_shininess = material.shininess;
+		}
+		
 		vec3 norm = normalize(frag_normal);
 		vec3 lightDir = normalize(light.position - frag_position);
 
