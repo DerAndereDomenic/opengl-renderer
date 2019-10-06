@@ -50,10 +50,10 @@ void main(){
 
 		if(useMap)
 		{
-			vec3 mat_ambient = vec3(texture(materialmap.diffuse, frag_tex));
-			vec3 mat_diffuse = vec3(texture(materialmap.diffuse, frag_tex));
-			vec3 mat_specular = vec3(texture(materialmap.specular, frag_tex));
-			float mat_shininess = materialmap.shininess;
+			mat_ambient = vec3(texture(materialmap.diffuse, frag_tex));
+			mat_diffuse = vec3(texture(materialmap.diffuse, frag_tex));
+			mat_specular = vec3(texture(materialmap.specular, frag_tex));
+			mat_shininess = materialmap.shininess;
 		}
 		else
 		{
