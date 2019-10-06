@@ -121,10 +121,14 @@ int main(void)
 	}
 
 	Shader::destroyObject(shader);
+	Shader::destroyObject(post);
 	RenderWindow::destroyObject(window);
 	Texture::destroyObject(texture);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
+	Mesh::destroyObject(quad);
+	Mesh::destroyObject(light);
+	FrameBuffer::destroyObject(fbo);
 
 	return 0;
 }
