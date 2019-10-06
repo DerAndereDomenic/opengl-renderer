@@ -80,6 +80,7 @@ int main(void)
 	materialmap.shininess = 128.0f*0.4;
 
 	shader.setMaterial("material", material);
+	shader.setMaterial("materialmap", materialmap);
 	shader.setLight("light", licht);
 
 	/* Loop until the user closes the window */
@@ -105,10 +106,14 @@ int main(void)
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		shader.setInt("isLight", false);
+		shader.setBool("useMap", false);
 		//Plane
 		mesh.render(window, shader);
 		//Crate
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
+		shader.setBool("useMap", true);
+		diffuse.bind(0);
+		specular.bind(1);
 		crate.render(window, shader);
 
 		//Render light
