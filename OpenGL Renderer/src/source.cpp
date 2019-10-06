@@ -23,7 +23,9 @@ int main(void)
 	Shader post = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Post.vert",
 		                               "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Post.frag");
 
-	Texture texture = Texture::createObject("res/sprite.png");
+	Texture diffuse = Texture::createObject("res/crate_diffuse.png");
+	Texture specular = Texture::createObject("res/crate_specular.png");
+
 	shader.bind();
 	shader.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
@@ -50,7 +52,6 @@ int main(void)
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
 
 	fbo.unbind();
-	texture.bind();
 
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
@@ -91,7 +92,6 @@ int main(void)
 		fbo.bind();
 		window.clear();
 		shader.bind();
-		texture.bind();
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
@@ -121,7 +121,8 @@ int main(void)
 	Shader::destroyObject(shader);
 	Shader::destroyObject(post);
 	RenderWindow::destroyObject(window);
-	Texture::destroyObject(texture);
+	Texture::destroyObject(diffuse);
+	Texture::destroyObject(specular);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
