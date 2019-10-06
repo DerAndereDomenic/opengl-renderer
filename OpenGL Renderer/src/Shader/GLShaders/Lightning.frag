@@ -5,7 +5,7 @@ in vec3 frag_position;
 in vec4 frag_color;
 in vec3 frag_normal;
 
-uniform int isLight;
+uniform bool isLight;
 uniform vec3 viewPos;
 
 struct Light{
@@ -27,7 +27,7 @@ struct Material{
 uniform Material material;
 
 void main(){
-	if(isLight == 0)
+	if(!isLight)
 	{
 
 		vec3 norm = normalize(frag_normal);

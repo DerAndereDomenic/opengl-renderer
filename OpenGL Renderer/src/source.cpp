@@ -95,13 +95,13 @@ int main(void)
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
-		shader.setInt("isLight", 0);
+		shader.setInt("isLight", false);
 		mesh.render(window, shader);
 		lightPos = rot * glm::vec4(lightPos, 1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
 		shader.setVec3("light.position", lightPos);
 		shader.setVec3("viewPos", camera.getPosition());
-		shader.setInt("isLight", 1);
+		shader.setInt("isLight", true);
 		light.render(window, shader);
 
 		fbo.unbind();
