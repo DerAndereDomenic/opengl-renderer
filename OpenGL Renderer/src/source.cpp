@@ -49,6 +49,9 @@ int main(void)
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
 
+	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
+	crate.create();
+
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
 
 	fbo.unbind();
@@ -102,7 +105,11 @@ int main(void)
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		shader.setInt("isLight", false);
+		//Plane
 		mesh.render(window, shader);
+		//Crate
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
+		crate.render(window, shader);
 
 		//Render light
 		lightPos = rot * glm::vec4(lightPos, 1);
@@ -137,6 +144,7 @@ int main(void)
 	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
 	Mesh::destroyObject(light);
+	Mesh::destroyObject(crate);
 	FrameBuffer::destroyObject(fbo);
 
 	return 0;
