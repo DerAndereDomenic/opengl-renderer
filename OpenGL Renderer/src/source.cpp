@@ -55,8 +55,8 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::mat4 rot = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
-	glm::vec3 lightPos(0, 1, -4);
+	glm::mat4 rot = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(1, 0, 0));
+	glm::vec3 lightPos(0, 0, -5);
 
 	Material material;
 	material.ambient = glm::vec3(0.25f, 0.25f, 0.25f);
