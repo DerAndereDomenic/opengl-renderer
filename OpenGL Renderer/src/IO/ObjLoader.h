@@ -3,7 +3,8 @@
 
 #include <DataStructure/Mesh.h>
 
-namespace ObjLoader {
+namespace ObjLoader 
+{
 
 	/**
 	*	\brief Loads a .obj file into a mesh (BETA: LIMITED)
@@ -11,7 +12,7 @@ namespace ObjLoader {
 	*	\return The mesh extracted from the file
 	*	\note: Mesh still has to be created
 	*/
-	Mesh loadObj(const char* path)
+	Mesh loadObj(const char* path);
 }
 
 #endif
