@@ -17,11 +17,11 @@ int main(void)
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window);
 
-	Shader shader = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Lightning.vert",
-								         "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Lightning.frag");
+	Shader shader = Shader::createObject("src/Shader/GLShaders/Lightning.vert",
+								         "src/Shader/GLShaders/Lightning.frag");
 
-	Shader post = Shader::createObject("C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Post.vert",
-		                               "C:/Users/DomenicZ/Documents/Visual Studio 2017/Projects/OpenGL Renderer/OpenGL Renderer/src/Shader/GLShaders/Post.frag");
+	Shader post = Shader::createObject("src/Shader/GLShaders/Post.vert",
+		                               "src/Shader/GLShaders/Post.frag");
 
 	Texture diffuse = Texture::createObject("res/crate_diffuse.png");
 	Texture specular = Texture::createObject("res/crate_specular.png");
