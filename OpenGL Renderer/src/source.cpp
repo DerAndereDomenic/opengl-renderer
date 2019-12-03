@@ -50,7 +50,7 @@ int main(void)
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
 
-	Mesh crate = ObjLoader::loadObj("res/cube.obj"); //MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
+	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
 	crate.create();
 
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
