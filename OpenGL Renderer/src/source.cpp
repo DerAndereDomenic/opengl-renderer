@@ -72,6 +72,12 @@ int main(void)
 	material.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
 	material.shininess =  128.0f*0.4f;
 
+	Material material_sphere;
+	material_sphere.ambient = glm::vec3(0.25, 0.25, 0.25);
+	material_sphere.diffuse = glm::vec3(0.4, 0.4, 0.4);
+	material_sphere.specular = glm::vec3(0.774597, 0.774597, 0.774597);
+	material_sphere.shininess = 128.0f*0.6;
+
 	Light licht;
 	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	licht.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -112,8 +118,11 @@ int main(void)
 		shader.setInt("isLight", false);
 		shader.setBool("useMap", false);
 		//Plane
+		shader.setMaterial("material", material);
 		mesh.render(window, shader);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-0.5, 2.0, 0.0)), GL_FALSE);
+		//Sphere
+		shader.setMaterial("material", material_sphere);
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-0.5, 2.0, -1.0)), GL_FALSE);
 		sphere.render(window, shader);
 		//Crate
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
