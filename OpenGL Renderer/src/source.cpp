@@ -56,6 +56,9 @@ int main(void)
 	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
 	sphere.create();
 
+	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
+	suzanne.create();
+
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
 
 	fbo.unbind();
@@ -77,6 +80,12 @@ int main(void)
 	material_sphere.diffuse = glm::vec3(0.4, 0.4, 0.4);
 	material_sphere.specular = glm::vec3(0.774597, 0.774597, 0.774597);
 	material_sphere.shininess = 128.0f*0.6;
+
+	Material diffuse_blue;
+	diffuse_blue.ambient = glm::vec3(0, 0, 0.2);
+	diffuse_blue.diffuse = glm::vec3(0, 0, 0.8);
+	diffuse_blue.specular = glm::vec3(0, 0, 0);
+	diffuse_blue.shininess = 1;
 
 	Light licht;
 	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
@@ -124,6 +133,10 @@ int main(void)
 		shader.setMaterial("material", material_sphere);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-0.5, 2.0, -1.0)), GL_FALSE);
 		sphere.render(window, shader);
+		//Suzanne
+		shader.setMaterial("material", diffuse_blue);
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(3, 3, 3)), GL_FALSE);
+		suzanne.render(window, shader);
 		//Crate
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
 		shader.setBool("useMap", true);
