@@ -53,6 +53,9 @@ int main(void)
 	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
 	crate.create();
 
+	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
+	sphere.create();
+
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
 
 	fbo.unbind();
@@ -110,6 +113,8 @@ int main(void)
 		shader.setBool("useMap", false);
 		//Plane
 		mesh.render(window, shader);
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-0.5, 2.0, 0.0)), GL_FALSE);
+		sphere.render(window, shader);
 		//Crate
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
 		shader.setBool("useMap", true);
@@ -151,6 +156,7 @@ int main(void)
 	Mesh::destroyObject(quad);
 	Mesh::destroyObject(light);
 	Mesh::destroyObject(crate);
+	Mesh::destroyObject(sphere);
 	FrameBuffer::destroyObject(fbo);
 
 	return 0;
