@@ -27,6 +27,8 @@ int main(void)
 	Texture diffuse = Texture::createObject("res/crate_diffuse.png");
 	Texture specular = Texture::createObject("res/crate_specular.png");
 
+	Texture tex_cobble = Texture::createObject("res/cobblestone.png");
+
 	shader.bind();
 	shader.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
@@ -58,6 +60,9 @@ int main(void)
 
 	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
 	suzanne.create();
+
+	Mesh cobble = ObjLoader::loadObj("res/cobble.obj");
+	cobble.create();
 
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
 
@@ -98,6 +103,11 @@ int main(void)
 	materialmap.specular = 1;
 	materialmap.shininess = 128.0f*0.4;
 
+	MaterialMap material_cobble;
+	material_cobble.diffuse = 0;
+	material_cobble.specular = 0;
+	material_cobble.shininess = 1;
+
 	shader.setMaterial("material", material);
 	shader.setMaterial("materialmap", materialmap);
 	shader.setLight("light", licht);
@@ -137,9 +147,15 @@ int main(void)
 		shader.setMaterial("material", diffuse_blue);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(3, 3, 3)), GL_FALSE);
 		suzanne.render(window, shader);
-		//Crate
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
+		//Cobble
+		shader.setMaterial("materialmap", material_cobble);
+		tex_cobble.bind(0);
 		shader.setBool("useMap", true);
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-5, 5, 2)), GL_FALSE);
+		cobble.render(window, shader);
+		//Crate
+		shader.setMaterial("materialmap", materialmap);
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
 		diffuse.bind(0);
 		specular.bind(1);
 		crate.render(window, shader);
@@ -173,12 +189,15 @@ int main(void)
 	RenderWindow::destroyObject(window);
 	Texture::destroyObject(diffuse);
 	Texture::destroyObject(specular);
+	Texture::destroyObject(tex_cobble);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
 	Mesh::destroyObject(light);
 	Mesh::destroyObject(crate);
 	Mesh::destroyObject(sphere);
+	Mesh::destroyObject(cobble);
+	Mesh::destroyObject(suzanne);
 	FrameBuffer::destroyObject(fbo);
 
 	return 0;
