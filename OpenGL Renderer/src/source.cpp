@@ -101,10 +101,8 @@ int main(void)
 	shader.setLight("light", licht);
 
 	normal.bind();
-	normal.setMaterial("material", material);
 	normal.setMaterial("materialmap", materialmap);
 	normal.setLight("light", licht);
-	normal.setBool("useMap", true);
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
