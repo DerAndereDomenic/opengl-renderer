@@ -161,6 +161,7 @@ int main(void)
 
 	Shader::destroyObject(shader);
 	Shader::destroyObject(post);
+	Shader::destroyObject(basic);
 	RenderWindow::destroyObject(window);
 	Texture::destroyObject(diffuse);
 	Texture::destroyObject(specular);
