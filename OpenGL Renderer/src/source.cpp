@@ -30,7 +30,8 @@ int main(void)
 	Texture diffuse = Texture::createObject("res/crate_diffuse.png");
 	Texture specular = Texture::createObject("res/crate_specular.png");
 
-	Texture tex_cobble = Texture::createObject("res/cobblestone.png");
+	Texture brickwall = Texture::createObject("res/brickwall.png");
+	Texture brickwall_normal = Texture::createObject("res/brickwall_normal.png");
 
 	shader.bind();
 	shader.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
@@ -127,7 +128,8 @@ int main(void)
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 
 		//Wall
-		diffuse.bind();
+		brickwall.bind(0);
+		brickwall.bind(1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, 5.0f)), GL_FALSE);
 		wall.render(window, shader);
 
@@ -176,7 +178,8 @@ int main(void)
 	RenderWindow::destroyObject(window);
 	Texture::destroyObject(diffuse);
 	Texture::destroyObject(specular);
-	Texture::destroyObject(tex_cobble);
+	Texture::destroyObject(brickwall);
+	Texture::destroyObject(brickwall_normal);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
