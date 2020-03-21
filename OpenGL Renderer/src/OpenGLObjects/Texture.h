@@ -23,7 +23,7 @@ public:
 	*	\param[in] height The height of the texture
 	*	\return The Texture object
 	*/
-	static Texture createObject(const unsigned int width, unsigned int height);
+	static Texture createObject(const unsigned int width, const unsigned int height);
 
 	/**
 	*	\brief Destroys the Texture object

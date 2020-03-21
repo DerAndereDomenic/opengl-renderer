@@ -38,7 +38,7 @@ Texture::createObject(const char* file_path)
 }
 
 Texture 
-Texture::createObject(const unsigned int width, unsigned int height)
+Texture::createObject(const unsigned int width, const unsigned int height)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);
