@@ -52,6 +52,9 @@ int main(void)
 	Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f);
 	mesh.create();
 
+	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f);
+	wall.create();
+
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
 
@@ -123,10 +126,18 @@ int main(void)
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 
+		//Wall
+		diffuse.bind();
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, 5.0f)), GL_FALSE);
+		wall.render(window, shader);
+
 		shader.setBool("useMap", false);
 		//Plane
+		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		shader.setMaterial("material", material);
 		mesh.render(window, shader);
+
+
 		//Crate
 		shader.setMaterial("materialmap", materialmap);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
@@ -171,6 +182,7 @@ int main(void)
 	Mesh::destroyObject(quad);
 	Mesh::destroyObject(light);
 	Mesh::destroyObject(crate);
+	Mesh::destroyObject(wall);
 	FrameBuffer::destroyObject(fbo);
 
 	return 0;
