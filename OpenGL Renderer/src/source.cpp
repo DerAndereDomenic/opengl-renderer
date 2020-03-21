@@ -24,6 +24,9 @@ int main(void)
 	Shader post = Shader::createObject("src/Shader/GLShaders/Post.vert",
 		                               "src/Shader/GLShaders/Post.frag");
 
+	Shader basic = Shader::createObject("src/Shader/GLShaders/basic.vert",
+		"src/Shader/GLShaders/basic.frag");
+
 	Texture diffuse = Texture::createObject("res/crate_diffuse.png");
 	Texture specular = Texture::createObject("res/crate_specular.png");
 
@@ -108,10 +111,18 @@ int main(void)
 		//Render scene
 		fbo.bind();
 		window.clear();
+
+		basic.bind();
+		basic.setMat4("P", camera.getProjection(), GL_FALSE);
+		basic.setMat4("V", camera.getView(), GL_FALSE);
+		basic.setMat4("M", glm::mat4(1), GL_FALSE);
+		basic.setInt("u_set", 1);
+
 		shader.bind();
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
+
 		shader.setInt("isLight", false);
 		shader.setBool("useMap", false);
 		//Plane
@@ -129,7 +140,10 @@ int main(void)
 		shader.setVec3("light.position", lightPos);
 		shader.setVec3("viewPos", camera.getPosition());
 		shader.setInt("isLight", true);
-		light.render(window, shader);
+
+		basic.bind();
+		basic.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
+		light.render(window, basic);
 
 
 		//Render to quad
