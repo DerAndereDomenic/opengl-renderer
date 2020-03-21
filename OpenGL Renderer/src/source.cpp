@@ -25,7 +25,10 @@ int main(void)
 		                               "src/Shader/GLShaders/Post.frag");
 
 	Shader basic = Shader::createObject("src/Shader/GLShaders/basic.vert",
-		"src/Shader/GLShaders/basic.frag");
+										"src/Shader/GLShaders/basic.frag");
+
+	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
+										 "src/Shader/GLShaders/Normal.frag");
 
 	Texture diffuse = Texture::createObject("res/crate_diffuse.png");
 	Texture specular = Texture::createObject("res/crate_specular.png");
@@ -97,6 +100,12 @@ int main(void)
 	shader.setMaterial("materialmap", materialmap);
 	shader.setLight("light", licht);
 
+	normal.bind();
+	normal.setMaterial("material", material);
+	normal.setMaterial("materialmap", materialmap);
+	normal.setLight("light", licht);
+	normal.setBool("useMap", true);
+
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
@@ -122,16 +131,23 @@ int main(void)
 		basic.setMat4("M", glm::mat4(1), GL_FALSE);
 		basic.setInt("u_set", 1);
 
+		normal.bind();
+		normal.setMat4("P", camera.getProjection(), GL_FALSE);
+		normal.setMat4("V", camera.getView(), GL_FALSE);
+		normal.setMat4("M", glm::mat4(1), GL_FALSE);
+
+		//Wall
+		brickwall.bind(0);
+		brickwall.bind(1);
+		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, 5.0f)), GL_FALSE);
+		wall.render(window, normal);
+
 		shader.bind();
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 
-		//Wall
-		brickwall.bind(0);
-		brickwall.bind(1);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, 5.0f)), GL_FALSE);
-		wall.render(window, shader);
+
 
 		shader.setBool("useMap", false);
 		//Plane
