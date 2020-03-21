@@ -55,15 +55,6 @@ int main(void)
 	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
 	crate.create();
 
-	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
-	sphere.create();
-
-	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
-	suzanne.create();
-
-	Mesh cobble = ObjLoader::loadObj("res/cobble.obj");
-	cobble.create();
-
 	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
 
 	fbo.unbind();
@@ -71,26 +62,13 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::mat4 rot = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(1, 0, 0));
-	glm::vec3 lightPos(0, 0, -5);
+	glm::vec3 lightPos(0, 5, -5);
 
 	Material material;
 	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
 	material.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
 	material.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
 	material.shininess =  128.0f*0.4f;
-
-	Material material_sphere;
-	material_sphere.ambient = glm::vec3(0.25, 0.25, 0.25);
-	material_sphere.diffuse = glm::vec3(0.4, 0.4, 0.4);
-	material_sphere.specular = glm::vec3(0.774597, 0.774597, 0.774597);
-	material_sphere.shininess = 128.0f*0.6;
-
-	Material diffuse_blue;
-	diffuse_blue.ambient = glm::vec3(0, 0, 0.2);
-	diffuse_blue.diffuse = glm::vec3(0, 0, 0.8);
-	diffuse_blue.specular = glm::vec3(0, 0, 0);
-	diffuse_blue.shininess = 1;
 
 	Light licht;
 	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
@@ -139,20 +117,6 @@ int main(void)
 		//Plane
 		shader.setMaterial("material", material);
 		mesh.render(window, shader);
-		//Sphere
-		shader.setMaterial("material", material_sphere);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-0.5, 2.0, -1.0)), GL_FALSE);
-		sphere.render(window, shader);
-		//Suzanne
-		shader.setMaterial("material", diffuse_blue);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(3, 3, 3)), GL_FALSE);
-		suzanne.render(window, shader);
-		//Cobble
-		shader.setMaterial("materialmap", material_cobble);
-		tex_cobble.bind(0);
-		shader.setBool("useMap", true);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-5, 5, 2)), GL_FALSE);
-		cobble.render(window, shader);
 		//Crate
 		shader.setMaterial("materialmap", materialmap);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
@@ -161,7 +125,6 @@ int main(void)
 		crate.render(window, shader);
 
 		//Render light
-		lightPos = rot * glm::vec4(lightPos, 1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
 		shader.setVec3("light.position", lightPos);
 		shader.setVec3("viewPos", camera.getPosition());
@@ -195,9 +158,6 @@ int main(void)
 	Mesh::destroyObject(quad);
 	Mesh::destroyObject(light);
 	Mesh::destroyObject(crate);
-	Mesh::destroyObject(sphere);
-	Mesh::destroyObject(cobble);
-	Mesh::destroyObject(suzanne);
 	FrameBuffer::destroyObject(fbo);
 
 	return 0;
