@@ -123,7 +123,6 @@ int main(void)
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 
-		shader.setInt("isLight", false);
 		shader.setBool("useMap", false);
 		//Plane
 		shader.setMaterial("material", material);
@@ -139,7 +138,6 @@ int main(void)
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
 		shader.setVec3("light.position", lightPos);
 		shader.setVec3("viewPos", camera.getPosition());
-		shader.setInt("isLight", true);
 
 		basic.bind();
 		basic.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
