@@ -3,7 +3,6 @@ layout(location = 0) out vec4 FragColor;
 
 in vec3 frag_position;
 in vec2 frag_tex;
-in vec3 frag_normal;
 
 uniform vec3 viewPos;
 
