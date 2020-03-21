@@ -136,7 +136,7 @@ int main(void)
 
 		//Wall
 		brickwall.bind(0);
-		brickwall.bind(1);
+		brickwall_normal.bind(1);
 		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, 5.0f)), GL_FALSE);
 		wall.render(window, normal);
 

@@ -32,8 +32,8 @@ void main(){
 	vec3 mat_specular = vec3(texture(materialmap.diffuse, frag_tex));
 	float mat_shininess = materialmap.shininess;
 
-	
-	vec3 norm = normalize(frag_normal);
+	vec3 normal = texture(materialmap.specular, frag_tex).rgb;
+	vec3 norm = -vec3(0,0,1);//normalize(normal*2.0 - 1.0);
 	vec3 lightDir = normalize(light.position - frag_position);
 
 	float diff = max(dot(norm, lightDir), 0.0);
