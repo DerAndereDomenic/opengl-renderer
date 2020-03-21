@@ -1,6 +1,5 @@
 #define STB_IMAGE_IMPLEMENTATION
 
-#include <GL/glew.h>
 #include <OpenGLObjects/Texture.h>
 #include <stb_image.h>
 #include <iostream>
@@ -38,12 +37,12 @@ Texture::createObject(const char* file_path)
 }
 
 Texture 
-Texture::createObject(const unsigned int width, const unsigned int height)
+Texture::createObject(const unsigned int width, const unsigned int height, const unsigned int channels)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);
 	glBindTexture(GL_TEXTURE_2D, result._ID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, channels, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 

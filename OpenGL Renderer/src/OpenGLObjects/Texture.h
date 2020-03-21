@@ -1,6 +1,13 @@
 #ifndef OPENGL_OBJECTS_TEXTURE_H
 #define OPENGL_OBJECTS_TEXTURE_H
 
+#include <GL/glew.h>
+
+enum Channels
+{
+	DEPTH = GL_DEPTH_COMPONENT,
+	RGB = GL_RGB
+};
 
 class Texture
 {
@@ -21,9 +28,12 @@ public:
 	*	\brief Create an empty Texture
 	*	\param[in] width The width of the texture
 	*	\param[in] height The height of the texture
+	*	\param[in] The type of texture (i.e. RGB or depth for now)
 	*	\return The Texture object
 	*/
-	static Texture createObject(const unsigned int width, const unsigned int height);
+	static Texture createObject(const unsigned int width, 
+								const unsigned int height, 
+								const unsigned int channels = RGB);
 
 	/**
 	*	\brief Destroys the Texture object
