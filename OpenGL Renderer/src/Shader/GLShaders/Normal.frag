@@ -5,6 +5,7 @@ in vec3 frag_position;
 in vec2 frag_tex;
 
 uniform vec3 viewPos;
+uniform vec4 lightcolor;
 
 struct Light
 {
@@ -49,6 +50,6 @@ void main(){
 
 	vec3 result = (ambient+diffuse+specular);
 
-	FragColor = vec4(result, 1.0);
+	FragColor = lightcolor*vec4(result, 1.0);
 
 }

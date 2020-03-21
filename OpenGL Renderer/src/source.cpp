@@ -36,8 +36,11 @@ int main(void)
 	Texture brickwall = Texture::createObject("res/brickwall.png");
 	Texture brickwall_normal = Texture::createObject("res/brickwall_normal.png");
 
+	normal.bind();
+	normal.setVec4("lightcolor", glm::vec4(0.5, 0.5, 0.5, 1));
+
 	shader.bind();
-	shader.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
+	shader.setVec4("lightcolor", glm::vec4(0.5, 0.5, 0.5, 1));
 
 	Mesh quad = Mesh::createObject();
 
@@ -72,7 +75,7 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::vec3 lightPos(0, 5, -5);
+	glm::vec3 lightPos(5, 5, -2);
 
 	Material material;
 	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
@@ -89,7 +92,7 @@ int main(void)
 	MaterialMap materialmap;
 	materialmap.diffuse = 0;
 	materialmap.specular = 1;
-	materialmap.shininess = 128.0f*0.4;
+	materialmap.shininess = 256.0f*0.4;
 
 	MaterialMap material_cobble;
 	material_cobble.diffuse = 0;
