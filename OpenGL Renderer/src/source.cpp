@@ -37,10 +37,10 @@ int main(void)
 	Texture brickwall_normal = Texture::createObject("res/brickwall_normal.png");
 
 	normal.bind();
-	normal.setVec4("lightcolor", glm::vec4(0.5, 0.5, 0.5, 1));
+	normal.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
 	shader.bind();
-	shader.setVec4("lightcolor", glm::vec4(0.5, 0.5, 0.5, 1));
+	shader.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
 	Mesh quad = Mesh::createObject();
 
@@ -75,7 +75,7 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::vec3 lightPos(5, 5, -2);
+	glm::vec3 lightPos(0, 0, -5);
 
 	Material material;
 	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
@@ -106,6 +106,8 @@ int main(void)
 	normal.bind();
 	normal.setMaterial("materialmap", materialmap);
 	normal.setLight("light", licht);
+
+	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(1, 0, 0));
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -165,6 +167,7 @@ int main(void)
 		crate.render(window, shader);
 
 		//Render light
+		lightPos = rotate * glm::vec4(lightPos, 1);
 		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
 		shader.setVec3("light.position", lightPos);
 		shader.setVec3("viewPos", camera.getPosition());
