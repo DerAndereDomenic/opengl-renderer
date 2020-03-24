@@ -1,7 +1,7 @@
 #include <DataStructure/Mesh.h>
 
 Mesh
-Mesh::createObject()
+Mesh::createObject(const bool calcTangent)
 {
 	Mesh result;
 
@@ -11,6 +11,7 @@ Mesh::createObject()
 	result._layout.add<float>(3);
 	result._layout.add<float>(3);
 	result._vertex_count = 0;
+	result._calcTangent = calcTangent;
 
 	return result;
 }

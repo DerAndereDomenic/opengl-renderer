@@ -18,9 +18,10 @@ public:
 
 	/**
 	*	\brief Create a mesh
+	*	\param[in] calcTangent If a tangent should be calculated and added to the vertices (default = false)
 	*	\return The mesh
 	*/
-	static Mesh createObject();
+	static Mesh createObject(const bool calcTangent = false);
 
 	/**
 	*	\brief Destroy the mesh
@@ -73,6 +74,7 @@ private:
 	VertexBufferLayout _layout; /**<< The layout of the vertex buffer object*/
 
 	const unsigned int VERTEX_SIZE = 15; /**<< The number of floats per vertex*/
+	bool _calcTangent = false;
 };
 
 #endif
