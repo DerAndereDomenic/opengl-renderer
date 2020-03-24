@@ -1,9 +1,9 @@
 #include <DataStructure/MeshHelper.h>
 
 Mesh
-MeshHelper::cubeMesh(glm::vec4 color)
+MeshHelper::cubeMesh(glm::vec4 color, const bool calcTangent)
 {
-	Mesh mesh = Mesh::createObject();
+	Mesh mesh = Mesh::createObject(calcTangent);
 	float x = 0.0f, y = 0.0f, z = 0.0f;
 	glm::vec3 p1(x - 0.5, y - 0.5, z + 0.5);
 	glm::vec3 p2(x + 0.5, y - 0.5, z + 0.5);
@@ -72,9 +72,9 @@ MeshHelper::cubeMesh(glm::vec4 color)
 }
 
 Mesh
-MeshHelper::cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ)
+MeshHelper::cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ, const bool calcTangent)
 {
-	Mesh mesh = Mesh::createObject();
+	Mesh mesh = Mesh::createObject(calcTangent);
 	float x = 0.0f, y = 0.0f, z = 0.0f;
 	glm::vec3 p1(x - lenX/2.0, y - lenY/2.0, z + lenZ/2.0);
 	glm::vec3 p2(x + lenX/2.0, y - lenY/2.0, z + lenZ/2.0);
