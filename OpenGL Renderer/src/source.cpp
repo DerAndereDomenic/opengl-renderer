@@ -75,7 +75,7 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::vec3 lightPos(0, 0, -5);
+	glm::vec3 lightPos(0, 0, -7);
 
 	Material material;
 	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
@@ -137,7 +137,8 @@ int main(void)
 		//Wall
 		brickwall.bind(0);
 		brickwall_normal.bind(1);
-		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, 5.0f)), GL_FALSE);
+		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)), GL_FALSE);
+		normal.setVec3("light.position", lightPos);
 		wall.render(window, normal);
 
 		shader.bind();
