@@ -4,6 +4,7 @@
 #include <Renderer/RenderWindow.h>
 #include <glm/glm.hpp>
 #include <vector>
+#define VERTEX_SIZE 15
 
 /**
 *	\brief A class to model a mesh
@@ -63,6 +64,15 @@ public:
 	*/
 	void addTriangle(const unsigned int vertex1, const unsigned int vertex2, const unsigned int vertex3);
 private:
+
+	/**
+	*	\brief Calculate tangent for the current triangle
+	*	\param[in] index1 Id of the first vertex
+	*	\param[in] index2 Id of the second vertex
+	*	\param[in] index3 Id of the third vertex
+	*/
+	void calculateTangent(const unsigned int index1, const unsigned int index2, unsigned int index3);
+
 	std::vector<float> _vertices; /**<< A buffer to safe vertex information*/
 	std::vector<unsigned int> _indices; /**<< A buffer to safe index information*/
 
@@ -73,7 +83,6 @@ private:
 	IndexBuffer _ibo; /**<< The index buffer object of the mesh*/
 	VertexBufferLayout _layout; /**<< The layout of the vertex buffer object*/
 
-	const unsigned int VERTEX_SIZE = 15; /**<< The number of floats per vertex*/
 	bool _calcTangent = false;
 };
 
