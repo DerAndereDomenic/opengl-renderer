@@ -154,18 +154,16 @@ int main(void)
 		shader.bind();
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
-		shader.setMat4("M", glm::mat4(1), GL_FALSE);
 		shader.setBool("useMap", true);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
+		shader.setVec3("light.position", lightPos);
+		shader.setVec3("viewPos", camera.getPosition());
 		diffuse.bind(0);
 		specular.bind(1);
 		crate.render(window, shader);
 
 		//Render light
 		lightPos = rotate * glm::vec4(lightPos, 1);
-		shader.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
-		shader.setVec3("light.position", lightPos);
-		shader.setVec3("viewPos", camera.getPosition());
 
 		basic.bind();
 		basic.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
