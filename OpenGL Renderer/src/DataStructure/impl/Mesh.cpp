@@ -9,6 +9,7 @@ Mesh::createObject()
 	result._layout.add<float>(4);
 	result._layout.add<float>(2);
 	result._layout.add<float>(3);
+	result._layout.add<float>(3);
 	result._vertex_count = 0;
 
 	return result;
@@ -62,6 +63,10 @@ Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec2 texture, glm::vec
 	_vertices.push_back(normal.x);
 	_vertices.push_back(normal.y);
 	_vertices.push_back(normal.z);
+
+	_vertices.push_back(0);
+	_vertices.push_back(0);
+	_vertices.push_back(0);
 
 	return _vertex_count++;
 }
