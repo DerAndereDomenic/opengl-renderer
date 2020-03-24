@@ -36,6 +36,9 @@ int main(void)
 	Texture brickwall = Texture::createObject("res/brickwall.png");
 	Texture brickwall_normal = Texture::createObject("res/brickwall_normal.png");
 
+	Texture fabric = Texture::createObject("res/fabric.png");
+	Texture fabric_normal = Texture::createObject("res/fabric_normal.png");
+
 	normal.bind();
 	normal.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
@@ -142,8 +145,9 @@ int main(void)
 		wall.render(window, normal);
 
 
-		//shader.setBool("useMap", false);
 		//Plane
+		fabric.bind(0);
+		fabric_normal.bind(1);
 		normal.bind();
 		normal.setMat4("M", glm::mat4(1), GL_FALSE);
 		normal.setMaterial("material", material);
