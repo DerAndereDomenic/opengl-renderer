@@ -17,4 +17,10 @@ void main()
 	gl_Position = P*V*M*vec4(position, 1);
 	frag_position = vec3(M*vec4(position,1));
 	frag_tex = tex;
+
+	//Calculate TBN Matrix
+	vec3 T = normalize(vec3(M*vec4(tangent, 0)));
+	vec3 B = normalize(cross(normal, T));
+	vec3 N = normalize(vec3(M*vec4(normal, 0)));
+	mat3 TBN = mat3(T, B, N);
 }
