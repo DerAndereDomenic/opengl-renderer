@@ -71,6 +71,8 @@ private:
 	VertexBuffer _vbo; /**<< The vertex buffer object of the mesh*/
 	IndexBuffer _ibo; /**<< The index buffer object of the mesh*/
 	VertexBufferLayout _layout; /**<< The layout of the vertex buffer object*/
+
+	const unsigned int VERTEX_SIZE = 15; /**<< The number of floats per vertex*/
 };
 
 #endif
