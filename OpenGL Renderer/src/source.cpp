@@ -94,11 +94,6 @@ int main(void)
 	materialmap.specular = 1;
 	materialmap.shininess = 256.0f*0.4;
 
-	MaterialMap material_cobble;
-	material_cobble.diffuse = 0;
-	material_cobble.specular = 0;
-	material_cobble.shininess = 1;
-
 	shader.setMaterial("material", material);
 	shader.setMaterial("materialmap", materialmap);
 	shader.setLight("light", licht);
@@ -160,7 +155,7 @@ int main(void)
 
 
 		//Crate
-		shader.setMaterial("materialmap", materialmap);
+		shader.setBool("useMap", true);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
 		diffuse.bind(0);
 		specular.bind(1);
