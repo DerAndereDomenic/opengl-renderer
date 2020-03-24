@@ -75,6 +75,10 @@ Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec2 texture, glm::vec
 void 
 Mesh::addTriangle(const unsigned int vertex1, const unsigned int vertex2, const unsigned int vertex3)
 {
+	if (_calcTangent)
+	{
+		calculateTangent(vertex1, vertex2, vertex3);
+	}
 	_indices.push_back(vertex1);
 	_indices.push_back(vertex2);
 	_indices.push_back(vertex3);
