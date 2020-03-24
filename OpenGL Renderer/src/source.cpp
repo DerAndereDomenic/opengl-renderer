@@ -59,7 +59,7 @@ int main(void)
 	Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f);
 	mesh.create();
 
-	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f);
+	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
 	wall.create();
 
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
