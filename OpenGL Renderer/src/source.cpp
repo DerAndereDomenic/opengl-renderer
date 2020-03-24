@@ -197,6 +197,8 @@ int main(void)
 	Texture::destroyObject(specular);
 	Texture::destroyObject(brickwall);
 	Texture::destroyObject(brickwall_normal);
+	Texture::destroyObject(fabric);
+	Texture::destroyObject(fabric_normal);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
