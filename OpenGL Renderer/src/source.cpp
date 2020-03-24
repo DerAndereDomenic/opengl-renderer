@@ -56,7 +56,7 @@ int main(void)
 
 	quad.create();
 
-	Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f);
+	Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
 	mesh.create();
 
 	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
@@ -141,21 +141,20 @@ int main(void)
 		normal.setVec3("light.position", lightPos);
 		wall.render(window, normal);
 
+
+		//shader.setBool("useMap", false);
+		//Plane
+		normal.bind();
+		normal.setMat4("M", glm::mat4(1), GL_FALSE);
+		normal.setMaterial("material", material);
+		mesh.render(window, normal);
+
+
+		//Crate
 		shader.bind();
 		shader.setMat4("P", camera.getProjection(), GL_FALSE);
 		shader.setMat4("V", camera.getView(), GL_FALSE);
 		shader.setMat4("M", glm::mat4(1), GL_FALSE);
-
-
-
-		shader.setBool("useMap", false);
-		//Plane
-		shader.setMat4("M", glm::mat4(1), GL_FALSE);
-		shader.setMaterial("material", material);
-		mesh.render(window, shader);
-
-
-		//Crate
 		shader.setBool("useMap", true);
 		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
 		diffuse.bind(0);
