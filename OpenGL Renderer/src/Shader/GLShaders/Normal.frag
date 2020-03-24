@@ -35,7 +35,7 @@ void main(){
 
 	vec3 normal = texture(materialmap.specular, frag_tex).rgb;
 	vec3 norm = normalize(normal*2.0 - 1.0);
-	norm.b *= -1.0;
+	//norm.b *= -1;
 	vec3 lightDir = normalize(light.position - frag_position);
 
 	float diff = max(dot(norm, lightDir), 0.0);
