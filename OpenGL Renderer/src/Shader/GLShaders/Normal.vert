@@ -7,6 +7,7 @@ layout (location = 4) in vec3 tangent;
 
 out vec3 frag_position;
 out vec2 frag_tex;
+out mat3 frag_TBN;
 
 uniform mat4 M;
 uniform mat4 V;
@@ -23,4 +24,6 @@ void main()
 	vec3 B = normalize(cross(normal, T));
 	vec3 N = normalize(vec3(M*vec4(normal, 0)));
 	mat3 TBN = mat3(T, B, N);
+
+	frag_TBN = TBN;
 }
