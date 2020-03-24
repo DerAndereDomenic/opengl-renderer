@@ -79,3 +79,23 @@ Mesh::addTriangle(const unsigned int vertex1, const unsigned int vertex2, const 
 	_indices.push_back(vertex2);
 	_indices.push_back(vertex3);
 }
+
+void 
+Mesh::calculateTangent(const unsigned int index1, const unsigned int index2, unsigned int index3)
+{
+	//Get data for the vertices
+	float vertex1[VERTEX_SIZE];
+	float vertex2[VERTEX_SIZE];
+	float vertex3[VERTEX_SIZE];
+
+	unsigned int id1 = VERTEX_SIZE * index1;
+	unsigned int id2 = VERTEX_SIZE * index2;
+	unsigned int id3 = VERTEX_SIZE * index3;
+
+	for (unsigned int i = 0; i < VERTEX_SIZE; ++i)
+	{
+		vertex1[i] = _vertices[id1 + i];
+		vertex2[i] = _vertices[id2 + i];
+		vertex3[i] = _vertices[id3 + i];
+	}
+}
