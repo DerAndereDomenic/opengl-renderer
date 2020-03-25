@@ -14,7 +14,9 @@
 
 int main(void)
 {
-	RenderWindow window = RenderWindow::createObject(800, 800, "Render Window");
+	unsigned int width = 1280;
+	unsigned int height = 720;
+	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window);
 
@@ -71,7 +73,7 @@ int main(void)
 	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
 	crate.create();
 
-	FrameBuffer fbo = FrameBuffer::createObject(800, 800);
+	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 
 	fbo.unbind();
 
