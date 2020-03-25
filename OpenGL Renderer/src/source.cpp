@@ -16,9 +16,13 @@ int main(void)
 {
 	unsigned int width = 1280;
 	unsigned int height = 720;
+
+	float near = 0.1f;
+	float far = 500.0f;
+
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
 	KeyManager::instance()->setup(window);
-	Camera camera = Camera::createObject(window);
+	Camera camera = Camera::createObject(window, near, far);
 
 	Shader shader = Shader::createObject("src/Shader/GLShaders/Lightning.vert",
 								         "src/Shader/GLShaders/Lightning.frag");
