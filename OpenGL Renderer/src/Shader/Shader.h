@@ -96,6 +96,14 @@ public:
 	void setMat4(const std::string& name, glm::mat4 value, bool transpose = GL_FALSE);
 
 	/**
+	*	\brief Set Model view and projection matrix
+	*	\param[in] M The model matrix
+	*	\param[in] V The view matrix
+	*	\param[in] P The projection matrix
+	*/
+	void setMVP(glm::mat4 M = glm::mat4(1), glm::mat4 V = glm::mat4(1), glm::mat4 P = glm::mat4(1));
+
+	/**
 	*	\brief Set the material of the objects in the next draw call
 	*	\param[in] name The name of the material struct in the shader
 	*	\param[in] material The material for the next draw call

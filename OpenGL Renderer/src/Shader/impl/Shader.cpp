@@ -149,6 +149,14 @@ Shader::setMat4(const std::string&name, glm::mat4 value, bool transpose)
 	glUniformMatrix4fv(glGetUniformLocation(_ID, name.c_str()), 1, transpose, &value[0][0]);
 }
 
+void 
+Shader::setMVP(glm::mat4 M, glm::mat4 V, glm::mat4 P)
+{
+	setMat4("M", M);
+	setMat4("V", V);
+	setMat4("P", P);
+}
+
 void
 Shader::setMaterial(const std::string& name, Material material)
 {
