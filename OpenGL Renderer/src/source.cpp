@@ -125,15 +125,9 @@ int main(void)
 		//Render scene
 		fbo.bind();
 		window.clear();
-
-		basic.bind();
-		basic.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		basic.setInt("u_set", 1);
-
-		normal.bind();
 		
-
 		//Wall
+		normal.bind();
 		brickwall.bind(0);
 		brickwall_normal.bind(1);
 		normal.setMVP(glm::translate(glm::mat4(1),
@@ -168,7 +162,8 @@ int main(void)
 		lightPos = rotate * glm::vec4(lightPos, 1);
 
 		basic.bind();
-		basic.setMat4("M", glm::translate(glm::mat4(1), lightPos));
+		basic.setMVP(glm::translate(glm::mat4(1), lightPos), camera.getView(), camera.getProjection());
+		basic.setInt("u_set", 1);
 		light.render(window, basic);
 
 
