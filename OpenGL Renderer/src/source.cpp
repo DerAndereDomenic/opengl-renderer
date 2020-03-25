@@ -127,20 +127,20 @@ int main(void)
 		window.clear();
 
 		basic.bind();
-		basic.setMat4("P", camera.getProjection(), GL_FALSE);
-		basic.setMat4("V", camera.getView(), GL_FALSE);
-		basic.setMat4("M", glm::mat4(1), GL_FALSE);
+		basic.setMat4("P", camera.getProjection());
+		basic.setMat4("V", camera.getView());
+		basic.setMat4("M", glm::mat4(1));
 		basic.setInt("u_set", 1);
 
 		normal.bind();
-		normal.setMat4("P", camera.getProjection(), GL_FALSE);
-		normal.setMat4("V", camera.getView(), GL_FALSE);
-		normal.setMat4("M", glm::mat4(1), GL_FALSE);
+		normal.setMat4("P", camera.getProjection());
+		normal.setMat4("V", camera.getView());
+		normal.setMat4("M", glm::mat4(1));
 
 		//Wall
 		brickwall.bind(0);
 		brickwall_normal.bind(1);
-		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)), GL_FALSE);
+		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
 		normal.setVec3("light.position", lightPos);
 		wall.render(window, normal);
 
@@ -149,17 +149,17 @@ int main(void)
 		fabric.bind(0);
 		fabric_normal.bind(1);
 		normal.bind();
-		normal.setMat4("M", glm::mat4(1), GL_FALSE);
+		normal.setMat4("M", glm::mat4(1));
 		normal.setMaterial("material", material);
 		mesh.render(window, normal);
 
 
 		//Crate
 		shader.bind();
-		shader.setMat4("P", camera.getProjection(), GL_FALSE);
-		shader.setMat4("V", camera.getView(), GL_FALSE);
+		shader.setMat4("P", camera.getProjection());
+		shader.setMat4("V", camera.getView());
 		shader.setBool("useMap", true);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)), GL_FALSE);
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
 		shader.setVec3("light.position", lightPos);
 		shader.setVec3("viewPos", camera.getPosition());
 		diffuse.bind(0);
@@ -170,7 +170,7 @@ int main(void)
 		lightPos = rotate * glm::vec4(lightPos, 1);
 
 		basic.bind();
-		basic.setMat4("M", glm::translate(glm::mat4(1), lightPos), GL_FALSE);
+		basic.setMat4("M", glm::translate(glm::mat4(1), lightPos));
 		light.render(window, basic);
 
 

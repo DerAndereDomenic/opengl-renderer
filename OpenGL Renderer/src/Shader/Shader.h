@@ -93,7 +93,7 @@ public:
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
 	*/
-	void setMat4(const std::string& name, glm::mat4 value, bool transpose);
+	void setMat4(const std::string& name, glm::mat4 value, bool transpose = GL_FALSE);
 
 	/**
 	*	\brief Set the material of the objects in the next draw call
