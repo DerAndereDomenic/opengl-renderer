@@ -127,20 +127,18 @@ int main(void)
 		window.clear();
 
 		basic.bind();
-		basic.setMat4("P", camera.getProjection());
-		basic.setMat4("V", camera.getView());
-		basic.setMat4("M", glm::mat4(1));
+		basic.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		basic.setInt("u_set", 1);
 
 		normal.bind();
-		normal.setMat4("P", camera.getProjection());
-		normal.setMat4("V", camera.getView());
-		normal.setMat4("M", glm::mat4(1));
+		
 
 		//Wall
 		brickwall.bind(0);
 		brickwall_normal.bind(1);
-		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
+		normal.setMVP(glm::translate(glm::mat4(1),
+									 glm::vec3(0, 5.0f, -5.0f)),
+									 camera.getView(), camera.getProjection());
 		normal.setVec3("light.position", lightPos);
 		wall.render(window, normal);
 
@@ -156,10 +154,10 @@ int main(void)
 
 		//Crate
 		shader.bind();
-		shader.setMat4("P", camera.getProjection());
-		shader.setMat4("V", camera.getView());
+		shader.setMVP(glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)),
+									 camera.getView(),
+									 camera.getProjection());
 		shader.setBool("useMap", true);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
 		shader.setVec3("light.position", lightPos);
 		shader.setVec3("viewPos", camera.getPosition());
 		diffuse.bind(0);
