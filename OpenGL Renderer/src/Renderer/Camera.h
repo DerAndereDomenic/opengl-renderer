@@ -18,9 +18,11 @@ public:
 	/**
 	*	\brief Create a camera object
 	*	\param[in] window The camera the window should be bound to
+	*	\param[in] near The near plane
+	*	\param[in] far The far plane
 	*	\return The camera object
 	*/
-	static Camera createObject(RenderWindow window);
+	static Camera createObject(RenderWindow window, float near, float far);
 
 	/**
 	*	\brief Destroys the given camera
