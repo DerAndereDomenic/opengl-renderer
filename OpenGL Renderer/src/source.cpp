@@ -80,6 +80,9 @@ int main(void)
 	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
 	crate.create();
 
+	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
+	suzanne.create();
+
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachColor();
 	fbo.attachRenderBuffer();
@@ -175,6 +178,11 @@ int main(void)
 		//Crate
 		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
 		crate.render(window, shadow);
+
+		//Suzanne
+		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
+		suzanne.render(window, shadow);
+
 		glCullFace(GL_BACK);
 
 		//----------------------------------------------------------------------------------------------
@@ -217,6 +225,11 @@ int main(void)
 		shadow_map.getTexture().bind(2);
 		crate.render(window, shader);
 
+		//Suzanne
+		shader.setBool("useMap", false);
+		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
+		suzanne.render(window, shader);
+
 		//Render light
 		//lightPos = rotate * glm::vec4(lightPos, 1);
 
@@ -258,6 +271,7 @@ int main(void)
 	Mesh::destroyObject(light);
 	Mesh::destroyObject(crate);
 	Mesh::destroyObject(wall);
+	Mesh::destroyObject(suzanne);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(shadow_map);
 
