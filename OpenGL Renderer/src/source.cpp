@@ -140,7 +140,7 @@ int main(void)
 		camera.processInput(0.005f);
 
 		//Render scene
-		fbo.bind();
+		/*fbo.bind();
 		window.clear();
 
 		
@@ -182,14 +182,42 @@ int main(void)
 		basic.bind();
 		basic.setMVP(glm::translate(glm::mat4(1), lightPos), camera.getView(), camera.getProjection());
 		basic.setInt("u_set", 1);
-		light.render(window, basic);
+		light.render(window, basic);*/
 
+		shadow_map.bind();
+		window.clear();
+
+
+		//Wall
+		shadow.bind();
+		shadow.setMVP(glm::translate(glm::mat4(1),
+			glm::vec3(0, 5.0f, -5.0f)),
+			camera.getView(), camera.getProjection());
+		wall.render(window, shadow);
+
+
+		//Plane
+		shadow.setMat4("M", glm::mat4(1));
+		mesh.render(window, shadow);
+
+
+		//Crate
+		shadow.setMVP(glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)),
+			camera.getView(),
+			camera.getProjection());
+		crate.render(window, shadow);
+
+		//Render light
+		lightPos = rotate * glm::vec4(lightPos, 1);
+
+		shadow.setMVP(glm::translate(glm::mat4(1), lightPos), camera.getView(), camera.getProjection());
+		light.render(window, shadow);
 
 		//Render to quad
-		fbo.unbind();
+		shadow_map.unbind();
 		window.clear();
 		post.bind();
-		fbo.getTexture().bind();
+		shadow_map.getTexture().bind();
 		quad.render(window, post);
 
 		window.spinOnce();
