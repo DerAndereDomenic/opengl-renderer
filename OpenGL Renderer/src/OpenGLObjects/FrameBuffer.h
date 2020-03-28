@@ -35,6 +35,11 @@ public:
 	void attachColor();
 
 	/**
+	*	\brief Attach a depth map to the Framebuffer
+	*/
+	void attachDepthMap();
+
+	/**
 	*	\brief Attaches a Depth/Stencil Renderbuffer to the Framebuffer
 	*/
 	void attachRenderBuffer();

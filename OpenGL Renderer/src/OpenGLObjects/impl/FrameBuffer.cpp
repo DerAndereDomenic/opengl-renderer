@@ -42,6 +42,14 @@ FrameBuffer::attachRenderBuffer()
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depth_stencil.getID());
 }
 
+void
+FrameBuffer::attachDepthMap()
+{
+	bind();
+	_render_texture = Texture::createObject(_width, _height, DEPTH, GL_FLOAT);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _render_texture.getID(), 0);
+}
+
 bool
 FrameBuffer::verify()
 {
