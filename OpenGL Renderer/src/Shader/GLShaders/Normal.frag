@@ -32,13 +32,14 @@ uniform sampler2D shadowMap;
 
 float shadowCalculation(vec4 fragPositionLightSpace)
 {
+	float bias = 0.0005;
 	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 
 	float closestDepth = texture(shadowMap, projCoords.xy).r;
 	float currentDepth = projCoords.z;
 
-	return currentDepth > closestDepth ? 1.0 : 0.0;
+	return currentDepth - bias > closestDepth ? 1.0 : 0.0;
 }
 
 void main(){
