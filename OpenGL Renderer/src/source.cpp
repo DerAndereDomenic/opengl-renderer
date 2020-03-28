@@ -126,11 +126,13 @@ int main(void)
 	shader.setMaterial("materialmap", materialmap);
 	shader.setLight("light", licht);
 	shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+	shader.setInt("shadowMap", 3);
 
 	normal.bind();
 	normal.setMaterial("materialmap", materialmap);
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+	normal.setInt("shadowMap", 3);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(1, 0, 0));
 	
@@ -181,6 +183,7 @@ int main(void)
 		normal.bind();
 		brickwall.bind(0);
 		brickwall_normal.bind(1);
+		shadow_map.getTexture().bind(3);
 		normal.setMVP(glm::translate(glm::mat4(1),
 									 glm::vec3(0, 5.0f, -5.0f)),
 									 camera.getView(), camera.getProjection());

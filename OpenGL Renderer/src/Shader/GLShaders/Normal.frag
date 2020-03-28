@@ -28,6 +28,8 @@ struct MaterialMap
 
 uniform MaterialMap materialmap;
 
+uniform sampler2D shadowMap;
+
 float shadowCalculation(vec4 fragPositionLightSpace)
 {
 	return 0;
