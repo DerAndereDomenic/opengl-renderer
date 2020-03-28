@@ -8,10 +8,13 @@ out vec3 frag_position;
 out vec4 frag_color;
 out vec2 frag_tex;
 out vec3 frag_normal;
+out vec4 frag_position_light_space;
 
 uniform mat4 M;
 uniform mat4 V;
 uniform mat4 P;
+
+uniform mat4 lightSpaceMatrix;
 
 void main()
 {
@@ -20,4 +23,5 @@ void main()
 	frag_color = color;
 	frag_tex = tex;
 	frag_normal = vec3(M*vec4(normal,0));
+	frag_position_light_space = lightSpaceMatrix * vec4(frag_position, 1);
 }
