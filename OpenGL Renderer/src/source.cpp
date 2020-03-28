@@ -81,8 +81,13 @@ int main(void)
 	fbo.attachColor();
 	fbo.attachRenderBuffer();
 	fbo.verify();
-
 	fbo.unbind();
+
+	FrameBuffer shadow_map = FrameBuffer::createObject(width, height);
+	shadow_map.attachDepthMap();
+	shadow_map.disableColor();
+	shadow_map.verify();
+	shadow_map.unbind();
 
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
