@@ -40,6 +40,12 @@ public:
 	void attachRenderBuffer();
 
 	/**
+	*	\brief Verify if the Framebuffer is complete
+	*	\return true if all necessary attachements are given
+	*/
+	bool verify();
+
+	/**
 	*	\brief Binds the render buffer object
 	*/
 	void bind();

@@ -13,17 +13,6 @@ FrameBuffer::createObject(unsigned int width, unsigned int height)
 	glGenFramebuffers(1, &result._ID);
 	glBindFramebuffer(GL_FRAMEBUFFER, result._ID);
 
-	//result._render_texture = Texture::createObject(width, height);
-	//result._depth_stencil = RenderBuffer::createObject(width, height);
-
-	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, result._render_texture.getID(), 0);
-	//glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, result._depth_stencil.getID());
-
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-	{
-		std::cerr << "ERROR::FRAMEBUFFER:: Framebuffer is not complete" << std::endl;
-	}
-
 	return result;
 }
 
@@ -51,6 +40,18 @@ FrameBuffer::attachRenderBuffer()
 	bind();
 	_depth_stencil = RenderBuffer::createObject(_width, _height);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depth_stencil.getID());
+}
+
+bool
+FrameBuffer::verify()
+{
+	bind();
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	{
+		std::cerr << "ERROR::FRAMEBUFFER:: Framebuffer is not complete" << std::endl;
+		return false;
+	}
+	return true;
 }
 
 void 
