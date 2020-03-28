@@ -78,6 +78,9 @@ int main(void)
 	crate.create();
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
+	fbo.attachColor();
+	fbo.attachRenderBuffer();
+	fbo.verify();
 
 	fbo.unbind();
 
