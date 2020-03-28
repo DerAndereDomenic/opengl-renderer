@@ -30,6 +30,11 @@ public:
 	static void destroyObject(FrameBuffer& object);
 
 	/**
+	*	\brief Attaches a color texture to the Framebuffer
+	*/
+	void attachColor();
+
+	/**
 	*	\brief Binds the render buffer object
 	*/
 	void bind();
