@@ -114,20 +114,25 @@ int main(void)
 	materialmap.specular = 1;
 	materialmap.shininess = 256.0f*0.4;
 
-	shader.setMaterial("material", material);
-	shader.setMaterial("materialmap", materialmap);
-	shader.setLight("light", licht);
-
-	normal.bind();
-	normal.setMaterial("materialmap", materialmap);
-	normal.setLight("light", licht);
-
-	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(1, 0, 0));
-
 	glm::mat4 lightProjection = glm::perspective(90.0f, window.getAspectRatio(), near, far);
 
 	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near, far);
 	glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+
+	shader.bind();
+	shader.setMaterial("material", material);
+	shader.setMaterial("materialmap", materialmap);
+	shader.setLight("light", licht);
+	shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+
+	normal.bind();
+	normal.setMaterial("materialmap", materialmap);
+	normal.setLight("light", licht);
+	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+
+	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(1, 0, 0));
 	
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
