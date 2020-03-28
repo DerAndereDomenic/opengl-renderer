@@ -35,6 +35,11 @@ public:
 	void attachColor();
 
 	/**
+	*	\brief Attaches a Depth/Stencil Renderbuffer to the Framebuffer
+	*/
+	void attachRenderBuffer();
+
+	/**
 	*	\brief Binds the render buffer object
 	*/
 	void bind();
