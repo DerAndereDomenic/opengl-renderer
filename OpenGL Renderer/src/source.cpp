@@ -95,7 +95,7 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::vec3 lightPos(0, 0, -7);
+	glm::vec3 lightPos(0, 5, 5);
 
 	Material material;
 	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
@@ -123,6 +123,15 @@ int main(void)
 	normal.setLight("light", licht);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(1, 0, 0));
+
+	glm::mat4 lightProjection = glm::perspective(90.0f, window.getAspectRatio(), near, far);
+
+	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near, far);
+	glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	
+	shadow.bind();
+	shadow.setMat4("P", lightProjection);
+	shadow.setMat4("V", lightView);
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -187,31 +196,20 @@ int main(void)
 		shadow_map.bind();
 		window.clear();
 
-
 		//Wall
 		shadow.bind();
-		shadow.setMVP(glm::translate(glm::mat4(1),
-			glm::vec3(0, 5.0f, -5.0f)),
-			camera.getView(), camera.getProjection());
+		shadow.setMat4("V", lightView);
+		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
 		wall.render(window, shadow);
-
 
 		//Plane
 		shadow.setMat4("M", glm::mat4(1));
 		mesh.render(window, shadow);
 
-
 		//Crate
-		shadow.setMVP(glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)),
-			camera.getView(),
-			camera.getProjection());
+		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
 		crate.render(window, shadow);
 
-		//Render light
-		lightPos = rotate * glm::vec4(lightPos, 1);
-
-		shadow.setMVP(glm::translate(glm::mat4(1), lightPos), camera.getView(), camera.getProjection());
-		light.render(window, shadow);
 
 		//Render to quad
 		shadow_map.unbind();
