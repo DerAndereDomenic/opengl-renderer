@@ -4,6 +4,7 @@ layout(location = 0) out vec4 FragColor;
 in vec3 frag_position;
 in vec2 frag_tex;
 in mat3 frag_TBN;
+in vec4 frag_position_light_space;
 
 uniform vec3 viewPos;
 uniform vec4 lightcolor;
@@ -26,6 +27,11 @@ struct MaterialMap
 };
 
 uniform MaterialMap materialmap;
+
+float shadowCalculation(vec4 fragPositionLightSpace)
+{
+	return 0;
+}
 
 void main(){
 
@@ -51,6 +57,7 @@ void main(){
 
 	vec3 ambient = light.ambient*mat_ambient;
 
+	float shadow = shadowCalculation(frag_position_light_space);
 	vec3 result = (ambient+diffuse+specular);
 
 	FragColor = lightcolor*vec4(result, 1.0);

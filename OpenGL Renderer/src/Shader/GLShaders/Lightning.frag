@@ -5,6 +5,7 @@ in vec3 frag_position;
 in vec4 frag_color;
 in vec2 frag_tex;
 in vec3 frag_normal;
+in vec4 frag_position_light_space;
 
 uniform bool useMap;
 uniform vec3 viewPos;
@@ -38,6 +39,11 @@ struct MaterialMap
 };
 
 uniform MaterialMap materialmap;
+
+float shadowCalculation(vec4 fragPositionLightSpace)
+{
+	return 0;
+}
 
 void main(){
 
@@ -74,8 +80,9 @@ void main(){
 	vec3 specular = (mat_specular)*spec*light.specular;
 
 	vec3 ambient = light.ambient*mat_ambient;
-
-	vec3 result = (ambient+diffuse+specular);
+	
+	float shadow = shadowCalculation(frag_position_light_space);
+	vec3 result = (ambient+ (1.0 - shadow)*(diffuse+specular));
 
 	FragColor = lightcolor*vec4(result, 1.0);
 
