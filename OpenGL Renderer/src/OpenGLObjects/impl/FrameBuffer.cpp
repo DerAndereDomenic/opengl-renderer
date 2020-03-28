@@ -6,6 +6,10 @@ FrameBuffer
 FrameBuffer::createObject(unsigned int width, unsigned int height)
 {
 	FrameBuffer result;
+	result._width = width;
+	result._height = height;
+
+
 	glGenFramebuffers(1, &result._ID);
 	glBindFramebuffer(GL_FRAMEBUFFER, result._ID);
 
@@ -26,6 +30,8 @@ FrameBuffer::createObject(unsigned int width, unsigned int height)
 void 
 FrameBuffer::destroyObject(FrameBuffer& object)
 {
+	object._width = 0;
+	object._height = 0;
 	glDeleteFramebuffers(1, &object._ID);
 	Texture::destroyObject(object._render_texture);
 	RenderBuffer::destroyObject(object._depth_stencil);

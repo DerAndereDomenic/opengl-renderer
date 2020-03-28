@@ -48,6 +48,9 @@ private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the fbo*/
 	Texture _render_texture; /**<< The Color texture of this fbo*/
 	RenderBuffer _depth_stencil; /**<< The depth and stencil buffer of this fbo*/
+
+	unsigned int _width; /**<< The width of the Framebuffer*/
+	unsigned int _height; /**<< The height of the Framebuffer*/
 };
 
 #endif
