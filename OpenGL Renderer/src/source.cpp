@@ -36,6 +36,9 @@ int main(void)
 	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
 										 "src/Shader/GLShaders/Normal.frag");
 
+	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
+										 "src/Shader/GLShaders/Shadow.frag");
+
 	Texture diffuse = Texture::createObject("res/crate_diffuse.png");
 	Texture specular = Texture::createObject("res/crate_specular.png");
 
@@ -139,6 +142,7 @@ int main(void)
 		//Render scene
 		fbo.bind();
 		window.clear();
+
 		
 		//Wall
 		normal.bind();
@@ -199,6 +203,8 @@ int main(void)
 	Shader::destroyObject(shader);
 	Shader::destroyObject(post);
 	Shader::destroyObject(basic);
+	Shader::destroyObject(normal);
+	Shader::destroyObject(shadow);
 	RenderWindow::destroyObject(window);
 	Texture::destroyObject(diffuse);
 	Texture::destroyObject(specular);
@@ -213,6 +219,7 @@ int main(void)
 	Mesh::destroyObject(crate);
 	Mesh::destroyObject(wall);
 	FrameBuffer::destroyObject(fbo);
+	FrameBuffer::destroyObject(shadow_map);
 
 	return 0;
 }
