@@ -86,7 +86,7 @@ int main(void)
 	fbo.verify();
 	fbo.unbind();
 
-	FrameBuffer shadow_map = FrameBuffer::createObject(width, height);
+	FrameBuffer shadow_map = FrameBuffer::createObject(5000, 5000);
 	shadow_map.attachDepthMap();
 	shadow_map.disableColor();
 	shadow_map.verify();
@@ -158,6 +158,7 @@ int main(void)
 
 		camera.processInput(0.005f);
 
+		glViewport(0, 0, 5000, 5000);
 		shadow_map.bind();
 		window.clear();
 		glCullFace(GL_FRONT);
@@ -177,7 +178,7 @@ int main(void)
 		glCullFace(GL_BACK);
 
 		//----------------------------------------------------------------------------------------------
-
+		glViewport(0, 0, width, height);
 		//Render scene
 		fbo.bind();
 		window.clear();
