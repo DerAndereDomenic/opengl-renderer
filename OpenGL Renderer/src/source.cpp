@@ -95,8 +95,8 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::vec3 lightPos(0, 5, 5);
-
+	glm::vec3 lightPos(5, 15, 10);
+	//lightPos = glm::vec3(-2.0f, 4.0f, -1.0f);
 	Material material;
 	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
 	material.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
@@ -114,10 +114,13 @@ int main(void)
 	materialmap.specular = 1;
 	materialmap.shininess = 256.0f*0.4;
 
-	glm::mat4 lightProjection = glm::perspective(90.0f, window.getAspectRatio(), near, far);
+	//glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 
-	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near, far);
+	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 50.0f);
 	glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	//glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
+	//	glm::vec3(0.0f, 0.0f, 0.0f),
+	//	glm::vec3(0.0f, 1.0f, 0.0f));
 
 	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 
@@ -126,13 +129,13 @@ int main(void)
 	shader.setMaterial("materialmap", materialmap);
 	shader.setLight("light", licht);
 	shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-	shader.setInt("shadowMap", 3);
+	shader.setInt("shadowMap", 2);
 
 	normal.bind();
 	normal.setMaterial("materialmap", materialmap);
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-	normal.setInt("shadowMap", 3);
+	normal.setInt("shadowMap", 2);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(1, 0, 0));
 	
@@ -157,7 +160,7 @@ int main(void)
 
 		shadow_map.bind();
 		window.clear();
-
+		glCullFace(GL_FRONT);
 		//Wall
 		shadow.bind();
 		shadow.setMat4("V", lightView);
@@ -171,6 +174,7 @@ int main(void)
 		//Crate
 		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
 		crate.render(window, shadow);
+		glCullFace(GL_BACK);
 
 		//----------------------------------------------------------------------------------------------
 
@@ -183,7 +187,7 @@ int main(void)
 		normal.bind();
 		brickwall.bind(0);
 		brickwall_normal.bind(1);
-		shadow_map.getTexture().bind(3);
+		shadow_map.getTexture().bind(2);
 		normal.setMVP(glm::translate(glm::mat4(1),
 									 glm::vec3(0, 5.0f, -5.0f)),
 									 camera.getView(), camera.getProjection());
@@ -194,7 +198,6 @@ int main(void)
 		//Plane
 		fabric.bind(0);
 		fabric_normal.bind(1);
-		normal.bind();
 		normal.setMat4("M", glm::mat4(1));
 		normal.setMaterial("material", material);
 		mesh.render(window, normal);
@@ -210,6 +213,7 @@ int main(void)
 		shader.setVec3("viewPos", camera.getPosition());
 		diffuse.bind(0);
 		specular.bind(1);
+		shadow_map.getTexture().bind(2);
 		crate.render(window, shader);
 
 		//Render light
