@@ -148,8 +148,27 @@ int main(void)
 
 		camera.processInput(0.005f);
 
+		shadow_map.bind();
+		window.clear();
+
+		//Wall
+		shadow.bind();
+		shadow.setMat4("V", lightView);
+		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
+		wall.render(window, shadow);
+
+		//Plane
+		shadow.setMat4("M", glm::mat4(1));
+		mesh.render(window, shadow);
+
+		//Crate
+		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
+		crate.render(window, shadow);
+
+		//----------------------------------------------------------------------------------------------
+
 		//Render scene
-		/*fbo.bind();
+		fbo.bind();
 		window.clear();
 
 		
@@ -186,37 +205,19 @@ int main(void)
 		crate.render(window, shader);
 
 		//Render light
-		lightPos = rotate * glm::vec4(lightPos, 1);
+		//lightPos = rotate * glm::vec4(lightPos, 1);
 
 		basic.bind();
 		basic.setMVP(glm::translate(glm::mat4(1), lightPos), camera.getView(), camera.getProjection());
 		basic.setInt("u_set", 1);
-		light.render(window, basic);*/
-
-		shadow_map.bind();
-		window.clear();
-
-		//Wall
-		shadow.bind();
-		shadow.setMat4("V", lightView);
-		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
-		wall.render(window, shadow);
-
-		//Plane
-		shadow.setMat4("M", glm::mat4(1));
-		mesh.render(window, shadow);
-
-		//Crate
-		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
-		crate.render(window, shadow);
-
+		light.render(window, basic);
 
 		//Render to quad
-		shadow_map.unbind();
+		fbo.unbind();
 		window.clear();
 		post.bind();
-		shadow_map.getTexture().bind();
-		quad.render(window, post);
+		fbo.getTexture().bind();
+		quad.render(window, post);		
 
 		window.spinOnce();
 
