@@ -40,6 +40,11 @@ public:
 	void attachDepthMap();
 
 	/**
+	*	\brief Disable color attachement
+	*/
+	void disableColor();
+
+	/**
 	*	\brief Attaches a Depth/Stencil Renderbuffer to the Framebuffer
 	*/
 	void attachRenderBuffer();

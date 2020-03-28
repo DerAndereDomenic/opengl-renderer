@@ -50,6 +50,13 @@ FrameBuffer::attachDepthMap()
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _render_texture.getID(), 0);
 }
 
+void FrameBuffer::disableColor()
+{
+	bind();
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+}
+
 bool
 FrameBuffer::verify()
 {
