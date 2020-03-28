@@ -32,7 +32,7 @@ uniform sampler2D shadowMap;
 
 float shadowCalculation(vec4 fragPositionLightSpace)
 {
-	float bias = 0.001;
+	float bias = 0.00001;//3125;
 	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 

@@ -117,9 +117,9 @@ int main(void)
 	materialmap.specular = 1;
 	materialmap.shininess = 256.0f*0.4;
 
-	//glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
+	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 
-	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 50.0f);
+	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 50.0f);
 	glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	//glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
 	//	glm::vec3(0.0f, 0.0f, 0.0f),
