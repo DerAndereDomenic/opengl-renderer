@@ -167,6 +167,8 @@
     <None Include="src\Shader\GLShaders\Normal.vert" />
     <None Include="src\Shader\GLShaders\Post.frag" />
     <None Include="src\Shader\GLShaders\Post.vert" />
+    <None Include="src\Shader\GLShaders\Shadow.frag" />
+    <None Include="src\Shader\GLShaders\Shadow.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
