@@ -164,7 +164,7 @@ int main(void)
 		glViewport(0, 0, 5000, 5000);
 		shadow_map.bind();
 		window.clear();
-		glCullFace(GL_FRONT);
+
 		//Wall
 		shadow.bind();
 		shadow.setMat4("V", lightView);
@@ -182,8 +182,6 @@ int main(void)
 		//Suzanne
 		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 		suzanne.render(window, shadow);
-
-		glCullFace(GL_BACK);
 
 		//----------------------------------------------------------------------------------------------
 		glViewport(0, 0, width, height);
