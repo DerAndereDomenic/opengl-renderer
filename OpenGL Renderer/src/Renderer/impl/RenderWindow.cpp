@@ -67,6 +67,18 @@ RenderWindow::render(VertexArray& vao, IndexBuffer& ibo, Shader& shader)
 	glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
 }
 
+void
+RenderWindow::setViewport(const unsigned int width, const unsigned int height)
+{
+	glViewport(0, 0, width, height);
+}
+
+void
+RenderWindow::resetViewport()
+{
+	glViewport(0, 0, _width, _height);
+}
+
 void 
 RenderWindow::clear(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 {

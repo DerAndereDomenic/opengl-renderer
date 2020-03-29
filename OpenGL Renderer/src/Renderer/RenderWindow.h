@@ -69,6 +69,18 @@ public:
 	bool isOpen();
 
 	/**
+	*	\brief Sets the viewport (location = (0,0))
+	*	\param[in] width The width of the viewport
+	*	\param[in] height The height of the viewport
+	*/
+	void setViewport(const unsigned int width, const unsigned int height);
+
+	/**
+	*	\brief Resets the viewport to the original window size
+	*/
+	void resetViewport();
+
+	/**
 	*	\brief Get the underlying GLFW window
 	*	\return The GLFWwindow*
 	*/
