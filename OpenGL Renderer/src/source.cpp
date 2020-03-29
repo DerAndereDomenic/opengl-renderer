@@ -101,7 +101,7 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::vec3 lightPos(5, 15, 10);
+	glm::vec3 lightPos(0, 15, 10);
 	//lightPos = glm::vec3(-2.0f, 4.0f, -1.0f);
 	Material material;
 	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
@@ -149,6 +149,8 @@ int main(void)
 	shadow.setMat4("P", lightProjection);
 	shadow.setMat4("V", lightView);
 
+	float a = 0.01;
+
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
@@ -163,6 +165,9 @@ int main(void)
 		}
 
 		camera.processInput(0.005f);
+		lightPos.x += a;
+
+		if (std::fabs(lightPos.x) > 5) a *= -1.0f;
 
 		window.setViewport(shadow_width, shadow_height);
 		shadow_map.bind();
