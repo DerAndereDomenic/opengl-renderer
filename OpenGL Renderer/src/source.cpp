@@ -17,6 +17,9 @@ int main(void)
 	unsigned int width = 1280;
 	unsigned int height = 720;
 
+	unsigned int shadow_width = 10000;
+	unsigned int shadow_height = 10000;
+
 	float near = 0.1f;
 	float far = 500.0f;
 
@@ -89,7 +92,7 @@ int main(void)
 	fbo.verify();
 	fbo.unbind();
 
-	FrameBuffer shadow_map = FrameBuffer::createObject(5000, 5000);
+	FrameBuffer shadow_map = FrameBuffer::createObject(shadow_width, shadow_height);
 	shadow_map.attachDepthMap();
 	shadow_map.disableColor();
 	shadow_map.verify();
@@ -161,7 +164,7 @@ int main(void)
 
 		camera.processInput(0.005f);
 
-		glViewport(0, 0, 5000, 5000);
+		window.setViewport(shadow_width, shadow_height);
 		shadow_map.bind();
 		window.clear();
 
@@ -184,7 +187,7 @@ int main(void)
 		suzanne.render(window, shadow);
 
 		//----------------------------------------------------------------------------------------------
-		glViewport(0, 0, width, height);
+		window.resetViewport();
 		//Render scene
 		fbo.bind();
 		window.clear();
