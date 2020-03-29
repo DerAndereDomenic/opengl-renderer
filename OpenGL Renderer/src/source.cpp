@@ -172,6 +172,8 @@ int main(void)
 		window.setViewport(shadow_width, shadow_height);
 		shadow_map.bind();
 		window.clear();
+		lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		lightSpaceMatrix = lightProjection * lightView;
 
 		//Wall
 		shadow.bind();
@@ -200,6 +202,7 @@ int main(void)
 		
 		//Wall
 		normal.bind();
+		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 		brickwall.bind(0);
 		brickwall_normal.bind(1);
 		shadow_map.getTexture().bind(2);
@@ -220,6 +223,7 @@ int main(void)
 
 		//Crate
 		shader.bind();
+		shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 		shader.setMVP(glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)),
 									 camera.getView(),
 									 camera.getProjection());
