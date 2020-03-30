@@ -143,7 +143,7 @@ int main(void)
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 	normal.setInt("shadowMap", 2);
 
-	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(1, 0, 0));
+	glm::mat4 rotate = glm::rotate(glm::mat4(1), -0.001f, glm::vec3(1, 0, 0));
 	
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
