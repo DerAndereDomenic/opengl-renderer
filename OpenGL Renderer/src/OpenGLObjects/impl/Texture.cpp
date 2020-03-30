@@ -19,6 +19,7 @@ Texture::createObject(const char* file_path)
 	int width;
 	int height;
 	int nr_channels;
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(file_path, &width, &height, &nr_channels, 0);
 
 	if (data)
