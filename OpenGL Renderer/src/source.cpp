@@ -51,6 +51,9 @@ int main(void)
 	Texture fabric = Texture::createObject("res/fabric.png");
 	Texture fabric_normal = Texture::createObject("res/fabric_normal.png");
 
+	Texture helloworld = Texture::createObject("res/hallo_welt.png");
+	Texture helloworld_normal = Texture::createObject("res/hallo_welt.png");
+
 	normal.bind();
 	normal.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
@@ -270,6 +273,8 @@ int main(void)
 	Texture::destroyObject(brickwall_normal);
 	Texture::destroyObject(fabric);
 	Texture::destroyObject(fabric_normal);
+	Texture::destroyObject(helloworld);
+	Texture::destroyObject(helloworld_normal);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
