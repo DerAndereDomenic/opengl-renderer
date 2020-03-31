@@ -1,9 +1,9 @@
 #include <IO/ObjLoader.h>
 
 Mesh
-ObjLoader::loadObj(const char* path) 
+ObjLoader::loadObj(const char* path, const bool calcTangent) 
 {
-	Mesh output_mesh = Mesh::createObject();
+	Mesh output_mesh = Mesh::createObject(calcTangent);
 
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	std::vector<glm::vec3> temp_vertices, temp_normals;
