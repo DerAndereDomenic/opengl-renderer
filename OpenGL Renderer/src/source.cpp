@@ -89,7 +89,7 @@ int main(void)
 	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
 	suzanne.create();
 
-	Mesh hello = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 0.2f, 10.0f, 10.0f, true);
+	Mesh hello = ObjLoader::loadObj("res/wall_detail.obj", true);// MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 0.2f, 10.0f, 10.0f, true);
 	hello.create();
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
