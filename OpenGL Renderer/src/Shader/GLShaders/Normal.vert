@@ -15,11 +15,18 @@ uniform mat4 V;
 uniform mat4 P;
 uniform mat4 lightSpaceMatrix;
 
+struct MaterialMap
+{
+	sampler2D diffuse;
+	sampler2D specular;
+	float shininess;
+};
+
 uniform sampler2D heightMap;
+uniform MaterialMap materialmap;
 
 void main()
 {
-	gl_Position = P*V*M*vec4(position, 1);
 	frag_position = vec3(M*vec4(position,1));
 	frag_tex = tex;
 
@@ -28,6 +35,13 @@ void main()
 	vec3 B = normalize(cross(normal, T));
 	vec3 N = normalize(vec3(M*vec4(normal, 0)));
 	mat3 TBN = mat3(T, B, N);
+
+	//Displacement
+	float stretchfactor = 0.1;
+	float displacement = texture(heightMap, tex).r;
+	frag_position += stretchfactor * displacement * N;
+
+	gl_Position = P*V*vec4(frag_position, 1);
 
 	frag_position_light_space = lightSpaceMatrix * vec4(frag_position, 1);
 
