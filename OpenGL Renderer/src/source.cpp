@@ -148,6 +148,7 @@ int main(void)
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 	normal.setInt("shadowMap", 2);
+	normal.setInt("heightMap", 3);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), -0.001f, glm::vec3(1, 0, 0));
 	
@@ -220,8 +221,10 @@ int main(void)
 		//Hello World wall
 		helloworld.bind(0);
 		helloworld_normal.bind(1);
+		helloworld.bind(3);
 		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-5.0f, 5.0f, 0)));
 		hello.render(window, normal);
+		helloworld.unbind();
 
 		//Plane
 		fabric.bind(0);
