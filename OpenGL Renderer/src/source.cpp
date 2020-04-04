@@ -107,7 +107,7 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	glm::vec3 lightPos(0, 0, 15);
+	glm::vec3 lightPos(0, 5, 15);
 	//lightPos = glm::vec3(-2.0f, 4.0f, -1.0f);
 	Material material;
 	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
@@ -150,7 +150,7 @@ int main(void)
 	normal.setInt("shadowMap", 2);
 	normal.setInt("heightMap", 3);
 
-	glm::mat4 rotate = glm::rotate(glm::mat4(1), -0.001f, glm::vec3(1, 0, 0));
+	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
 	
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
