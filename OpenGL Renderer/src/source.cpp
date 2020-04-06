@@ -71,7 +71,9 @@ int main(void)
 
 	quad.create();
 
-	Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
+	//Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
+	//mesh.create();
+	Mesh mesh = ObjLoader::loadObj("res/plane.obj", true);
 	mesh.create();
 
 	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
@@ -193,7 +195,7 @@ int main(void)
 		window.resetViewport();
 		//Render scene
 		fbo.bind();
-		window.clear();
+		window.clear(0.0,191.0/255.0,1.0);
 
 		
 		//Wall
