@@ -51,9 +51,6 @@ int main(void)
 	Texture fabric = Texture::createObject("res/fabric.png");
 	Texture fabric_normal = Texture::createObject("res/fabric_normal.png");
 
-	Texture helloworld = Texture::createObject("res/hallo_welt.png");
-	Texture helloworld_normal = Texture::createObject("res/hallo_welt_normal.png");
-
 	normal.bind();
 	normal.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
@@ -88,9 +85,6 @@ int main(void)
 
 	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
 	suzanne.create();
-
-	Mesh hello = ObjLoader::loadObj("res/wall_detail.obj", true);// MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 0.2f, 10.0f, 10.0f, true);
-	hello.create();
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachColor();
@@ -183,10 +177,6 @@ int main(void)
 		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
 		wall.render(window, shadow);
 
-		//Hello World wall
-		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-5.0f, 5.0f, 0)));
-		hello.render(window, shadow);
-
 		//Plane
 		shadow.setMat4("M", glm::mat4(1));
 		mesh.render(window, shadow);
@@ -217,14 +207,6 @@ int main(void)
 									 camera.getView(), camera.getProjection());
 		normal.setVec3("light.position", lightPos);
 		wall.render(window, normal);
-
-		//Hello World wall
-		helloworld.bind(0);
-		helloworld_normal.bind(1);
-		helloworld.bind(3);
-		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(-5.0f, 5.0f, 0)));
-		hello.render(window, normal);
-		helloworld.unbind();
 
 		//Plane
 		fabric.bind(0);
@@ -288,8 +270,6 @@ int main(void)
 	Texture::destroyObject(brickwall_normal);
 	Texture::destroyObject(fabric);
 	Texture::destroyObject(fabric_normal);
-	Texture::destroyObject(helloworld);
-	Texture::destroyObject(helloworld_normal);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
@@ -297,7 +277,6 @@ int main(void)
 	Mesh::destroyObject(crate);
 	Mesh::destroyObject(wall);
 	Mesh::destroyObject(suzanne);
-	Mesh::destroyObject(hello);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(shadow_map);
 
