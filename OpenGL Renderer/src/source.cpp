@@ -27,9 +27,6 @@ int main(void)
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window, near, far);
 
-	Shader shader = Shader::createObject("src/Shader/GLShaders/Lightning.vert",
-								         "src/Shader/GLShaders/Lightning.frag");
-
 	Shader post = Shader::createObject("src/Shader/GLShaders/Post.vert",
 		                               "src/Shader/GLShaders/Post.frag");
 
@@ -53,9 +50,6 @@ int main(void)
 
 	normal.bind();
 	normal.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
-
-	shader.bind();
-	shader.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
 
 	Mesh quad = Mesh::createObject();
 
@@ -120,6 +114,8 @@ int main(void)
 	MaterialMap materialmap;
 	materialmap.diffuse = 0;
 	materialmap.specular = 1;
+	materialmap.normal = 2;
+	materialmap.height = 3;
 	materialmap.shininess = 256.0f*0.4;
 
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
@@ -132,19 +128,11 @@ int main(void)
 
 	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 
-	shader.bind();
-	shader.setMaterial("material", material);
-	shader.setMaterial("materialmap", materialmap);
-	shader.setLight("light", licht);
-	shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-	shader.setInt("shadowMap", 2);
-
 	normal.bind();
 	normal.setMaterial("materialmap", materialmap);
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-	normal.setInt("shadowMap", 2);
-	normal.setInt("heightMap", 3);
+	normal.setInt("shadowMap", 4);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
 	
@@ -202,8 +190,9 @@ int main(void)
 		normal.bind();
 		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 		brickwall.bind(0);
-		brickwall_normal.bind(1);
-		shadow_map.getTexture().bind(2);
+		brickwall.bind(1);
+		brickwall_normal.bind(2);
+		shadow_map.getTexture().bind(4);
 		normal.setMVP(glm::translate(glm::mat4(1),
 									 glm::vec3(0, 5.0f, -5.0f)),
 									 camera.getView(), camera.getProjection());
@@ -212,30 +201,26 @@ int main(void)
 
 		//Plane
 		fabric.bind(0);
-		fabric_normal.bind(1);
+		fabric.bind(1);
+		fabric_normal.bind(2);
 		normal.setMat4("M", glm::mat4(1));
 		normal.setMaterial("material", material);
 		mesh.render(window, normal);
 
 
 		//Crate
-		shader.bind();
-		shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-		shader.setMVP(glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)),
-									 camera.getView(),
-									 camera.getProjection());
-		shader.setBool("useMap", true);
-		shader.setVec3("light.position", lightPos);
-		shader.setVec3("viewPos", camera.getPosition());
+		fabric_normal.unbind();
 		diffuse.bind(0);
 		specular.bind(1);
-		shadow_map.getTexture().bind(2);
-		crate.render(window, shader);
+		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
+		normal.setVec3("light.position", lightPos);
+		normal.setVec3("viewPos", camera.getPosition());
+		crate.render(window, normal);
 
 		//Suzanne
-		shader.setBool("useMap", false);
-		shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
-		suzanne.render(window, shader);
+		//shader.setBool("useMap", false);
+		//shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
+		//suzanne.render(window, shader);
 
 		//Render light
 		lightPos = rotate * glm::vec4(lightPos, 1);
@@ -260,7 +245,6 @@ int main(void)
 		}
 	}
 
-	Shader::destroyObject(shader);
 	Shader::destroyObject(post);
 	Shader::destroyObject(basic);
 	Shader::destroyObject(normal);
