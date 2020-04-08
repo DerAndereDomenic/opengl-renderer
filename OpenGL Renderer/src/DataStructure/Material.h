@@ -21,6 +21,8 @@ struct MaterialMap
 {
 	unsigned int diffuse; /**<< The diffuse map*/
 	unsigned int specular; /**<< The specular map*/
+	unsigned int normal; /**<< The normal map*/
+	unsigned int height; /**<< The height map*/
 	float shininess; /*<< The shininess of the material*/
 };
 
