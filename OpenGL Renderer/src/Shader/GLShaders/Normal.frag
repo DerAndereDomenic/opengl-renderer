@@ -52,8 +52,16 @@ void main(){
 	float mat_shininess = materialmap.shininess;
 
 	vec3 normal = texture(materialmap.normal_map, frag_tex).rgb;
-	vec3 norm = normalize(normal*2.0 - 1.0);
-	norm = normalize(frag_TBN * norm);
+	vec3 norm;
+	if(normal == 0)
+	{
+		norm = frag_TBN[2];
+	}
+	else
+	{
+	    norm = normalize(normal*2.0 - 1.0);
+		norm = normalize(frag_TBN * norm);
+	}
 
 	vec3 lightDir = normalize(light.position - frag_position);
 
