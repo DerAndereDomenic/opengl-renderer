@@ -48,10 +48,10 @@ void main(){
 
 	vec3 mat_ambient = vec3(texture(materialmap.diffuse, frag_tex));
 	vec3 mat_diffuse = vec3(texture(materialmap.diffuse, frag_tex));
-	vec3 mat_specular = vec3(texture(materialmap.diffuse, frag_tex));
+	vec3 mat_specular = vec3(texture(materialmap.specular, frag_tex));
 	float mat_shininess = materialmap.shininess;
 
-	vec3 normal = texture(materialmap.specular, frag_tex).rgb;
+	vec3 normal = texture(materialmap.normal_map, frag_tex).rgb;
 	vec3 norm = normalize(normal*2.0 - 1.0);
 	norm = normalize(frag_TBN * norm);
 
