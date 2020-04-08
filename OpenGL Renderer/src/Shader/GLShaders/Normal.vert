@@ -19,10 +19,11 @@ struct MaterialMap
 {
 	sampler2D diffuse;
 	sampler2D specular;
+	sampler2D normal_map;
+	sampler2D height_map;
 	float shininess;
 };
 
-uniform sampler2D heightMap;
 uniform MaterialMap materialmap;
 
 void main()
@@ -38,7 +39,7 @@ void main()
 
 	//Displacement
 	float stretchfactor = 0.1;
-	float displacement = texture(heightMap, tex).r;
+	float displacement = texture(materialmap.height_map, tex).r;
 	frag_position += stretchfactor * displacement * N;
 
 	gl_Position = P*V*vec4(frag_position, 1);

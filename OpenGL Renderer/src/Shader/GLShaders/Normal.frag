@@ -23,6 +23,8 @@ struct MaterialMap
 {
 	sampler2D diffuse;
 	sampler2D specular;
+	sampler2D normal_map;
+	sampler2D height_map;
 	float shininess;
 };
 
