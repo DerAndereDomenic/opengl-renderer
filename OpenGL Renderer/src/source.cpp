@@ -130,6 +130,7 @@ int main(void)
 
 	normal.bind();
 	normal.setMaterial("materialmap", materialmap);
+	normal.setMaterial("material", material);
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 	normal.setInt("shadowMap", 4);
@@ -188,6 +189,7 @@ int main(void)
 		
 		//Wall
 		normal.bind();
+		normal.setBool("useMap", true);
 		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 		brickwall.bind(0);
 		brickwall.bind(1);
@@ -204,9 +206,7 @@ int main(void)
 		fabric.bind(1);
 		fabric_normal.bind(2);
 		normal.setMat4("M", glm::mat4(1));
-		normal.setMaterial("material", material);
 		mesh.render(window, normal);
-
 
 		//Crate
 		fabric_normal.unbind();
@@ -218,9 +218,9 @@ int main(void)
 		crate.render(window, normal);
 
 		//Suzanne
-		//shader.setBool("useMap", false);
-		//shader.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
-		//suzanne.render(window, shader);
+		normal.setBool("useMap", false);
+		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
+		suzanne.render(window, normal);
 
 		//Render light
 		lightPos = rotate * glm::vec4(lightPos, 1);
