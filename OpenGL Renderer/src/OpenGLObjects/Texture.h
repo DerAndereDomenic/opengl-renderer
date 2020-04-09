@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include <vector>
+#include <string>
 
 enum Channels
 {
@@ -30,6 +31,7 @@ public:
 	*	\param[in] file_path The path to the cube textures
 	*	\param[in] faces The names of each face texture
 	*	\return The Cubemap object
+	*	\note The order should be: right, left, top, bottom, front, back
 	*/
 	static Texture createObject(const char* file_path, std::vector<std::string> faces);
 
