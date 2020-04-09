@@ -36,6 +36,9 @@ int main(void)
 	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
 										 "src/Shader/GLShaders/Normal.frag");
 
+	Shader skybox = Shader::createObject("src/Shader/GLShaders/Skybox.vert",
+										 "src/Shader/GLShaders/Skybox.frag");
+
 	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
 										 "src/Shader/GLShaders/Shadow.frag");
 
@@ -258,6 +261,7 @@ int main(void)
 	Shader::destroyObject(basic);
 	Shader::destroyObject(normal);
 	Shader::destroyObject(shadow);
+	Shader::destroyObject(skybox);
 	RenderWindow::destroyObject(window);
 	Texture::destroyObject(diffuse);
 	Texture::destroyObject(specular);
