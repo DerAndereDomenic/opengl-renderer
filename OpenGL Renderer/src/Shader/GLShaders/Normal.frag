@@ -7,7 +7,6 @@ in mat3 frag_TBN;
 in vec4 frag_position_light_space;
 
 uniform vec3 viewPos;
-uniform vec4 lightcolor;
 uniform bool useMap;
 
 struct Light
@@ -106,6 +105,6 @@ void main(){
 	float shadow = shadowCalculation(frag_position_light_space);
 	vec3 result = (ambient+ (1-shadow)*(diffuse+specular));
 
-	FragColor = lightcolor*vec4(result, 1.0);
+	FragColor = vec4(result, 1.0);
 
 }

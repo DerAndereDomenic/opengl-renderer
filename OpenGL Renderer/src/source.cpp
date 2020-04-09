@@ -48,9 +48,6 @@ int main(void)
 	Texture fabric = Texture::createObject("res/fabric.png");
 	Texture fabric_normal = Texture::createObject("res/fabric_normal.png");
 
-	normal.bind();
-	normal.setVec4("lightcolor", glm::vec4(1, 1, 1, 1));
-
 	Mesh quad = Mesh::createObject();
 
 	unsigned int id1, id2, id3, id4;
