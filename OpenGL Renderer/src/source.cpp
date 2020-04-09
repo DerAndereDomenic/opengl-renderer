@@ -218,7 +218,7 @@ int main(void)
 		mesh.render(window, normal);
 
 		//Crate
-		fabric_normal.unbind();
+		fabric_normal.unbind(2);
 		diffuse.bind(0);
 		specular.bind(1);
 		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
