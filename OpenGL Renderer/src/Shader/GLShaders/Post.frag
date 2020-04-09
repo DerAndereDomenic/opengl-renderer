@@ -41,4 +41,5 @@ void main()
 	}*/
 
 	FragColor = texture(screenTexture, frag_tex);
+	FragColor.rgb = pow(FragColor.rgb, vec3(1.0/2.2));
 }
