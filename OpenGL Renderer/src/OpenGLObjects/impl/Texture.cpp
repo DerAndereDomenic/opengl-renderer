@@ -14,7 +14,7 @@ Texture::createObject(const char* file_path)
 	int width;
 	int height;
 	int nr_channels;
-	stbi_set_flip_vertically_on_load(true);
+
 	unsigned char* data = stbi_load(file_path, &width, &height, &nr_channels, 0);
 
 	if (data)
@@ -60,7 +60,6 @@ Texture::createObject(const char* file_path, std::vector<std::string> faces)
 	glBindTexture(GL_TEXTURE_CUBE_MAP, result._ID);
 
 	int width, height, nr_channels;
-
 	for (unsigned int i = 0; i < faces.size(); ++i)
 	{
 		std::string path = (file_path + faces[i]);
