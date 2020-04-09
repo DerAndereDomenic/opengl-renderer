@@ -11,11 +11,6 @@ Texture::createObject(const char* file_path)
 	glGenTextures(1, &result._ID);
 	glBindTexture(GL_TEXTURE_2D, result._ID);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
 	int width;
 	int height;
 	int nr_channels;
@@ -46,6 +41,13 @@ Texture::createObject(const char* file_path)
 	}
 
 	stbi_image_free(data);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	result._target = GL_TEXTURE_2D;
 
 	return result;
 }
@@ -95,6 +97,8 @@ Texture::createObject(const char* file_path, std::vector<std::string> faces)
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
+	result._target = GL_TEXTURE_CUBE_MAP;
+
 	return result;
 }
 
@@ -107,6 +111,8 @@ Texture::createObject(const unsigned int width, const unsigned int height, const
 	glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, channels, type, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	result._target = GL_TEXTURE_2D;
 
 	return result;
 }
@@ -121,7 +127,7 @@ void
 Texture::bind(const unsigned int tex) const
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
-	glBindTexture(GL_TEXTURE_2D, _ID);
+	glBindTexture(_target, _ID);
 }
 
 void 

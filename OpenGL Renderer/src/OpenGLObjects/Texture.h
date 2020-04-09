@@ -72,6 +72,7 @@ public:
 	inline unsigned int getID(){return _ID;}
 private:
 	unsigned int _ID; /**<< The internal openGL handle for the texture*/
+	unsigned int _target; /**<< The texture target*/
 };
 
 #endif
