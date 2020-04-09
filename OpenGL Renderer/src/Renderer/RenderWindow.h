@@ -81,6 +81,16 @@ public:
 	void resetViewport();
 
 	/**
+	*	\brief Enables depth testing
+	*/
+	void enableDepthWriting();
+
+	/**
+	*	\brief Disables depth testing
+	*/
+	void disableDepthWriting();
+
+	/**
 	*	\brief Get the underlying GLFW window
 	*	\return The GLFWwindow*
 	*/

@@ -79,6 +79,18 @@ RenderWindow::resetViewport()
 	glViewport(0, 0, _width, _height);
 }
 
+void
+RenderWindow::enableDepthWriting()
+{
+	glDepthMask(GL_TRUE);
+}
+
+void
+RenderWindow::disableDepthWriting()
+{
+	glDepthMask(GL_FALSE);
+}
+
 void 
 RenderWindow::clear(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 {
