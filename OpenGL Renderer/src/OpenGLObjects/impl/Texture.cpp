@@ -131,7 +131,8 @@ Texture::bind(const unsigned int tex) const
 }
 
 void 
-Texture::unbind() const
+Texture::unbind(const unsigned int tex) const
 {
+	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

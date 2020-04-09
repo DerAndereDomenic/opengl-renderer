@@ -62,8 +62,9 @@ public:
 
 	/**
 	*	\brief Unbinds the texture (bind 0)
+	*	\param[in] tex The texture index (default = 0)
 	*/
-	void unbind() const;
+	void unbind(const unsigned int tex = 0) const;
 
 	/**
 	*	\brief The OpenGL handle of this texture
