@@ -36,7 +36,7 @@ int main(void)
 	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
 										 "src/Shader/GLShaders/Normal.frag");
 
-	Shader skybox = Shader::createObject("src/Shader/GLShaders/Skybox.vert",
+	Shader skybox_shader = Shader::createObject("src/Shader/GLShaders/Skybox.vert",
 										 "src/Shader/GLShaders/Skybox.frag");
 
 	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
@@ -140,6 +140,9 @@ int main(void)
 
 	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 
+	skybox_shader.bind();
+	skybox_shader.setInt("skybox", 0);
+
 	normal.bind();
 	normal.setMaterial("materialmap", materialmap);
 	normal.setMaterial("material", material);
@@ -198,6 +201,16 @@ int main(void)
 		fbo.bind();
 		window.clear(0.0,191.0/255.0,1.0);
 
+		//Skybox
+		//Use vertex data of the light block
+		window.disableDepthWriting();
+		skybox_shader.bind();
+		skybox.bind(0);
+		skybox_shader.setMVP(glm::mat4(1),
+							 glm::mat4(glm::mat3(camera.getView())),
+							 camera.getProjection());
+		light.render(window, skybox_shader);
+		window.enableDepthWriting();
 		
 		//Wall
 		normal.bind();
@@ -261,7 +274,7 @@ int main(void)
 	Shader::destroyObject(basic);
 	Shader::destroyObject(normal);
 	Shader::destroyObject(shadow);
-	Shader::destroyObject(skybox);
+	Shader::destroyObject(skybox_shader);
 	RenderWindow::destroyObject(window);
 	Texture::destroyObject(diffuse);
 	Texture::destroyObject(specular);
