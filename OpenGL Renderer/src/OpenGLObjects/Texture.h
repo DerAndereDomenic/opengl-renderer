@@ -2,6 +2,7 @@
 #define OPENGL_OBJECTS_TEXTURE_H
 
 #include <GL/glew.h>
+#include <vector>
 
 enum Channels
 {
@@ -23,6 +24,14 @@ public:
 	*	\return The Texture object
 	*/
 	static Texture createObject(const char* file_path);
+
+	/**
+	*	\brief Creates a Cubemap texture
+	*	\param[in] file_path The path to the cube textures
+	*	\param[in] faces The names of each face texture
+	*	\return The Cubemap object
+	*/
+	static Texture createObject(const char* file_path, std::vector<std::string> faces);
 
 	/**
 	*	\brief Create an empty Texture
