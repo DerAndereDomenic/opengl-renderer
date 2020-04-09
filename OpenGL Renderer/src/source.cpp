@@ -188,7 +188,7 @@ int main(void)
 		mesh.render(window, shadow);
 
 		//Crate
-		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
+		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
 		crate.render(window, shadow);
 
 		//Suzanne
@@ -237,7 +237,7 @@ int main(void)
 		fabric_normal.unbind(2);
 		diffuse.bind(0);
 		specular.bind(1);
-		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.6, 0)));
+		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
 		normal.setVec3("light.position", lightPos);
 		normal.setVec3("viewPos", camera.getPosition());
 		crate.render(window, normal);
