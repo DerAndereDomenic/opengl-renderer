@@ -24,20 +24,21 @@ Texture::createObject(const char* file_path)
 
 	if (data)
 	{
+		unsigned int channels;
 		if (nr_channels == 4)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
+			channels = GL_RGBA;
 		}
 		else if (nr_channels == 3)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
+			channels = GL_RGB;
 		}
 		else
 		{
 			std::cerr << "ERROR::TEXTURE Wrong format. Number of channels: " << nr_channels << ". Only 3 or 4 are supported" << std::endl;
 		}
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, channels, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 	{
