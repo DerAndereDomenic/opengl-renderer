@@ -48,6 +48,18 @@ int main(void)
 	Texture fabric = Texture::createObject("res/fabric.png");
 	Texture fabric_normal = Texture::createObject("res/fabric_normal.png");
 
+	std::vector<std::string> faces =
+	{
+		"right.jpg",
+		"left.jpg",
+		"top.jpg",
+		"bottom.jpg",
+		"front.jpg",
+		"back.jpg"
+	};
+
+	Texture skybox = Texture::createObject("res/skybox/", faces);
+
 	Mesh quad = Mesh::createObject();
 
 	unsigned int id1, id2, id3, id4;
