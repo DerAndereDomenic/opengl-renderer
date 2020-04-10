@@ -22,7 +22,7 @@ FrameBuffer::destroyObject(FrameBuffer& object)
 	object._width = 0;
 	object._height = 0;
 	glDeleteFramebuffers(1, &object._ID);
-	Texture::destroyObject(object._render_texture);
+	Texture::destroyObject(object._render_textures[0]);
 	RenderBuffer::destroyObject(object._depth_stencil);
 }
 
@@ -30,8 +30,8 @@ void
 FrameBuffer::attachColor()
 {
 	bind();
-	_render_texture = Texture::createObject(_width, _height);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _render_texture.getID(), 0);
+	_render_textures.push_back(Texture::createObject(_width, _height));
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _render_textures[0].getID(), 0);
 }
 
 void
@@ -46,8 +46,8 @@ void
 FrameBuffer::attachDepthMap()
 {
 	bind();
-	_render_texture = Texture::createObject(_width, _height, DEPTH, GL_FLOAT);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _render_texture.getID(), 0);
+	_render_textures.push_back(Texture::createObject(_width, _height, DEPTH, GL_FLOAT));
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _render_textures[0].getID(), 0);
 }
 
 void FrameBuffer::disableColor()
