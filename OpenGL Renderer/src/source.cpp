@@ -141,6 +141,10 @@ int main(void)
 
 	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 
+	post.bind();
+	post.setInt("screenTexture", 0);
+	post.setInt("lightTexture", 1);
+
 	skybox_shader.bind();
 	skybox_shader.setInt("skybox", 0);
 
@@ -263,7 +267,8 @@ int main(void)
 		fbo.unbind();
 		window.clear();
 		post.bind();
-		fbo.getTexture().bind();
+		fbo.getTexture(0).bind(0);
+		fbo.getTexture(1).bind(1);
 		quad.render(window, post);		
 
 		window.spinOnce();
