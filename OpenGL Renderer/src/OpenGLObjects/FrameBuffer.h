@@ -52,7 +52,7 @@ public:
 
 	/**
 	*	\brief Verify if the Framebuffer is complete
-	*	\return true if all necessary attachements are given
+	*	\return true if all necessary attachments are given
 	*/
 	bool verify();
 
@@ -67,10 +67,11 @@ public:
 	void unbind();
 
 	/**
-	*	\brief The color attachement of the fbo
-	*	\return The Texture for the Color attachement
+	*	\brief The color attachment of the fbo
+	*	\param[in] index The index of the color attachment
+	*	\return The Texture for the Color attachment
 	*/
-	inline Texture getTexture() { return _render_textures[0]; }
+	inline Texture getTexture(const unsigned int index = 0) { return _render_textures[index]; }
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the fbo*/
 	std::vector<Texture> _render_textures; /**<< The Color textures of this fbo*/
