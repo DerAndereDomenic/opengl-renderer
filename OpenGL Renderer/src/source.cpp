@@ -96,6 +96,7 @@ int main(void)
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachColor();
+	fbo.attachColor();
 	fbo.attachRenderBuffer();
 	fbo.verify();
 	fbo.unbind();
@@ -200,6 +201,7 @@ int main(void)
 		//Render scene
 		fbo.bind();
 		window.clear(0.0,191.0/255.0,1.0);
+		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
 		//Skybox
 		//Use vertex data of the light block
@@ -249,6 +251,8 @@ int main(void)
 
 		//Render light
 		lightPos = rotate * glm::vec4(lightPos, 1);
+		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+		glDrawBuffers(2, attachments);
 
 		basic.bind();
 		basic.setMVP(glm::translate(glm::mat4(1), lightPos), camera.getView(), camera.getProjection());
