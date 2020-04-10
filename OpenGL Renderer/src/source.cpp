@@ -204,7 +204,7 @@ int main(void)
 		window.resetViewport();
 		//Render scene
 		fbo.bind();
-		window.clear(0.0,191.0/255.0,1.0);
+		window.clear();
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
 		//Skybox
