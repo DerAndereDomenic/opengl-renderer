@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include "OpenGLObjects/Texture.h"
+#include "Shader/Shader.h"
 
 /**
 *	\brief A struct to model a material
@@ -23,8 +24,9 @@ public:
 
 	/**
 	*	\brief Binds the material (i.e. the textures)
+	*	\param[in] shader The shader the material should get binded to
 	*/
-	void bind();
+	void bind(Shader shader);
 
 	bool useTextures = false; /**<< Toggle the use of textures*/
 	glm::vec3 ambient; /**<< The ambient part of the material*/
