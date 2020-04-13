@@ -18,6 +18,12 @@ public:
 	Material() = default;
 
 	/**
+	*	\brief Create an object with a given name
+	*	\param[in] name The name of the material (used in shader)
+	*/
+	static Material createObject(const std::string& name);
+
+	/**
 	*	\brief Destroys the object
 	*	\note Also destroys the texture instances
 	*/
@@ -40,6 +46,8 @@ public:
 	Texture texture_height; /**<< The displacement map texture*/
 
 	float shininess; /**<< The shininess of the material*/
+private:
+	std::string _name;
 };
 
 #endif
