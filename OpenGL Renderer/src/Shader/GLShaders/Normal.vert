@@ -17,10 +17,16 @@ uniform mat4 lightSpaceMatrix;
 
 struct MaterialMap
 {
-	sampler2D diffuse;
-	sampler2D specular;
+	bool useTextures;
+	sampler2D diffuse_map;
+	sampler2D specular_map;
 	sampler2D normal_map;
 	sampler2D height_map;
+
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+
 	float shininess;
 };
 
