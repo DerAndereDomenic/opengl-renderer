@@ -111,13 +111,6 @@ public:
 	void setMaterial(const std::string& name, Material material);
 
 	/**
-	*	\brief Set the material map of the objects in the next draw call
-	*	\param[in] name The name of the material map struct in the shader
-	*	\param[in] material The material map for the next draw call
-	*/
-	void setMaterial(const std::string& name, MaterialMap material);
-
-	/**
 	*	\brief Set the light for the next draw call
 	*	\param[in] name The name of the light struct in the shader
 	*	\param[in] light The light for the next draw call
