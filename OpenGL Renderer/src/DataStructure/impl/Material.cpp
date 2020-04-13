@@ -12,8 +12,10 @@ Material::destroyObject(Material& object)
 		Texture::destroyObject(object.texture_normal);
 		Texture::destroyObject(object.texture_height);
 	}
+	object.ambient = glm::vec3(0, 0, 0);
+	object.diffuse = glm::vec3(0, 0, 0);
+	object.specular = glm::vec3(0, 0, 0);
 }
-
 
 void 
 Material::bind(Shader shader)

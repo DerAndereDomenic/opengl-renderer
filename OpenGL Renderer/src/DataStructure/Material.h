@@ -31,8 +31,8 @@ public:
 
 	bool useTextures = false; /**<< Toggle the use of textures*/
 	glm::vec3 ambient = glm::vec3(0, 0, 0); /**<< The ambient part of the material*/
-	glm::vec3 diffuse = glm::vec3(0, 0, 0);; /**<< The diffuse part of the material*/
-	glm::vec3 specular = glm::vec3(0, 0, 0);; /**<< The specular part of the material*/
+	glm::vec3 diffuse = glm::vec3(0, 0, 0); /**<< The diffuse part of the material*/
+	glm::vec3 specular = glm::vec3(0, 0, 0); /**<< The specular part of the material*/
 
 	Texture texture_diffuse; /**<< The diffuse texture*/
 	Texture texture_specular; /**<< The specular texture*/
