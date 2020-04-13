@@ -1,5 +1,5 @@
 #include "DataStructure/Material.h"
-
+#include "Shader/Shader.h"
 
 void 
 Material::destroyObject(Material& object)
@@ -15,4 +15,8 @@ Material::destroyObject(Material& object)
 }
 
 
-void bind();
+void 
+Material::bind(Shader shader)
+{
+	
+}

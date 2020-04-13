@@ -3,7 +3,8 @@
 
 #include <glm/glm.hpp>
 #include "OpenGLObjects/Texture.h"
-#include "Shader/Shader.h"
+
+class Shader;
 
 /**
 *	\brief A struct to model a material
