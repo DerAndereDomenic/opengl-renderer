@@ -107,6 +107,9 @@
     <ClInclude Include="src\IO\ObjLoader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\DataStructure\RenderObject.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shader\GLShaders\basic.vert" />

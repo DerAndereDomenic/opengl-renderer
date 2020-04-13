@@ -7,8 +7,25 @@
 /**
 *	\brief A struct to model a material
 */
-struct Material
+class Material
 {
+public:
+	/**
+	*	\brief Creates an empty object
+	*/
+	Material() = default;
+
+	/**
+	*	\brief Destroys the object
+	*	\note Also destroys the texture instances
+	*/
+	static void destroyObject(Material& object);
+
+	/**
+	*	\brief Binds the material (i.e. the textures)
+	*/
+	void bind();
+
 	bool useTextures = false; /**<< Toggle the use of textures*/
 	glm::vec3 ambient; /**<< The ambient part of the material*/
 	glm::vec3 diffuse; /**<< The diffuse part of the material*/

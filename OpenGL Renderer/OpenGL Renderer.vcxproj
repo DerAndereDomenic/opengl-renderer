@@ -145,6 +145,7 @@
     <ClInclude Include="src\DataStructure\Material.h" />
     <ClInclude Include="src\DataStructure\Mesh.h" />
     <ClInclude Include="src\DataStructure\MeshHelper.h" />
+    <ClInclude Include="src\DataStructure\RenderObject.h" />
     <ClInclude Include="src\IO\KeyManager.h" />
     <ClInclude Include="src\IO\ObjLoader.h" />
     <ClInclude Include="src\OpenGLObjects\FrameBuffer.h" />
