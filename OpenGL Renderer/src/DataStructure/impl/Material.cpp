@@ -29,6 +29,7 @@ Material::destroyObject(Material& object)
 void 
 Material::bind(Shader shader)
 {
+	shader.bind();
 	shader.setBool(_name + ".useTextures", useTextures);
 	if (useTextures)
 	{
