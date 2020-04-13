@@ -1,6 +1,14 @@
 #include "DataStructure/Material.h"
 #include "Shader/Shader.h"
 
+Material
+Material::createObject(const std::string& name)
+{
+	Material result;
+	result._name = name;
+	return result;
+}
+
 void 
 Material::destroyObject(Material& object)
 {
