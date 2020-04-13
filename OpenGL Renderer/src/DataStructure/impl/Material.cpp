@@ -23,6 +23,7 @@ Material::destroyObject(Material& object)
 	object.ambient = glm::vec3(0, 0, 0);
 	object.diffuse = glm::vec3(0, 0, 0);
 	object.specular = glm::vec3(0, 0, 0);
+	object.shininess = 0;
 }
 
 void 

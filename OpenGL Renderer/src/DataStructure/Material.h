@@ -45,7 +45,7 @@ public:
 	Texture texture_normal; /**<< The normal map texture*/
 	Texture texture_height; /**<< The displacement map texture*/
 
-	float shininess; /**<< The shininess of the material*/
+	float shininess = 0; /**<< The shininess of the material*/
 private:
 	std::string _name;
 };
