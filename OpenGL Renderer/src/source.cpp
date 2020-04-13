@@ -112,11 +112,6 @@ int main(void)
 
 	glm::vec3 lightPos(0, 5, 15);
 	//lightPos = glm::vec3(-2.0f, 4.0f, -1.0f);
-	Material material;
-	material.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
-	material.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
-	material.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
-	material.shininess =  128.0f*0.4f;
 
 	Light licht;
 	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
@@ -142,12 +137,14 @@ int main(void)
 	skybox_shader.setInt("skybox", 0);
 
 	normal.bind();
-	normal.setInt("materialmap.diffuse", 0);
-	normal.setInt("materialmap.specular", 1);
+	normal.setInt("materialmap.diffuse_map", 0);
+	normal.setInt("materialmap.specular_map", 1);
 	normal.setInt("materialmap.normal_map", 2);
 	normal.setInt("materialmap.height_map", 3);
 	normal.setFloat("materialmap.shininess", 128.0f * 0.4f);
-	normal.setMaterial("material", material);
+	normal.setVec3("materialmap.ambient", glm::vec3(0.24725f, 0.1995f, 0.0745f));
+	normal.setVec3("materialmap.diffuse", glm::vec3(0.75164f, 0.60648f, 0.22648f));
+	normal.setVec3("materialmap.specular", glm::vec3(0.628281f, 0.555802f, 0.366065f));
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 	normal.setInt("shadowMap", 4);
@@ -217,7 +214,7 @@ int main(void)
 		
 		//Wall
 		normal.bind();
-		normal.setBool("useMap", true);
+		normal.setBool("materialmap.useTextures", true);
 		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 		brickwall.bind(0);
 		brickwall.bind(1);
@@ -246,7 +243,7 @@ int main(void)
 		crate.render(window, normal);
 
 		//Suzanne
-		normal.setBool("useMap", false);
+		normal.setBool("materialmap.useTextures", false);
 		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 		suzanne.render(window, normal);
 
