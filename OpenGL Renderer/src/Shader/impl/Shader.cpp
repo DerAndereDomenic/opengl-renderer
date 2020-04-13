@@ -158,15 +158,6 @@ Shader::setMVP(glm::mat4 M, glm::mat4 V, glm::mat4 P)
 }
 
 void
-Shader::setMaterial(const std::string& name, Material material)
-{
-	setVec3(name + ".ambient", material.ambient);
-	setVec3(name + ".diffuse", material.diffuse);
-	setVec3(name + ".specular", material.specular);
-	setFloat(name +".shininess", material.shininess);
-}
-
-void
 Shader::setLight(const std::string& name, Light light)
 {
 	setVec3(name + ".ambient", light.ambient);

@@ -104,13 +104,6 @@ public:
 	void setMVP(glm::mat4 M = glm::mat4(1), glm::mat4 V = glm::mat4(1), glm::mat4 P = glm::mat4(1));
 
 	/**
-	*	\brief Set the material of the objects in the next draw call
-	*	\param[in] name The name of the material struct in the shader
-	*	\param[in] material The material for the next draw call
-	*/
-	void setMaterial(const std::string& name, Material material);
-
-	/**
 	*	\brief Set the light for the next draw call
 	*	\param[in] name The name of the light struct in the shader
 	*	\param[in] light The light for the next draw call
