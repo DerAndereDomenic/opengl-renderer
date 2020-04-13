@@ -44,9 +44,12 @@ void main()
 	mat3 TBN = mat3(T, B, N);
 
 	//Displacement
-	float stretchfactor = 0.1;
-	float displacement = texture(materialmap.height_map, tex).r;
-	frag_position += stretchfactor * displacement * N;
+	if(materialmap.useTextures)
+	{
+		float stretchfactor = 0.1;
+		float displacement = texture(materialmap.height_map, tex).r;
+		frag_position += stretchfactor * displacement * N;
+	}
 
 	gl_Position = P*V*vec4(frag_position, 1);
 

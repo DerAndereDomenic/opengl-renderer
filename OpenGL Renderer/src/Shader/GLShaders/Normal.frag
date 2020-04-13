@@ -106,7 +106,7 @@ void main(){
 
 	vec3 normal = texture(materialmap.normal_map, frag_tex).rgb;
 	vec3 norm;
-	if(normal == 0)
+	if(normal == 0 || !materialmap.useTextures)
 	{
 		norm = frag_TBN[2];
 	}
