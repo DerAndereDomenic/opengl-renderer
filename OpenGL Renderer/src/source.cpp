@@ -42,14 +42,31 @@ int main(void)
 	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
 										 "src/Shader/GLShaders/Shadow.frag");
 
-	Texture diffuse = Texture::createObject("res/crate_diffuse.png");
-	Texture specular = Texture::createObject("res/crate_specular.png");
+	Material mat_crate = Material::createObject("materialmap");
+	mat_crate.texture_diffuse = Texture::createObject("res/crate_diffuse.png");
+	mat_crate.texture_specular = Texture::createObject("res/crate_specular.png");
+	mat_crate.useTextures = true;
+	mat_crate.shininess = 0.4f * 128.0f;
 
-	Texture brickwall = Texture::createObject("res/brickwall.png");
-	Texture brickwall_normal = Texture::createObject("res/brickwall_normal.png");
+	Material mat_brick = Material::createObject("materialmap");
+	mat_brick.texture_diffuse = Texture::createObject("res/brickwall.png");
+	mat_brick.texture_specular = mat_brick.texture_diffuse;
+	mat_brick.texture_normal = Texture::createObject("res/brickwall_normal.png");
+	mat_brick.useTextures = true;
+	mat_brick.shininess = 0.4f * 128.0f;
 
-	Texture fabric = Texture::createObject("res/fabric.png");
-	Texture fabric_normal = Texture::createObject("res/fabric_normal.png");
+	Material mat_fabric = Material::createObject("materialmap");
+	mat_fabric.texture_diffuse = Texture::createObject("res/fabric.png");
+	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
+	mat_fabric.texture_normal = Texture::createObject("res/fabric_normal.png");
+	mat_fabric.useTextures = true;
+	mat_fabric.shininess = 0.4f * 128.0f; 
+
+	Material mat_suzanne = Material::createObject("materialmap");
+	mat_suzanne.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
+	mat_suzanne.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
+	mat_suzanne.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
+	mat_suzanne.shininess = 0.4f * 128.0f;
 
 	std::vector<std::string> faces =
 	{
@@ -141,10 +158,6 @@ int main(void)
 	normal.setInt("materialmap.specular_map", 1);
 	normal.setInt("materialmap.normal_map", 2);
 	normal.setInt("materialmap.height_map", 3);
-	normal.setFloat("materialmap.shininess", 128.0f * 0.4f);
-	normal.setVec3("materialmap.ambient", glm::vec3(0.24725f, 0.1995f, 0.0745f));
-	normal.setVec3("materialmap.diffuse", glm::vec3(0.75164f, 0.60648f, 0.22648f));
-	normal.setVec3("materialmap.specular", glm::vec3(0.628281f, 0.555802f, 0.366065f));
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 	normal.setInt("shadowMap", 4);
@@ -213,12 +226,10 @@ int main(void)
 		window.enableDepthWriting();
 		
 		//Wall
-		normal.bind();
-		normal.setBool("materialmap.useTextures", true);
+		mat_brick.bind(normal);
+		normal.setVec3("light.position", lightPos);
+		normal.setVec3("viewPos", camera.getPosition());
 		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-		brickwall.bind(0);
-		brickwall.bind(1);
-		brickwall_normal.bind(2);
 		shadow_map.getTexture().bind(4);
 		normal.setMVP(glm::translate(glm::mat4(1),
 									 glm::vec3(0, 5.0f, -5.0f)),
@@ -227,23 +238,17 @@ int main(void)
 		wall.render(window, normal);
 
 		//Plane
-		fabric.bind(0);
-		fabric.bind(1);
-		fabric_normal.bind(2);
+		mat_fabric.bind(normal);
 		normal.setMat4("M", glm::mat4(1));
 		mesh.render(window, normal);
 
 		//Crate
-		fabric_normal.unbind(2);
-		diffuse.bind(0);
-		specular.bind(1);
+		mat_crate.bind(normal);
 		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
-		normal.setVec3("light.position", lightPos);
-		normal.setVec3("viewPos", camera.getPosition());
 		crate.render(window, normal);
 
 		//Suzanne
-		normal.setBool("materialmap.useTextures", false);
+		mat_suzanne.bind(normal);
 		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 		suzanne.render(window, normal);
 
@@ -279,12 +284,10 @@ int main(void)
 	Shader::destroyObject(shadow);
 	Shader::destroyObject(skybox_shader);
 	RenderWindow::destroyObject(window);
-	Texture::destroyObject(diffuse);
-	Texture::destroyObject(specular);
-	Texture::destroyObject(brickwall);
-	Texture::destroyObject(brickwall_normal);
-	Texture::destroyObject(fabric);
-	Texture::destroyObject(fabric_normal);
+	Material::destroyObject(mat_crate);
+	Material::destroyObject(mat_brick);
+	Material::destroyObject(mat_fabric);
+	Material::destroyObject(mat_suzanne);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
