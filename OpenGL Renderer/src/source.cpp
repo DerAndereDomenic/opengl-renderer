@@ -66,7 +66,7 @@ int main(void)
 	mat_suzanne.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
 	mat_suzanne.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
 	mat_suzanne.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
-	mat_suzanne.shininess = 0.4f * 128.0f;
+	mat_suzanne.shininess = 0.4f * 16.0f;
 
 	std::vector<std::string> faces =
 	{
@@ -154,10 +154,6 @@ int main(void)
 	skybox_shader.setInt("skybox", 0);
 
 	normal.bind();
-	normal.setInt("materialmap.diffuse_map", 0);
-	normal.setInt("materialmap.specular_map", 1);
-	normal.setInt("materialmap.normal_map", 2);
-	normal.setInt("materialmap.height_map", 3);
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 	normal.setInt("shadowMap", 4);
