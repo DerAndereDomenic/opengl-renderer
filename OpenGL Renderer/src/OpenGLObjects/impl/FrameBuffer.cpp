@@ -67,9 +67,10 @@ bool
 FrameBuffer::verify()
 {
 	bind();
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	unsigned int error = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	if (error != GL_FRAMEBUFFER_COMPLETE)
 	{
-		std::cerr << "ERROR::FRAMEBUFFER:: Framebuffer is not complete" << std::endl;
+		std::cerr << "ERROR::FRAMEBUFFER:: Framebuffer is not complete: " << error << std::endl;
 		return false;
 	}
 	return true;
