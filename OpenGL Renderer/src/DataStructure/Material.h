@@ -41,16 +41,4 @@ public:
 	float shininess; /**<< The shininess of the material*/
 };
 
-/**
-*	\brief A struct to model a material using diffuse and specular maps
-*/
-struct MaterialMap
-{
-	unsigned int diffuse; /**<< The diffuse map*/
-	unsigned int specular; /**<< The specular map*/
-	unsigned int normal; /**<< The normal map*/
-	unsigned int height; /**<< The height map*/
-	float shininess; /*<< The shininess of the material*/
-};
-
 #endif
