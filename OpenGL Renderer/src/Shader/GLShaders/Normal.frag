@@ -7,7 +7,6 @@ in mat3 frag_TBN;
 in vec4 frag_position_light_space;
 
 uniform vec3 viewPos;
-uniform bool useMap;
 
 struct Light
 {
@@ -21,10 +20,16 @@ uniform Light light;
 
 struct MaterialMap
 {
-	sampler2D diffuse;
-	sampler2D specular;
+	bool useTextures;
+	sampler2D diffuse_map;
+	sampler2D specular_map;
 	sampler2D normal_map;
 	sampler2D height_map;
+
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+
 	float shininess;
 };
 
@@ -37,8 +42,6 @@ struct Material
 	vec3 specular;
 	float shininess;
 };
-
-uniform Material material;
 
 uniform sampler2D shadowMap;
 
@@ -85,16 +88,19 @@ void main(){
 
 	Material object_material;
 
-	if(useMap)
+	if(materialmap.useTextures)
 	{
-		object_material.ambient = vec3(texture(materialmap.diffuse, frag_tex));
-		object_material.diffuse = vec3(texture(materialmap.diffuse, frag_tex));
-		object_material.specular = vec3(texture(materialmap.specular, frag_tex));
+		object_material.ambient = vec3(texture(materialmap.diffuse_map, frag_tex));
+		object_material.diffuse = vec3(texture(materialmap.diffuse_map, frag_tex));
+		object_material.specular = vec3(texture(materialmap.specular_map, frag_tex));
 		object_material.shininess = materialmap.shininess;
 	}
 	else
 	{
-		object_material = material;
+		object_material.ambient = materialmap.ambient;
+		object_material.diffuse = materialmap.diffuse;
+		object_material.specular = materialmap.specular;
+		object_material.shininess = materialmap.shininess;
 	}
 
 
