@@ -124,13 +124,6 @@ int main(void)
 	licht.specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	licht.position =  lightPos;
 
-	MaterialMap materialmap;
-	materialmap.diffuse = 0;
-	materialmap.specular = 1;
-	materialmap.normal = 2;
-	materialmap.height = 3;
-	materialmap.shininess = 256.0f*0.4;
-
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 
 	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 50.0f);
@@ -149,7 +142,11 @@ int main(void)
 	skybox_shader.setInt("skybox", 0);
 
 	normal.bind();
-	normal.setMaterial("materialmap", materialmap);
+	normal.setInt("materialmap.diffuse", 0);
+	normal.setInt("materialmap.specular", 1);
+	normal.setInt("materialmap.normal_map", 2);
+	normal.setInt("materialmap.height_map", 3);
+	normal.setFloat("materialmap.shininess", 128.0f * 0.4f);
 	normal.setMaterial("material", material);
 	normal.setLight("light", licht);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);

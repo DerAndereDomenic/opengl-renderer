@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DataStructure\impl\Material.cpp" />
     <ClCompile Include="src\DataStructure\impl\Mesh.cpp" />
     <ClCompile Include="src\DataStructure\impl\MeshHelper.cpp" />
     <ClCompile Include="src\IO\impl\KeyManager.cpp" />
