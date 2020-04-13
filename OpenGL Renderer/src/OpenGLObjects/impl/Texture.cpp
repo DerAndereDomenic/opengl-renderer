@@ -120,6 +120,7 @@ void
 Texture::destroyObject(Texture& texture)
 {
 	glDeleteTextures(1, &texture._ID);
+	texture._ID = 0;
 }
 
 void 
