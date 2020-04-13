@@ -37,7 +37,7 @@ Material::bind(Shader shader)
 		shader.setInt(_name + ".specular_map", 1);
 		shader.setInt(_name + ".normal_map", 2);
 		shader.setInt(_name + ".height_map", 3);
-		shader.setInt(_name + ".shininess", shininess);
+		shader.setFloat(_name + ".shininess", shininess);
 
 		texture_diffuse.bind(0);
 		texture_specular.bind(1);
