@@ -73,7 +73,7 @@ public:
 	inline unsigned int getID(){return _ID;}
 private:
 	unsigned int _ID = 0; /**<< The internal openGL handle for the texture*/
-	unsigned int _target; /**<< The texture target*/
+	unsigned int _target = GL_TEXTURE_2D; /**<< The texture target*/
 };
 
 #endif
