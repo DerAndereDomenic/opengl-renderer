@@ -105,11 +105,19 @@ int main(void)
 
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
 
+	RenderObject obj_light2 = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
+
 	Light light1;
 	light1.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	light1.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	light1.specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	light1.position = lightPos;
+
+	Light light2;
+	light2.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+	light2.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	light2.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	light2.position = lightPos;
 
 	std::vector<std::string> faces =
 	{
@@ -194,6 +202,7 @@ int main(void)
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
 	light1.position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(light1.position, 1);
+	light2.position = glm::rotate(glm::mat4(1), -3.14159f / 4.0f, glm::vec3(0, 1, 0)) * glm::vec4(light2.position, 1);
 	
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
@@ -285,6 +294,9 @@ int main(void)
 
 		obj_light.setModel(glm::translate(glm::mat4(1), light1.position));
 		obj_light.render(window, normal);
+
+		obj_light2.setModel(glm::translate(glm::mat4(1), light2.position));
+		obj_light2.render(window, normal);
 
 		//Render to quad
 		fbo.unbind();
