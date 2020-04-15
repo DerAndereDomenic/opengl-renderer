@@ -167,7 +167,7 @@ int main(void)
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 
 	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 50.0f);
-	glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 lightView = glm::lookAt(licht.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	//glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
 	//	glm::vec3(0.0f, 0.0f, 0.0f),
 	//	glm::vec3(0.0f, 1.0f, 0.0f));
@@ -210,7 +210,7 @@ int main(void)
 		window.setViewport(shadow_width, shadow_height);
 		shadow_map.bind();
 		window.clear();
-		lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		lightView = glm::lookAt(licht.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		lightSpaceMatrix = lightProjection * lightView;
 
 		//Wall
@@ -250,12 +250,11 @@ int main(void)
 		
 		//Light
 		normal.bind();
-		normal.setVec3("light.position", lightPos);
+		normal.setVec3("light.position", licht.position);
 		normal.setVec3("viewPos", camera.getPosition());
 		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 		shadow_map.getTexture().bind(4);
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		normal.setVec3("light.position", lightPos);
 
 		//Wall
 		obj_wall.render(window, normal);
@@ -273,12 +272,12 @@ int main(void)
 		obj_table.render(window, normal);
 
 		//Render light
-		lightPos = rotate * glm::vec4(lightPos, 1);
+		licht.position = rotate * glm::vec4(licht.position, 1);
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
 		basic.bind();
-		basic.setMVP(glm::translate(glm::mat4(1), lightPos), camera.getView(), camera.getProjection());
+		basic.setMVP(glm::translate(glm::mat4(1), licht.position), camera.getView(), camera.getProjection());
 		basic.setInt("u_set", 1);
 		light.render(window, basic);
 
