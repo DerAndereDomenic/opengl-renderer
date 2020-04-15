@@ -108,15 +108,15 @@ int main(void)
 	RenderObject obj_light2 = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
 
 	Light light1;
-	light1.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-	light1.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	light1.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	light1.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
+	light1.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
+	light1.specular = glm::vec3(1.0f, 0.0f, 0.0f);
 	light1.position = lightPos;
 
 	Light light2;
-	light2.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-	light2.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	light2.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	light2.ambient = glm::vec3(0.0f, 0.1f, 0.0f);
+	light2.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
+	light2.specular = glm::vec3(0.0f, 1.0f, 0.0f);
 	light2.position = lightPos;
 
 	std::vector<std::string> faces =
