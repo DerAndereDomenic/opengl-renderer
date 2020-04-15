@@ -9,11 +9,13 @@ out vec3 frag_position;
 out vec2 frag_tex;
 out mat3 frag_TBN;
 out vec4 frag_position_light_space;
+out vec4 frag_position_light_space2;
 
 uniform mat4 M;
 uniform mat4 V;
 uniform mat4 P;
 uniform mat4 lightSpaceMatrix;
+uniform mat4 lightSpaceMatrix2;
 
 struct MaterialMap
 {
@@ -54,6 +56,7 @@ void main()
 	gl_Position = P*V*vec4(frag_position, 1);
 
 	frag_position_light_space = lightSpaceMatrix * vec4(frag_position, 1);
+	frag_position_light_space = lightSpaceMatrix2 * vec4(frag_position, 1);
 
 	frag_TBN = TBN;
 }
