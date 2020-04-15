@@ -97,6 +97,14 @@ int main(void)
 	glm::vec3 lightPos(0, 5, 15);
 	//lightPos = glm::vec3(-2.0f, 4.0f, -1.0f);
 
+	Material mat_lamp = Material::createObject("materialmap");
+	mat_lamp.ambient = glm::vec3(10, 10, 10);
+	mat_lamp.diffuse = glm::vec3(1, 1, 1);
+	mat_lamp.specular = glm::vec3(1, 1, 1);
+	mat_lamp.shininess = 128.0f * 0.4;
+
+	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
+
 	Light licht;
 	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	licht.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -135,9 +143,6 @@ int main(void)
 
 	Shader post = Shader::createObject("src/Shader/GLShaders/Post.vert",
 		"src/Shader/GLShaders/Post.frag");
-
-	Shader basic = Shader::createObject("src/Shader/GLShaders/basic.vert",
-		"src/Shader/GLShaders/basic.frag");
 
 	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
 		"src/Shader/GLShaders/Normal.frag");
@@ -276,10 +281,8 @@ int main(void)
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
-		basic.bind();
-		basic.setMVP(glm::translate(glm::mat4(1), licht.position), camera.getView(), camera.getProjection());
-		basic.setInt("u_set", 1);
-		light.render(window, basic);
+		obj_light.setModel(glm::translate(glm::mat4(1), licht.position));
+		obj_light.render(window, normal);
 
 		//Render to quad
 		fbo.unbind();
@@ -298,14 +301,13 @@ int main(void)
 	}
 
 	Shader::destroyObject(post);
-	Shader::destroyObject(basic);
 	Shader::destroyObject(normal);
 	Shader::destroyObject(shadow);
 	Shader::destroyObject(skybox_shader);
 	RenderWindow::destroyObject(window);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(quad);
-	Mesh::destroyObject(light);
+	RenderObject::destroyObject(obj_light);
 	RenderObject::destroyObject(obj_crate);
 	RenderObject::destroyObject(obj_fabric);
 	RenderObject::destroyObject(obj_suzanne);
