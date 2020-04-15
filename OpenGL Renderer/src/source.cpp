@@ -105,11 +105,11 @@ int main(void)
 
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
 
-	Light licht;
-	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-	licht.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	licht.specular = glm::vec3(1.0f, 1.0f, 1.0f);
-	licht.position = lightPos;
+	Light light1;
+	light1.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+	light1.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	light1.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	light1.position = lightPos;
 
 	std::vector<std::string> faces =
 	{
@@ -172,7 +172,7 @@ int main(void)
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 
 	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 50.0f);
-	glm::mat4 lightView = glm::lookAt(licht.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	//glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
 	//	glm::vec3(0.0f, 0.0f, 0.0f),
 	//	glm::vec3(0.0f, 1.0f, 0.0f));
@@ -187,7 +187,7 @@ int main(void)
 	skybox_shader.setInt("skybox", 0);
 
 	normal.bind();
-	normal.setLight("light", licht);
+	normal.setLight("light", light1);
 	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 	normal.setInt("shadowMap", 4);
 
@@ -215,7 +215,7 @@ int main(void)
 		window.setViewport(shadow_width, shadow_height);
 		shadow_map.bind();
 		window.clear();
-		lightView = glm::lookAt(licht.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		lightSpaceMatrix = lightProjection * lightView;
 
 		//Wall
@@ -255,7 +255,7 @@ int main(void)
 		
 		//Light
 		normal.bind();
-		normal.setVec3("light.position", licht.position);
+		normal.setVec3("light.position", light1.position);
 		normal.setVec3("viewPos", camera.getPosition());
 		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 		shadow_map.getTexture().bind(4);
@@ -277,11 +277,11 @@ int main(void)
 		obj_table.render(window, normal);
 
 		//Render light
-		licht.position = rotate * glm::vec4(licht.position, 1);
+		light1.position = rotate * glm::vec4(light1.position, 1);
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
-		obj_light.setModel(glm::translate(glm::mat4(1), licht.position));
+		obj_light.setModel(glm::translate(glm::mat4(1), light1.position));
 		obj_light.render(window, normal);
 
 		//Render to quad
