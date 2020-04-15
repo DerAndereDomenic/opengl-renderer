@@ -175,16 +175,19 @@ int main(void)
 	shadow_map.unbind();
 	light1.shadow_map = shadow_map;
 
+	FrameBuffer shadow_map1 = FrameBuffer::createObject(shadow_width, shadow_height);
+	shadow_map1.attachDepthMap();
+	shadow_map1.disableColor();
+	shadow_map1.verify();
+	shadow_map1.unbind();
+	light2.shadow_map = shadow_map1;
+
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 
-	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 50.0f);
 	glm::mat4 lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
-	//	glm::vec3(0.0f, 0.0f, 0.0f),
-	//	glm::vec3(0.0f, 1.0f, 0.0f));
 
 	light1.lightSpace = lightProjection * lightView;
 
@@ -329,6 +332,7 @@ int main(void)
 	RenderObject::destroyObject(obj_table);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(shadow_map);
+	FrameBuffer::destroyObject(shadow_map1);
 
 	return 0;
 }
