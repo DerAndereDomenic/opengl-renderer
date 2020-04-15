@@ -188,8 +188,10 @@ int main(void)
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 
 	glm::mat4 lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 lightView2 = glm::lookAt(light2.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	light1.lightSpace = lightProjection * lightView;
+	light2.lightSpace = lightProjection * lightView2;
 
 	post.bind();
 	post.setInt("screenTexture", 0);
@@ -235,6 +237,28 @@ int main(void)
 		//Wall
 		shadow.bind();
 		shadow.setMat4("V", lightView);
+		obj_wall.render(window, shadow);
+
+		//Plane
+		obj_fabric.render(window, shadow);
+
+		//Crate
+		obj_crate.render(window, shadow);
+
+		//Suzanne
+		obj_suzanne.render(window, shadow);
+
+		//Table
+		obj_table.render(window, shadow);
+
+		light2.shadow_map.bind();
+		window.clear();
+		lightView2 = glm::lookAt(light2.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		light2.lightSpace = lightProjection * lightView2;
+
+		//Wall
+		shadow.bind();
+		shadow.setMat4("V", lightView2);
 		obj_wall.render(window, shadow);
 
 		//Plane
