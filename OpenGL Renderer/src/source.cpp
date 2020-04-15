@@ -286,17 +286,13 @@ int main(void)
 	Shader::destroyObject(shadow);
 	Shader::destroyObject(skybox_shader);
 	RenderWindow::destroyObject(window);
-	Material::destroyObject(mat_crate);
-	Material::destroyObject(mat_brick);
-	Material::destroyObject(mat_fabric);
-	Material::destroyObject(mat_suzanne);
 	Camera::destroyObject(camera);
-	Mesh::destroyObject(mesh);
 	Mesh::destroyObject(quad);
 	Mesh::destroyObject(light);
-	Mesh::destroyObject(crate);
-	Mesh::destroyObject(wall);
-	Mesh::destroyObject(suzanne);
+	RenderObject::destroyObject(obj_crate);
+	RenderObject::destroyObject(obj_fabric);
+	RenderObject::destroyObject(obj_suzanne);
+	RenderObject::destroyObject(obj_wall);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(shadow_map);
 
