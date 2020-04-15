@@ -204,20 +204,16 @@ int main(void)
 		//Wall
 		shadow.bind();
 		shadow.setMat4("V", lightView);
-		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
-		wall.render(window, shadow);
+		obj_wall.render(window, shadow);
 
 		//Plane
-		shadow.setMat4("M", glm::mat4(1));
-		mesh.render(window, shadow);
+		obj_fabric.render(window, shadow);
 
 		//Crate
-		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
-		crate.render(window, shadow);
+		obj_crate.render(window, shadow);
 
 		//Suzanne
-		shadow.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
-		suzanne.render(window, shadow);
+		obj_suzanne.render(window, shadow);
 
 		//----------------------------------------------------------------------------------------------
 		window.resetViewport();
@@ -237,32 +233,26 @@ int main(void)
 		light.render(window, skybox_shader);
 		window.enableDepthWriting();
 		
-		//Wall
-		mat_brick.bind(normal);
+		//Light
+		normal.bind();
 		normal.setVec3("light.position", lightPos);
 		normal.setVec3("viewPos", camera.getPosition());
 		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 		shadow_map.getTexture().bind(4);
-		normal.setMVP(glm::translate(glm::mat4(1),
-									 glm::vec3(0, 5.0f, -5.0f)),
-									 camera.getView(), camera.getProjection());
+		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		normal.setVec3("light.position", lightPos);
-		wall.render(window, normal);
+
+		//Wall
+		obj_wall.render(window, normal);
 
 		//Plane
-		mat_fabric.bind(normal);
-		normal.setMat4("M", glm::mat4(1));
-		mesh.render(window, normal);
+		obj_fabric.render(window, normal);
 
 		//Crate
-		mat_crate.bind(normal);
-		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
-		crate.render(window, normal);
+		obj_crate.render(window, normal);
 
 		//Suzanne
-		mat_suzanne.bind(normal);
-		normal.setMat4("M", glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
-		suzanne.render(window, normal);
+		obj_suzanne.render(window, normal);
 
 		//Render light
 		lightPos = rotate * glm::vec4(lightPos, 1);
