@@ -40,6 +40,8 @@ int main(void)
 	mat_crate.useTextures = true;
 	mat_crate.shininess = 0.4f * 128.0f;
 
+	RenderObject obj_crate = RenderObject::createObject(crate, mat_crate, glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
+
 	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
 	wall.create();
 
@@ -49,6 +51,8 @@ int main(void)
 	mat_brick.texture_normal = Texture::createObject("res/brickwall_normal.png");
 	mat_brick.useTextures = true;
 	mat_brick.shininess = 0.4f * 128.0f;
+
+	RenderObject obj_wall = RenderObject::createObject(wall, mat_brick, glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
 
 	//Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
 	//mesh.create();
@@ -62,6 +66,8 @@ int main(void)
 	mat_fabric.useTextures = true;
 	mat_fabric.shininess = 0.4f * 128.0f; 
 
+	RenderObject obj_fabric = RenderObject::createObject(mesh, mat_fabric, glm::mat4(1));
+
 	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
 	suzanne.create();
 
@@ -70,6 +76,8 @@ int main(void)
 	mat_suzanne.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
 	mat_suzanne.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
 	mat_suzanne.shininess = 0.4f * 16.0f;
+
+	RenderObject obj_suzanne = RenderObject::createObject(suzanne, mat_suzanne, glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
