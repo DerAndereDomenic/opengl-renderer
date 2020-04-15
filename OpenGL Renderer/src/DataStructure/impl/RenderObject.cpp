@@ -15,7 +15,9 @@ RenderObject::createObject(Mesh mesh, Material material, glm::mat4 model)
 void 
 RenderObject::destroyObject(RenderObject& object)
 {
-
+	Mesh::destroyObject(object._mesh);
+	Material::destroyObject(object._material);
+	object._model = glm::mat4(1);
 }
 
 void 
