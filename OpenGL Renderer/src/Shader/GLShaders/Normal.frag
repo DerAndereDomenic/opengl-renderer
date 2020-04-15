@@ -46,19 +46,19 @@ struct Material
 
 uniform sampler2D shadowMap[2];
 
-float shadowCalculation(vec4 fragPositionLightSpace)
+float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 {
 	float bias = 0.00001;//3125;
 	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 
-	float closestDepth = texture(shadowMap[0], projCoords.xy).r;
+	float closestDepth = texture(shadowMap, projCoords.xy).r;
 	float currentDepth = projCoords.z;
 
-	return currentDepth - bias > closestDepth ? 1.0 : 0.0;
+	return currentDepth - bias > closestDepth ? 1 : 0.0;
 }
 
-vec3 calcPointLight(Light plight, Material material, vec3 normal)
+vec3 calcPointLight(Light plight, Material material, vec3 normal, int pass)
 {
 	//Calculate directions
 	vec3 lightDir = normalize(plight.position - frag_position);
@@ -77,7 +77,7 @@ vec3 calcPointLight(Light plight, Material material, vec3 normal)
 	vec3 ambient = plight.ambient*material.ambient;
 
 	//Calculate shadow
-	float shadow = 0;//shadowCalculation(frag_position_light_space[0]);
+	float shadow = shadowCalculation(frag_position_light_space[pass], shadowMap[pass]);
 
 	//Combine light
 	vec3 result = (ambient+ (1-shadow)*(diffuse+specular));
@@ -117,8 +117,8 @@ void main(){
 		norm = normalize(frag_TBN * norm);
 	}
 
-	vec3 result = calcPointLight(light, object_material, norm);
-	result += calcPointLight(light2, object_material, norm);
+	vec3 result = calcPointLight(light, object_material, norm, 0);
+	result += calcPointLight(light2, object_material, norm, 1);
 
 	FragColor = vec4(result, 1.0);
 
