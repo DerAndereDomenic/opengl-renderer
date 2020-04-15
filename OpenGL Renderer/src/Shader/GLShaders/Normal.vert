@@ -8,14 +8,12 @@ layout (location = 4) in vec3 tangent;
 out vec3 frag_position;
 out vec2 frag_tex;
 out mat3 frag_TBN;
-out vec4 frag_position_light_space;
-out vec4 frag_position_light_space2;
+out vec4 frag_position_light_space[2];
 
 uniform mat4 M;
 uniform mat4 V;
 uniform mat4 P;
-uniform mat4 lightSpaceMatrix;
-uniform mat4 lightSpaceMatrix2;
+uniform mat4 lightSpaceMatrix[2];
 
 struct MaterialMap
 {
@@ -55,8 +53,8 @@ void main()
 
 	gl_Position = P*V*vec4(frag_position, 1);
 
-	frag_position_light_space = lightSpaceMatrix * vec4(frag_position, 1);
-	frag_position_light_space = lightSpaceMatrix2 * vec4(frag_position, 1);
+	frag_position_light_space[0] = lightSpaceMatrix[0] * vec4(frag_position, 1);
+	frag_position_light_space[1] = lightSpaceMatrix[1] * vec4(frag_position, 1);
 
 	frag_TBN = TBN;
 }

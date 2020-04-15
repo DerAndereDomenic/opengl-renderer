@@ -4,8 +4,7 @@ layout(location = 0) out vec4 FragColor;
 in vec3 frag_position;
 in vec2 frag_tex;
 in mat3 frag_TBN;
-in vec4 frag_position_light_space;
-in vec4 frag_position_light_space2;
+in vec4 frag_position_light_space[2];
 
 uniform vec3 viewPos;
 
@@ -78,7 +77,7 @@ vec3 calcPointLight(Light light, Material material, vec3 normal)
 	vec3 ambient = light.ambient*material.ambient;
 
 	//Calculate shadow
-	float shadow = shadowCalculation(frag_position_light_space);
+	float shadow = shadowCalculation(frag_position_light_space[0]);
 
 	//Combine light
 	vec3 result = (ambient+ (1-shadow)*(diffuse+specular));
