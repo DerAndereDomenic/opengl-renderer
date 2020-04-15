@@ -33,6 +33,12 @@ public:
 	*	\param[in] The shader that should be used for rendering
 	*/
 	void render(Shader shader);
+
+	/**
+	*	\brief Update the model matrix
+	*	\param[in] model The new model matrix
+	*/
+	void setModel(glm::mat4 model);
 	
 private:
 	Mesh _mesh; /**<< The mesh of the object*/
