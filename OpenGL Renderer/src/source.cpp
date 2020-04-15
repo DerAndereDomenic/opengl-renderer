@@ -42,6 +42,18 @@ int main(void)
 
 	RenderObject obj_crate = RenderObject::createObject(crate, mat_crate, glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
 
+	Mesh table = ObjLoader::loadObj("res/table/simple-table.obj", true);
+	table.create();
+
+	Material mat_table = Material::createObject("materialmap");
+	mat_table.texture_diffuse = Texture::createObject("res/table/table_diffuse.png");
+	mat_table.texture_specular = Texture::createObject("res/table/table_specular.png");
+	mat_table.texture_normal = Texture::createObject("res/table/table_normal.png");
+	mat_table.shininess = 128.0f * 0.4f;
+	mat_table.useTextures = true;
+
+	RenderObject obj_table = RenderObject::createObject(table, mat_table, glm::translate(glm::mat4(1), glm::vec3(-3, 0, 2)));
+
 	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
 	wall.create();
 
@@ -215,6 +227,9 @@ int main(void)
 		//Suzanne
 		obj_suzanne.render(window, shadow);
 
+		//Table
+		obj_table.render(window, shadow);
+
 		//----------------------------------------------------------------------------------------------
 		window.resetViewport();
 		//Render scene
@@ -253,6 +268,9 @@ int main(void)
 
 		//Suzanne
 		obj_suzanne.render(window, normal);
+
+		//Table
+		obj_table.render(window, normal);
 
 		//Render light
 		lightPos = rotate * glm::vec4(lightPos, 1);
@@ -293,6 +311,7 @@ int main(void)
 	RenderObject::destroyObject(obj_fabric);
 	RenderObject::destroyObject(obj_suzanne);
 	RenderObject::destroyObject(obj_wall);
+	RenderObject::destroyObject(obj_table);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(shadow_map);
 
