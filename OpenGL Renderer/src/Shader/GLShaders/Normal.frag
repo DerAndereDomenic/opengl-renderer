@@ -58,26 +58,26 @@ float shadowCalculation(vec4 fragPositionLightSpace)
 	return currentDepth - bias > closestDepth ? 1.0 : 0.0;
 }
 
-vec3 calcPointLight(Light light, Material material, vec3 normal)
+vec3 calcPointLight(Light plight, Material material, vec3 normal)
 {
 	//Calculate directions
-	vec3 lightDir = normalize(light.position - frag_position);
+	vec3 lightDir = normalize(plight.position - frag_position);
 	vec3 viewDir = normalize(viewPos - frag_position);
 	vec3 halfwayDir = normalize(lightDir+viewDir);
 
 	//Calculate diffuse part
 	float diff = max(dot(normal, lightDir), 0.0);
-	vec3 diffuse = (diff*material.diffuse)*light.diffuse;
+	vec3 diffuse = (diff*material.diffuse)*plight.diffuse;
 
 	//Calculate specular part
 	float spec = pow(max(dot(normal, halfwayDir), 0.0), material.shininess);
-	vec3 specular = (material.specular)*spec*light.specular;
+	vec3 specular = (material.specular)*spec*plight.specular;
 
 	//Calculate ambient part
-	vec3 ambient = light.ambient*material.ambient;
+	vec3 ambient = plight.ambient*material.ambient;
 
 	//Calculate shadow
-	float shadow = shadowCalculation(frag_position_light_space[0]);
+	float shadow = 0;//shadowCalculation(frag_position_light_space[0]);
 
 	//Combine light
 	vec3 result = (ambient+ (1-shadow)*(diffuse+specular));
