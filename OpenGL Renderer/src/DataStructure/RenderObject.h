@@ -43,7 +43,7 @@ public:
 private:
 	Mesh _mesh; /**<< The mesh of the object*/
 	Material _material; /**<< The material of the object*/
-	glm::mat4 _model; /**<< The model of the object*/
+	glm::mat4 _model = glm::mat4(1); /**<< The model of the object*/
 };
 
 #endif
