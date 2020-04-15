@@ -165,6 +165,7 @@ int main(void)
 	shadow_map.disableColor();
 	shadow_map.verify();
 	shadow_map.unbind();
+	light1.shadow_map = shadow_map;
 
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
@@ -177,7 +178,7 @@ int main(void)
 	//	glm::vec3(0.0f, 0.0f, 0.0f),
 	//	glm::vec3(0.0f, 1.0f, 0.0f));
 
-	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+	light1.lightSpace = lightProjection * lightView;
 
 	post.bind();
 	post.setInt("screenTexture", 0);
@@ -188,7 +189,7 @@ int main(void)
 
 	normal.bind();
 	normal.setLight("light", light1);
-	normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+	normal.setMat4("lightSpaceMatrix", light1.lightSpace);
 	normal.setInt("shadowMap", 4);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
@@ -213,10 +214,10 @@ int main(void)
 		camera.processInput(0.005f);
 
 		window.setViewport(shadow_width, shadow_height);
-		shadow_map.bind();
+		light1.shadow_map.bind();
 		window.clear();
 		lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		lightSpaceMatrix = lightProjection * lightView;
+		light1.lightSpace = lightProjection * lightView;
 
 		//Wall
 		shadow.bind();
@@ -257,8 +258,8 @@ int main(void)
 		normal.bind();
 		normal.setVec3("light.position", light1.position);
 		normal.setVec3("viewPos", camera.getPosition());
-		normal.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-		shadow_map.getTexture().bind(4);
+		normal.setMat4("lightSpaceMatrix", light1.lightSpace);
+		light1.shadow_map.getTexture().bind(4);
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 
 		//Wall
