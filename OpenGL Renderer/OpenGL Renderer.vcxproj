@@ -128,6 +128,7 @@
     <ClCompile Include="src\DataStructure\impl\Material.cpp" />
     <ClCompile Include="src\DataStructure\impl\Mesh.cpp" />
     <ClCompile Include="src\DataStructure\impl\MeshHelper.cpp" />
+    <ClCompile Include="src\DataStructure\impl\RenderObject.cpp" />
     <ClCompile Include="src\IO\impl\KeyManager.cpp" />
     <ClCompile Include="src\IO\impl\ObjLoader.cpp" />
     <ClCompile Include="src\OpenGLObjects\impl\FrameBuffer.cpp" />

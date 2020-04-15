@@ -4,6 +4,7 @@
 #include <OpenGLObjects/FrameBuffer.h>
 #include <DataStructure/Mesh.h>
 #include <DataStructure/MeshHelper.h>
+#include <DataStructure/RenderObject.h>
 #include <Shader/Shader.h>
 
 #include <IO/KeyManager.h>
@@ -27,26 +28,20 @@ int main(void)
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window, near, far);
 
-	Shader post = Shader::createObject("src/Shader/GLShaders/Post.vert",
-		                               "src/Shader/GLShaders/Post.frag");
-
-	Shader basic = Shader::createObject("src/Shader/GLShaders/basic.vert",
-										"src/Shader/GLShaders/basic.frag");
-
-	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
-										 "src/Shader/GLShaders/Normal.frag");
-
-	Shader skybox_shader = Shader::createObject("src/Shader/GLShaders/Skybox.vert",
-										 "src/Shader/GLShaders/Skybox.frag");
-
-	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
-										 "src/Shader/GLShaders/Shadow.frag");
+	//---------------------------------------------------------------------------------//
+	//                              SCENE SETUP                                        //
+	//---------------------------------------------------------------------------------//
+	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
+	crate.create();
 
 	Material mat_crate = Material::createObject("materialmap");
 	mat_crate.texture_diffuse = Texture::createObject("res/crate_diffuse.png");
 	mat_crate.texture_specular = Texture::createObject("res/crate_specular.png");
 	mat_crate.useTextures = true;
 	mat_crate.shininess = 0.4f * 128.0f;
+
+	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
+	wall.create();
 
 	Material mat_brick = Material::createObject("materialmap");
 	mat_brick.texture_diffuse = Texture::createObject("res/brickwall.png");
@@ -55,6 +50,11 @@ int main(void)
 	mat_brick.useTextures = true;
 	mat_brick.shininess = 0.4f * 128.0f;
 
+	//Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
+	//mesh.create();
+	Mesh mesh = ObjLoader::loadObj("res/plane.obj", true);
+	mesh.create();
+
 	Material mat_fabric = Material::createObject("materialmap");
 	mat_fabric.texture_diffuse = Texture::createObject("res/fabric.png");
 	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
@@ -62,11 +62,26 @@ int main(void)
 	mat_fabric.useTextures = true;
 	mat_fabric.shininess = 0.4f * 128.0f; 
 
+	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
+	suzanne.create();
+
 	Material mat_suzanne = Material::createObject("materialmap");
 	mat_suzanne.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
 	mat_suzanne.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
 	mat_suzanne.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
 	mat_suzanne.shininess = 0.4f * 16.0f;
+
+	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
+	light.create();
+
+	glm::vec3 lightPos(0, 5, 15);
+	//lightPos = glm::vec3(-2.0f, 4.0f, -1.0f);
+
+	Light licht;
+	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+	licht.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	licht.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	licht.position = lightPos;
 
 	std::vector<std::string> faces =
 	{
@@ -94,22 +109,24 @@ int main(void)
 
 	quad.create();
 
-	//Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
-	//mesh.create();
-	Mesh mesh = ObjLoader::loadObj("res/plane.obj", true);
-	mesh.create();
+	//---------------------------------------------------------------------------------//
+	//                              RENDERING SETUP                                    //
+	//---------------------------------------------------------------------------------//
 
-	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
-	wall.create();
+	Shader post = Shader::createObject("src/Shader/GLShaders/Post.vert",
+		"src/Shader/GLShaders/Post.frag");
 
-	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
-	light.create();
+	Shader basic = Shader::createObject("src/Shader/GLShaders/basic.vert",
+		"src/Shader/GLShaders/basic.frag");
 
-	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
-	crate.create();
+	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
+		"src/Shader/GLShaders/Normal.frag");
 
-	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
-	suzanne.create();
+	Shader skybox_shader = Shader::createObject("src/Shader/GLShaders/Skybox.vert",
+		"src/Shader/GLShaders/Skybox.frag");
+
+	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
+		"src/Shader/GLShaders/Shadow.frag");
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachColor();
@@ -126,15 +143,6 @@ int main(void)
 
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
-
-	glm::vec3 lightPos(0, 5, 15);
-	//lightPos = glm::vec3(-2.0f, 4.0f, -1.0f);
-
-	Light licht;
-	licht.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-	licht.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	licht.specular = glm::vec3(1.0f, 1.0f, 1.0f);
-	licht.position =  lightPos;
 
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 
