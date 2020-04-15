@@ -193,6 +193,7 @@ int main(void)
 	normal.setInt("shadowMap", 4);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
+	light1.position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(light1.position, 1);
 	
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
@@ -278,7 +279,7 @@ int main(void)
 		obj_table.render(window, normal);
 
 		//Render light
-		light1.position = rotate * glm::vec4(light1.position, 1);
+		//light1.position = rotate * glm::vec4(light1.position, 1);
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
