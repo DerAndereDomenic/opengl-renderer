@@ -44,7 +44,7 @@ struct Material
 	float shininess;
 };
 
-uniform sampler2D shadowMap;
+uniform sampler2D shadowMap[2];
 
 float shadowCalculation(vec4 fragPositionLightSpace)
 {
@@ -52,7 +52,7 @@ float shadowCalculation(vec4 fragPositionLightSpace)
 	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 
-	float closestDepth = texture(shadowMap, projCoords.xy).r;
+	float closestDepth = texture(shadowMap[0], projCoords.xy).r;
 	float currentDepth = projCoords.z;
 
 	return currentDepth - bias > closestDepth ? 1.0 : 0.0;

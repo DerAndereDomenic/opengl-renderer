@@ -205,8 +205,8 @@ int main(void)
 	normal.setLight("light2", light2);
 	normal.setMat4("lightSpaceMatrix[0]", light1.lightSpace);
 	normal.setMat4("lightSpaceMatrix[1]", light2.lightSpace);
-	normal.setInt("shadowMap", 4);
-	normal.setInt("shadowMap2", 5);
+	normal.setInt("shadowMap[0]", 4);
+	normal.setInt("shadowMap[1]", 5);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
 	light1.position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(light1.position, 1);
