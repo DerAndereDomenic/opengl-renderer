@@ -5,6 +5,7 @@ in vec3 frag_position;
 in vec2 frag_tex;
 in mat3 frag_TBN;
 in vec4 frag_position_light_space;
+in vec4 frag_position_light_space2;
 
 uniform vec3 viewPos;
 
@@ -17,6 +18,7 @@ struct Light
 };
 
 uniform Light light;
+uniform Light light2;
 
 struct MaterialMap
 {
@@ -117,6 +119,7 @@ void main(){
 	}
 
 	vec3 result = calcPointLight(light, object_material, norm);
+	result += calcPointLight(light2, object_material, norm);
 
 	FragColor = vec4(result, 1.0);
 
