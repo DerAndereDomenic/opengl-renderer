@@ -203,8 +203,8 @@ int main(void)
 	normal.bind();
 	normal.setLight("light", light1);
 	normal.setLight("light2", light2);
-	normal.setMat4("lightSpaceMatrix", light1.lightSpace);
-	normal.setMat4("lightSpaceMatrix2", light2.lightSpace);
+	normal.setMat4("lightSpaceMatrix[0]", light1.lightSpace);
+	normal.setMat4("lightSpaceMatrix[1]", light2.lightSpace);
 	normal.setInt("shadowMap", 4);
 	normal.setInt("shadowMap2", 5);
 
@@ -299,8 +299,10 @@ int main(void)
 		normal.setVec3("light.position", light1.position);
 		normal.setVec3("light2.position", light2.position);
 		normal.setVec3("viewPos", camera.getPosition());
-		normal.setMat4("lightSpaceMatrix", light1.lightSpace);
+		normal.setMat4("lightSpaceMatrix[0]", light1.lightSpace);
+		normal.setMat4("lightSpaceMatrix[1]", light2.lightSpace);
 		light1.shadow_map.getTexture().bind(4);
+		light2.shadow_map.getTexture().bind(5);
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 
 		//Wall
