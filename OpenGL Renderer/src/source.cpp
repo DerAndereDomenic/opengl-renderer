@@ -12,6 +12,8 @@
 #include <Renderer/RenderWindow.h>
 #include <Renderer/Camera.h>
 
+#define LIGHTS 2
+
 
 int main(void)
 {
@@ -107,17 +109,19 @@ int main(void)
 
 	RenderObject obj_light2 = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
 
-	Light light1;
-	light1.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
-	light1.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
-	light1.specular = glm::vec3(1.0f, 0.0f, 0.0f);
-	light1.position = lightPos;
+	Light l1;
+	l1.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
+	l1.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.position = lightPos;
 
-	Light light2;
-	light2.ambient = glm::vec3(0.0f, 0.1f, 0.0f);
-	light2.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
-	light2.specular = glm::vec3(0.0f, 1.0f, 0.0f);
-	light2.position = lightPos;
+	Light l2;
+	l2.ambient = glm::vec3(0.0f, 0.1f, 0.0f);
+	l2.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
+	l2.specular = glm::vec3(0.0f, 1.0f, 0.0f);
+	l2.position = lightPos;
+
+	Light lights[LIGHTS] = { l1, l2 };
 
 	std::vector<std::string> faces =
 	{
@@ -168,30 +172,23 @@ int main(void)
 	fbo.verify();
 	fbo.unbind();
 
-	FrameBuffer shadow_map = FrameBuffer::createObject(shadow_width, shadow_height);
-	shadow_map.attachDepthMap();
-	shadow_map.disableColor();
-	shadow_map.verify();
-	shadow_map.unbind();
-	light1.shadow_map = shadow_map;
+	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
+	
+	for (unsigned int i = 0; i < LIGHTS; ++i)
+	{
+		lights[i].shadow_map = FrameBuffer::createObject(shadow_width, shadow_height);
+		lights[i].shadow_map.attachDepthMap();
+		lights[i].shadow_map.disableColor();
+		lights[i].shadow_map.verify();
+		lights[i].shadow_map.unbind();
 
-	FrameBuffer shadow_map1 = FrameBuffer::createObject(shadow_width, shadow_height);
-	shadow_map1.attachDepthMap();
-	shadow_map1.disableColor();
-	shadow_map1.verify();
-	shadow_map1.unbind();
-	light2.shadow_map = shadow_map1;
+		lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		lights[i].lightSpace = lightProjection * lights[i].lightView;
+
+	}
 
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
-
-	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
-
-	glm::mat4 lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 lightView2 = glm::lookAt(light2.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-	light1.lightSpace = lightProjection * lightView;
-	light2.lightSpace = lightProjection * lightView2;
 
 	post.bind();
 	post.setInt("screenTexture", 0);
@@ -201,20 +198,19 @@ int main(void)
 	skybox_shader.setInt("skybox", 0);
 
 	normal.bind();
-	normal.setLight("light", light1);
-	normal.setLight("light2", light2);
-	normal.setMat4("lightSpaceMatrix[0]", light1.lightSpace);
-	normal.setMat4("lightSpaceMatrix[1]", light2.lightSpace);
+	normal.setLight("light", lights[0]);
+	normal.setLight("light2", lights[1]);
+	normal.setMat4("lightSpaceMatrix[0]", lights[0].lightSpace);
+	normal.setMat4("lightSpaceMatrix[1]", lights[1].lightSpace);
 	normal.setInt("shadowMap[0]", 4);
 	normal.setInt("shadowMap[1]", 5);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
-	light1.position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(light1.position, 1);
-	light2.position = glm::rotate(glm::mat4(1), -3.14159f / 4.0f, glm::vec3(0, 1, 0)) * glm::vec4(light2.position, 1);
+	lights[0].position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[0].position, 1);
+	lights[1].position = glm::rotate(glm::mat4(1), -3.14159f / 4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[1].position, 1);
 	
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
-	shadow.setMat4("V", lightView);
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -232,49 +228,31 @@ int main(void)
 		camera.processInput(0.005f);
 
 		window.setViewport(shadow_width, shadow_height);
-		light1.shadow_map.bind();
-		window.clear();
-		lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		light1.lightSpace = lightProjection * lightView;
 
-		//Wall
-		shadow.bind();
-		shadow.setMat4("V", lightView);
-		obj_wall.render(window, shadow);
+		for (unsigned int i = 0; i < LIGHTS;++i) 
+		{
+			lights[i].shadow_map.bind();
+			window.clear();
+			lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			lights[i].lightSpace = lightProjection * lights[i].lightView;
 
-		//Plane
-		obj_fabric.render(window, shadow);
+			//Wall
+			shadow.bind();
+			shadow.setMat4("V", lights[i].lightView);
+			obj_wall.render(window, shadow);
 
-		//Crate
-		obj_crate.render(window, shadow);
+			//Plane
+			obj_fabric.render(window, shadow);
 
-		//Suzanne
-		obj_suzanne.render(window, shadow);
+			//Crate
+			obj_crate.render(window, shadow);
 
-		//Table
-		obj_table.render(window, shadow);
+			//Suzanne
+			obj_suzanne.render(window, shadow);
 
-		light2.shadow_map.bind();
-		window.clear();
-		lightView2 = glm::lookAt(light2.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		light2.lightSpace = lightProjection * lightView2;
-
-		//Wall
-		shadow.bind();
-		shadow.setMat4("V", lightView2);
-		obj_wall.render(window, shadow);
-
-		//Plane
-		obj_fabric.render(window, shadow);
-
-		//Crate
-		obj_crate.render(window, shadow);
-
-		//Suzanne
-		obj_suzanne.render(window, shadow);
-
-		//Table
-		obj_table.render(window, shadow);
+			//Table
+			obj_table.render(window, shadow);
+		}
 
 		//----------------------------------------------------------------------------------------------
 		window.resetViewport();
@@ -296,15 +274,14 @@ int main(void)
 		
 		//Light
 		normal.bind();
-		normal.setVec3("light.position", light1.position);
-		normal.setVec3("light2.position", light2.position);
+		normal.setVec3("light.position", lights[0].position);
+		normal.setVec3("light2.position", lights[1].position);
 		normal.setVec3("viewPos", camera.getPosition());
-		normal.setMat4("lightSpaceMatrix[0]", light1.lightSpace);
-		normal.setMat4("lightSpaceMatrix[1]", light2.lightSpace);
-		light1.shadow_map.getTexture().bind(4);
-		light2.shadow_map.getTexture().bind(5);
+		normal.setMat4("lightSpaceMatrix[0]", lights[0].lightSpace);
+		normal.setMat4("lightSpaceMatrix[1]", lights[1].lightSpace);
+		lights[0].shadow_map.getTexture().bind(4);
+		lights[1].shadow_map.getTexture().bind(5);
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-
 		//Wall
 		obj_wall.render(window, normal);
 
@@ -325,11 +302,12 @@ int main(void)
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
-		obj_light.setModel(glm::translate(glm::mat4(1), light1.position));
+		obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
 		obj_light.render(window, normal);
 
-		obj_light2.setModel(glm::translate(glm::mat4(1), light2.position));
+		obj_light2.setModel(glm::translate(glm::mat4(1), lights[1].position));
 		obj_light2.render(window, normal);
+
 
 		//Render to quad
 		fbo.unbind();
@@ -361,8 +339,8 @@ int main(void)
 	RenderObject::destroyObject(obj_wall);
 	RenderObject::destroyObject(obj_table);
 	FrameBuffer::destroyObject(fbo);
-	FrameBuffer::destroyObject(shadow_map);
-	FrameBuffer::destroyObject(shadow_map1);
+	FrameBuffer::destroyObject(lights[0].shadow_map);
+	FrameBuffer::destroyObject(lights[1].shadow_map);
 
 	return 0;
 }
