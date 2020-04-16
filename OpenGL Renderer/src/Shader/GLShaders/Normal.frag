@@ -15,6 +15,7 @@ struct Light
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
+	sampler2D shadow_map;
 };
 
 uniform Light lights[LIGHTS];
@@ -43,8 +44,6 @@ struct Material
 	vec3 specular;
 	float shininess;
 };
-
-uniform sampler2D shadowMap[2];
 
 float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 {
@@ -77,7 +76,7 @@ vec3 calcPointLight(Light plight, Material material, vec3 normal, int pass)
 	vec3 ambient = plight.ambient*material.ambient;
 
 	//Calculate shadow
-	float shadow = shadowCalculation(frag_position_light_space[pass], shadowMap[pass]);
+	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
 
 	//Combine light
 	vec3 result = (ambient+ (1-shadow)*(diffuse+specular));
