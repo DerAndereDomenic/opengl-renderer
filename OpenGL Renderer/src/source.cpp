@@ -115,19 +115,19 @@ int main(void)
 	l1.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
 	l1.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
 	l1.specular = glm::vec3(1.0f, 0.0f, 0.0f);
-	l1.position = lightPos;
+	l1.position = glm::vec3(20,0,0);
 
 	Light l2;
 	l2.ambient = glm::vec3(0.0f, 0.1f, 0.0f);
 	l2.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
 	l2.specular = glm::vec3(0.0f, 1.0f, 0.0f);
-	l2.position = lightPos;
+	l2.position = glm::vec3(0,20,0);
 
 	Light l3;
 	l3.ambient = glm::vec3(0.0f, 0.0f, 0.1f);
 	l3.diffuse = glm::vec3(0.0f, 0.0f, 1.0f);
 	l3.specular = glm::vec3(0.0f, 0.0f, 1.0f);
-	l3.position = lightPos;
+	l3.position = glm::vec3(0,0,20);
 
 	Light lights[LIGHTS] = { l1, l2, l3 };
 
@@ -215,9 +215,11 @@ int main(void)
 	}
 	
 
-	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
-	lights[0].position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[0].position, 1);
-	lights[1].position = glm::rotate(glm::mat4(1), -3.14159f / 4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[1].position, 1);
+	glm::mat4 rotateX = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(1, 0, 0));
+	glm::mat4 rotateY = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
+	glm::mat4 rotateZ = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 0, 1));
+	//lights[0].position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[0].position, 1);
+	//lights[1].position = glm::rotate(glm::mat4(1), -3.14159f / 4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[1].position, 1);
 	
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
@@ -310,6 +312,9 @@ int main(void)
 
 		//Render light
 		//light1.position = rotate * glm::vec4(light1.position, 1);
+		lights[0].position = rotateZ * glm::vec4(lights[0].position, 1);
+		lights[1].position = rotateX * glm::vec4(lights[1].position, 1);
+		lights[2].position = rotateY * glm::vec4(lights[2].position, 1);
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
@@ -319,6 +324,7 @@ int main(void)
 		obj_light2.setModel(glm::translate(glm::mat4(1), lights[1].position));
 		obj_light2.render(window, normal);
 
+		obj_light3.setModel(glm::translate(glm::mat4(1), lights[2].position));
 		obj_light3.render(window, normal);
 
 
