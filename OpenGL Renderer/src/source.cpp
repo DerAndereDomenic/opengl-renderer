@@ -274,9 +274,9 @@ int main(void)
 		
 		//Light
 		normal.bind();
-		normal.setVec3("lights[0].position", lights[0].position);
-		normal.setVec3("lights[1].position", lights[1].position);
 		normal.setVec3("viewPos", camera.getPosition());
+		normal.setLight("lights[0]", lights[0]);
+		normal.setLight("lights[1]", lights[1]);
 		normal.setMat4("lightSpaceMatrix[0]", lights[0].lightSpace);
 		normal.setMat4("lightSpaceMatrix[1]", lights[1].lightSpace);
 		lights[0].shadow_map.getTexture().bind(4);
