@@ -68,10 +68,10 @@ int main(void)
 
 	RenderObject obj_wall = RenderObject::createObject(wall, mat_brick, glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
 
-	//Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
-	//mesh.create();
-	Mesh mesh = ObjLoader::loadObj("res/plane.obj", true);
+	Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
 	mesh.create();
+	//Mesh mesh = ObjLoader::loadObj("res/plane.obj", true);
+	//mesh.create();
 
 	Material mat_fabric = Material::createObject("materialmap");
 	mat_fabric.texture_diffuse = Texture::createObject("res/fabric.png");
@@ -80,7 +80,7 @@ int main(void)
 	mat_fabric.useTextures = true;
 	mat_fabric.shininess = 0.4f * 128.0f; 
 
-	RenderObject obj_fabric = RenderObject::createObject(mesh, mat_fabric, glm::mat4(1));
+	RenderObject obj_fabric = RenderObject::createObject(mesh, mat_fabric, glm::translate(glm::mat4(1), glm::vec3(0,-0.2,0)));
 
 	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
 	suzanne.create();
