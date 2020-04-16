@@ -198,12 +198,12 @@ int main(void)
 	skybox_shader.setInt("skybox", 0);
 
 	normal.bind();
-	normal.setLight("lights[0]", lights[0]);
-	normal.setLight("lights[1]", lights[1]);
-	normal.setMat4("lightSpaceMatrix[0]", lights[0].lightSpace);
-	normal.setMat4("lightSpaceMatrix[1]", lights[1].lightSpace);
-	normal.setInt("lights[0].shadow_map", 4);
-	normal.setInt("lights[1].shadow_map", 5);
+	normal.setLight("lights_frag[0]", lights[0]);
+	normal.setLight("lights_frag[1]", lights[1]);
+	normal.setMat4("lights_vert[0].lightSpaceMatrix", lights[0].lightSpace);
+	normal.setMat4("lights_vert[1].lightSpaceMatrix", lights[1].lightSpace);
+	normal.setInt("lights_frag[0].shadow_map", 4);
+	normal.setInt("lights_frag[1].shadow_map", 5);
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
 	lights[0].position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[0].position, 1);
@@ -275,10 +275,10 @@ int main(void)
 		//Light
 		normal.bind();
 		normal.setVec3("viewPos", camera.getPosition());
-		normal.setLight("lights[0]", lights[0]);
-		normal.setLight("lights[1]", lights[1]);
-		normal.setMat4("lightSpaceMatrix[0]", lights[0].lightSpace);
-		normal.setMat4("lightSpaceMatrix[1]", lights[1].lightSpace);
+		normal.setLight("lights_frag[0]", lights[0]);
+		normal.setLight("lights_frag[1]", lights[1]);
+		normal.setMat4("lights_vert[0].lightSpaceMatrix", lights[0].lightSpace);
+		normal.setMat4("lights_vert[1].lightSpaceMatrix", lights[1].lightSpace);
 		lights[0].shadow_map.getTexture().bind(4);
 		lights[1].shadow_map.getTexture().bind(5);
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());

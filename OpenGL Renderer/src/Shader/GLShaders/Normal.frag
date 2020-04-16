@@ -18,7 +18,7 @@ struct Light
 	sampler2D shadow_map;
 };
 
-uniform Light lights[LIGHTS];
+uniform Light lights_frag[LIGHTS];
 
 struct MaterialMap
 {
@@ -119,7 +119,7 @@ void main(){
 	vec3 result = vec3(0);
 	for(int i = 0; i < LIGHTS; ++i)
 	{
-		result += calcPointLight(lights[i], object_material, norm, i);
+		result += calcPointLight(lights_frag[i], object_material, norm, i);
 	}
 
 	FragColor = vec4(result, 1.0);
