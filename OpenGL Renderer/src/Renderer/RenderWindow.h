@@ -46,7 +46,7 @@ public:
 	*	\param[in] ibo The index buffer object
 	*	\param[in] shader The shader used for this drawcall
 	*/
-	void render(VertexArray& vao, IndexBuffer& ibo, Shader& shader);
+	void render(VertexArray& vao, IndexBuffer& ibo);
 
 	/**
 	*	\brief Clears the window

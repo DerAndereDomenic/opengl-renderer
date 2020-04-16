@@ -60,10 +60,9 @@ RenderWindow::close()
 }
 
 void 
-RenderWindow::render(VertexArray& vao, IndexBuffer& ibo, Shader& shader)
+RenderWindow::render(VertexArray& vao, IndexBuffer& ibo)
 {
 	vao.bind();
-	shader.bind();
 	glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
 }
 
