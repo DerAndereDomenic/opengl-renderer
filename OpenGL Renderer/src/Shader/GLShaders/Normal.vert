@@ -1,4 +1,5 @@
 #version 330 core
+#define LIGHTS 2
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec2 tex;
@@ -8,12 +9,11 @@ layout (location = 4) in vec3 tangent;
 out vec3 frag_position;
 out vec2 frag_tex;
 out mat3 frag_TBN;
-out vec4 frag_position_light_space;
+out vec4 frag_position_light_space[LIGHTS];
 
 uniform mat4 M;
 uniform mat4 V;
 uniform mat4 P;
-uniform mat4 lightSpaceMatrix;
 
 struct MaterialMap
 {
@@ -31,6 +31,13 @@ struct MaterialMap
 };
 
 uniform MaterialMap materialmap;
+
+struct Light
+{
+	mat4 lightSpaceMatrix;
+};
+
+uniform Light lights_vert[LIGHTS];
 
 void main()
 {
@@ -53,7 +60,11 @@ void main()
 
 	gl_Position = P*V*vec4(frag_position, 1);
 
-	frag_position_light_space = lightSpaceMatrix * vec4(frag_position, 1);
+	for(int i = 0; i < LIGHTS; ++i)
+	{
+		frag_position_light_space[i] = lights_vert[i].lightSpaceMatrix * vec4(frag_position, 1);
+	}
+
 
 	frag_TBN = TBN;
 }

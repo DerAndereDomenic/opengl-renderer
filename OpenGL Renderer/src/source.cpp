@@ -12,6 +12,8 @@
 #include <Renderer/RenderWindow.h>
 #include <Renderer/Camera.h>
 
+#define LIGHTS 2
+
 
 int main(void)
 {
@@ -105,11 +107,21 @@ int main(void)
 
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
 
-	Light light1;
-	light1.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-	light1.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	light1.specular = glm::vec3(1.0f, 1.0f, 1.0f);
-	light1.position = lightPos;
+	RenderObject obj_light2 = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
+
+	Light l1;
+	l1.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
+	l1.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.position = lightPos;
+
+	Light l2;
+	l2.ambient = glm::vec3(0.0f, 0.1f, 0.0f);
+	l2.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
+	l2.specular = glm::vec3(0.0f, 1.0f, 0.0f);
+	l2.position = lightPos;
+
+	Light lights[LIGHTS] = { l1, l2 };
 
 	std::vector<std::string> faces =
 	{
@@ -160,25 +172,23 @@ int main(void)
 	fbo.verify();
 	fbo.unbind();
 
-	FrameBuffer shadow_map = FrameBuffer::createObject(shadow_width, shadow_height);
-	shadow_map.attachDepthMap();
-	shadow_map.disableColor();
-	shadow_map.verify();
-	shadow_map.unbind();
-	light1.shadow_map = shadow_map;
+	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
+	
+	for (unsigned int i = 0; i < LIGHTS; ++i)
+	{
+		lights[i].shadow_map = FrameBuffer::createObject(shadow_width, shadow_height);
+		lights[i].shadow_map.attachDepthMap();
+		lights[i].shadow_map.disableColor();
+		lights[i].shadow_map.verify();
+		lights[i].shadow_map.unbind();
+
+		lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		lights[i].lightSpace = lightProjection * lights[i].lightView;
+
+	}
 
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
-
-	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
-
-	//glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 50.0f);
-	glm::mat4 lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
-	//	glm::vec3(0.0f, 0.0f, 0.0f),
-	//	glm::vec3(0.0f, 1.0f, 0.0f));
-
-	light1.lightSpace = lightProjection * lightView;
 
 	post.bind();
 	post.setInt("screenTexture", 0);
@@ -188,15 +198,21 @@ int main(void)
 	skybox_shader.setInt("skybox", 0);
 
 	normal.bind();
-	normal.setLight("light", light1);
-	normal.setMat4("lightSpaceMatrix", light1.lightSpace);
-	normal.setInt("shadowMap", 4);
+
+	for (unsigned int i = 0; i < LIGHTS; ++i)
+	{
+		normal.setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
+		normal.setMat4("lights_vert["+ std::to_string(i) +"].lightSpaceMatrix", lights[i].lightSpace);
+		normal.setInt("lights_frag["+ std::to_string(i) +"].shadow_map", 4+i);
+	}
+	
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
+	lights[0].position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[0].position, 1);
+	lights[1].position = glm::rotate(glm::mat4(1), -3.14159f / 4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[1].position, 1);
 	
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
-	shadow.setMat4("V", lightView);
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -214,27 +230,31 @@ int main(void)
 		camera.processInput(0.005f);
 
 		window.setViewport(shadow_width, shadow_height);
-		light1.shadow_map.bind();
-		window.clear();
-		lightView = glm::lookAt(light1.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		light1.lightSpace = lightProjection * lightView;
 
-		//Wall
-		shadow.bind();
-		shadow.setMat4("V", lightView);
-		obj_wall.render(window, shadow);
+		for (unsigned int i = 0; i < LIGHTS;++i) 
+		{
+			lights[i].shadow_map.bind();
+			window.clear();
+			lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			lights[i].lightSpace = lightProjection * lights[i].lightView;
 
-		//Plane
-		obj_fabric.render(window, shadow);
+			//Wall
+			shadow.bind();
+			shadow.setMat4("V", lights[i].lightView);
+			obj_wall.render(window, shadow);
 
-		//Crate
-		obj_crate.render(window, shadow);
+			//Plane
+			obj_fabric.render(window, shadow);
 
-		//Suzanne
-		obj_suzanne.render(window, shadow);
+			//Crate
+			obj_crate.render(window, shadow);
 
-		//Table
-		obj_table.render(window, shadow);
+			//Suzanne
+			obj_suzanne.render(window, shadow);
+
+			//Table
+			obj_table.render(window, shadow);
+		}
 
 		//----------------------------------------------------------------------------------------------
 		window.resetViewport();
@@ -256,12 +276,15 @@ int main(void)
 		
 		//Light
 		normal.bind();
-		normal.setVec3("light.position", light1.position);
 		normal.setVec3("viewPos", camera.getPosition());
-		normal.setMat4("lightSpaceMatrix", light1.lightSpace);
-		light1.shadow_map.getTexture().bind(4);
+		for (unsigned int i = 0; i < LIGHTS; ++i)
+		{
+			normal.setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
+			normal.setMat4("lights_vert["+std::to_string(i) + +"].lightSpaceMatrix", lights[i].lightSpace);
+			lights[i].shadow_map.getTexture().bind(4+i);
+		}
+		
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-
 		//Wall
 		obj_wall.render(window, normal);
 
@@ -278,12 +301,16 @@ int main(void)
 		obj_table.render(window, normal);
 
 		//Render light
-		light1.position = rotate * glm::vec4(light1.position, 1);
+		//light1.position = rotate * glm::vec4(light1.position, 1);
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
-		obj_light.setModel(glm::translate(glm::mat4(1), light1.position));
+		obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
 		obj_light.render(window, normal);
+
+		obj_light2.setModel(glm::translate(glm::mat4(1), lights[1].position));
+		obj_light2.render(window, normal);
+
 
 		//Render to quad
 		fbo.unbind();
@@ -315,7 +342,8 @@ int main(void)
 	RenderObject::destroyObject(obj_wall);
 	RenderObject::destroyObject(obj_table);
 	FrameBuffer::destroyObject(fbo);
-	FrameBuffer::destroyObject(shadow_map);
+	FrameBuffer::destroyObject(lights[0].shadow_map);
+	FrameBuffer::destroyObject(lights[1].shadow_map);
 
 	return 0;
 }

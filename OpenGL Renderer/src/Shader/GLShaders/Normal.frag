@@ -1,10 +1,11 @@
 #version 330 core
+#define LIGHTS 2
 layout(location = 0) out vec4 FragColor;
 
 in vec3 frag_position;
 in vec2 frag_tex;
 in mat3 frag_TBN;
-in vec4 frag_position_light_space;
+in vec4 frag_position_light_space[2];
 
 uniform vec3 viewPos;
 
@@ -14,9 +15,10 @@ struct Light
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
+	sampler2D shadow_map;
 };
 
-uniform Light light;
+uniform Light lights_frag[LIGHTS];
 
 struct MaterialMap
 {
@@ -43,9 +45,7 @@ struct Material
 	float shininess;
 };
 
-uniform sampler2D shadowMap;
-
-float shadowCalculation(vec4 fragPositionLightSpace)
+float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 {
 	float bias = 0.00001;//3125;
 	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
@@ -54,29 +54,29 @@ float shadowCalculation(vec4 fragPositionLightSpace)
 	float closestDepth = texture(shadowMap, projCoords.xy).r;
 	float currentDepth = projCoords.z;
 
-	return currentDepth - bias > closestDepth ? 1.0 : 0.0;
+	return currentDepth - bias > closestDepth ? 1 : 0.0;
 }
 
-vec3 calcPointLight(Light light, Material material, vec3 normal)
+vec3 calcPointLight(Light plight, Material material, vec3 normal, int pass)
 {
 	//Calculate directions
-	vec3 lightDir = normalize(light.position - frag_position);
+	vec3 lightDir = normalize(plight.position - frag_position);
 	vec3 viewDir = normalize(viewPos - frag_position);
 	vec3 halfwayDir = normalize(lightDir+viewDir);
 
 	//Calculate diffuse part
 	float diff = max(dot(normal, lightDir), 0.0);
-	vec3 diffuse = (diff*material.diffuse)*light.diffuse;
+	vec3 diffuse = (diff*material.diffuse)*plight.diffuse;
 
 	//Calculate specular part
 	float spec = pow(max(dot(normal, halfwayDir), 0.0), material.shininess);
-	vec3 specular = (material.specular)*spec*light.specular;
+	vec3 specular = (material.specular)*spec*plight.specular;
 
 	//Calculate ambient part
-	vec3 ambient = light.ambient*material.ambient;
+	vec3 ambient = plight.ambient*material.ambient;
 
 	//Calculate shadow
-	float shadow = shadowCalculation(frag_position_light_space);
+	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
 
 	//Combine light
 	vec3 result = (ambient+ (1-shadow)*(diffuse+specular));
@@ -115,8 +115,12 @@ void main(){
 	    norm = normalize(normal*2.0 - 1.0);
 		norm = normalize(frag_TBN * norm);
 	}
-
-	vec3 result = calcPointLight(light, object_material, norm);
+	
+	vec3 result = vec3(0);
+	for(int i = 0; i < LIGHTS; ++i)
+	{
+		result += calcPointLight(lights_frag[i], object_material, norm, i);
+	}
 
 	FragColor = vec4(result, 1.0);
 
