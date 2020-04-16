@@ -1,11 +1,11 @@
 #version 330 core
-#define LIGHTS 2
+#define LIGHTS 3
 layout(location = 0) out vec4 FragColor;
 
 in vec3 frag_position;
 in vec2 frag_tex;
 in mat3 frag_TBN;
-in vec4 frag_position_light_space[2];
+in vec4 frag_position_light_space[LIGHTS];
 
 uniform vec3 viewPos;
 

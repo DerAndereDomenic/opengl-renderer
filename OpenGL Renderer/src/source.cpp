@@ -12,7 +12,7 @@
 #include <Renderer/RenderWindow.h>
 #include <Renderer/Camera.h>
 
-#define LIGHTS 2
+#define LIGHTS 3
 
 
 int main(void)
@@ -109,6 +109,8 @@ int main(void)
 
 	RenderObject obj_light2 = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
 
+	RenderObject obj_light3 = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
+
 	Light l1;
 	l1.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
 	l1.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
@@ -121,7 +123,13 @@ int main(void)
 	l2.specular = glm::vec3(0.0f, 1.0f, 0.0f);
 	l2.position = lightPos;
 
-	Light lights[LIGHTS] = { l1, l2 };
+	Light l3;
+	l3.ambient = glm::vec3(0.0f, 0.0f, 0.1f);
+	l3.diffuse = glm::vec3(0.0f, 0.0f, 1.0f);
+	l3.specular = glm::vec3(0.0f, 0.0f, 1.0f);
+	l3.position = lightPos;
+
+	Light lights[LIGHTS] = { l1, l2, l3 };
 
 	std::vector<std::string> faces =
 	{
@@ -311,6 +319,8 @@ int main(void)
 		obj_light2.setModel(glm::translate(glm::mat4(1), lights[1].position));
 		obj_light2.render(window, normal);
 
+		obj_light3.render(window, normal);
+
 
 		//Render to quad
 		fbo.unbind();
@@ -336,6 +346,8 @@ int main(void)
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(quad);
 	RenderObject::destroyObject(obj_light);
+	RenderObject::destroyObject(obj_light2);
+	RenderObject::destroyObject(obj_light3);
 	RenderObject::destroyObject(obj_crate);
 	RenderObject::destroyObject(obj_fabric);
 	RenderObject::destroyObject(obj_suzanne);
@@ -344,6 +356,7 @@ int main(void)
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(lights[0].shadow_map);
 	FrameBuffer::destroyObject(lights[1].shadow_map);
+	FrameBuffer::destroyObject(lights[2].shadow_map);
 
 	return 0;
 }
