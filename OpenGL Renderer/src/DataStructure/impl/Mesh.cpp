@@ -41,9 +41,9 @@ Mesh::create()
 }
 
 void
-Mesh::render(RenderWindow window, Shader shader)
+Mesh::render(RenderWindow window)
 {
-	window.render(_vao, _ibo, shader);
+	window.render(_vao, _ibo);
 }
 
 unsigned int 

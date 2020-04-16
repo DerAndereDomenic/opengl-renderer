@@ -42,7 +42,7 @@ public:
 	*	\param[in] shader The shader used for the mesh
 	*	\note The mesh has to be created via 'create()' before rendering
 	*/
-	void render(RenderWindow window, Shader shader);
+	void render(RenderWindow window);
 
 	/**
 	*	\brief Adds a vertex to the mesh
