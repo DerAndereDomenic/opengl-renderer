@@ -127,7 +127,7 @@ int main(void)
 	l3.ambient = glm::vec3(0.0f, 0.0f, 0.1f);
 	l3.diffuse = glm::vec3(0.0f, 0.0f, 1.0f);
 	l3.specular = glm::vec3(0.0f, 0.0f, 1.0f);
-	l3.position = glm::vec3(0,0,20);
+	l3.position = glm::vec3(0,2,20);
 
 	Light lights[LIGHTS] = { l1, l2, l3 };
 
@@ -215,9 +215,9 @@ int main(void)
 	}
 	
 
-	glm::mat4 rotateX = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(1, 0, 0));
-	glm::mat4 rotateY = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
-	glm::mat4 rotateZ = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 0, 1));
+	glm::mat4 rotateX = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(1, 0, 0));
+	glm::mat4 rotateY = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(0, 1, 0));
+	glm::mat4 rotateZ = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(0, 0, 1));
 	//lights[0].position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[0].position, 1);
 	//lights[1].position = glm::rotate(glm::mat4(1), -3.14159f / 4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[1].position, 1);
 	
