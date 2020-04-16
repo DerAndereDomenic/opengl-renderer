@@ -25,7 +25,7 @@ RenderObject::render(RenderWindow window, Shader shader)
 {
 	_material.bind(shader);
 	shader.setMat4("M", _model);
-	_mesh.render(window, shader);
+	_mesh.render(window);
 }
 
 void 

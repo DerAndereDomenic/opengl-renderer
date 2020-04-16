@@ -251,7 +251,7 @@ int main(void)
 		skybox_shader.setMVP(glm::mat4(1),
 							 glm::mat4(glm::mat3(camera.getView())),
 							 camera.getProjection());
-		light.render(window, skybox_shader);
+		light.render(window);
 		window.enableDepthWriting();
 		
 		//Light
@@ -291,7 +291,7 @@ int main(void)
 		post.bind();
 		fbo.getTexture(0).bind(0);
 		fbo.getTexture(1).bind(1);
-		quad.render(window, post);		
+		quad.render(window);		
 
 		window.spinOnce();
 
