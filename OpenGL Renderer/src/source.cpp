@@ -198,8 +198,8 @@ int main(void)
 	skybox_shader.setInt("skybox", 0);
 
 	normal.bind();
-	normal.setLight("light", lights[0]);
-	normal.setLight("light2", lights[1]);
+	normal.setLight("lights[0]", lights[0]);
+	normal.setLight("lights[1]", lights[1]);
 	normal.setMat4("lightSpaceMatrix[0]", lights[0].lightSpace);
 	normal.setMat4("lightSpaceMatrix[1]", lights[1].lightSpace);
 	normal.setInt("shadowMap[0]", 4);
@@ -274,8 +274,8 @@ int main(void)
 		
 		//Light
 		normal.bind();
-		normal.setVec3("light.position", lights[0].position);
-		normal.setVec3("light2.position", lights[1].position);
+		normal.setVec3("lights[0].position", lights[0].position);
+		normal.setVec3("lights[1].position", lights[1].position);
 		normal.setVec3("viewPos", camera.getPosition());
 		normal.setMat4("lightSpaceMatrix[0]", lights[0].lightSpace);
 		normal.setMat4("lightSpaceMatrix[1]", lights[1].lightSpace);

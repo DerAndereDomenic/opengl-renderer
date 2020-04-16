@@ -1,4 +1,5 @@
 #version 330 core
+#define LIGHTS 2
 layout(location = 0) out vec4 FragColor;
 
 in vec3 frag_position;
@@ -16,8 +17,7 @@ struct Light
 	vec3 specular;
 };
 
-uniform Light light;
-uniform Light light2;
+uniform Light lights[LIGHTS];
 
 struct MaterialMap
 {
@@ -116,9 +116,12 @@ void main(){
 	    norm = normalize(normal*2.0 - 1.0);
 		norm = normalize(frag_TBN * norm);
 	}
-
-	vec3 result = calcPointLight(light, object_material, norm, 0);
-	result += calcPointLight(light2, object_material, norm, 1);
+	
+	vec3 result = vec3(0);
+	for(int i = 0; i < LIGHTS; ++i)
+	{
+		result += calcPointLight(lights[i], object_material, norm, i);
+	}
 
 	FragColor = vec4(result, 1.0);
 
