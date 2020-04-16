@@ -14,7 +14,6 @@ out vec4 frag_position_light_space[LIGHTS];
 uniform mat4 M;
 uniform mat4 V;
 uniform mat4 P;
-uniform mat4 lightSpaceMatrix[LIGHTS];
 
 struct MaterialMap
 {
@@ -32,6 +31,13 @@ struct MaterialMap
 };
 
 uniform MaterialMap materialmap;
+
+struct Light
+{
+	mat4 lightSpaceMatrix;
+};
+
+uniform Light lights_vert[LIGHTS];
 
 void main()
 {
@@ -56,7 +62,7 @@ void main()
 
 	for(int i = 0; i < LIGHTS; ++i)
 	{
-		frag_position_light_space[i] = lightSpaceMatrix[i] * vec4(frag_position, 1);
+		frag_position_light_space[i] = lights_vert[i].lightSpaceMatrix * vec4(frag_position, 1);
 	}
 
 
