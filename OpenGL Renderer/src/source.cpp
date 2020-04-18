@@ -102,7 +102,12 @@ int main(void)
 	mat_sphere.specular = glm::vec3(1.0f, 0.0f, 0.0f);
 	mat_sphere.shininess = 0.4f * 512.0f;
 
-	RenderObject obj_sphere = RenderObject::createObject(sphere, mat_sphere, glm::translate(glm::mat4(1), glm::vec3(-2,1.0f, 0.0f)));
+	RenderObject obj_sphere = RenderObject::createObject(sphere, mat_sphere, glm::translate(glm::mat4(1), glm::vec3(-2,3.0f, 0.0f)));
+
+	Mesh sphere_fuzzy = ObjLoader::loadObj("res/sphere_fuzzy.obj");
+	sphere_fuzzy.create();
+
+	RenderObject obj_fuzzy = RenderObject::createObject(sphere_fuzzy, mat_sphere, glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
 
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
@@ -226,9 +231,9 @@ int main(void)
 	}
 	
 
-	glm::mat4 rotateX = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(1, 0, 0));
-	glm::mat4 rotateY = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(0, 1, 0));
-	glm::mat4 rotateZ = glm::rotate(glm::mat4(1), 0.01f, glm::vec3(0, 0, 1));
+	glm::mat4 rotateX = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(1, 0, 0));
+	glm::mat4 rotateY = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 1, 0));
+	glm::mat4 rotateZ = glm::rotate(glm::mat4(1), 0.001f, glm::vec3(0, 0, 1));
 	//lights[0].position = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[0].position, 1);
 	//lights[1].position = glm::rotate(glm::mat4(1), -3.14159f / 4.0f, glm::vec3(0, 1, 0)) * glm::vec4(lights[1].position, 1);
 	
@@ -276,8 +281,9 @@ int main(void)
 			//Table
 			obj_table.render(window, shadow);
 
-			//Sphere
+			//Spheres
 			obj_sphere.render(window, shadow);
+			obj_fuzzy.render(window, shadow);
 		}
 
 		//----------------------------------------------------------------------------------------------
@@ -324,8 +330,9 @@ int main(void)
 		//Table
 		obj_table.render(window, normal);
 
-		//Sphere
+		//Spheres
 		obj_sphere.render(window, normal);
+		obj_fuzzy.render(window, normal);
 
 		//Render light
 		//light1.position = rotate * glm::vec4(light1.position, 1);
@@ -377,6 +384,7 @@ int main(void)
 	RenderObject::destroyObject(obj_wall);
 	RenderObject::destroyObject(obj_table);
 	RenderObject::destroyObject(obj_sphere);
+	RenderObject::destroyObject(obj_fuzzy);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(lights[0].shadow_map);
 	FrameBuffer::destroyObject(lights[1].shadow_map);
