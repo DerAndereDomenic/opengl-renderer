@@ -93,6 +93,17 @@ int main(void)
 
 	RenderObject obj_suzanne = RenderObject::createObject(suzanne, mat_suzanne, glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 
+	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
+	sphere.create();
+
+	Material mat_sphere = Material::createObject("materialmap");
+	mat_sphere.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
+	mat_sphere.diffuse = glm::vec3(0.4f, 0.0f, 0.0f);
+	mat_sphere.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+	mat_sphere.shininess = 0.4f * 512.0f;
+
+	RenderObject obj_sphere = RenderObject::createObject(sphere, mat_sphere, glm::translate(glm::mat4(1), glm::vec3(-2,1.0f, 0.0f)));
+
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
 
@@ -264,6 +275,9 @@ int main(void)
 
 			//Table
 			obj_table.render(window, shadow);
+
+			//Sphere
+			obj_sphere.render(window, shadow);
 		}
 
 		//----------------------------------------------------------------------------------------------
@@ -309,6 +323,9 @@ int main(void)
 
 		//Table
 		obj_table.render(window, normal);
+
+		//Sphere
+		obj_sphere.render(window, normal);
 
 		//Render light
 		//light1.position = rotate * glm::vec4(light1.position, 1);
@@ -359,6 +376,7 @@ int main(void)
 	RenderObject::destroyObject(obj_suzanne);
 	RenderObject::destroyObject(obj_wall);
 	RenderObject::destroyObject(obj_table);
+	RenderObject::destroyObject(obj_sphere);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(lights[0].shadow_map);
 	FrameBuffer::destroyObject(lights[1].shadow_map);
