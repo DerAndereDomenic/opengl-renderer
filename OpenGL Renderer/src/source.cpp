@@ -112,21 +112,21 @@ int main(void)
 	RenderObject obj_light3 = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), lightPos));
 
 	Light l1;
-	l1.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
-	l1.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
-	l1.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.ambient = glm::vec3(0.1f);//glm::vec3(0.1f, 0.0f, 0.0f);
+	l1.diffuse = glm::vec3(1.0f);// glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.specular = glm::vec3(1.0f);//glm::vec3(1.0f, 0.0f, 0.0f);
 	l1.position = glm::vec3(20,0,0);
 
 	Light l2;
-	l2.ambient = glm::vec3(0.0f, 0.1f, 0.0f);
-	l2.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
-	l2.specular = glm::vec3(0.0f, 1.0f, 0.0f);
+	l2.ambient = glm::vec3(0.1f);//glm::vec3(0.0f, 0.1f, 0.0f);
+	l2.diffuse = glm::vec3(1.0f);//glm::vec3(0.0f, 1.0f, 0.0f);
+	l2.specular = glm::vec3(1.0f);//glm::vec3(0.0f, 1.0f, 0.0f);
 	l2.position = glm::vec3(0,20,0);
 
 	Light l3;
-	l3.ambient = glm::vec3(0.0f, 0.0f, 0.1f);
-	l3.diffuse = glm::vec3(0.0f, 0.0f, 1.0f);
-	l3.specular = glm::vec3(0.0f, 0.0f, 1.0f);
+	l3.ambient = glm::vec3(0.1f);//glm::vec3(0.0f, 0.0f, 0.1f);
+	l3.diffuse = glm::vec3(1.0f);//glm::vec3(0.0f, 0.0f, 1.0f);
+	l3.specular = glm::vec3(1.0f);//glm::vec3(0.0f, 0.0f, 1.0f);
 	l3.position = glm::vec3(0,2,20);
 
 	Light lights[LIGHTS] = { l1, l2, l3 };
