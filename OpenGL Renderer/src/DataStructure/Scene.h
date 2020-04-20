@@ -2,12 +2,14 @@
 #define DATASTRUCTURE_SCENE_H
 
 #include <vector>
+#include <string>
 #include <unordered_map>
 #include <DataStructure/Mesh.h>
 #include <DataStructure/Material.h>
 #include <DataStructure/RenderObject.h>
 #include <Shader/Shader.h>
 #include <glm/glm.hpp>
+
 
 class Scene
 {
@@ -50,7 +52,7 @@ public:
 	RenderObject getObject(std::string name);
 
 private:
-	std::unordered_map<std::string, RenderObject> _objects; /**<< Hash Map to maintain the objects in this scene*/
+	std::unordered_map<std::string, RenderObject> _objects = {}; /**<< Hash Map to maintain the objects in this scene*/
 
 };
 
