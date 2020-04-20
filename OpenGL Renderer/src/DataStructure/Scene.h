@@ -43,12 +43,6 @@ public:
 	void render(Shader shader);
 
 	/**
-	*	\brief Creates all the meshes and copys them into the internal hash map structure
-	*	\note: All internal buffers _names, _meshes, _materials and _models get cleared
-	*/
-	void create();
-
-	/**
 	*	\brief Returns the RenderObject with the given name
 	*	\param[in] name The name of the object given when creating the scene
 	*	\return The corresponding object;
@@ -58,9 +52,6 @@ public:
 private:
 	std::unordered_map<std::string, RenderObject> _objects; /**<< Hash Map to maintain the objects in this scene*/
 
-	std::vector<Mesh> _meshes; /**<< Temporal buffer to store the meshes*/
-	std::vector<Material> _materials; /**<< Temporal buffer to store the materials*/
-	std::vector<glm::mat4> _models; /**<< Temporal buffer to store the model matrices*/
 };
 
 #endif
