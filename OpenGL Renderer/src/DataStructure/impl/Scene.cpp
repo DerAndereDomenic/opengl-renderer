@@ -27,7 +27,15 @@ Scene::createObject(std::vector<std::string> names,
 	return result;
 }
 
-static void destroyObject(Scene& scene);
+void 
+Scene::destroyObject(Scene& scene)
+{
+	for (auto it = scene._objects.begin(); it != scene._objects.end(); ++it) 
+	{
+		RenderObject::destroyObject(it->second);
+	}
+	scene._objects.clear();
+}
 
 void render(Shader shader);
 
