@@ -37,6 +37,13 @@ Scene::destroyObject(Scene& scene)
 	scene._objects.clear();
 }
 
-void render(Shader shader);
+void 
+Scene::render(RenderWindow window, Shader shader)
+{
+	for (auto it = _objects.begin(); it != _objects.end(); ++it)
+	{
+		it->second.render(window, shader);
+	}
+}
 
 RenderObject getObject(std::string name);

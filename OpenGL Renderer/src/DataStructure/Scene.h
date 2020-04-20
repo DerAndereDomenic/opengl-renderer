@@ -41,8 +41,10 @@ public:
 
 	/**
 	*	\brief Renders the scene with the given shader
+	*	\param[in] window The window where the object should be rendered to
+	*	\param[in] shader The shader to render the scene
 	*/
-	void render(Shader shader);
+	void render(RenderWindow window, Shader shader);
 
 	/**
 	*	\brief Returns the RenderObject with the given name
