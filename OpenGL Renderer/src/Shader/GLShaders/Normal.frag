@@ -1,5 +1,5 @@
 #version 330 core
-#define LIGHTS 3
+#define LIGHTS 1
 layout(location = 0) out vec4 FragColor;
 
 in vec3 frag_position;
