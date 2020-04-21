@@ -5,6 +5,7 @@
 #include <DataStructure/Mesh.h>
 #include <DataStructure/MeshHelper.h>
 #include <DataStructure/RenderObject.h>
+#include <DataStructure/Scene.h>
 #include <Shader/Shader.h>
 
 #include <IO/KeyManager.h>
@@ -33,19 +34,30 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
 	//---------------------------------------------------------------------------------//
+
+	std::vector<std::string> names;
+	std::vector<Mesh> meshes;
+	std::vector<Material> materials;
+	std::vector<glm::mat4> models;
+
+	names.push_back("Crate");
+
 	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
-	crate.create();
+	meshes.push_back(crate);
 
 	Material mat_crate = Material::createObject("materialmap");
 	mat_crate.texture_diffuse = Texture::createObject("res/crate_diffuse.png");
 	mat_crate.texture_specular = Texture::createObject("res/crate_specular.png");
 	mat_crate.useTextures = true;
 	mat_crate.shininess = 0.4f * 128.0f;
+	materials.push_back(mat_crate);
 
-	RenderObject obj_crate = RenderObject::createObject(crate, mat_crate, glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
+
+	names.push_back("Table");
 
 	Mesh table = ObjLoader::loadObj("res/table/simple-table.obj", true);
-	table.create();
+	meshes.push_back(table);
 
 	Material mat_table = Material::createObject("materialmap");
 	mat_table.texture_diffuse = Texture::createObject("res/table/table_diffuse.png");
@@ -53,11 +65,14 @@ int main(void)
 	mat_table.texture_normal = Texture::createObject("res/table/table_normal.png");
 	mat_table.shininess = 128.0f * 0.4f;
 	mat_table.useTextures = true;
+	materials.push_back(mat_table);
 
-	RenderObject obj_table = RenderObject::createObject(table, mat_table, glm::translate(glm::mat4(1), glm::vec3(-3, 0, 2)));
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(-3, 0, 2)));
+
+	names.push_back("Wall");
 
 	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
-	wall.create();
+	meshes.push_back(wall);
 
 	Material mat_brick = Material::createObject("materialmap");
 	mat_brick.texture_diffuse = Texture::createObject("res/brickwall.png");
@@ -65,49 +80,60 @@ int main(void)
 	mat_brick.texture_normal = Texture::createObject("res/brickwall_normal.png");
 	mat_brick.useTextures = true;
 	mat_brick.shininess = 0.4f * 128.0f;
+	materials.push_back(mat_brick);
 
-	RenderObject obj_wall = RenderObject::createObject(wall, mat_brick, glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
+	models.push_back(glm::translate(glm::mat4(1),glm::vec3(0, 5.0f, -5.0f)));
+
+	names.push_back("Plane");
 
 	Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
-	mesh.create();
-	//Mesh mesh = ObjLoader::loadObj("res/plane.obj", true);
-	//mesh.create();
+	meshes.push_back(mesh);
 
 	Material mat_fabric = Material::createObject("materialmap");
 	mat_fabric.texture_diffuse = Texture::createObject("res/fabric.png");
 	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
 	mat_fabric.texture_normal = Texture::createObject("res/fabric_normal.png");
 	mat_fabric.useTextures = true;
-	mat_fabric.shininess = 0.4f * 128.0f; 
+	mat_fabric.shininess = 0.4f * 128.0f;
+	materials.push_back(mat_fabric);
 
-	RenderObject obj_fabric = RenderObject::createObject(mesh, mat_fabric, glm::translate(glm::mat4(1), glm::vec3(0,-0.1,0)));
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0,-0.1,0)));
+
+	names.push_back("suzanne");
 
 	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
-	suzanne.create();
+	meshes.push_back(suzanne);
 
 	Material mat_suzanne = Material::createObject("materialmap");
 	mat_suzanne.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
 	mat_suzanne.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
 	mat_suzanne.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
 	mat_suzanne.shininess = 0.4f * 16.0f;
+	materials.push_back(mat_suzanne);
 
-	RenderObject obj_suzanne = RenderObject::createObject(suzanne, mat_suzanne, glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
+
+	names.push_back("Sphere");
 
 	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
-	sphere.create();
+	meshes.push_back(sphere);
 
 	Material mat_sphere = Material::createObject("materialmap");
 	mat_sphere.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
 	mat_sphere.diffuse = glm::vec3(0.4f, 0.0f, 0.0f);
 	mat_sphere.specular = glm::vec3(1.0f, 0.0f, 0.0f);
 	mat_sphere.shininess = 0.4f * 512.0f;
+	materials.push_back(mat_sphere);
 
-	RenderObject obj_sphere = RenderObject::createObject(sphere, mat_sphere, glm::translate(glm::mat4(1), glm::vec3(-2,3.0f, 0.0f)));
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(-2,3.0f, 0.0f)));
+
+	names.push_back("Fuzzy Sphere");
 
 	Mesh sphere_fuzzy = ObjLoader::loadObj("res/sphere_fuzzy.obj");
-	sphere_fuzzy.create();
+	meshes.push_back(sphere_fuzzy);
+	materials.push_back(mat_sphere);
 
-	RenderObject obj_fuzzy = RenderObject::createObject(sphere_fuzzy, mat_sphere, glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
 
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
@@ -172,6 +198,12 @@ int main(void)
 	quad.addTriangle(id1, id3, id4);
 
 	quad.create();
+
+	Scene scene = Scene::createObject(names, meshes, materials, models);
+	names.clear();
+	meshes.clear();
+	materials.clear();
+	models.clear();
 
 	//---------------------------------------------------------------------------------//
 	//                              RENDERING SETUP                                    //
@@ -267,23 +299,7 @@ int main(void)
 			//Wall
 			shadow.bind();
 			shadow.setMat4("V", lights[i].lightView);
-			obj_wall.render(window, shadow);
-
-			//Plane
-			obj_fabric.render(window, shadow);
-
-			//Crate
-			obj_crate.render(window, shadow);
-
-			//Suzanne
-			obj_suzanne.render(window, shadow);
-
-			//Table
-			obj_table.render(window, shadow);
-
-			//Spheres
-			obj_sphere.render(window, shadow);
-			obj_fuzzy.render(window, shadow);
+			scene.render(window, shadow);
 		}
 
 		//----------------------------------------------------------------------------------------------
@@ -315,24 +331,8 @@ int main(void)
 		}
 		
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		//Wall
-		obj_wall.render(window, normal);
-
-		//Plane
-		obj_fabric.render(window, normal);
-
-		//Crate
-		obj_crate.render(window, normal);
-
-		//Suzanne
-		obj_suzanne.render(window, normal);
-
-		//Table
-		obj_table.render(window, normal);
-
-		//Spheres
-		obj_sphere.render(window, normal);
-		obj_fuzzy.render(window, normal);
+		
+		scene.render(window, normal);
 
 		//Render light
 		//light1.position = rotate * glm::vec4(light1.position, 1);
@@ -378,13 +378,7 @@ int main(void)
 	RenderObject::destroyObject(obj_light);
 	RenderObject::destroyObject(obj_light2);
 	RenderObject::destroyObject(obj_light3);
-	RenderObject::destroyObject(obj_crate);
-	RenderObject::destroyObject(obj_fabric);
-	RenderObject::destroyObject(obj_suzanne);
-	RenderObject::destroyObject(obj_wall);
-	RenderObject::destroyObject(obj_table);
-	RenderObject::destroyObject(obj_sphere);
-	RenderObject::destroyObject(obj_fuzzy);
+	Scene::destroyObject(scene);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(lights[0].shadow_map);
 	FrameBuffer::destroyObject(lights[1].shadow_map);

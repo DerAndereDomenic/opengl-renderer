@@ -40,6 +40,11 @@ public:
 	*	\param[in] model The new model matrix
 	*/
 	void setModel(glm::mat4 model);
+
+	/**
+	*	\brief Returns the attached material
+	*/
+	inline Material& getMaterial() { return _material; }
 	
 private:
 	Mesh _mesh; /**<< The mesh of the object*/
