@@ -51,7 +51,7 @@ public:
 	*	\param[in] name The name of the object given when creating the scene
 	*	\return The corresponding object;
 	*/
-	RenderObject getObject(std::string name);
+	RenderObject& getObject(std::string name);
 
 private:
 	std::unordered_map<std::string, RenderObject> _objects = {}; /**<< Hash Map to maintain the objects in this scene*/

@@ -46,7 +46,7 @@ Scene::render(RenderWindow window, Shader shader)
 	}
 }
 
-RenderObject 
+RenderObject&
 Scene::getObject(std::string name)
 {
 	return _objects[name];

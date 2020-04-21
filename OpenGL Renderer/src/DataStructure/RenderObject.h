@@ -44,7 +44,7 @@ public:
 	/**
 	*	\brief Returns the attached material
 	*/
-	inline Material getMaterial() { return _material; }
+	inline Material& getMaterial() { return _material; }
 	
 private:
 	Mesh _mesh; /**<< The mesh of the object*/
