@@ -11,6 +11,12 @@ enum Channels
 	RGB = GL_RGB
 };
 
+enum Targes
+{
+	TEXTURE = GL_TEXTURE_2D,
+	CUBEMAP = GL_TEXTURE_CUBE_MAP
+};
+
 class Texture
 {
 public:
@@ -39,12 +45,14 @@ public:
 	*	\brief Create an empty Texture
 	*	\param[in] width The width of the texture
 	*	\param[in] height The height of the texture
+	*	\param[in] target The texture target (TEXTURE or CUBEMAP, default = TEXTURE)
 	*	\param[in] channels The type of texture (i.e. RGB or DEPTH for now)
 	*	\param[in] type The data type of a channel (default: unsigned byte)
 	*	\return The Texture object
 	*/
 	static Texture createObject(const unsigned int width,
 								const unsigned int height,
+								const unsigned int target = TEXTURE,
 								const unsigned int channels = RGB,
 								const unsigned int type = GL_UNSIGNED_BYTE);
 
