@@ -66,6 +66,9 @@
     <ClCompile Include="src\DataStructure\impl\Scene.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\DataStructure\impl\EnvironmentMap.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OpenGLObjects\VertexBuffer.h">
@@ -120,6 +123,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\DataStructure\Scene.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DataStructure\EnvironmentMap.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DataStructure\impl\EnvironmentMap.cpp" />
     <ClCompile Include="src\DataStructure\impl\Material.cpp" />
     <ClCompile Include="src\DataStructure\impl\Mesh.cpp" />
     <ClCompile Include="src\DataStructure\impl\MeshHelper.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="src\source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DataStructure\EnvironmentMap.h" />
     <ClInclude Include="src\DataStructure\Light.h" />
     <ClInclude Include="src\DataStructure\Material.h" />
     <ClInclude Include="src\DataStructure\Mesh.h" />
