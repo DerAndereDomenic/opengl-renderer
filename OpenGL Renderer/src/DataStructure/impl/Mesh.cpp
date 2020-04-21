@@ -41,7 +41,7 @@ Mesh::create()
 }
 
 void
-Mesh::render(RenderWindow window)
+Mesh::render()
 {
 	_vao.render();
 }

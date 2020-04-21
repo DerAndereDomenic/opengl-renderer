@@ -38,11 +38,9 @@ public:
 
 	/**
 	*	\brief Renders the mesh
-	*	\param[in] window The window the mesh should be rendered in
-	*	\param[in] shader The shader used for the mesh
 	*	\note The mesh has to be created via 'create()' before rendering
 	*/
-	void render(RenderWindow window);
+	void render();
 
 	/**
 	*	\brief Adds a vertex to the mesh
