@@ -68,16 +68,16 @@ private:
 	void processMouse(float xpos, float ypos);
 
 	bool _firstMouse = true; /**<< Check if the mouse is processed for the first time (special case)*/
-	float _lastX; /**<< Last X position of the mouse*/
-	float _lastY; /**<< Last Y position of the mouse*/
+	float _lastX = 0.0f; /**<< Last X position of the mouse*/
+	float _lastY = 0.0f; /**<< Last Y position of the mouse*/
 	float _yaw = -90.0f; /**<< Initial yaw angle of the camera*/
 	float _pitch = 0.0f; /**<< Initial pitch angle of the camera*/
 
 	const float _sensitivity = 0.25f; /**<< The mouse sensitivity*/
 
 	RenderWindow _window; /**<< The window the camera is operating at*/
-	glm::mat4 _view; /**<< The view matrix*/
-	glm::mat4 _projection; /**<< The projection matrix*/
+	glm::mat4 _view = glm::mat4(1); /**<< The view matrix*/
+	glm::mat4 _projection = glm::mat4(1); /**<< The projection matrix*/
 	glm::vec3 _cameraPos = glm::vec3(0.0f, 0.0f, 0.0f); /**<< The initial camera position*/
 	glm::vec3 _cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); /**<< The initial camera front*/
 	glm::vec3 _cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); /**<< The direction that defines the y-axis of the camera*/
