@@ -7,6 +7,12 @@
 #include <OpenGLObjects/FrameBuffer.h>
 #include <Renderer/Camera.h>
 
+struct ViewAngle
+{
+	float pitch;
+	float yaw;
+};
+
 class EnvironmentMap
 {
 public:
@@ -45,6 +51,15 @@ private:
 	Texture _cube_map = {}; /**<< The texture cube map*/
 	FrameBuffer _environment_map = {}; /**<< The framebuffer used to render to the cubemap*/
 	Camera _camera = {}; /**<< The camera of the environment map used to the scene*/
+	ViewAngle angles[6] =
+	{
+		{0,90},
+		{0,-90},
+		{-90,180},
+		{90,180},
+		{0,180},
+		{0,0}
+	}; /**<< An array to easily store pitch and yaw angles*/
 };
 
 #endif
