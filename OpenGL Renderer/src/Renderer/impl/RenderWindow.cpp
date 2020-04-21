@@ -59,13 +59,6 @@ RenderWindow::close()
 	glfwTerminate();
 }
 
-void 
-RenderWindow::render(VertexArray& vao, IndexBuffer& ibo)
-{
-	vao.bind();
-	glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
-}
-
 void
 RenderWindow::setViewport(const unsigned int width, const unsigned int height)
 {
