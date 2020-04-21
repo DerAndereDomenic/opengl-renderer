@@ -7,7 +7,7 @@ namespace ObjLoader
 {
 
 	/**
-	*	\brief Loads a .obj file into a mesh (BETA: LIMITED)
+	*	\brief Loads any assimp supported 3D file into a Mesh class
 	*	\param[in] path The path to the obj file
 	*	\param[in] calcTangent If the tangents should be calculated
 	*	\return The mesh extracted from the file
