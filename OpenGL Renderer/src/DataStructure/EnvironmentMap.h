@@ -39,7 +39,7 @@ public:
 	*	\brief Get the cubemap texture
 	*	\return The cube map
 	*/
-	Texture getCubeMap();
+	inline Texture getCubeMap() {return _cube_map;}
 
 private:
 	Texture _cube_map; /**<< The texture cube map*/
