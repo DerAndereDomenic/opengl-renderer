@@ -51,18 +51,21 @@ Camera::processInput(float deltaTime)
 		_cameraPos += cameraSpeed * _cameraUp;
 	if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL))
 		_cameraPos -= cameraSpeed * _cameraUp;
-
-	_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
 }
 
 void 
 Camera::updateDirection(float pitch, float yaw)
 {
+
+	_pitch = pitch;
+	_yaw = yaw;
+
 	glm::vec3 front;
 	front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 	front.y = sin(glm::radians(_pitch));
 	front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 	_cameraFront = glm::normalize(front);
+	_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
 }
 
 void
