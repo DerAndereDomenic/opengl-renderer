@@ -30,10 +30,9 @@ public:
 
 	/**
 	*	\brief Renders the object
-	*	\param[in] window The window the object should be rendered to
 	*	\param[in] shader The shader that should be used for rendering
 	*/
-	void render(RenderWindow window, Shader shader);
+	void render(Shader shader);
 
 	/**
 	*	\brief Update the model matrix

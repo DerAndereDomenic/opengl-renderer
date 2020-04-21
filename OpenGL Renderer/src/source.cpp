@@ -318,7 +318,7 @@ int main(void)
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
-		obj_light.render(window, normal);
+		obj_light.render(normal);
 
 
 		//Render to quad

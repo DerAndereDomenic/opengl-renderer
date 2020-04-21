@@ -21,7 +21,7 @@ RenderObject::destroyObject(RenderObject& object)
 }
 
 void 
-RenderObject::render(RenderWindow window, Shader shader)
+RenderObject::render(Shader shader)
 {
 	_material.bind(shader);
 	shader.setMat4("M", _model);

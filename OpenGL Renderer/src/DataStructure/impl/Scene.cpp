@@ -42,7 +42,7 @@ Scene::render(RenderWindow window, Shader shader)
 {
 	for (auto it = _objects.begin(); it != _objects.end(); ++it)
 	{
-		it->second.render(window, shader);
+		it->second.render(shader);
 	}
 }
 
