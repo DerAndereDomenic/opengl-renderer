@@ -47,7 +47,7 @@ Texture::createObject(const char* file_path)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	result._target = GL_TEXTURE_2D;
+	result._target = TEXTURE;
 
 	return result;
 }
@@ -96,13 +96,17 @@ Texture::createObject(const char* file_path, std::vector<std::string> faces)
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	result._target = GL_TEXTURE_CUBE_MAP;
+	result._target = CUBEMAP;
 
 	return result;
 }
 
 Texture 
-Texture::createObject(const unsigned int width, const unsigned int height, const unsigned int channels, const unsigned int type)
+Texture::createObject(const unsigned int width, 
+					  const unsigned int height, 
+					  const unsigned int target, 
+					  const unsigned int channels, 
+					  const unsigned int type)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);
@@ -111,7 +115,7 @@ Texture::createObject(const unsigned int width, const unsigned int height, const
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	result._target = GL_TEXTURE_2D;
+	result._target = TEXTURE;
 
 	return result;
 }
