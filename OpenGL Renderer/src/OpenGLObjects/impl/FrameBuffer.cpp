@@ -51,7 +51,7 @@ void
 FrameBuffer::attachDepthMap()
 {
 	bind();
-	Texture texture = Texture::createObject(_width, _height, DEPTH, GL_FLOAT);
+	Texture texture = Texture::createObject(_width, _height, TEXTURE, DEPTH, GL_FLOAT);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture.getID(), 0);
 	_render_textures.push_back(texture);
 }

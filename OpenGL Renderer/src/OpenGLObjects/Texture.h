@@ -11,7 +11,7 @@ enum Channels
 	RGB = GL_RGB
 };
 
-enum Targes
+enum Targets
 {
 	TEXTURE = GL_TEXTURE_2D,
 	CUBEMAP = GL_TEXTURE_CUBE_MAP
