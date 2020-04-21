@@ -15,7 +15,9 @@ EnvironmentMap::createObject(glm::vec3 position)
 void 
 EnvironmentMap::destroyObject(EnvironmentMap& object)
 {
-
+	Camera::destroyObject(object._camera);
+	Texture::destroyObject(object._cube_map);
+	FrameBuffer::destroyObject(object._environment_map);
 }
 
 void 
