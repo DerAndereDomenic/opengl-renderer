@@ -34,7 +34,7 @@ Mesh::create()
 	_vao = VertexArray::createObject();
 	_vao.addBuffer(_vbo, _layout);
 	_ibo = IndexBuffer::createObject(_indices.data(), _indices.size());
-
+	_vao.setIndexBuffer(_ibo);
 
 	_vertices.clear();
 	_indices.clear();
