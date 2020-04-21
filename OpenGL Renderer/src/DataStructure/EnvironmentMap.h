@@ -3,8 +3,8 @@
 
 #include <glm/glm.hpp>
 #include <DataStructure/Scene.h>
-#include <DataStructure/Texture.h>
-#include <DataStructure/FrameBuffer.h>
+#include <OpenGLObjects/Texture.h>
+#include <OpenGLObjects/FrameBuffer.h>
 #include <Renderer/Camera.h>
 
 class EnvironmentMap
@@ -13,7 +13,7 @@ public:
 	/**
 	*	\brief Create an empry environment map
 	*/
-	EnvironmentMap();
+	EnvironmentMap() = default;
 
 	/**
 	*	\brief Create an environment map at the given position
@@ -42,9 +42,9 @@ public:
 	inline Texture getCubeMap() {return _cube_map;}
 
 private:
-	Texture _cube_map; /**<< The texture cube map*/
-	FrameBuffer _environment_map; /**<< The framebuffer used to render to the cubemap*/
-	Camera _camera; /**<< The camera of the environment map used to the scene*/
+	Texture _cube_map = {}; /**<< The texture cube map*/
+	FrameBuffer _environment_map = {}; /**<< The framebuffer used to render to the cubemap*/
+	Camera _camera = {}; /**<< The camera of the environment map used to the scene*/
 };
 
 #endif
