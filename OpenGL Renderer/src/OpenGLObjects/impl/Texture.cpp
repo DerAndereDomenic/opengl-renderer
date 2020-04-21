@@ -110,10 +110,20 @@ Texture::createObject(const unsigned int width,
 {
 	Texture result;
 	glGenTextures(1, &result._ID);
-	glBindTexture(GL_TEXTURE_2D, result._ID);
-	glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, channels, type, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glBindTexture(target, result._ID);
+	if (target == TEXTURE)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, channels, type, NULL);
+
+	}
+	else
+	{
+		for (unsigned int i = 0; i < 6; ++i) {
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, channels, width, height, 0, channels, type, NULL);
+		}
+	}
+	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	result._target = TEXTURE;
 
