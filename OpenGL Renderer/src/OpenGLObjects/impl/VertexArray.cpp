@@ -42,8 +42,7 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 }
 
 void 
-VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout, const IndexBuffer &ibo)
+VertexArray::setIndexBuffer(const IndexBuffer &ibo)
 {
-	addBuffer(vbo, layout);
-	ibo.bind();
+	_ibo = ibo;
 }
