@@ -37,6 +37,13 @@ public:
 	void processInput(float deltaTime);
 
 	/**
+	*	\brief Change view direction based on pitch and yaw
+	*	\param[in] pitch The pitch angle
+	*	\param[in] yaw The yaw angle
+	*/
+	void updateDirection(float pitch, float yaw);
+
+	/**
 	*	\brief The Projection Matrix of the camera
 	*	\return The Projection Matrix
 	*/

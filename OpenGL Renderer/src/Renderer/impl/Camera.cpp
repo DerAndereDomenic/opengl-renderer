@@ -55,6 +55,16 @@ Camera::processInput(float deltaTime)
 	_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
 }
 
+void 
+Camera::updateDirection(float pitch, float yaw)
+{
+	glm::vec3 front;
+	front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+	front.y = sin(glm::radians(_pitch));
+	front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+	_cameraFront = glm::normalize(front);
+}
+
 void
 Camera::processMouse(float xpos, float ypos)
 {
@@ -81,9 +91,6 @@ Camera::processMouse(float xpos, float ypos)
 	if (_pitch < -89.0f)
 		_pitch = -89.0f;
 
-	glm::vec3 front;
-	front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-	front.y = sin(glm::radians(_pitch));
-	front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-	_cameraFront = glm::normalize(front);
+	updateDirection(_pitch, _yaw);
+
 }
