@@ -25,6 +25,17 @@ public:
 	static Camera createObject(RenderWindow window, float near, float far);
 
 	/**
+	*	\brief Create a camera object
+	*	\param[in] positon The position of the camera
+	*	\param[in] fov The fov of the camera
+	*	\param[in] aspect_ratio The apsect ratio of the screen
+	*	\param[in] near The near plane
+	*	\param[in] far The far plane
+	*	\return The camera object
+	*/
+	static Camera createObject(glm::vec3 position, float fov, float aspect_ratio, float near, float far);
+
+	/**
 	*	\brief Destroys the given camera
 	*	\param[in] camera The camera to be destroyed
 	*/
@@ -80,9 +91,9 @@ private:
 	float _yaw = -90.0f; /**<< Initial yaw angle of the camera*/
 	float _pitch = 0.0f; /**<< Initial pitch angle of the camera*/
 
-	const float _sensitivity = 0.25f; /**<< The mouse sensitivity*/
+	float _sensitivity = 0.25f; /**<< The mouse sensitivity*/
 
-	RenderWindow _window; /**<< The window the camera is operating at*/
+	RenderWindow _window = {}; /**<< The window the camera is operating at*/
 	glm::mat4 _view = glm::mat4(1); /**<< The view matrix*/
 	glm::mat4 _projection = glm::mat4(1); /**<< The projection matrix*/
 	glm::vec3 _cameraPos = glm::vec3(0.0f, 0.0f, 0.0f); /**<< The initial camera position*/

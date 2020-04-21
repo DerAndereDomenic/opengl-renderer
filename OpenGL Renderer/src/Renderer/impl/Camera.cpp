@@ -13,6 +13,16 @@ Camera::createObject(RenderWindow window, float near, float far)
 	return result;
 }
 
+Camera
+Camera::createObject(glm::vec3 position, float fov, float aspect_ratio, float near, float far)
+{
+	Camera result;
+	result._cameraPos = position;
+	result._projection = glm::perspective(glm::radians(fov), aspect_ratio, near, far);
+	result._view = glm::lookAt(result._cameraPos, result._cameraPos + result._cameraFront, result._cameraUp);
+	return result;
+}
+
 void
 Camera::destroyObject(Camera& camera)
 {
