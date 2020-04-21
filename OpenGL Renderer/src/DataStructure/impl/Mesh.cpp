@@ -43,7 +43,7 @@ Mesh::create()
 void
 Mesh::render(RenderWindow window)
 {
-	window.render(_vao, _ibo);
+	_vao.render();
 }
 
 unsigned int 
