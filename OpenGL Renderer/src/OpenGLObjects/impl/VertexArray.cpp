@@ -26,6 +26,13 @@ VertexArray::unbind() const
 	glBindVertexArray(0);
 }
 
+void
+VertexArray::render() const
+{
+	bind();
+	glDrawElements(GL_TRIANGLES, _ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
+}
+
 void 
 VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout)
 {

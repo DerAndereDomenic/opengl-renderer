@@ -39,6 +39,11 @@ public:
 	void unbind() const;
 
 	/**
+	*	\brief Renders the vao
+	*/
+	void render() const;
+
+	/**
 	*	\brief Add a Layout for the given Vertex Buffer object
 	*	\param[in] vbo The Vertex Buffer
 	*	\param[in] layout The Layout for the Vertex Buffer
