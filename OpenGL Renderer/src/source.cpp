@@ -279,7 +279,7 @@ int main(void)
 			//Wall
 			shadow.bind();
 			shadow.setMat4("V", lights[i].lightView);
-			scene.render(window, shadow);
+			scene.render(shadow);
 		}
 
 		//----------------------------------------------------------------------------------------------
@@ -312,7 +312,7 @@ int main(void)
 		
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		
-		scene.render(window, normal);
+		scene.render(normal);
 
 		//Render light
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };

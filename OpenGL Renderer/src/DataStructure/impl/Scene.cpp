@@ -38,7 +38,7 @@ Scene::destroyObject(Scene& scene)
 }
 
 void 
-Scene::render(RenderWindow window, Shader shader)
+Scene::render(Shader shader)
 {
 	for (auto it = _objects.begin(); it != _objects.end(); ++it)
 	{
