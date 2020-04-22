@@ -182,6 +182,8 @@
     <None Include="src\Shader\GLShaders\Normal.vert" />
     <None Include="src\Shader\GLShaders\Post.frag" />
     <None Include="src\Shader\GLShaders\Post.vert" />
+    <None Include="src\Shader\GLShaders\Reflection.frag" />
+    <None Include="src\Shader\GLShaders\Reflection.vert" />
     <None Include="src\Shader\GLShaders\Shadow.frag" />
     <None Include="src\Shader\GLShaders\Shadow.vert" />
     <None Include="src\Shader\GLShaders\Skybox.frag" />

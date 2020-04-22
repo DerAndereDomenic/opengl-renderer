@@ -118,6 +118,7 @@ int main(void)
 	names.push_back("Sphere");
 
 	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
+	sphere.create();
 	meshes.push_back(sphere);
 
 	Material mat_sphere = Material::createObject("materialmap");
@@ -203,6 +204,9 @@ int main(void)
 
 	Shader cm = Shader::createObject("src/Shader/GLShaders/CubeMap.vert",
 		"src/Shader/GLShaders/CubeMap.frag");
+
+	Shader reflection = Shader::createObject("src/Shader/GLShaders/Reflection.vert",
+		"src/Shader/GLShaders/Reflection.frag");
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachColor();
@@ -301,12 +305,12 @@ int main(void)
 
 		sky.render(camera);
 
-		cm.bind();
-		cm.setInt("cubemap", 0);
-		cm.setVec3("center_position", glm::vec3(0, 5, 0));
+		reflection.bind();
+		reflection.setInt("cubemap", 0);
+		reflection.setVec3("camera_position", camera.getPosition());
 		map.getCubeMap().bind();
-		cm.setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
-		light.render();
+		reflection.setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
+		sphere.render();
 		
 		//Light
 		normal.bind();
@@ -342,16 +346,12 @@ int main(void)
 		{
 			window.close();
 		}
-
-		if (KeyManager::instance()->isKeyDown(GLFW_KEY_K))
-		{
-			camera.updateDirection(0, 90);
-		}
 	}
 
 	Shader::destroyObject(post);
 	Shader::destroyObject(normal);
 	Shader::destroyObject(shadow);
+	Shader::destroyObject(reflection);
 	Skybox::destroyObject(sky);
 	RenderWindow::destroyObject(window);
 	Camera::destroyObject(camera);
