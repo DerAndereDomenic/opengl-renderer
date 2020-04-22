@@ -53,12 +53,13 @@ private:
 	Camera _camera = {}; /**<< The camera of the environment map used to the scene*/
 	ViewAngle angles[6] =
 	{
-		{0,90},
-		{0,-90},
-		{-90,180},
-		{90,180},
+		{0,0},
 		{0,180},
-		{0,0}
+		{90,-90},
+		{-90,-90},
+		{0,90},
+		{0,-90}
+
 	}; /**<< An array to easily store pitch and yaw angles*/
 };
 
