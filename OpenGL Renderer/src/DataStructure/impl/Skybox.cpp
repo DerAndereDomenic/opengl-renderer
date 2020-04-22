@@ -10,6 +10,7 @@ Skybox::createObject(Texture cubemap)
 	result._cube.create();
 	result._shader = Shader::createObject("src/Shader/GLShaders/Skybox.vert",
 		"src/Shader/GLShaders/Skybox.frag");
+	result._shader.setInt("skybox", 0);
 	return result;
 }
 
