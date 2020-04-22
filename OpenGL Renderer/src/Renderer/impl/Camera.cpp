@@ -18,6 +18,7 @@ Camera::createObject(glm::vec3 position, float fov, float aspect_ratio, float ne
 {
 	Camera result;
 	result._cameraPos = position;
+	result._cameraUp = -result._cameraUp;
 	result._projection = glm::perspective(glm::radians(fov), aspect_ratio, near, far);
 	result._view = glm::lookAt(result._cameraPos, result._cameraPos + result._cameraFront, result._cameraUp);
 	return result;
@@ -75,6 +76,7 @@ Camera::updateDirection(float pitch, float yaw)
 	front.y = sin(glm::radians(_pitch));
 	front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 	_cameraFront = glm::normalize(front);
+	//std::cout << _cameraFront.x << ", " << _cameraFront.y << ", " << _cameraFront.z << std::endl;
 	_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
 }
 
