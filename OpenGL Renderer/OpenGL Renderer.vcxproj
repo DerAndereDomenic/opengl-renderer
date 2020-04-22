@@ -137,6 +137,7 @@
     <ClCompile Include="src\DataStructure\impl\MeshHelper.cpp" />
     <ClCompile Include="src\DataStructure\impl\RenderObject.cpp" />
     <ClCompile Include="src\DataStructure\impl\Scene.cpp" />
+    <ClCompile Include="src\DataStructure\impl\Skybox.cpp" />
     <ClCompile Include="src\IO\impl\KeyManager.cpp" />
     <ClCompile Include="src\IO\impl\ObjLoader.cpp" />
     <ClCompile Include="src\OpenGLObjects\impl\FrameBuffer.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="src\DataStructure\MeshHelper.h" />
     <ClInclude Include="src\DataStructure\RenderObject.h" />
     <ClInclude Include="src\DataStructure\Scene.h" />
+    <ClInclude Include="src\DataStructure\Skybox.h" />
     <ClInclude Include="src\IO\KeyManager.h" />
     <ClInclude Include="src\IO\ObjLoader.h" />
     <ClInclude Include="src\OpenGLObjects\FrameBuffer.h" />
