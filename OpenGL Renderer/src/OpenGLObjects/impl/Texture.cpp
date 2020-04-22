@@ -118,14 +118,18 @@ Texture::createObject(const unsigned int width,
 	}
 	else
 	{
-		for (unsigned int i = 0; i < 6; ++i) {
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, channels, width, height, 0, channels, type, NULL);
+		for (unsigned int i = 0; i < 6; ++i) 
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, channels, type, NULL);
 		}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	}
 	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	result._target = TEXTURE;
+	result._target = target;
 
 	return result;
 }
