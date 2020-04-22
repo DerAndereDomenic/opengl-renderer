@@ -12,6 +12,7 @@
 #include <IO/ObjLoader.h>
 #include <Renderer/RenderWindow.h>
 #include <Renderer/Camera.h>
+#include <DataStructure/EnvironmentMap.h>
 
 #define LIGHTS 1
 
@@ -202,12 +203,17 @@ int main(void)
 	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
 		"src/Shader/GLShaders/Shadow.frag");
 
+	Shader cm = Shader::createObject("src/Shader/GLShaders/CubeMap.vert",
+		"src/Shader/GLShaders/CubeMap.frag");
+
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachColor();
 	fbo.attachColor();
 	fbo.attachRenderBuffer();
 	fbo.verify();
 	fbo.unbind();
+
+	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
 
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
 	
@@ -268,7 +274,7 @@ int main(void)
 		camera.processInput(0.005f);
 
 		window.setViewport(shadow_width, shadow_height);
-
+		
 		for (unsigned int i = 0; i < LIGHTS;++i) 
 		{
 			lights[i].shadow_map.bind();
@@ -285,12 +291,19 @@ int main(void)
 		//----------------------------------------------------------------------------------------------
 		window.resetViewport();
 		//Render scene
+		normal.bind();
+		map.render(scene, normal);
+
+
+
+		window.resetViewport();
 		fbo.bind();
+
 		window.clear();
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
-
 		//Skybox
 		//Use vertex data of the light block
+
 		window.disableDepthWriting();
 		skybox_shader.bind();
 		skybox.bind(0);
@@ -299,6 +312,13 @@ int main(void)
 							 camera.getProjection());
 		light.render();
 		window.enableDepthWriting();
+
+		cm.bind();
+		cm.setInt("cubemap", 0);
+		cm.setVec3("center_position", glm::vec3(0, 5, 0));
+		map.getCubeMap().bind();
+		cm.setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
+		light.render();
 		
 		//Light
 		normal.bind();
@@ -309,7 +329,6 @@ int main(void)
 			normal.setMat4("lights_vert["+std::to_string(i) + +"].lightSpaceMatrix", lights[i].lightSpace);
 			lights[i].shadow_map.getTexture().bind(4+i);
 		}
-		
 		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		
 		scene.render(normal);
@@ -334,6 +353,11 @@ int main(void)
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
 		{
 			window.close();
+		}
+
+		if (KeyManager::instance()->isKeyDown(GLFW_KEY_K))
+		{
+			camera.updateDirection(0, 90);
 		}
 	}
 
