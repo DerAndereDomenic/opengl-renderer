@@ -21,7 +21,7 @@ EnvironmentMap::destroyObject(EnvironmentMap& object)
 }
 
 void 
-EnvironmentMap::render(Scene scene, Shader shader)
+EnvironmentMap::render(Scene scene, Skybox skybox, Shader shader)
 {
 	_environment_map.bind();
 	glViewport(0, 0, 1024, 1024);
@@ -31,6 +31,8 @@ EnvironmentMap::render(Scene scene, Shader shader)
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, _cube_map.getID(), 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		_camera.updateDirection(angles[i].pitch, angles[i].yaw);
+		skybox.render(_camera);
+		shader.bind();
 		shader.setMVP(glm::mat4(1), _camera.getView(), _camera.getProjection());
 		scene.render(shader);
 	}

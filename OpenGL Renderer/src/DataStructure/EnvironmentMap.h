@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <DataStructure/Scene.h>
+#include <DataStructure/Skybox.h>
 #include <OpenGLObjects/Texture.h>
 #include <OpenGLObjects/FrameBuffer.h>
 #include <Renderer/Camera.h>
@@ -39,7 +40,7 @@ public:
 	*	\param[in] scene The scene to be rendered
 	*	\param[in] shader The shader used to render the scene
 	*/
-	void render(Scene scene, Shader shader);
+	void render(Scene scene, Skybox skybox, Shader shader);
 
 	/**
 	*	\brief Get the cubemap texture
