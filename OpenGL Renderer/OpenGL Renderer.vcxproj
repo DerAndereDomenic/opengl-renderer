@@ -174,6 +174,8 @@
   <ItemGroup>
     <None Include="src\Shader\GLShaders\basic.frag" />
     <None Include="src\Shader\GLShaders\basic.vert" />
+    <None Include="src\Shader\GLShaders\CubeMap.frag" />
+    <None Include="src\Shader\GLShaders\CubeMap.vert" />
     <None Include="src\Shader\GLShaders\Normal.frag" />
     <None Include="src\Shader\GLShaders\Normal.vert" />
     <None Include="src\Shader\GLShaders\Post.frag" />

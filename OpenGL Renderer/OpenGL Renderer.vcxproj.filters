@@ -140,5 +140,7 @@
     <None Include="src\Shader\GLShaders\Shadow.frag" />
     <None Include="src\Shader\GLShaders\Skybox.vert" />
     <None Include="src\Shader\GLShaders\Skybox.frag" />
+    <None Include="src\Shader\GLShaders\CubeMap.vert" />
+    <None Include="src\Shader\GLShaders\CubeMap.frag" />
   </ItemGroup>
 </Project>
