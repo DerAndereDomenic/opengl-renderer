@@ -289,9 +289,7 @@ int main(void)
 		window.resetViewport();
 		//Render scene
 		normal.bind();
-		map.render(scene, normal);
-
-
+		map.render(scene, sky, normal);
 
 		window.resetViewport();
 		fbo.bind();
