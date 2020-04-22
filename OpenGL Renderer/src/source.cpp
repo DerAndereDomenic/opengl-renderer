@@ -5,6 +5,7 @@
 #include <DataStructure/Mesh.h>
 #include <DataStructure/MeshHelper.h>
 #include <DataStructure/RenderObject.h>
+#include <DataStructure/Skybox.h>
 #include <DataStructure/Scene.h>
 #include <Shader/Shader.h>
 
@@ -197,9 +198,6 @@ int main(void)
 	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
 		"src/Shader/GLShaders/Normal.frag");
 
-	Shader skybox_shader = Shader::createObject("src/Shader/GLShaders/Skybox.vert",
-		"src/Shader/GLShaders/Skybox.frag");
-
 	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
 		"src/Shader/GLShaders/Shadow.frag");
 
@@ -237,8 +235,7 @@ int main(void)
 	post.setInt("screenTexture", 0);
 	post.setInt("lightTexture", 1);
 
-	skybox_shader.bind();
-	skybox_shader.setInt("skybox", 0);
+	Skybox sky = Skybox::createObject(skybox);
 
 	normal.bind();
 
@@ -304,14 +301,7 @@ int main(void)
 		//Skybox
 		//Use vertex data of the light block
 
-		window.disableDepthWriting();
-		skybox_shader.bind();
-		skybox.bind(0);
-		skybox_shader.setMVP(glm::mat4(1),
-							 glm::mat4(glm::mat3(camera.getView())),
-							 camera.getProjection());
-		light.render();
-		window.enableDepthWriting();
+		sky.render(camera);
 
 		cm.bind();
 		cm.setInt("cubemap", 0);
@@ -364,7 +354,7 @@ int main(void)
 	Shader::destroyObject(post);
 	Shader::destroyObject(normal);
 	Shader::destroyObject(shadow);
-	Shader::destroyObject(skybox_shader);
+	Skybox::destroyObject(sky);
 	RenderWindow::destroyObject(window);
 	Camera::destroyObject(camera);
 	Mesh::destroyObject(quad);
