@@ -23,7 +23,7 @@ public:
 	*	\brief Destroys the Perlin RNG
 	*	\param[in] object The object to be destroyed
 	*/
-	static void destroyObject(PerlingGenerator& object);
+	static void destroyObject(PerlinGenerator& object);
 
 	/**
 	*	\brief Generates a random number
