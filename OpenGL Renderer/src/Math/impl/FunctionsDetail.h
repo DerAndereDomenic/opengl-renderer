@@ -1,0 +1,6 @@
+#ifndef MATH_IMPL_FUNCTIONSDETAIL_H
+#define MATH_IMPL_FUNCTIONSDETAIL_H
+
+
+
+#endif

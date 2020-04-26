@@ -7,4 +7,6 @@ namespace Math
 	T lerp(T a, T b, float t);
 };
 
+#include <Math/impl/FunctionsDetail.h>
+
 #endif
