@@ -2,8 +2,6 @@
 #define MATH_PERLIN_NOISE
 
 #include <glm/glm.hpp>
-#define GRIDX 512
-#define GRIDY 512
 
 class PerlinGenerator
 {
@@ -33,7 +31,10 @@ public:
 	*/
 	float generate(const float x, const float y);
 private:
-	glm::vec2 gradients[GRIDX][GRIDY]; /**<< The gradient vector field*/
+	glm::vec2 **_gradients; /**<< The gradient vector field*/
+
+	unsigned int GRIDX = 512; /**<< The x size of the grid*/
+	unsigned int GRIDY = 512; /**<< The y size of the grid*/
 };
 
 #endif
