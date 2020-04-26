@@ -23,7 +23,10 @@ PerlinGenerator::createObject()
 void 
 PerlinGenerator::destroyObject(PerlinGenerator& object)
 {
-
+	for (unsigned int x = 0; x < object.GRIDX; ++x) {
+		delete[] object._gradients[x];
+	}
+	delete[] object._gradients;
 }
 
 float 
