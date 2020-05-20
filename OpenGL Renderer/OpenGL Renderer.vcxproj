@@ -140,6 +140,7 @@
     <ClCompile Include="src\DataStructure\impl\Skybox.cpp" />
     <ClCompile Include="src\IO\impl\KeyManager.cpp" />
     <ClCompile Include="src\IO\impl\ObjLoader.cpp" />
+    <ClCompile Include="src\Math\impl\PerlinNoise.cpp" />
     <ClCompile Include="src\OpenGLObjects\impl\FrameBuffer.cpp" />
     <ClCompile Include="src\OpenGLObjects\impl\IndexBuffer.cpp" />
     <ClCompile Include="src\OpenGLObjects\impl\RenderBuffer.cpp" />
@@ -162,6 +163,9 @@
     <ClInclude Include="src\DataStructure\Skybox.h" />
     <ClInclude Include="src\IO\KeyManager.h" />
     <ClInclude Include="src\IO\ObjLoader.h" />
+    <ClInclude Include="src\Math\Functions.h" />
+    <ClInclude Include="src\Math\impl\FunctionsDetail.h" />
+    <ClInclude Include="src\Math\PerlinNoise.h" />
     <ClInclude Include="src\OpenGLObjects\FrameBuffer.h" />
     <ClInclude Include="src\OpenGLObjects\IndexBuffer.h" />
     <ClInclude Include="src\OpenGLObjects\RenderBuffer.h" />

@@ -35,6 +35,8 @@ private:
 
 	unsigned int GRIDX = 512; /**<< The x size of the grid*/
 	unsigned int GRIDY = 512; /**<< The y size of the grid*/
+
+	float dot(int ix, int iy, float x, float y);
 };
 
 #endif

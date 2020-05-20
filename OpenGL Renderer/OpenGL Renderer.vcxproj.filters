@@ -72,6 +72,9 @@
     <ClCompile Include="src\DataStructure\impl\Skybox.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\Math\impl\PerlinNoise.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OpenGLObjects\VertexBuffer.h">
@@ -132,6 +135,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\DataStructure\Skybox.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Functions.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\impl\FunctionsDetail.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\PerlinNoise.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
