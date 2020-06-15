@@ -37,6 +37,9 @@ struct MaterialMap
 
 uniform MaterialMap materialmap;
 
+/**
+*	This is an intern struct to simplify light calculation
+*/
 struct Material
 {
 	vec3 ambient;
