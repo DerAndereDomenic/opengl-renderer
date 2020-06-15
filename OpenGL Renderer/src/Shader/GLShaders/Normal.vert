@@ -27,6 +27,8 @@ struct MaterialMap
 	vec3 diffuse;
 	vec3 specular;
 
+	int type;
+
 	float shininess;
 };
 
