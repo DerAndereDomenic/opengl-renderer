@@ -1,5 +1,10 @@
 #version 330 core
 #define LIGHTS 1
+
+#define LAMBERT 0
+#define PHONG 1
+#define GGX 2
+
 layout(location = 0) out vec4 FragColor;
 
 in vec3 frag_position;
@@ -31,6 +36,8 @@ struct MaterialMap
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
+
+	int type;
 
 	float shininess;
 };
