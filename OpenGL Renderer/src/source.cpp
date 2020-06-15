@@ -132,8 +132,8 @@ int main(void)
 
 	names.push_back("Fuzzy Sphere");
 
-	Mesh sphere_fuzzy = ObjLoader::loadObj("res/sphere_fuzzy.obj");
-	meshes.push_back(sphere_fuzzy);
+	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere_fuzzy.obj");
+	meshes.push_back(sphere_brdf);
 	materials.push_back(mat_sphere);
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
