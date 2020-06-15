@@ -52,4 +52,5 @@ Material::bind(Shader shader)
 		shader.setVec3(_name + ".specular", specular);
 		shader.setFloat(_name + ".shininess", shininess);
 	}
+	shader.setInt(_name + ".type", _type);
 }
