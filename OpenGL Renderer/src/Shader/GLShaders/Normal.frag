@@ -60,7 +60,7 @@ float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 	return currentDepth - bias > closestDepth ? 1 : 0.0;
 }
 
-vec3 calcPointLight(Light plight, Material material, vec3 normal, int pass)
+vec3 brdf_phong(Light plight, Material material, vec3 normal, int pass)
 {
 	//Calculate directions
 	vec3 lightDir = normalize(plight.position - frag_position);
@@ -122,7 +122,7 @@ void main(){
 	vec3 result = vec3(0);
 	for(int i = 0; i < LIGHTS; ++i)
 	{
-		result += calcPointLight(lights_frag[i], object_material, norm, i);
+		result += brdf_phong(lights_frag[i], object_material, norm, i);
 	}
 
 	FragColor = vec4(result, 1.0);
