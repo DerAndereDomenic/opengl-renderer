@@ -6,7 +6,7 @@
 
 class Shader;
 
-enum Type
+enum MaterialType
 {
 	LAMBERT,
 	PHONG,
@@ -51,6 +51,8 @@ public:
 	Texture texture_specular; /**<< The specular texture*/
 	Texture texture_normal; /**<< The normal map texture*/
 	Texture texture_height; /**<< The displacement map texture*/
+
+	MaterialType _type; /**<< The material type*/
 
 	float shininess = 0; /**<< The shininess of the material*/
 private:
