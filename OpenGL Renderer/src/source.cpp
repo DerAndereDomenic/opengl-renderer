@@ -132,7 +132,7 @@ int main(void)
 
 	names.push_back("Fuzzy Sphere");
 
-	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere_fuzzy.obj");
+	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere.obj");
 	meshes.push_back(sphere_brdf);
 	materials.push_back(mat_sphere);
 
