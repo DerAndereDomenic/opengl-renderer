@@ -69,7 +69,7 @@ vec3 brdf_phong(Light plight, Material material, vec3 normal, int pass)
 
 	//Calculate diffuse part
 	float diff = max(dot(normal, lightDir), 0.0);
-	vec3 diffuse = (diff*material.diffuse)*plight.diffuse;
+	vec3 diffuse = (diff*material.diffuse/3.1415f)*plight.diffuse;
 
 	//Calculate specular part
 	float spec = pow(max(dot(normal, halfwayDir), 0.0), material.shininess);
