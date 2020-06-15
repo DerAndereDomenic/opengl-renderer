@@ -6,6 +6,13 @@
 
 class Shader;
 
+enum Type
+{
+	LAMBERT,
+	PHONG,
+	GGX
+};
+
 /**
 *	\brief A struct to model a material
 */
