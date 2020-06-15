@@ -129,7 +129,17 @@ void main(){
 	vec3 result = vec3(0);
 	for(int i = 0; i < LIGHTS; ++i)
 	{
-		result += brdf_phong(lights_frag[i], object_material, norm, i);
+		switch(materialmap.type)
+		{
+			case LAMBERT:
+				break;
+			case PHONG:
+				result += brdf_phong(lights_frag[i], object_material, norm, i);
+				break;
+			case GGX:
+				break;
+		}
+		
 	}
 
 	FragColor = vec4(result, 1.0);
