@@ -28,7 +28,7 @@ public:
 	*	\brief Create an object with a given name
 	*	\param[in] name The name of the material (used in shader)
 	*/
-	static Material createObject(const std::string& name);
+	static Material createObject(const std::string& name, MaterialType type = MaterialType::PHONG);
 
 	/**
 	*	\brief Destroys the object
@@ -52,7 +52,7 @@ public:
 	Texture texture_normal; /**<< The normal map texture*/
 	Texture texture_height; /**<< The displacement map texture*/
 
-	MaterialType _type; /**<< The material type*/
+	MaterialType _type = MaterialType::PHONG; /**<< The material type*/
 
 	float shininess = 0; /**<< The shininess of the material*/
 private:

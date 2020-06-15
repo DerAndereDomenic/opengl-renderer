@@ -2,10 +2,11 @@
 #include "Shader/Shader.h"
 
 Material
-Material::createObject(const std::string& name)
+Material::createObject(const std::string& name, MaterialType type)
 {
 	Material result;
 	result._name = name;
+	result._type = type;
 	return result;
 }
 
