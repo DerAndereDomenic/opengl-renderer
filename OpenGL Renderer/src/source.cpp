@@ -115,20 +115,20 @@ int main(void)
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 
-	names.push_back("Sphere");
+	//names.push_back("Sphere");
 
 	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
 	sphere.create();
-	meshes.push_back(sphere);
+	//meshes.push_back(sphere);
 
 	Material mat_sphere = Material::createObject("materialmap");
 	mat_sphere.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
 	mat_sphere.diffuse = glm::vec3(0.4f, 0.0f, 0.0f);
 	mat_sphere.specular = glm::vec3(1.0f, 0.0f, 0.0f);
 	mat_sphere.shininess = 0.4f * 512.0f;
-	materials.push_back(mat_sphere);
+	//materials.push_back(mat_sphere);
 
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(-2,3.0f, 0.0f)));
+	//models.push_back(glm::translate(glm::mat4(1), glm::vec3(-2,3.0f, 0.0f)));
 
 	names.push_back("Fuzzy Sphere");
 
