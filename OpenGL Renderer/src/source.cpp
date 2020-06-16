@@ -120,12 +120,6 @@ int main(void)
 	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
 	sphere.create();
 	//meshes.push_back(sphere);
-
-	Material mat_sphere = Material::createObject("materialmap");
-	mat_sphere.ambient = glm::vec3(0.1f, 0.0f, 0.0f);
-	mat_sphere.diffuse = glm::vec3(0.4f, 0.0f, 0.0f);
-	mat_sphere.specular = glm::vec3(1.0f, 0.0f, 0.0f);
-	mat_sphere.shininess = 0.4f * 512.0f;
 	//materials.push_back(mat_sphere);
 
 	//models.push_back(glm::translate(glm::mat4(1), glm::vec3(-2,3.0f, 0.0f)));
@@ -134,7 +128,14 @@ int main(void)
 
 	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere.obj");
 	meshes.push_back(sphere_brdf);
-	materials.push_back(mat_sphere);
+
+	Material mat_brdf = Material::createObject("materialmap", MaterialType::LAMBERT);
+	mat_brdf.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+	mat_brdf.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	mat_brdf.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	mat_brdf.shininess = 0.4f * 512.0f;
+
+	materials.push_back(mat_brdf);
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
 
