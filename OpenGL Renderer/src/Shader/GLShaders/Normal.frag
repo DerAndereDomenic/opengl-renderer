@@ -193,6 +193,7 @@ void main(){
 				result += brdf_phong(lights_frag[i], object_material, norm, i);
 				break;
 			case GGX:
+				result += brdf_ggx(lights_frag[i], object_material, norm, i);
 				break;
 		}
 		
