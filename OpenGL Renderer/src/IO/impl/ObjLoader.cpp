@@ -7,7 +7,7 @@ std::vector<Mesh>
 ObjLoader::loadObj(const char* path, const bool calcTangent)
 {
 	std::vector<Mesh> meshes;
-	Mesh output_mesh = Mesh::createObject(calcTangent);
+	
 	
 
 	Assimp::Importer importer;
@@ -16,14 +16,13 @@ ObjLoader::loadObj(const char* path, const bool calcTangent)
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
-		meshes.push_back(output_mesh);
 		return meshes;
 	}
 
 	for (unsigned int k = 0; k < scene->mNumMeshes; ++k)
 	{
 		aiMesh* mesh = scene->mMeshes[k];
-
+		Mesh output_mesh = Mesh::createObject(calcTangent);
 		for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
 		{
 			glm::vec3 position(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
