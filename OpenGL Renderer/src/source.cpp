@@ -129,7 +129,7 @@ int main(void)
 	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere.obj");
 	meshes.push_back(sphere_brdf);
 
-	Material mat_brdf = Material::createObject("materialmap", MaterialType::LAMBERT);
+	Material mat_brdf = Material::createObject("materialmap", MaterialType::GGX);
 	mat_brdf.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	mat_brdf.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	mat_brdf.specular = glm::vec3(1.0f, 1.0f, 1.0f);
