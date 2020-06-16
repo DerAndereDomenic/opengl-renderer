@@ -58,7 +58,7 @@ int main(void)
 
 	names.push_back("Table");
 
-	Mesh table = ObjLoader::loadObj("res/table/simple-table.obj", true);
+	Mesh table = ObjLoader::loadObj("res/table/simple-table.obj", true)[0];
 	meshes.push_back(table);
 
 	Material mat_table = Material::createObject("materialmap");
@@ -103,7 +103,7 @@ int main(void)
 
 	names.push_back("suzanne");
 
-	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj");
+	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj")[0];
 	meshes.push_back(suzanne);
 
 	Material mat_suzanne = Material::createObject("materialmap");
@@ -117,7 +117,7 @@ int main(void)
 
 	//names.push_back("Sphere");
 
-	Mesh sphere = ObjLoader::loadObj("res/sphere.obj");
+	Mesh sphere = ObjLoader::loadObj("res/sphere.obj")[0];
 	sphere.create();
 	//meshes.push_back(sphere);
 	//materials.push_back(mat_sphere);
@@ -126,7 +126,7 @@ int main(void)
 
 	names.push_back("Fuzzy Sphere");
 
-	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere.obj");
+	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere.obj")[0];
 	meshes.push_back(sphere_brdf);
 
 	Material mat_brdf = Material::createObject("materialmap", MaterialType::GGX);
