@@ -67,6 +67,16 @@ float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 	return currentDepth - bias > closestDepth ? 1 : 0.0;
 }
 
+vec3 brdf_lambert(Light plight, Material material, vec3 normal, int pass)
+{
+	vec3 lightDir = normalize(plight.position - frag_position);
+	float NdotL = max(dot(normal,lightDir),0.0f);
+
+	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
+
+	return material.ambient + (1-shadow)*material.diffuse*NdotL;
+}
+
 vec3 brdf_phong(Light plight, Material material, vec3 normal, int pass)
 {
 	//Calculate directions
@@ -132,6 +142,7 @@ void main(){
 		switch(materialmap.type)
 		{
 			case LAMBERT:
+				result += brdf_lambert(lights_frag[i], object_material, norm, i);
 				break;
 			case PHONG:
 				result += brdf_phong(lights_frag[i], object_material, norm, i);
