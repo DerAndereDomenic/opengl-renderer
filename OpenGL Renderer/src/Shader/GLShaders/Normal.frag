@@ -5,6 +5,7 @@
 #define PHONG 1
 #define GGX 2
 
+#define PI 3.14159
 layout(location = 0) out vec4 FragColor;
 
 in vec3 frag_position;
@@ -74,7 +75,7 @@ vec3 brdf_lambert(Light plight, Material material, vec3 normal, int pass)
 
 	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
 
-	return material.ambient + (1-shadow)*material.diffuse*NdotL;
+	return material.ambient + (1-shadow)*material.diffuse/PI*NdotL;
 }
 
 vec3 brdf_phong(Light plight, Material material, vec3 normal, int pass)
@@ -86,7 +87,7 @@ vec3 brdf_phong(Light plight, Material material, vec3 normal, int pass)
 
 	//Calculate diffuse part
 	float diff = max(dot(normal, lightDir), 0.0);
-	vec3 diffuse = (diff*material.diffuse/3.1415f)*plight.diffuse;
+	vec3 diffuse = (diff*material.diffuse/PI)*plight.diffuse;
 
 	//Calculate specular part
 	float spec = pow(max(dot(normal, halfwayDir), 0.0), material.shininess);
