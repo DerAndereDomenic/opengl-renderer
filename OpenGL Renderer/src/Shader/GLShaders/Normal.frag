@@ -56,6 +56,13 @@ struct Material
 	float shininess;
 };
 
+//-------------GGX---------------------------
+vec3 fresnel_schlick(const vec3 F0, const float VdotH)
+{
+	return F0 + (1 - F0)*pow(max(0,1.0-VdotH), 5.0f);
+}
+//-------------------------------------------
+
 float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 {
 	float bias = 0.00001;//3125;
