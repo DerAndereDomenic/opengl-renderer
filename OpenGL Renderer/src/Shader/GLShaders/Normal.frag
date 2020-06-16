@@ -69,6 +69,14 @@ float D_GGX(const float NdotH, const float roughness)
 	return a2/(PI*d*d);
 }
 
+float V_SmithJohnGGX(float NdotL, float NdotV, float roughness)
+{
+	float a2 = roughness * roughness;
+	float lambdaV = NdotL*(NdotV*NdotV*(1-a2)+a2);
+	float lambdaL = NdotV*(NdotL*NdotL*(1-a2)+a2);
+	return 0.5/(lambdaL+lambdaV);
+}
+
 //-------------------------------------------
 
 float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
