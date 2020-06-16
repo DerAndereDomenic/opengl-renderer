@@ -77,6 +77,22 @@ float V_SmithJohnGGX(float NdotL, float NdotV, float roughness)
 	return 0.5/(lambdaL+lambdaV);
 }
 
+vec3 brdf_ggx(Light plight, Material material, vec3 normal, int pass)
+{
+	vec3 lightDir = normalize(plight.position - frag_position);
+	vec3 viewDir = normalize(viewPos - frag_position); 
+
+	vec3 H = normalize(lightDir + viewDir);
+	float NdotH = dot(normal, H);
+	float LdotH = dot(lightDir, H);
+	float NdotV = dot(normal,viewDir);
+	float NdotL = dot(normal, lightDir);
+	float ndf = D_GGX(NdotH, 2);
+
+	float vis = V_SmithJohnGGX(NdotL, NdotV, 2);
+	return ndf*vis*fresnel_schlick(material.specular, LdotH);
+}
+
 //-------------------------------------------
 
 float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
