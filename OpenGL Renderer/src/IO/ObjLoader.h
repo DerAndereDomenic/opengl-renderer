@@ -13,7 +13,7 @@ namespace ObjLoader
 	*	\return The mesh extracted from the file
 	*	\note: Mesh still has to be created
 	*/
-	Mesh loadObj(const char* path, const bool calcTangent = false);
+	std::vector<Mesh> loadObj(const char* path, const bool calcTangent = false);
 }
 
 #endif

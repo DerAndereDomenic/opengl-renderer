@@ -3,11 +3,12 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-Mesh
+std::vector<Mesh>
 ObjLoader::loadObj(const char* path, const bool calcTangent)
 {
-
+	std::vector<Mesh> meshes;
 	Mesh output_mesh = Mesh::createObject(calcTangent);
+	meshes.push_back(output_mesh);
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate);
@@ -15,7 +16,7 @@ ObjLoader::loadObj(const char* path, const bool calcTangent)
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
-		return output_mesh;
+		return meshes;
 	}
 
 	aiMesh* mesh = scene->mMeshes[0];
@@ -34,5 +35,5 @@ ObjLoader::loadObj(const char* path, const bool calcTangent)
 		output_mesh.addTriangle(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
 	}
 
-	return output_mesh;
+	return meshes;
 }
