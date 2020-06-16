@@ -20,22 +20,26 @@ ObjLoader::loadObj(const char* path, const bool calcTangent)
 		return meshes;
 	}
 
-	aiMesh* mesh = scene->mMeshes[0];
-
-	for (unsigned int i = 0; i < mesh->mNumVertices;++i)
+	for (unsigned int k = 0; k < scene->mNumMeshes; ++k)
 	{
-		glm::vec3 position(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-		glm::vec2 uv(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
-		glm::vec3 normal(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
-		output_mesh.addVertex(position, glm::vec4(0), uv, normal);
-	}
+		aiMesh* mesh = scene->mMeshes[k];
 
-	for (unsigned int i = 0; i < mesh->mNumFaces; ++i) 
-	{
-		aiFace face = mesh->mFaces[i];
-		output_mesh.addTriangle(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
-	}
+		for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
+		{
+			glm::vec3 position(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+			glm::vec2 uv(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+			glm::vec3 normal(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+			output_mesh.addVertex(position, glm::vec4(0), uv, normal);
+		}
 
-	meshes.push_back(output_mesh);
+		for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
+		{
+			aiFace face = mesh->mFaces[i];
+			output_mesh.addTriangle(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
+		}
+
+		meshes.push_back(output_mesh);
+	}
+	
 	return meshes;
 }
