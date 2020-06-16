@@ -56,6 +56,19 @@ struct Material
 	float shininess;
 };
 
+
+float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
+{
+	float bias = 0.00001;//3125;
+	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
+	projCoords = projCoords * 0.5 + 0.5;
+
+	float closestDepth = texture(shadowMap, projCoords.xy).r;
+	float currentDepth = projCoords.z;
+
+	return currentDepth - bias > closestDepth ? 1 : 0.0;
+}
+
 //-------------GGX---------------------------
 vec3 fresnel_schlick(const vec3 F0, const float VdotH)
 {
@@ -90,22 +103,13 @@ vec3 brdf_ggx(Light plight, Material material, vec3 normal, int pass)
 	float ndf = D_GGX(NdotH, 2);
 
 	float vis = V_SmithJohnGGX(NdotL, NdotV, 2);
-	return ndf*vis*fresnel_schlick(material.specular, LdotH);
+
+	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
+
+	return material.ambient + (1-shadow)*ndf*vis*fresnel_schlick(material.specular, LdotH);
 }
 
 //-------------------------------------------
-
-float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
-{
-	float bias = 0.00001;//3125;
-	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
-	projCoords = projCoords * 0.5 + 0.5;
-
-	float closestDepth = texture(shadowMap, projCoords.xy).r;
-	float currentDepth = projCoords.z;
-
-	return currentDepth - bias > closestDepth ? 1 : 0.0;
-}
 
 vec3 brdf_lambert(Light plight, Material material, vec3 normal, int pass)
 {
