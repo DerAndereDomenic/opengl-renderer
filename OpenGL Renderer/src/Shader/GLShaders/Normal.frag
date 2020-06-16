@@ -100,9 +100,10 @@ vec3 brdf_ggx(Light plight, Material material, vec3 normal, int pass)
 	float LdotH = dot(lightDir, H);
 	float NdotV = dot(normal,viewDir);
 	float NdotL = dot(normal, lightDir);
-	float ndf = D_GGX(NdotH, 2);
+	float roughness = 2;
+	float ndf = D_GGX(NdotH, roughness);
 
-	float vis = V_SmithJohnGGX(NdotL, NdotV, 2);
+	float vis = V_SmithJohnGGX(NdotL, NdotV, roughness);
 
 	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
 
