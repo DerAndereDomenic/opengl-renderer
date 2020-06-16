@@ -124,7 +124,7 @@ int main(void)
 
 	//models.push_back(glm::translate(glm::mat4(1), glm::vec3(-2,3.0f, 0.0f)));
 
-	names.push_back("Fuzzy Sphere");
+	names.push_back("BRDF Sphere");
 
 	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere.obj")[0];
 	meshes.push_back(sphere_brdf);
