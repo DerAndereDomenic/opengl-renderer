@@ -16,7 +16,7 @@ class ShaderManager
 		*	\brief Creates a Shader Manager object
 		*	\return The object
 		*/
-		static ShaderManager();
+		static ShaderManager
 		createObject();
 
 		/**
