@@ -1,10 +1,15 @@
 #include <Shader/ShaderManager.h>
 
+ShaderManager* ShaderManager::_instance = 0;
 
-ShaderManager
-ShaderManager::createObject()
+ShaderManager*
+ShaderManager::instance()
 {
-	return ShaderManager();
+	if (_instance == nullptr)
+	{
+		_instance =  new ShaderManager();
+	}
+	return _instance;
 }
 
 void
@@ -15,6 +20,8 @@ ShaderManager::destroyObject(ShaderManager& manager)
 		Shader::destroyObject(shader.second);
 	}
 	manager._shader.clear();
+
+	delete manager._instance;
 }
 
 
