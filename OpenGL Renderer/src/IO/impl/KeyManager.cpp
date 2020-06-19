@@ -12,6 +12,15 @@ KeyManager::instance()
 	return _instance;
 }
 
+void 
+KeyManager::destroy()
+{
+	if (_instance != nullptr)
+	{
+		delete _instance;
+	}
+}
+
 bool
 KeyManager::isKeyDown(unsigned int key)
 {

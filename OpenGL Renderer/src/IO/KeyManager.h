@@ -13,6 +13,11 @@ public:
 	static KeyManager* instance();
 
 	/**
+	*	\brief Destroys the KeyManager instance
+	*/
+	static void destroy();
+
+	/**
 	*	\brief Setup the KeyManager
 	*	\param[in] window The window the keys should be registered in
 	*/
