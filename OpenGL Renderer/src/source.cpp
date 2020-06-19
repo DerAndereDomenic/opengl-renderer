@@ -23,8 +23,8 @@ int main(void)
 	unsigned int width = 1280;
 	unsigned int height = 720;
 
-	unsigned int shadow_width = 10000;
-	unsigned int shadow_height = 10000;
+	unsigned int shadow_width = 2000;
+	unsigned int shadow_height = 2000;
 
 	float near = 0.1f;
 	float far = 500.0f;
