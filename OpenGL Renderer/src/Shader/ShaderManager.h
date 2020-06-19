@@ -3,6 +3,7 @@
 
 #include <Shader/Shader.h>
 #include <unordered_map>
+#include <string>
 
 class ShaderManager
 {
@@ -41,7 +42,7 @@ class ShaderManager
 		Shader
 		getShader(const std::string& name);
 	private:
-		std::unordererd_map<std::string, Shader> _shader;	/**<< The container holding the shaders*/
+		std::unordered_map<std::string, Shader> _shader;	/**<< The container holding the shaders*/
 };
 
 #endif
