@@ -21,7 +21,10 @@ ShaderManager::destroyObject(ShaderManager& manager)
 void
 ShaderManager::addShader(const std::string& name)
 {
-
+	const std::string vertexPath = SHADER_DIRECTORY + name + ".vert";
+	const std::string fragmentPath = SHADER_DIRECTORY + name + ".frag";
+	Shader shader = Shader::createObject(vertexPath.c_str(), fragmentPath.c_str());
+	_shader.insert(std::pair<std::string, Shader>(name, shader));
 }
 
 Shader
