@@ -11,16 +11,11 @@ class ShaderManager
 {
 	public:
 		/**
-		*	\brief Default constructor
-		*/
-		ShaderManager() = default;
-
-		/**
-		*	\brief Creates a Shader Manager object
+		*	\brief Gets a pointer to a ShaderManager instance (Singleton)
 		*	\return The object
 		*/
-		static ShaderManager
-		createObject();
+		static ShaderManager*
+		instance();
 
 		/**
 		*	\brief Destroys the object and all used shader
@@ -44,6 +39,12 @@ class ShaderManager
 		Shader
 		getShader(const std::string& name);
 	private:
+		static ShaderManager* _instance;					/**<< The ShaderManager instance*/
+
+		ShaderManager() = default;							/**<< Make constructor private*/
+
+		ShaderManager(const ShaderManager&);				/**<< Make constructor private*/
+
 		std::unordered_map<std::string, Shader> _shader;	/**<< The container holding the shaders*/
 };
 
