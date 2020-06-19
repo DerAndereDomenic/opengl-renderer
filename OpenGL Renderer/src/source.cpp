@@ -151,12 +151,13 @@ int main(void)
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
 
 	Light l1;
-	l1.ambient = glm::vec3(0.1f);//glm::vec3(0.1f, 0.0f, 0.0f);
-	l1.diffuse = glm::vec3(1.0f);// glm::vec3(1.0f, 0.0f, 0.0f);
-	l1.specular = glm::vec3(1.0f);//glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.ambient = glm::vec3(0.1f/LIGHTS);//glm::vec3(0.1f, 0.0f, 0.0f);
+	l1.diffuse = glm::vec3(1.0f / LIGHTS);// glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.specular = glm::vec3(1.0f / LIGHTS);//glm::vec3(1.0f, 0.0f, 0.0f);
 	l1.position = glm::vec3(20,0,0);
 
-	Light lights[LIGHTS] = { l1};
+	Light lights[LIGHTS];
+	lights[0] = l1;
 
 	std::vector<std::string> faces =
 	{
@@ -254,7 +255,11 @@ int main(void)
 
 	glm::mat4 rotate = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0,0,1));
 
-	lights[0].position = rotate * glm::vec4(lights[0].position, 1);
+	for (unsigned int i = 0; i < LIGHTS; ++i)
+	{
+		lights[i].position = rotate * glm::vec4(lights[i].position, 1);
+	}
+	
 	obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
 	
 	shadow.bind();
