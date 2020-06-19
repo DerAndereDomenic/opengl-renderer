@@ -109,7 +109,7 @@ vec3 brdf_ggx(Light plight, Material material, vec3 normal, int pass)
 
 	float vis = V_SmithJohnGGX(NdotL, NdotV, roughness);
 
-	float shadow = 0;//shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
+	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
 
 	return material.ambient + (1-shadow)*ndf*vis*fresnel_schlick(material.specular, LdotH)*NdotL;
 }
