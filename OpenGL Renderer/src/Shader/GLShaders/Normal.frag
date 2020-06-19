@@ -59,7 +59,7 @@ struct Material
 
 float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 {
-	float bias = 0.00001;//3125;
+	float bias = 0.0001;//3125;
 	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 
