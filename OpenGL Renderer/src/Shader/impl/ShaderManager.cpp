@@ -4,7 +4,7 @@
 ShaderManager
 ShaderManager::createObject()
 {
-
+	return ShaderManager();
 }
 
 void
