@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <string>
 
+#define SHADER_DIRECTORY "src/Shader/GLShaders/"
+
 class ShaderManager
 {
 	public:
