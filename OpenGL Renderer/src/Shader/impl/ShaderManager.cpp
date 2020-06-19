@@ -30,5 +30,5 @@ ShaderManager::addShader(const std::string& name)
 Shader
 ShaderManager::getShader(const std::string& name)
 {
-
+	return _shader[name];
 }
