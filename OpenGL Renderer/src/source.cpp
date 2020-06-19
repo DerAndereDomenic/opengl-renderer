@@ -260,6 +260,8 @@ int main(void)
 	shadow.bind();
 	shadow.setMat4("P", lightProjection);
 
+	unsigned int frameID = 0;
+
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
@@ -342,6 +344,8 @@ int main(void)
 		quad.render();		
 
 		window.spinOnce();
+
+		frameID += 1;
 
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
 		{
