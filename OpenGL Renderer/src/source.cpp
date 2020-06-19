@@ -7,7 +7,7 @@
 #include <DataStructure/RenderObject.h>
 #include <DataStructure/Skybox.h>
 #include <DataStructure/Scene.h>
-#include <Shader/Shader.h>
+#include <Shader/ShaderManager.h>
 
 #include <IO/KeyManager.h>
 #include <IO/ObjLoader.h>
@@ -194,21 +194,12 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	//                              RENDERING SETUP                                    //
 	//---------------------------------------------------------------------------------//
-
-	Shader post = Shader::createObject("src/Shader/GLShaders/Post.vert",
-		"src/Shader/GLShaders/Post.frag");
-
-	Shader normal = Shader::createObject("src/Shader/GLShaders/Normal.vert",
-		"src/Shader/GLShaders/Normal.frag");
-
-	Shader shadow = Shader::createObject("src/Shader/GLShaders/Shadow.vert",
-		"src/Shader/GLShaders/Shadow.frag");
-
-	Shader cm = Shader::createObject("src/Shader/GLShaders/CubeMap.vert",
-		"src/Shader/GLShaders/CubeMap.frag");
-
-	Shader reflection = Shader::createObject("src/Shader/GLShaders/Reflection.vert",
-		"src/Shader/GLShaders/Reflection.frag");
+	ShaderManager shader_manager = ShaderManager::createObject();
+	shader_manager.addShader("Post");
+	shader_manager.addShader("Normal");
+	shader_manager.addShader("Shadow");
+	shader_manager.addShader("CubeMap");
+	shader_manager.addShader("Reflection");
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachColor();
@@ -237,19 +228,19 @@ int main(void)
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
-	post.bind();
-	post.setInt("screenTexture", 0);
-	post.setInt("lightTexture", 1);
+	shader_manager.getShader("Post").bind();
+	shader_manager.getShader("Post").setInt("screenTexture", 0);
+	shader_manager.getShader("Post").setInt("lightTexture", 1);
 
 	Skybox sky = Skybox::createObject(skybox);
 
-	normal.bind();
+	shader_manager.getShader("Normal").bind();
 
 	for (unsigned int i = 0; i < LIGHTS; ++i)
 	{
-		normal.setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
-		normal.setMat4("lights_vert["+ std::to_string(i) +"].lightSpaceMatrix", lights[i].lightSpace);
-		normal.setInt("lights_frag["+ std::to_string(i) +"].shadow_map", 4+i);
+		shader_manager.getShader("Normal").setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
+		shader_manager.getShader("Normal").setMat4("lights_vert["+ std::to_string(i) +"].lightSpaceMatrix", lights[i].lightSpace);
+		shader_manager.getShader("Normal").setInt("lights_frag["+ std::to_string(i) +"].shadow_map", 4+i);
 	}
 	
 
@@ -262,8 +253,8 @@ int main(void)
 	
 	obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
 	
-	shadow.bind();
-	shadow.setMat4("P", lightProjection);
+	shader_manager.getShader("Shadow").bind();
+	shader_manager.getShader("Shadow").setMat4("P", lightProjection);
 
 	unsigned int frameID = 0;
 
@@ -292,9 +283,9 @@ int main(void)
 			lights[i].lightSpace = lightProjection * lights[i].lightView;
 
 			//Wall
-			shadow.bind();
-			shadow.setMat4("V", lights[i].lightView);
-			scene.render(shadow);
+			shader_manager.getShader("Shadow").bind();
+			shader_manager.getShader("Shadow").setMat4("V", lights[i].lightView);
+			scene.render(shader_manager.getShader("Shadow"));
 		}
 
 		//----------------------------------------------------------------------------------------------
@@ -302,8 +293,8 @@ int main(void)
 		//Render scene
 		if (frameID == 0)
 		{
-			normal.bind();
-			map.render(scene, sky, normal);
+			shader_manager.getShader("Normal").bind();
+			map.render(scene, sky, shader_manager.getShader("Normal"));
 		}
 
 		window.resetViewport();
@@ -316,37 +307,37 @@ int main(void)
 
 		sky.render(camera);
 
-		reflection.bind();
-		reflection.setInt("cubemap", 0);
-		reflection.setVec3("camera_position", camera.getPosition());
+		shader_manager.getShader("Reflection").bind();
+		shader_manager.getShader("Reflection").setInt("cubemap", 0);
+		shader_manager.getShader("Reflection").setVec3("camera_position", camera.getPosition());
 		map.getCubeMap().bind();
-		reflection.setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
+		shader_manager.getShader("Reflection").setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
 		sphere.render();
 		
 		//Light
-		normal.bind();
-		normal.setVec3("viewPos", camera.getPosition());
+		shader_manager.getShader("Normal").bind();
+		shader_manager.getShader("Normal").setVec3("viewPos", camera.getPosition());
 		for (unsigned int i = 0; i < LIGHTS; ++i)
 		{
-			normal.setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
-			normal.setMat4("lights_vert["+std::to_string(i) + +"].lightSpaceMatrix", lights[i].lightSpace);
+			shader_manager.getShader("Normal").setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
+			shader_manager.getShader("Normal").setMat4("lights_vert["+std::to_string(i) + +"].lightSpaceMatrix", lights[i].lightSpace);
 			lights[i].shadow_map.getTexture().bind(4+i);
 		}
-		normal.setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		shader_manager.getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		
-		scene.render(normal);
+		scene.render(shader_manager.getShader("Normal"));
 
 		//Render light
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		glDrawBuffers(2, attachments);
 
-		obj_light.render(normal);
+		obj_light.render(shader_manager.getShader("Normal"));
 
 
 		//Render to quad
 		fbo.unbind();
 		window.clear();
-		post.bind();
+		shader_manager.getShader("Post").bind();
 		fbo.getTexture(0).bind(0);
 		fbo.getTexture(1).bind(1);
 		quad.render();		
@@ -361,10 +352,7 @@ int main(void)
 		}
 	}
 
-	Shader::destroyObject(post);
-	Shader::destroyObject(normal);
-	Shader::destroyObject(shadow);
-	Shader::destroyObject(reflection);
+	ShaderManager::destroyObject(shader_manager);
 	Skybox::destroyObject(sky);
 	RenderWindow::destroyObject(window);
 	Camera::destroyObject(camera);

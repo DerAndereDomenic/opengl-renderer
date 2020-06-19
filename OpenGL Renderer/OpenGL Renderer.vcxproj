@@ -150,6 +150,7 @@
     <ClCompile Include="src\Renderer\impl\Camera.cpp" />
     <ClCompile Include="src\Renderer\impl\RenderWindow.cpp" />
     <ClCompile Include="src\Shader\impl\Shader.cpp" />
+    <ClCompile Include="src\Shader\impl\ShaderManager.cpp" />
     <ClCompile Include="src\source.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@
     <ClInclude Include="src\Renderer\Camera.h" />
     <ClInclude Include="src\Renderer\RenderWindow.h" />
     <ClInclude Include="src\Shader\Shader.h" />
+    <ClInclude Include="src\Shader\ShaderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shader\GLShaders\basic.frag" />
