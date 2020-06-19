@@ -10,7 +10,11 @@ ShaderManager::createObject()
 void
 ShaderManager::destroyObject(ShaderManager& manager)
 {
-
+	for (std::pair<std::string, Shader> shader : manager._shader)
+	{
+		Shader::destroyObject(shader.second);
+	}
+	manager._shader.clear();
 }
 
 
