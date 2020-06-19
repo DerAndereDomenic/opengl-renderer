@@ -373,6 +373,7 @@ int main(void)
 	Scene::destroyObject(scene);
 	FrameBuffer::destroyObject(fbo);
 	FrameBuffer::destroyObject(lights[0].shadow_map);
+	KeyManager::destroy();
 
 	return 0;
 }
