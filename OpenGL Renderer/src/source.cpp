@@ -295,8 +295,11 @@ int main(void)
 		//----------------------------------------------------------------------------------------------
 		window.resetViewport();
 		//Render scene
-		normal.bind();
-		map.render(scene, sky, normal);
+		if (frameID == 0)
+		{
+			normal.bind();
+			map.render(scene, sky, normal);
+		}
 
 		window.resetViewport();
 		fbo.bind();
