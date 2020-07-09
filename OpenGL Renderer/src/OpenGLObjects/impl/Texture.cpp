@@ -114,7 +114,8 @@ Texture::createObject(const unsigned int width,
 	if (target == TEXTURE)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, channels, type, NULL);
-
+		if(type == GL_UNSIGNED_SHORT)
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_R16UI, width, height, 0, GL_RED_INTEGER, GL_UNSIGNED_SHORT, NULL);
 	}
 	else
 	{
