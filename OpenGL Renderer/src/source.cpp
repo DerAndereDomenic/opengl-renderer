@@ -36,7 +36,26 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
 	//---------------------------------------------------------------------------------//
+	std::vector<std::string> names;
+	std::vector<Mesh> meshes;
+	std::vector<Material> materials;
+	std::vector<glm::mat4> models;
 
+	Mesh box = ObjLoader::loadObj("cobble.obj")[0];
+	Material material_box = Material::createObject("material_map", MaterialType::LAMBERT);
+	material_box.ambient = glm::vec3(0.1f, 0, 0);
+	material_box.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
+	material_box.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+	material_box.useTextures = false;
+	material_box.shininess = 128.0f;
+
+	models.push_back(glm::mat4(1));
+
+	Scene scene = Scene::createObject(names, meshes, materials, models);
+	names.clear();
+	meshes.clear();
+	materials.clear();
+	models.clear();
 	
 
 	//---------------------------------------------------------------------------------//
