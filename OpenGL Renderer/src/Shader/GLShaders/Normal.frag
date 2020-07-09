@@ -7,11 +7,13 @@
 
 #define PI 3.14159
 layout(location = 0) out vec4 FragColor;
+layout(location = 1) out uint Depth;
 
 in vec3 frag_position;
 in vec2 frag_tex;
 in mat3 frag_TBN;
 in vec4 frag_position_light_space[LIGHTS];
+in vec3 f_position;
 
 uniform vec3 viewPos;
 
@@ -204,5 +206,5 @@ void main(){
 	}
 
 	FragColor = vec4(result, 1.0);
-
+	Depth = uint(abs(f_position.z)*5000);
 }

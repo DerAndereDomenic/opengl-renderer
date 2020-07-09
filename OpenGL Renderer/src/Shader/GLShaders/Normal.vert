@@ -10,6 +10,7 @@ out vec3 frag_position;
 out vec2 frag_tex;
 out mat3 frag_TBN;
 out vec4 frag_position_light_space[LIGHTS];
+out vec3 f_position;
 
 uniform mat4 M;
 uniform mat4 V;
@@ -69,4 +70,5 @@ void main()
 
 
 	frag_TBN = TBN;
+	f_position = (V * M * vec4(position,1)).xyz;
 }
