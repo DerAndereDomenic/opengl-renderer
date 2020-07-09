@@ -1,6 +1,8 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image_write.h>
 
+#include <opencv2/opencv.hpp>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -21,8 +23,9 @@
 #include <chrono>
 #include <thread>
 
-#define LIGHTS 1
+#include <fstream>
 
+#define LIGHTS 1
 
 int main(void)
 {
@@ -38,6 +41,8 @@ int main(void)
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window, 45.0f, near, far);
+
+	std::string dataset = "C:/Users/Domenic/Desktop/Test Dataset";
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
@@ -72,13 +77,31 @@ int main(void)
 	light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	light.position = glm::vec3(0.0f, 5.0f, -5.0f);
 
+	Mesh quad = Mesh::createObject();
+
+	unsigned int id1, id2, id3, id4;
+
+	id1 = quad.addVertex(glm::vec3(-1, -1, 0), glm::vec4(1), glm::vec2(0), glm::vec3(0, 0, 1));
+	id2 = quad.addVertex(glm::vec3(1, -1, 0), glm::vec4(1), glm::vec2(1, 0), glm::vec3(0, 0, 1));
+	id3 = quad.addVertex(glm::vec3(1, 1, 0), glm::vec4(1), glm::vec2(1, 1), glm::vec3(0, 0, 1));
+	id4 = quad.addVertex(glm::vec3(-1, 1, 0), glm::vec4(1), glm::vec2(0, 1), glm::vec3(0, 0, 1));
+
+	quad.addTriangle(id1, id2, id3);
+	quad.addTriangle(id1, id3, id4);
+
+	quad.create();
+
+
 	//---------------------------------------------------------------------------------//
 	//                              RENDERING SETUP                                    //
 	//---------------------------------------------------------------------------------//
 	ShaderManager::instance()->addShader("Normal");
+	ShaderManager::instance()->addShader("Post");
 
 	FrameBuffer frame_buffer = FrameBuffer::createObject(width, height);
+	Texture depth_map = Texture::createObject(width, height, TEXTURE, GL_R16UI, GL_UNSIGNED_SHORT);
 	frame_buffer.attachColor();
+	frame_buffer.attachColor(depth_map);
 	frame_buffer.attachDepthMap();
 	frame_buffer.verify();
 	frame_buffer.unbind();
@@ -87,7 +110,14 @@ int main(void)
 	int nbFrames = 0;
 
 	unsigned int frameID = 0;
+	unsigned char* color_buffer = new unsigned char[width * height * 3];
+	unsigned short* depth_buffer = new unsigned short[width * height];
 
+	std::ofstream depth;
+	std::ofstream rgb;
+	rgb.open(dataset + "/rgb.txt");
+	depth.open(dataset + "/depth.txt");
+	bool capture = false;
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
@@ -101,8 +131,12 @@ int main(void)
 			lastTime += 1.0;
 		}
 
-		window.clear();
 		camera.processInput(0.005f);
+
+		frame_buffer.bind();
+		window.clear();
+		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+		glDrawBuffers(2, attachments);
 
 		ShaderManager::instance()->getShader("Normal").bind();
 		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
@@ -110,6 +144,16 @@ int main(void)
 		ShaderManager::instance()->getShader("Normal").setMat4("V", camera.getView());
 		ShaderManager::instance()->getShader("Normal").setLight("lights_frag[0]", light);
 		scene.render(ShaderManager::instance()->getShader("Normal"));
+
+		frame_buffer.unbind();
+
+		//attachments[1] = { GL_COLOR_ATTACHMENT0 };
+		//glDrawBuffers(1, attachments);
+		window.clear();
+		ShaderManager::instance()->getShader("Post").bind();
+		ShaderManager::instance()->getShader("Post").setInt("screenTexture", 0);
+		frame_buffer.getTexture(0).bind(0);
+		quad.render();
 
 		window.spinOnce();
 
@@ -122,25 +166,27 @@ int main(void)
 
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_M))
 		{
-			frame_buffer.bind();
-			window.clear();
-			ShaderManager::instance()->getShader("Normal").bind();
-			ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
-			ShaderManager::instance()->getShader("Normal").setMat4("P", camera.getProjection());
-			ShaderManager::instance()->getShader("Normal").setMat4("V", camera.getView());
-			ShaderManager::instance()->getShader("Normal").setLight("lights_frag[0]", light);
-			scene.render(ShaderManager::instance()->getShader("Normal"));
+			capture = true;
+		}
 
-			unsigned char* image = new unsigned char[width * height * 3];
+		if (capture)
+		{
+			frame_buffer.getTexture(0).bind(0);
+			glGetTexImage(GL_TEXTURE_2D, 0, GL_BGR, GL_UNSIGNED_BYTE, color_buffer);
 
-			frame_buffer.getTexture().bind();
-			glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-			stbi_flip_vertically_on_write(true);
-			stbi_write_png("test.png", width, height, 3, image, width * 3);
+			cv::Mat cv_color(height, width, CV_8UC3, color_buffer);
+			flip(cv_color, cv_color, 0);
+			imwrite(dataset + "/rgb/" + std::to_string(frameID) + ".png", cv_color);
 
-			delete image;
-			frame_buffer.unbind();
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			frame_buffer.getTexture(1).bind();
+			glGetTexImage(GL_TEXTURE_2D, 0, GL_RED_INTEGER, GL_UNSIGNED_SHORT, depth_buffer);
+
+			cv::Mat cv_depth(height, width, CV_16UC1, depth_buffer);
+			flip(cv_depth, cv_depth, 0);
+			imwrite(dataset + "/depth/" + std::to_string(frameID) + ".png", cv_depth);
+
+			rgb << std::to_string(frameID) << " rgb/" << std::to_string(frameID) << ".png\n";
+			depth << std::to_string(frameID) << " depth/" << std::to_string(frameID) << ".png\n";
 		}
 	}
 
@@ -149,6 +195,12 @@ int main(void)
 	Camera::destroyObject(camera);
 	KeyManager::destroy();
 	Scene::destroyObject(scene);
+
+	delete[] color_buffer;
+	delete[] depth_buffer;
+
+	rgb.close();
+	depth.close();
 
 	return 0;
 }
