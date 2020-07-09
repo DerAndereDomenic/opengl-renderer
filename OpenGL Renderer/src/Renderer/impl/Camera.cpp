@@ -4,11 +4,11 @@
 #include <IO/KeyManager.h>
 
 Camera
-Camera::createObject(RenderWindow window, float near, float far)
+Camera::createObject(RenderWindow window, float fov, float near, float far)
 {
 	Camera result;
 	result._window = window;
-	result._projection = glm::perspective(glm::radians(90.0f), window.getAspectRatio(), near, far);
+	result._projection = glm::perspective(glm::radians(fov), window.getAspectRatio(), near, far);
 	result._view = glm::lookAt(result._cameraPos, result._cameraPos + result._cameraFront, result._cameraUp);
 	return result;
 }

@@ -18,11 +18,12 @@ public:
 	/**
 	*	\brief Create a camera object
 	*	\param[in] window The camera the window should be bound to
+	*	\param[in] fov The fov
 	*	\param[in] near The near plane
 	*	\param[in] far The far plane
 	*	\return The camera object
 	*/
-	static Camera createObject(RenderWindow window, float near, float far);
+	static Camera createObject(RenderWindow window, float fov, float near, float far);
 
 	/**
 	*	\brief Create a camera object
