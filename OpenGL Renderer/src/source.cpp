@@ -60,6 +60,11 @@ int main(void)
 	materials.clear();
 	models.clear();
 	
+	Light light;
+	light.ambient = glm::vec3(1.0f, 1.0f, 1.0f);
+	light.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	light.position = glm::vec3(0.0f, 5.0f, -5.0f);
 
 	//---------------------------------------------------------------------------------//
 	//                              RENDERING SETUP                                    //
@@ -91,6 +96,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
 		ShaderManager::instance()->getShader("Normal").setMat4("P", camera.getProjection());
 		ShaderManager::instance()->getShader("Normal").setMat4("V", camera.getView());
+		ShaderManager::instance()->getShader("Normal").setLight("lights_frag[0]", light);
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
 		window.spinOnce();
