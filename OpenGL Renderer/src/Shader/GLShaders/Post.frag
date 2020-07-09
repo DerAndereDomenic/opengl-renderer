@@ -40,7 +40,8 @@ void main()
 	{
 		col += kernel[i]*sampleTex[i];
 	}
-
-	FragColor = vec4(1.0/16.0*col,1) + texture(screenTexture, frag_tex);
-	FragColor.rgb = pow(FragColor.rgb, vec3(1.0/2.2));
+	
+	FragColor = texture(screenTexture,frag_tex);
+	//FragColor = vec4(1.0/16.0*col,1) + texture(screenTexture, frag_tex);
+	//FragColor.rgb = pow(FragColor.rgb, vec3(1.0/2.2));
 }
