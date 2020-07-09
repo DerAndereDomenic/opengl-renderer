@@ -20,14 +20,14 @@
 
 int main(void)
 {
-	unsigned int width = 1280;
-	unsigned int height = 720;
+	unsigned int width = 640;
+	unsigned int height = 480;
 
 	unsigned int shadow_width = 2000;
 	unsigned int shadow_height = 2000;
 
 	float near = 0.1f;
-	float far = 500.0f;
+	float far = 13.0f;
 
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
 	KeyManager::instance()->setup(window);
