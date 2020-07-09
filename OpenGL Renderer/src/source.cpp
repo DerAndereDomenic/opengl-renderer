@@ -1,3 +1,6 @@
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb_image_write.h>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -14,6 +17,9 @@
 #include <Renderer/RenderWindow.h>
 #include <Renderer/Camera.h>
 #include <DataStructure/EnvironmentMap.h>
+
+#include <chrono>
+#include <thread>
 
 #define LIGHTS 1
 
@@ -112,6 +118,29 @@ int main(void)
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
 		{
 			window.close();
+		}
+
+		if (KeyManager::instance()->isKeyDown(GLFW_KEY_M))
+		{
+			frame_buffer.bind();
+			window.clear();
+			ShaderManager::instance()->getShader("Normal").bind();
+			ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
+			ShaderManager::instance()->getShader("Normal").setMat4("P", camera.getProjection());
+			ShaderManager::instance()->getShader("Normal").setMat4("V", camera.getView());
+			ShaderManager::instance()->getShader("Normal").setLight("lights_frag[0]", light);
+			scene.render(ShaderManager::instance()->getShader("Normal"));
+
+			unsigned char* image = new unsigned char[width * height * 3];
+
+			frame_buffer.getTexture().bind();
+			glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+			stbi_flip_vertically_on_write(true);
+			stbi_write_png("test.png", width, height, 3, image, width * 3);
+
+			delete image;
+			frame_buffer.unbind();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		}
 	}
 
