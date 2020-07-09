@@ -31,7 +31,7 @@ int main(void)
 
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
 	KeyManager::instance()->setup(window);
-	Camera camera = Camera::createObject(window, near, far);
+	Camera camera = Camera::createObject(window, 45.0f, near, far);
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
