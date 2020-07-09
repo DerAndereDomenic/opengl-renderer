@@ -36,6 +36,12 @@ public:
 	void attachColor();
 
 	/**
+	*	\brief Attaches a color texture to the Framebuffer
+	*	\param[in] color_buffer The texture that should be added
+	*/
+	void attachColor(Texture color_buffer);
+
+	/**
 	*	\brief Attach a depth map to the Framebuffer
 	*/
 	void attachDepthMap();
