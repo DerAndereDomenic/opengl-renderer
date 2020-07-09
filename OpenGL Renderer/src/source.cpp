@@ -41,14 +41,17 @@ int main(void)
 	std::vector<Material> materials;
 	std::vector<glm::mat4> models;
 
-	Mesh box = ObjLoader::loadObj("cobble.obj")[0];
-	Material material_box = Material::createObject("material_map", MaterialType::LAMBERT);
+	Mesh box = ObjLoader::loadObj("res/cobble.obj")[0];
+	Material material_box = Material::createObject("materialmap", MaterialType::LAMBERT);
 	material_box.ambient = glm::vec3(0.1f, 0, 0);
 	material_box.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
 	material_box.specular = glm::vec3(1.0f, 0.0f, 0.0f);
 	material_box.useTextures = false;
 	material_box.shininess = 128.0f;
 
+	names.push_back("Box");
+	meshes.push_back(box);
+	materials.push_back(material_box);
 	models.push_back(glm::mat4(1));
 
 	Scene scene = Scene::createObject(names, meshes, materials, models);
@@ -81,7 +84,14 @@ int main(void)
 			lastTime += 1.0;
 		}
 
+		window.clear();
 		camera.processInput(0.005f);
+
+		ShaderManager::instance()->getShader("Normal").bind();
+		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
+		ShaderManager::instance()->getShader("Normal").setMat4("P", camera.getProjection());
+		ShaderManager::instance()->getShader("Normal").setMat4("V", camera.getView());
+		scene.render(ShaderManager::instance()->getShader("Normal"));
 
 		window.spinOnce();
 
