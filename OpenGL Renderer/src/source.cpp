@@ -61,6 +61,7 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	//                              RENDERING SETUP                                    //
 	//---------------------------------------------------------------------------------//
+	ShaderManager::instance()->addShader("Normal");
 
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
@@ -96,6 +97,7 @@ int main(void)
 	RenderWindow::destroyObject(window);
 	Camera::destroyObject(camera);
 	KeyManager::destroy();
+	Scene::destroyObject(scene);
 
 	return 0;
 }
