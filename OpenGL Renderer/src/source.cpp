@@ -71,6 +71,12 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	ShaderManager::instance()->addShader("Normal");
 
+	FrameBuffer frame_buffer = FrameBuffer::createObject(width, height);
+	frame_buffer.attachColor();
+	frame_buffer.attachDepthMap();
+	frame_buffer.verify();
+	frame_buffer.unbind();
+
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
 
