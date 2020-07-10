@@ -160,8 +160,10 @@ int main(void)
 	int nbFrames = 0;
 
 	unsigned int frameID = 0;
-	unsigned char* color_buffer = new unsigned char[width * height * 3];
-	unsigned short* depth_buffer = new unsigned short[width * height];
+
+	std::vector<cv::Mat> color_buffers;
+	std::vector<cv::Mat> depth_buffers;
+	std::vector<unsigned int> time_stamps;
 
 	std::ofstream depth;
 	std::ofstream rgb;
@@ -221,23 +223,44 @@ int main(void)
 
 		if (capture)
 		{
+			unsigned char* color_buffer = new unsigned char[width * height * 3];
+			unsigned short* depth_buffer = new unsigned short[width * height];
+
 			frame_buffer.getTexture(0).bind(0);
 			glGetTexImage(GL_TEXTURE_2D, 0, GL_BGR, GL_UNSIGNED_BYTE, color_buffer);
 
 			cv::Mat cv_color(height, width, CV_8UC3, color_buffer);
-			//flip(cv_color, cv_color, 0);
-			//imwrite(dataset + "/rgb/" + std::to_string(frameID) + ".png", cv_color);
+			color_buffers.push_back(cv_color);
 
 			frame_buffer.getTexture(1).bind();
 			glGetTexImage(GL_TEXTURE_2D, 0, GL_RED_INTEGER, GL_UNSIGNED_SHORT, depth_buffer);
 
 			cv::Mat cv_depth(height, width, CV_16UC1, depth_buffer);
-			//flip(cv_depth, cv_depth, 0);
-			//imwrite(dataset + "/depth/" + std::to_string(frameID) + ".png", cv_depth);
+			depth_buffers.push_back(cv_depth);
 
-			//rgb << std::to_string(frameID) << " rgb/" << std::to_string(frameID) << ".png\n";
-			//depth << std::to_string(frameID) << " depth/" << std::to_string(frameID) << ".png\n";
+			time_stamps.push_back(frameID);
 		}
+	}
+
+	std::cout << "Started writing..." << std::endl;
+	for (unsigned int i = 0; i < time_stamps.size(); ++i)
+	{
+		cv::Mat cv_color = color_buffers[i];
+		cv::Mat cv_depth = depth_buffers[i];
+		frameID = time_stamps[i];
+		flip(cv_color, cv_color, 0);
+		imwrite(dataset + "/rgb/" + std::to_string(frameID) + ".png", cv_color);
+
+		flip(cv_depth, cv_depth, 0);
+		imwrite(dataset + "/depth/" + std::to_string(frameID) + ".png", cv_depth);
+
+		rgb << std::to_string(frameID) << " rgb/" << std::to_string(frameID) << ".png\n";
+		depth << std::to_string(frameID) << " depth/" << std::to_string(frameID) << ".png\n";
+
+		delete[] cv_color.ptr();
+		delete[] cv_depth.ptr();
+
+		std::cout << 100.0f * static_cast<float>(i) / static_cast<float>(time_stamps.size()) << "%" << std::endl;
 	}
 
 	ShaderManager::destroyObject(*ShaderManager::instance());
@@ -246,9 +269,6 @@ int main(void)
 	KeyManager::destroy();
 	Scene::destroyObject(scene);
 	FrameBuffer::destroyObject(frame_buffer);
-
-	delete[] color_buffer;
-	delete[] depth_buffer;
 
 	rgb.close();
 	depth.close();
