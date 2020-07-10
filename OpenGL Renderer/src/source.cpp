@@ -27,6 +27,35 @@
 
 #define LIGHTS 1
 
+Scene loadScene()
+{
+	std::vector<std::string> names;
+	std::vector<Material> materials;
+	std::vector<glm::mat4> models;
+	std::vector<Mesh> meshes = ObjLoader::loadObj("res/testroom.obj");
+	Material material_box = Material::createObject("materialmap", MaterialType::LAMBERT);
+	material_box.ambient = glm::vec3(0.1f, 0, 0);
+	material_box.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
+	material_box.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+	material_box.useTextures = false;
+	material_box.shininess = 128.0f;
+
+	for (unsigned int i = 0; i < meshes.size(); ++i)
+	{
+		names.push_back("Scene_" + std::to_string(i));
+		materials.push_back(material_box);
+		models.push_back(glm::scale(glm::mat4(1), glm::vec3(0.5, 0.5, 0.5)));
+	}
+
+
+	Scene scene = Scene::createObject(names, meshes, materials, models);
+	names.clear();
+	meshes.clear();
+	materials.clear();
+	models.clear();
+	return scene;
+}
+
 int main(void)
 {
 	unsigned int width = 640;
@@ -47,35 +76,13 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
 	//---------------------------------------------------------------------------------//
-	std::vector<std::string> names;
-	std::vector<Mesh> meshes;
-	std::vector<Material> materials;
-	std::vector<glm::mat4> models;
-
-	Mesh box = ObjLoader::loadObj("res/cobble.obj")[0];
-	Material material_box = Material::createObject("materialmap", MaterialType::LAMBERT);
-	material_box.ambient = glm::vec3(0.1f, 0, 0);
-	material_box.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
-	material_box.specular = glm::vec3(1.0f, 0.0f, 0.0f);
-	material_box.useTextures = false;
-	material_box.shininess = 128.0f;
-
-	names.push_back("Box");
-	meshes.push_back(box);
-	materials.push_back(material_box);
-	models.push_back(glm::mat4(1));
-
-	Scene scene = Scene::createObject(names, meshes, materials, models);
-	names.clear();
-	meshes.clear();
-	materials.clear();
-	models.clear();
+	Scene scene = loadScene();
 	
 	Light light;
-	light.ambient = glm::vec3(1.0f, 1.0f, 1.0f);
-	light.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
-	light.position = glm::vec3(0.0f, 5.0f, -5.0f);
+	light.ambient = glm::vec3(1.0f, 1.0f, 1.0f)*10.0f;
+	light.diffuse = glm::vec3(1.0f, 1.0f, 1.0f)*10.0f;
+	light.specular = glm::vec3(1.0f, 1.0f, 1.0f)*10.0f;
+	light.position = glm::vec3(0.0f, 5.0f, -5.0f)*10.0f;
 
 	Mesh quad = Mesh::createObject();
 
