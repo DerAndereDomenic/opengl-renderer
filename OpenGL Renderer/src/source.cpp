@@ -32,19 +32,62 @@ Scene loadScene()
 	std::vector<std::string> names;
 	std::vector<Material> materials;
 	std::vector<glm::mat4> models;
-	std::vector<Mesh> meshes = ObjLoader::loadObj("res/testroom.obj");
-	Material material_box = Material::createObject("materialmap", MaterialType::LAMBERT);
-	material_box.ambient = glm::vec3(0.1f, 0, 0);
-	material_box.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
-	material_box.specular = glm::vec3(1.0f, 0.0f, 0.0f);
-	material_box.useTextures = false;
-	material_box.shininess = 128.0f;
+	std::vector<Mesh> meshes = ObjLoader::loadObj("res/testroom.obj",true);
+	Material material_floor = Material::createObject("materialmap", MaterialType::PHONG);
+	/*material_floor.ambient = glm::vec3(0.087f, 0.072f, 0.053f);
+	material_floor.diffuse = glm::vec3(0.87f, 0.72f, 0.53f);
+	material_floor.specular = glm::vec3(0.87f, 0.72f, 0.53f);
+	material_floor.useTextures = false;
+	material_floor.shininess = 0.4f*128.0f;*/
 
-	for (unsigned int i = 0; i < meshes.size(); ++i)
+	material_floor.texture_diffuse = Texture::createObject("res/wood_color.jpg");
+	material_floor.texture_normal = Texture::createObject("res/wood_normal.jpg");
+	material_floor.texture_specular = Texture::createObject("res/wood_color.jpg");
+	material_floor.shininess = 0.04f * 128.0f;
+	material_floor.useTextures = true;
+	
+	Material material_table = Material::createObject("materialmap", MaterialType::PHONG);
+	material_table.texture_diffuse = Texture::createObject("res/table/table_diffuse.png");
+	material_table.texture_normal = Texture::createObject("res/table/table_normal.png");
+	material_table.texture_specular = Texture::createObject("res/table/table_specular.png");
+	material_table.shininess = 0.04f * 128.0f;
+	material_table.useTextures = true;
+
+	Material material_suzanne = Material::createObject("materialmap", MaterialType::GGX);
+	material_suzanne.ambient = glm::vec3(0.10f, 0.098f, 0.094f);
+	material_suzanne.diffuse = glm::vec3(1.0f, 0.98f, 0.94f);
+	material_suzanne.specular = glm::vec3(1.0f, 0.98f, 0.94f);
+	material_suzanne.useTextures = false;
+	material_suzanne.shininess = 0.4f*128.0f;
+
+	Material material_wall = Material::createObject("materialmap", MaterialType::PHONG);
+	material_wall.texture_diffuse = Texture::createObject("res/brickwall.png");
+	material_wall.texture_normal = Texture::createObject("res/brickwall_normal.png");
+	material_wall.texture_specular = Texture::createObject("res/brickwall.png");
+	material_wall.shininess = 0.04f * 128.0f;
+	material_wall.useTextures = true;
+
+
+	materials.push_back(material_floor);
+	for (unsigned int i = 0; i < 4; ++i)
+	{
+		materials.push_back(material_table);
+	}
+	materials.push_back(material_suzanne);
+	materials.push_back(material_suzanne);
+
+	for (unsigned int i = 0; i < 4; ++i)
+	{
+		materials.push_back(material_wall);
+	}
+
+	materials.push_back(material_wall);
+
+	for (unsigned int i = 0; i < meshes.size();++i)
 	{
 		names.push_back("Scene_" + std::to_string(i));
-		materials.push_back(material_box);
-		models.push_back(glm::scale(glm::mat4(1), glm::vec3(0.5, 0.5, 0.5)));
+		
+		models.push_back(glm::scale(glm::mat4(1), glm::vec3(0.7f)));
 	}
 
 
@@ -71,7 +114,7 @@ int main(void)
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window, 45.0f, near, far);
 
-	std::string dataset = "C:/Users/Domenic/Desktop/Test Dataset";
+	std::string dataset = "C:/Users/Domenic/Desktop/Tables";
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
@@ -79,10 +122,10 @@ int main(void)
 	Scene scene = loadScene();
 	
 	Light light;
-	light.ambient = glm::vec3(1.0f, 1.0f, 1.0f)*10.0f;
-	light.diffuse = glm::vec3(1.0f, 1.0f, 1.0f)*10.0f;
-	light.specular = glm::vec3(1.0f, 1.0f, 1.0f)*10.0f;
-	light.position = glm::vec3(0.0f, 5.0f, -5.0f)*10.0f;
+	light.ambient = glm::vec3(1.0f, 1.0f, 1.0f);
+	light.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	light.position = glm::vec3(0.0f, 2.0f, 0.0f);
 
 	Mesh quad = Mesh::createObject();
 
@@ -182,18 +225,18 @@ int main(void)
 			glGetTexImage(GL_TEXTURE_2D, 0, GL_BGR, GL_UNSIGNED_BYTE, color_buffer);
 
 			cv::Mat cv_color(height, width, CV_8UC3, color_buffer);
-			flip(cv_color, cv_color, 0);
-			imwrite(dataset + "/rgb/" + std::to_string(frameID) + ".png", cv_color);
+			//flip(cv_color, cv_color, 0);
+			//imwrite(dataset + "/rgb/" + std::to_string(frameID) + ".png", cv_color);
 
 			frame_buffer.getTexture(1).bind();
 			glGetTexImage(GL_TEXTURE_2D, 0, GL_RED_INTEGER, GL_UNSIGNED_SHORT, depth_buffer);
 
 			cv::Mat cv_depth(height, width, CV_16UC1, depth_buffer);
-			flip(cv_depth, cv_depth, 0);
-			imwrite(dataset + "/depth/" + std::to_string(frameID) + ".png", cv_depth);
+			//flip(cv_depth, cv_depth, 0);
+			//imwrite(dataset + "/depth/" + std::to_string(frameID) + ".png", cv_depth);
 
-			rgb << std::to_string(frameID) << " rgb/" << std::to_string(frameID) << ".png\n";
-			depth << std::to_string(frameID) << " depth/" << std::to_string(frameID) << ".png\n";
+			//rgb << std::to_string(frameID) << " rgb/" << std::to_string(frameID) << ".png\n";
+			//depth << std::to_string(frameID) << " depth/" << std::to_string(frameID) << ".png\n";
 		}
 	}
 
@@ -202,6 +245,7 @@ int main(void)
 	Camera::destroyObject(camera);
 	KeyManager::destroy();
 	Scene::destroyObject(scene);
+	FrameBuffer::destroyObject(frame_buffer);
 
 	delete[] color_buffer;
 	delete[] depth_buffer;
