@@ -27,7 +27,7 @@
 
 #define LIGHTS 1
 
-Scene loadScene()
+Scene loadScene1()
 {
 	std::vector<std::string> names;
 	std::vector<Material> materials;
@@ -99,6 +99,37 @@ Scene loadScene()
 	return scene;
 }
 
+Scene loadScene2()
+{
+	std::vector<std::string> names;
+	std::vector<Material> materials;
+	std::vector<glm::mat4> models;
+	std::vector<Mesh> meshes = ObjLoader::loadObj("res/couch.obj", true);
+	Material material_test = Material::createObject("materialmap", MaterialType::PHONG);
+	material_test.ambient = glm::vec3(0.087f, 0.072f, 0.053f);
+	material_test.diffuse = glm::vec3(0.87f, 0.72f, 0.53f);
+	material_test.specular = glm::vec3(0.87f, 0.72f, 0.53f);
+	material_test.useTextures = false;
+	material_test.shininess = 0.4f*128.0f;
+
+	std::cout << "Scene contains: " << meshes.size() << " Meshes" << std::endl;
+
+	for (unsigned int i = 0; i < meshes.size(); ++i)
+	{
+		names.push_back("Scene_" + std::to_string(i));
+		materials.push_back(material_test);
+		models.push_back(glm::scale(glm::mat4(1), glm::vec3(0.7f)));
+	}
+
+
+	Scene scene = Scene::createObject(names, meshes, materials, models);
+	names.clear();
+	meshes.clear();
+	materials.clear();
+	models.clear();
+	return scene;
+}
+
 int main(void)
 {
 	unsigned int width = 640;
@@ -119,7 +150,7 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
 	//---------------------------------------------------------------------------------//
-	Scene scene = loadScene();
+	Scene scene = loadScene2();
 	
 	Light light;
 	light.ambient = glm::vec3(1.0f, 1.0f, 1.0f);
