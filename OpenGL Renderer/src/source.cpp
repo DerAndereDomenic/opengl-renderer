@@ -215,7 +215,7 @@ int main(void)
 	light.ambient = glm::vec3(1.0f, 1.0f, 1.0f);
 	light.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
-	light.position = glm::vec3(0.0f, 2.0f, 0.0f);
+	light.position = glm::vec3(0.0f, 2.1f, 0.0f);
 
 	Mesh quad = Mesh::createObject();
 
@@ -237,6 +237,7 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	ShaderManager::instance()->addShader("Normal");
 	ShaderManager::instance()->addShader("Post");
+	ShaderManager::instance()->addShader("Shadow");
 
 	FrameBuffer frame_buffer = FrameBuffer::createObject(width, height);
 	Texture depth_map = Texture::createObject(width, height, TEXTURE, GL_R16UI, GL_UNSIGNED_SHORT);
@@ -245,6 +246,27 @@ int main(void)
 	frame_buffer.attachDepthMap();
 	frame_buffer.verify();
 	frame_buffer.unbind();
+
+	glm::mat4 lightProjection = glm::perspective(90.0f, window.getAspectRatio(), near, far);
+
+	light.shadow_map = FrameBuffer::createObject(shadow_width, shadow_height);
+	light.shadow_map.attachDepthMap();
+	light.shadow_map.disableColor();
+	light.shadow_map.verify();
+	light.shadow_map.unbind();
+
+	light.lightView = glm::lookAt(light.position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	light.lightSpace = lightProjection * light.lightView;
+
+	window.setViewport(shadow_width, shadow_height);
+
+	light.shadow_map.bind();
+	window.clear();
+	ShaderManager::instance()->getShader("Shadow").bind();
+	ShaderManager::instance()->getShader("Shadow").setMat4("P", lightProjection);
+	ShaderManager::instance()->getShader("Shadow").setMat4("V", light.lightView);
+	scene.render(ShaderManager::instance()->getShader("Shadow"));
+	window.resetViewport();
 
 	double lastTime = glfwGetTime();
 	int nbFrames = 0;
@@ -281,10 +303,14 @@ int main(void)
 		glDrawBuffers(2, attachments);
 
 		ShaderManager::instance()->getShader("Normal").bind();
+		ShaderManager::instance()->getShader("Normal").setLight("lights_frag[0]", light);
+		ShaderManager::instance()->getShader("Normal").setMat4("lights_vert[0].lightSpaceMatrix", light.lightSpace);
+		ShaderManager::instance()->getShader("Normal").setInt("lights_frag[0].shadow_map", 4);
 		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
 		ShaderManager::instance()->getShader("Normal").setMat4("P", camera.getProjection());
 		ShaderManager::instance()->getShader("Normal").setMat4("V", camera.getView());
-		ShaderManager::instance()->getShader("Normal").setLight("lights_frag[0]", light);
+		light.shadow_map.getTexture().bind(4);
+
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
 		frame_buffer.unbind();
