@@ -104,7 +104,8 @@ Scene loadScene2()
 	std::vector<std::string> names;
 	std::vector<Material> materials;
 	std::vector<glm::mat4> models;
-	std::vector<Mesh> meshes = ObjLoader::loadObj("res/couch.obj", true);
+	std::vector<Mesh> meshes = ObjLoader::loadObj("res/testroom2/testroom2.obj", true);
+	std::cout << "Scene contains: " << meshes.size() << " Meshes" << std::endl;
 	Material material_test = Material::createObject("materialmap", MaterialType::PHONG);
 	material_test.ambient = glm::vec3(0.087f, 0.072f, 0.053f);
 	material_test.diffuse = glm::vec3(0.87f, 0.72f, 0.53f);
@@ -112,12 +113,70 @@ Scene loadScene2()
 	material_test.useTextures = false;
 	material_test.shininess = 0.4f*128.0f;
 
-	std::cout << "Scene contains: " << meshes.size() << " Meshes" << std::endl;
+	Material material_floor = Material::createObject("materialmap", MaterialType::GGX);
+	material_floor.useTextures = true;
+	material_floor.texture_diffuse = Texture::createObject("res/testroom2/woodplanks_albedo.png");
+	material_floor.texture_specular = material_floor.texture_diffuse;
+	material_floor.texture_normal = Texture::createObject("res/testroom2/woodplanks_normal.png");
+	material_floor.texture_height = Texture::createObject("res/testroom2/woodplanks_height.png");
+	material_floor.shininess = 0.4 * 128.0f;
 
+	Material material_table = Material::createObject("materialmap", MaterialType::GGX);
+	material_table.texture_diffuse = Texture::createObject("res/table/table_diffuse.png");
+	material_table.texture_normal = Texture::createObject("res/table/table_normal.png");
+	material_table.texture_specular = Texture::createObject("res/table/table_specular.png");
+	material_table.shininess = 0.04f * 128.0f;
+	material_table.useTextures = true;
+
+	Material material_dresser = Material::createObject("materialmap", MaterialType::GGX);
+	material_dresser.texture_diffuse = Texture::createObject("res/testroom2/wood.jpg");
+	material_dresser.texture_normal = Texture::createObject("res/testroom2/woodnormal.jpg");
+	material_dresser.texture_specular = material_dresser.texture_diffuse;
+	material_dresser.shininess = 0.04f * 128.0f;
+	material_dresser.useTextures = true;
+
+	Material material_couch = Material::createObject("materialmap", MaterialType::GGX);
+	material_couch.texture_diffuse = Texture::createObject("res/testroom2/dcmap_unknown_trinity_3.jpg");
+	//material_couch.texture_normal = Texture::createObject("res/testroom2/woodnormal.jpg");
+	material_couch.texture_specular = material_dresser.texture_diffuse;
+	material_couch.shininess = 0.04f * 128.0f;
+	material_couch.useTextures = true;
+
+	Material material_wall = Material::createObject("materialmap", MaterialType::PHONG);
+	material_wall.texture_diffuse = Texture::createObject("res/brickwall.png");
+	material_wall.texture_normal = Texture::createObject("res/brickwall_normal.png");
+	material_wall.texture_specular = Texture::createObject("res/brickwall.png");
+	material_wall.shininess = 0.04f * 128.0f;
+	material_wall.useTextures = true;
+
+	//wall
+	materials.push_back(material_wall);
+	//floor
+	materials.push_back(material_floor);
+	//Ceiling
+	materials.push_back(material_test);
+	//wall
+	materials.push_back(material_wall);
+	//wall
+	materials.push_back(material_wall);
+	//wall
+	materials.push_back(material_wall);
+	//dresser
+	materials.push_back(material_dresser);
+	//dresser
+	materials.push_back(material_dresser);
+	//table
+	materials.push_back(material_table);
+	//table
+	materials.push_back(material_table);
+	//couch
+	materials.push_back(material_couch);
+	//couch
+	materials.push_back(material_couch);
 	for (unsigned int i = 0; i < meshes.size(); ++i)
 	{
 		names.push_back("Scene_" + std::to_string(i));
-		materials.push_back(material_test);
+		
 		models.push_back(glm::scale(glm::mat4(1), glm::vec3(0.7f)));
 	}
 
@@ -139,7 +198,7 @@ int main(void)
 	unsigned int shadow_height = 2000;
 
 	float near = 0.1f;
-	float far = 13.0f;
+	float far = 6.0f;
 
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
 	KeyManager::instance()->setup(window);
