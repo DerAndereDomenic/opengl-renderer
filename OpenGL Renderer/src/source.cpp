@@ -136,13 +136,25 @@ Scene loadScene2()
 	material_dresser.useTextures = true;
 
 	Material material_couch = Material::createObject("materialmap", MaterialType::GGX);
-	material_couch.texture_diffuse = Texture::createObject("res/testroom2/dcmap_unknown_trinity_3.jpg");
-	//material_couch.texture_normal = Texture::createObject("res/testroom2/woodnormal.jpg");
-	material_couch.texture_specular = material_dresser.texture_diffuse;
-	material_couch.shininess = 0.04f * 128.0f;
-	material_couch.useTextures = true;
+	material_couch.ambient = glm::vec3(0.8f, 0.8f, 0.8f);
+	material_couch.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	material_couch.specular = glm::vec3(0.3f, 0.3f, 0.3f);
+	material_couch.useTextures = false;
+	material_couch.shininess = 0.4f * 128.0f;
 
-	Material material_wall = Material::createObject("materialmap", MaterialType::PHONG);
+	Material material_pillow1 = Material::createObject("materialmap", MaterialType::GGX);
+	material_pillow1.texture_diffuse = Texture::createObject("res/testroom2/flame-bl.jpg");
+	material_pillow1.texture_specular = material_pillow1.texture_diffuse;
+	material_pillow1.shininess = 0.04f * 128.0f;
+	material_pillow1.useTextures = true;
+
+	Material material_pillow2 = Material::createObject("materialmap", MaterialType::GGX);
+	material_pillow2.texture_diffuse = Texture::createObject("res/testroom2/flame-br.jpg");
+	material_pillow2.texture_specular = material_pillow2.texture_diffuse;
+	material_pillow2.shininess = 0.04f * 128.0f;
+	material_pillow2.useTextures = true;
+
+	Material material_wall = Material::createObject("materialmap", MaterialType::GGX);
 	material_wall.texture_diffuse = Texture::createObject("res/brickwall.png");
 	material_wall.texture_normal = Texture::createObject("res/brickwall_normal.png");
 	material_wall.texture_specular = Texture::createObject("res/brickwall.png");
@@ -169,10 +181,22 @@ Scene loadScene2()
 	materials.push_back(material_table);
 	//table
 	materials.push_back(material_table);
-	//couch
+	//Pillow1
+	materials.push_back(material_pillow1);
+	//Pillow2
+	materials.push_back(material_pillow2);
+	//Couch
 	materials.push_back(material_couch);
-	//couch
+	//Foot
+	materials.push_back(material_test);
+	//Pillow1
+	materials.push_back(material_pillow1);
+	//Pillow2
+	materials.push_back(material_pillow2);
+	//Couch
 	materials.push_back(material_couch);
+	//Foot
+	materials.push_back(material_test);
 	for (unsigned int i = 0; i < meshes.size(); ++i)
 	{
 		names.push_back("Scene_" + std::to_string(i));
@@ -204,7 +228,7 @@ int main(void)
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window, 45.0f, near, far);
 
-	std::string dataset = "C:/Users/Domenic/Desktop/Tables";
+	std::string dataset = "C:/Users/Domenic/Desktop/Testroom2";
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
