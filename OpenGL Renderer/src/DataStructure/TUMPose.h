@@ -2,6 +2,7 @@
 #define DATA_STRUCTURE_TUMPOSE_H
 
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 struct TUMPose
 {
