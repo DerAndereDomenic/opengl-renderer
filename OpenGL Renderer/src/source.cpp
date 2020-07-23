@@ -394,6 +394,7 @@ int main(void)
 	{
 		cv::Mat cv_color = color_buffers[i];
 		cv::Mat cv_depth = depth_buffers[i];
+		TUMPose pose = groundtruth_buffers[i];
 		frameID = time_stamps[i];
 		flip(cv_color, cv_color, 0);
 		imwrite(dataset + "/rgb/" + std::to_string(frameID) + ".png", cv_color);
@@ -407,6 +408,12 @@ int main(void)
 		delete[] cv_color.ptr();
 		delete[] cv_depth.ptr();
 
+		groundtruth << std::to_string(frameID) << " " << pose._translation.x << " " << pose._translation.y << " " << pose._translation.z
+			<< " " << pose._rotation.x
+			<< " " << pose._rotation.y
+			<< " " << pose._rotation.z
+			<< " " << pose._rotation.w << "\n";
+
 		std::cout << 100.0f * static_cast<float>(i) / static_cast<float>(time_stamps.size()) << "%" << std::endl;
 	}
 
@@ -419,6 +426,7 @@ int main(void)
 
 	rgb.close();
 	depth.close();
+	groundtruth.close();
 
 	return 0;
 }
