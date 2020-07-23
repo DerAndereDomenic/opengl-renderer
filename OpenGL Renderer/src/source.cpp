@@ -14,6 +14,8 @@
 #include <DataStructure/Scene.h>
 #include <Shader/ShaderManager.h>
 
+#include <Math/Functions.h>
+
 #include <IO/KeyManager.h>
 #include <IO/ObjLoader.h>
 #include <Renderer/RenderWindow.h>
@@ -299,12 +301,15 @@ int main(void)
 
 	std::vector<cv::Mat> color_buffers;
 	std::vector<cv::Mat> depth_buffers;
+	std::vector<TUMPose> groundtruth_buffers;
 	std::vector<unsigned int> time_stamps;
 
 	std::ofstream depth;
 	std::ofstream rgb;
+	std::ofstream groundtruth;
 	rgb.open(dataset + "/rgb.txt");
 	depth.open(dataset + "/depth.txt");
+	groundtruth.open(dataset + "/groundtruth.txt");
 	bool capture = false;
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -379,6 +384,8 @@ int main(void)
 			depth_buffers.push_back(cv_depth);
 
 			time_stamps.push_back(frameID);
+
+			groundtruth_buffers.push_back(Math::View2TUMPose(camera.getView()));
 		}
 	}
 
