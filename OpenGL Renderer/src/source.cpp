@@ -224,9 +224,6 @@ int main(void)
 
 	}
 
-	double lastTime = glfwGetTime();
-	int nbFrames = 0;
-
 	ShaderManager::instance()->getShader("Post").bind();
 	ShaderManager::instance()->getShader("Post").setInt("screenTexture", 0);
 	ShaderManager::instance()->getShader("Post").setInt("lightTexture", 1);
@@ -257,20 +254,18 @@ int main(void)
 
 	unsigned int frameID = 0;
 
+	double lastTime = glfwGetTime();
+	double currentTime;
+
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
+		currentTime = glfwGetTime();
 
-		double currentTime = glfwGetTime();
-		nbFrames++;
-		if (currentTime - lastTime >= 1.0)
-		{
-			printf("%f fps\n", double(nbFrames));
-			nbFrames = 0;
-			lastTime += 1.0;
-		}
+		double deltaTime = currentTime - lastTime;
+		lastTime = currentTime;
 
-		camera.processInput(0.005f);
+		camera.processInput(deltaTime);
 
 		window.setViewport(shadow_width, shadow_height);
 		
@@ -343,7 +338,7 @@ int main(void)
 
 		window.spinOnce();
 
-		frameID += 1;
+		++frameID;
 
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
 		{
