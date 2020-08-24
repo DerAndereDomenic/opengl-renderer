@@ -141,3 +141,22 @@ MeshHelper::cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ, cons
 
 	return mesh;
 }
+
+Mesh 
+MeshHelper::quadMesh(float size, const bool calcTangent)
+{
+	const float halfSize = size / 2;
+	Mesh quad = Mesh::createObject();
+
+	unsigned int id1, id2, id3, id4;
+
+	id1 = quad.addVertex(glm::vec3(-halfSize, -halfSize, 0), glm::vec4(1), glm::vec2(0), glm::vec3(0, 0, 1));
+	id2 = quad.addVertex(glm::vec3(halfSize, -halfSize, 0), glm::vec4(1), glm::vec2(1, 0), glm::vec3(0, 0, 1));
+	id3 = quad.addVertex(glm::vec3(halfSize, halfSize, 0), glm::vec4(1), glm::vec2(1, 1), glm::vec3(0, 0, 1));
+	id4 = quad.addVertex(glm::vec3(-halfSize, halfSize, 0), glm::vec4(1), glm::vec2(0, 1), glm::vec3(0, 0, 1));
+
+	quad.addTriangle(id1, id2, id3);
+	quad.addTriangle(id1, id3, id4);
+
+	return quad;
+}

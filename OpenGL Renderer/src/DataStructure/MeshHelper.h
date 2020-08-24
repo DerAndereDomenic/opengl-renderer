@@ -28,6 +28,15 @@ namespace MeshHelper
 	*	\note: The mesh still has to be created
 	*/
 	Mesh cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ, const bool calcTangent = false);
+
+	/**
+	*	\brief Creates a quad at (0,0,0) with sidelength size
+	*	\param[in] size The side length of the quad
+	*	\param[in] calcTangent If each vertex should hold it's tangent vector (default = false)
+	*	\return The quad mesh
+	*	\note: The mesh still has to be created
+	*/
+	Mesh quadMesh(float size, const bool calcTangent = false);
 }
 
 #endif
