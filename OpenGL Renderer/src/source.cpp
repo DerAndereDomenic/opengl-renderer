@@ -200,7 +200,10 @@ int main(void)
 	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
 
 	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
-	
+
+	ShaderManager::instance()->getShader("Normal").bind();
+
+	glm::mat4 rotate = glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1));
 	for (unsigned int i = 0; i < LIGHTS; ++i)
 	{
 		lights[i].shadow_map = FrameBuffer::createObject(shadow_width, shadow_height);
@@ -212,6 +215,11 @@ int main(void)
 		lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		lights[i].lightSpace = lightProjection * lights[i].lightView;
 
+		ShaderManager::instance()->getShader("Normal").setLight("lights_frag[" + std::to_string(i) + "]", lights[i]);
+		ShaderManager::instance()->getShader("Normal").setMat4("lights_vert[" + std::to_string(i) + "].lightSpaceMatrix", lights[i].lightSpace);
+		ShaderManager::instance()->getShader("Normal").setInt("lights_frag[" + std::to_string(i) + "].shadow_map", 4 + i);
+
+		lights[i].position = rotate * glm::vec4(lights[i].position, 1);
 	}
 
 	ShaderManager::instance()->getShader("Post").bind();
@@ -219,23 +227,6 @@ int main(void)
 	ShaderManager::instance()->getShader("Post").setInt("lightTexture", 1);
 
 	Skybox sky = Skybox::createObject(skybox);
-
-	ShaderManager::instance()->getShader("Normal").bind();
-
-	for (unsigned int i = 0; i < LIGHTS; ++i)
-	{
-		ShaderManager::instance()->getShader("Normal").setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
-		ShaderManager::instance()->getShader("Normal").setMat4("lights_vert["+ std::to_string(i) +"].lightSpaceMatrix", lights[i].lightSpace);
-		ShaderManager::instance()->getShader("Normal").setInt("lights_frag["+ std::to_string(i) +"].shadow_map", 4+i);
-	}
-	
-
-	glm::mat4 rotate = glm::rotate(glm::mat4(1), 3.14159f/4.0f, glm::vec3(0,0,1));
-
-	for (unsigned int i = 0; i < LIGHTS; ++i)
-	{
-		lights[i].position = rotate * glm::vec4(lights[i].position, 1);
-	}
 	
 	obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
 	
@@ -266,7 +257,6 @@ int main(void)
 			lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 			lights[i].lightSpace = lightProjection * lights[i].lightView;
 
-			//Wall
 			ShaderManager::instance()->getShader("Shadow").bind();
 			ShaderManager::instance()->getShader("Shadow").setMat4("V", lights[i].lightView);
 			scene.render(ShaderManager::instance()->getShader("Shadow"));
