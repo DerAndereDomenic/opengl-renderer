@@ -185,6 +185,7 @@ void main(){
 				break;
 		}
 		result *= NdotL;
+		result += object_material.ambient*lights_frag[i].ambient;
 		
 	}
 	FragColor = vec4(result, 1.0);
