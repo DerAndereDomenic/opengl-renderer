@@ -27,7 +27,7 @@ class Light
 		*	\return The light object
 		*/
 		static
-		Light createObject(glm::vec3 position, bool castShadows, unsigned int shadow_resx, unsigned int shadow_resy, float near, float far);
+		Light createObject(glm::vec3 position, bool castShadows = false, unsigned int shadow_resx = 0, unsigned int shadow_resy = 0, float near = 0, float far = 0);
 
 		/**
 		*	\brief Destroys a light object
