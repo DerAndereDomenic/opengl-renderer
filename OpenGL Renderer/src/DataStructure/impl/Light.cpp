@@ -28,7 +28,7 @@ Light::destroyObject(Light& light)
 }
 
 void 
-Light::addToShader(Shader& shader, unsigned int lightID)
+Light::addToShader(Shader shader, unsigned int lightID)
 {
 	shader.bind();
 	shader.setLight("lights_frag[" + std::to_string(lightID) + "]", *(this));
