@@ -150,11 +150,10 @@ int main(void)
 
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
 
-	Light l1;
+	Light l1 = Light::createObject(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20,0,0,1), shadow_width, shadow_height, near, far);
 	l1.ambient = glm::vec3(0.1f/LIGHTS);//glm::vec3(0.1f, 0.0f, 0.0f);
 	l1.diffuse = glm::vec3(1.0f / LIGHTS);// glm::vec3(1.0f, 0.0f, 0.0f);
 	l1.specular = glm::vec3(1.0f / LIGHTS);//glm::vec3(1.0f, 0.0f, 0.0f);
-	l1.position = glm::vec3(20,0,0);
 
 	Light lights[LIGHTS];
 	lights[0] = l1;
@@ -199,39 +198,16 @@ int main(void)
 
 	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
 
-	glm::mat4 lightProjection = glm::perspective(360.0f, window.getAspectRatio(), near, far);
-
-	ShaderManager::instance()->getShader("Normal").bind();
-
-	glm::mat4 rotate = glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1));
-	for (unsigned int i = 0; i < LIGHTS; ++i)
-	{
-		lights[i].shadow_map = FrameBuffer::createObject(shadow_width, shadow_height);
-		lights[i].shadow_map.attachDepthMap();
-		lights[i].shadow_map.disableColor();
-		lights[i].shadow_map.verify();
-		lights[i].shadow_map.unbind();
-
-		lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		lights[i].lightSpace = lightProjection * lights[i].lightView;
-
-		ShaderManager::instance()->getShader("Normal").setLight("lights_frag[" + std::to_string(i) + "]", lights[i]);
-		ShaderManager::instance()->getShader("Normal").setMat4("lights_vert[" + std::to_string(i) + "].lightSpaceMatrix", lights[i].lightSpace);
-		ShaderManager::instance()->getShader("Normal").setInt("lights_frag[" + std::to_string(i) + "].shadow_map", 4 + i);
-
-		lights[i].position = rotate * glm::vec4(lights[i].position, 1);
-	}
+	lights[0].addToShader(ShaderManager::instance()->getShader("Normal"),0);
+	obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
+	ShaderManager::instance()->getShader("Shadow").bind();
+	ShaderManager::instance()->getShader("Shadow").setMat4("P", lights[0].lightProjection);
 
 	ShaderManager::instance()->getShader("Post").bind();
 	ShaderManager::instance()->getShader("Post").setInt("screenTexture", 0);
 	ShaderManager::instance()->getShader("Post").setInt("lightTexture", 1);
 
 	Skybox sky = Skybox::createObject(skybox);
-	
-	obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
-	
-	ShaderManager::instance()->getShader("Shadow").bind();
-	ShaderManager::instance()->getShader("Shadow").setMat4("P", lightProjection);
 
 	unsigned int frameID = 0;
 
@@ -255,7 +231,7 @@ int main(void)
 			lights[i].shadow_map.bind();
 			window.clear();
 			lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-			lights[i].lightSpace = lightProjection * lights[i].lightView;
+			lights[i].lightSpace = lights[i].lightProjection * lights[i].lightView;
 
 			ShaderManager::instance()->getShader("Shadow").bind();
 			ShaderManager::instance()->getShader("Shadow").setMat4("V", lights[i].lightView);
@@ -334,7 +310,7 @@ int main(void)
 	RenderObject::destroyObject(obj_light);
 	Scene::destroyObject(scene);
 	FrameBuffer::destroyObject(fbo);
-	FrameBuffer::destroyObject(lights[0].shadow_map);
+	Light::destroyObject(lights[0]);
 	KeyManager::destroy();
 
 	return 0;
