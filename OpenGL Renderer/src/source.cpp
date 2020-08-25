@@ -144,7 +144,7 @@ int main(void)
 
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
 
-	Light l1 = Light::createObject(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20,0,0,1), shadow_width, shadow_height, near, far);
+	Light l1 = Light::createObject(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20,0,0,1), true, shadow_width, shadow_height, near, far);
 	l1.ambient = glm::vec3(0.1f/LIGHTS);
 	l1.diffuse = glm::vec3(1.0f / LIGHTS);
 	l1.specular = glm::vec3(1.0f / LIGHTS);
@@ -222,6 +222,7 @@ int main(void)
 		
 		for (unsigned int i = 0; i < LIGHTS;++i) 
 		{
+			if (!lights[i].castShadows) continue;
 			lights[i].shadow_map.bind();
 			window.clear();
 			lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -263,6 +264,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
 		for (unsigned int i = 0; i < LIGHTS; ++i)
 		{
+			if (!lights[i].castShadows) continue;
 			ShaderManager::instance()->getShader("Normal").setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
 			ShaderManager::instance()->getShader("Normal").setMat4("lights_vert["+std::to_string(i) + +"].lightSpaceMatrix", lights[i].lightSpace);
 			lights[i].shadow_map.getTexture().bind(4+i);
