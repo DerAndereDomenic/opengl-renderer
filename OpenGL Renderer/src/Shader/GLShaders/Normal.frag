@@ -130,7 +130,7 @@ vec3 brdf_phong(Light plight, vec3 lightDir, Material material, vec3 normal, int
 
 	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
 
-	return (1-shadow)*(material.diffuse/PI + material.specular * pow(max(0,dot(halfwayDir,normal)), material.shininess));
+	return (1-shadow)*(material.specular * pow(max(0,dot(halfwayDir,normal)), material.shininess));
 }
 
 void main(){
@@ -173,15 +173,17 @@ void main(){
 		switch(materialmap.type)
 		{
 			case LAMBERT:
-				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*NdotL;
+				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i);
 				break;
 			case PHONG:
-				result += brdf_phong(lights_frag[i], lightDir, object_material, norm, i)*NdotL;
+				result += brdf_phong(lights_frag[i], lightDir, object_material, norm, i);
+				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i);
 				break;
 			case GGX:
-				result += brdf_ggx(lights_frag[i], lightDir, object_material, norm, i)*NdotL;
+				result += brdf_ggx(lights_frag[i], lightDir, object_material, norm, i);
 				break;
 		}
+		result *= NdotL;
 		
 	}
 	FragColor = vec4(result, 1.0);
