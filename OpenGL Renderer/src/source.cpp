@@ -191,7 +191,6 @@ int main(void)
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachColor();
-	fbo.attachColor();
 	fbo.attachRenderBuffer();
 	fbo.verify();
 	fbo.unbind();
@@ -255,7 +254,6 @@ int main(void)
 		fbo.bind();
 
 		window.clear();
-		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 		//Skybox
 		//Use vertex data of the light block
 
@@ -283,8 +281,6 @@ int main(void)
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
 		//Render light
-		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
-		glDrawBuffers(2, attachments);
 
 		obj_light.render(ShaderManager::instance()->getShader("Normal"));
 
@@ -294,7 +290,6 @@ int main(void)
 		window.clear();
 		ShaderManager::instance()->getShader("Post").bind();
 		fbo.getTexture(0).bind(0);
-		fbo.getTexture(1).bind(1);
 		quad.render();		
 
 		window.spinOnce();
