@@ -169,18 +169,19 @@ void main(){
 	for(int i = 0; i < LIGHTS; ++i)
 	{
 		vec3 lightDir = normalize(lights_frag[i].position - frag_position);
+		float r = length(lights_frag[i].position - frag_position);
 		float NdotL = max(dot(norm,lightDir),0.0);
 		switch(materialmap.type)
 		{
 			case LAMBERT:
-				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse;
+				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r);
 				break;
 			case PHONG:
-				result += brdf_phong(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular;
-				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse;
+				result += brdf_phong(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular/(r*r);
+				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r);
 				break;
 			case GGX:
-				result += brdf_ggx(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular;
+				result += brdf_ggx(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular/(r*r);
 				break;
 		}
 		result *= NdotL;
