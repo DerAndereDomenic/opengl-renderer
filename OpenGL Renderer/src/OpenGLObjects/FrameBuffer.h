@@ -42,6 +42,11 @@ public:
 	void attachColor(Texture color_buffer);
 
 	/**
+	*	\brief Attaches a hdr texture (floating point texture) to the Framebuffer
+	*/
+	void attachHDR();
+
+	/**
 	*	\brief Attach a depth map to the Framebuffer
 	*/
 	void attachDepthMap();

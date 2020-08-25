@@ -47,6 +47,15 @@ FrameBuffer::attachColor(Texture color_buffer)
 	_render_textures.push_back(color_buffer);
 }
 
+void 
+FrameBuffer::attachHDR()
+{
+	bind();
+	Texture texture = Texture::createObject(_width, _height, TEXTURE, GL_RGBA16F, RGBA, GL_FLOAT);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, texture.getID(), 0);
+	_render_textures.push_back(texture);
+}
+
 void
 FrameBuffer::attachRenderBuffer()
 {
