@@ -5,10 +5,10 @@ out vec4 FragColor;
 in vec2 frag_tex;
 
 uniform sampler2D screenTexture;
+uniform float exposure;
 
 void main()
 {
-	float exposure = 1.5;
 	vec3 hdrColor = texture(screenTexture, frag_tex).rgb;
 
 	vec3 mapped = vec3(1.0) - exp(-hdrColor * exposure);

@@ -289,6 +289,7 @@ int main(void)
 		fbo.unbind();
 		window.clear();
 		ShaderManager::instance()->getShader("Post").bind();
+		ShaderManager::instance()->getShader("Post").setFloat("exposure", 1.0f);
 		fbo.getTexture(0).bind(0);
 		quad.render();		
 
