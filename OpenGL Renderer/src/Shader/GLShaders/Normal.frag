@@ -174,17 +174,16 @@ void main(){
 		switch(materialmap.type)
 		{
 			case LAMBERT:
-				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r);
+				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r)*NdotL;
 				break;
 			case PHONG:
-				result += brdf_phong(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular/(r*r);
-				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r);
+				result += brdf_phong(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular/(r*r)*NdotL;
+				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r)*NdotL;
 				break;
 			case GGX:
-				result += brdf_ggx(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular/(r*r);
+				result += brdf_ggx(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular/(r*r)*NdotL;
 				break;
 		}
-		result *= NdotL;
 		result += object_material.ambient*lights_frag[i].ambient;
 		
 	}
