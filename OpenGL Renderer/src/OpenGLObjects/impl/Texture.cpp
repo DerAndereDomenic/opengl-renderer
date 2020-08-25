@@ -106,6 +106,7 @@ Texture::createObject(const unsigned int width,
 					  const unsigned int height, 
 					  const unsigned int target, 
 					  const unsigned int channels, 
+					  const unsigned int format,
 					  const unsigned int type)
 {
 	Texture result;
@@ -113,14 +114,14 @@ Texture::createObject(const unsigned int width,
 	glBindTexture(target, result._ID);
 	if (target == TEXTURE)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, channels, type, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, format, type, NULL);
 
 	}
 	else
 	{
 		for (unsigned int i = 0; i < 6; ++i) 
 		{
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, channels, type, NULL);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, format, type, NULL);
 		}
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);

@@ -8,7 +8,8 @@
 enum Channels
 {
 	DEPTH = GL_DEPTH_COMPONENT,
-	RGB = GL_RGB
+	RGB = GL_RGB,
+	RGBA = GL_RGBA
 };
 
 enum Targets
@@ -47,6 +48,7 @@ public:
 	*	\param[in] height The height of the texture
 	*	\param[in] target The texture target (TEXTURE or CUBEMAP, default = TEXTURE)
 	*	\param[in] channels The type of texture (i.e. RGB or DEPTH for now)
+	*	\param[in] format The format of the pixel data
 	*	\param[in] type The data type of a channel (default: unsigned byte)
 	*	\return The Texture object
 	*/
@@ -54,6 +56,7 @@ public:
 								const unsigned int height,
 								const unsigned int target = TEXTURE,
 								const unsigned int channels = RGB,
+								const unsigned int format = RGB,
 								const unsigned int type = GL_UNSIGNED_BYTE);
 
 	/**
