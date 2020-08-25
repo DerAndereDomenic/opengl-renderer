@@ -128,24 +128,9 @@ vec3 brdf_phong(Light plight, vec3 lightDir, Material material, vec3 normal, int
 	vec3 viewDir = normalize(viewPos - frag_position);
 	vec3 halfwayDir = normalize(lightDir+viewDir);
 
-	//Calculate diffuse part
-	float diff = max(dot(normal, lightDir), 0.0);
-	vec3 diffuse = (diff*material.diffuse/PI)*plight.diffuse;
-
-	//Calculate specular part
-	float spec = pow(max(dot(normal, halfwayDir), 0.0), material.shininess);
-	vec3 specular = (material.specular)*spec*plight.specular;
-
-	//Calculate ambient part
-	vec3 ambient = plight.ambient*material.ambient;
-
-	//Calculate shadow
 	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
 
-	//Combine light
-	vec3 result = (1-shadow)*(diffuse+specular);
-
-	return result;
+	return (1-shadow)*(material.diffuse/PI + material.specular * pow(max(0,dot(halfwayDir,normal)), material.shininess));
 }
 
 void main(){
