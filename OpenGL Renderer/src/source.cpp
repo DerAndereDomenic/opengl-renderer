@@ -190,7 +190,7 @@ int main(void)
 	ShaderManager::instance()->addShader("Reflection");
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
-	fbo.attachColor();
+	fbo.attachHDR();
 	fbo.attachRenderBuffer();
 	fbo.verify();
 	fbo.unbind();
