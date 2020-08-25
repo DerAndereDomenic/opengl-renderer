@@ -216,6 +216,8 @@ int main(void)
 	double lastTime = glfwGetTime();
 	double currentTime;
 
+	float exposure = 1.0f;
+
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
@@ -289,7 +291,7 @@ int main(void)
 		fbo.unbind();
 		window.clear();
 		ShaderManager::instance()->getShader("Post").bind();
-		ShaderManager::instance()->getShader("Post").setFloat("exposure", 1.0f);
+		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure);
 		fbo.getTexture(0).bind(0);
 		quad.render();		
 
@@ -300,6 +302,21 @@ int main(void)
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
 		{
 			window.close();
+		}
+
+		if (KeyManager::instance()->isKeyDown(GLFW_KEY_KP_ADD))
+		{
+			exposure += 0.01f;
+			std::cout << exposure << std::endl;
+		}
+
+		if (KeyManager::instance()->isKeyDown(GLFW_KEY_KP_SUBTRACT))
+		{
+			if (exposure > 0.01f)
+			{
+				exposure -= 0.01f;
+				std::cout << exposure << std::endl;
+			}
 		}
 	}
 
