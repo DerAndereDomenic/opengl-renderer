@@ -1,6 +1,7 @@
 #include <DataStructure/Light.h>
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
+#include <Shader/Shader.h>
 
 Light 
 Light::createObject(glm::vec3 position, unsigned int shadow_resx, unsigned int shadow_resy, float near, float far)
@@ -29,6 +30,7 @@ Light::destroyObject(Light& light)
 void 
 Light::addToShader(Shader& shader, unsigned int lightID)
 {
+	shader.bind();
 	shader.setLight("lights_frag[" + std::to_string(lightID) + "]", *(this));
 	shader.setMat4("lights_vert[" + std::to_string(lightID) + "].lightSpaceMatrix", lightSpace);
 	shader.setInt("lights_frag[" + std::to_string(lightID) + "].shadow_map", 4 + lightID);

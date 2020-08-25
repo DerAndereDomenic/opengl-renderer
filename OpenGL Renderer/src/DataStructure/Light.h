@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <OpenGLObjects/FrameBuffer.h>
-#include <Shader/Shader.h>
+class Shader;
 
 /**
 *	\brief A struct to model light
