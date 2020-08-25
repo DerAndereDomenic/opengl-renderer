@@ -78,6 +78,9 @@
     <ClCompile Include="src\Shader\impl\ShaderManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\DataStructure\impl\Light.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OpenGLObjects\VertexBuffer.h">

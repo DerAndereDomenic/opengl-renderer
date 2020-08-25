@@ -20,6 +20,8 @@ Light::createObject(glm::vec3 position, unsigned int shadow_resx, unsigned int s
 	//ShaderManager::instance()->getShader("Normal").setLight("lights_frag[" + std::to_string(i) + "]", lights[i]);
 	//ShaderManager::instance()->getShader("Normal").setMat4("lights_vert[" + std::to_string(i) + "].lightSpaceMatrix", lights[i].lightSpace);
 	//ShaderManager::instance()->getShader("Normal").setInt("lights_frag[" + std::to_string(i) + "].shadow_map", 4 + i);
+
+	return result;
 }
 
 
