@@ -15,7 +15,7 @@
 #include <Renderer/Camera.h>
 #include <DataStructure/EnvironmentMap.h>
 
-#define LIGHTS 1
+#define LIGHTS 2
 
 
 int main(void)
@@ -145,12 +145,18 @@ int main(void)
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
 
 	Light l1 = Light::createObject(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20,0,0,1), true, shadow_width, shadow_height, near, far);
-	l1.ambient = glm::vec3(0.1f/LIGHTS);
-	l1.diffuse = glm::vec3(1.0f / LIGHTS);
-	l1.specular = glm::vec3(1.0f / LIGHTS);
+	l1.ambient = glm::vec3(0.1f);
+	l1.diffuse = glm::vec3(500.0f );
+	l1.specular = glm::vec3(500.0f);
+
+	Light l2 = Light::createObject(glm::vec3(0.0f, 0.2f, 0));
+	l2.ambient = glm::vec3(0);
+	l2.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
+	l2.specular = glm::vec3(1.0f, 0.0f, 0.0f);
 
 	Light lights[LIGHTS];
 	lights[0] = l1;
+	lights[1] = l2;
 
 	std::vector<std::string> faces =
 	{
