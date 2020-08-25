@@ -115,14 +115,8 @@ int main(void)
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 
-	//names.push_back("Sphere");
-
 	Mesh sphere = ObjLoader::loadObj("res/sphere.obj")[0];
 	sphere.create();
-	//meshes.push_back(sphere);
-	//materials.push_back(mat_sphere);
-
-	//models.push_back(glm::translate(glm::mat4(1), glm::vec3(-2,3.0f, 0.0f)));
 
 	names.push_back("BRDF Sphere");
 
@@ -151,9 +145,9 @@ int main(void)
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
 
 	Light l1 = Light::createObject(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20,0,0,1), shadow_width, shadow_height, near, far);
-	l1.ambient = glm::vec3(0.1f/LIGHTS);//glm::vec3(0.1f, 0.0f, 0.0f);
-	l1.diffuse = glm::vec3(1.0f / LIGHTS);// glm::vec3(1.0f, 0.0f, 0.0f);
-	l1.specular = glm::vec3(1.0f / LIGHTS);//glm::vec3(1.0f, 0.0f, 0.0f);
+	l1.ambient = glm::vec3(0.1f/LIGHTS);
+	l1.diffuse = glm::vec3(1.0f / LIGHTS);
+	l1.specular = glm::vec3(1.0f / LIGHTS);
 
 	Light lights[LIGHTS];
 	lights[0] = l1;
