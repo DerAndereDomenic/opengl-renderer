@@ -17,16 +17,19 @@ Light::createObject(glm::vec3 position, unsigned int shadow_resx, unsigned int s
 	result.lightView = glm::lookAt(position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	result.lightSpace = result.lightProjection * result.lightView;
 
-	//ShaderManager::instance()->getShader("Normal").setLight("lights_frag[" + std::to_string(i) + "]", lights[i]);
-	//ShaderManager::instance()->getShader("Normal").setMat4("lights_vert[" + std::to_string(i) + "].lightSpaceMatrix", lights[i].lightSpace);
-	//ShaderManager::instance()->getShader("Normal").setInt("lights_frag[" + std::to_string(i) + "].shadow_map", 4 + i);
-
 	return result;
 }
-
 
 void 
 Light::destroyObject(Light& light)
 {
 	FrameBuffer::destroyObject(light.shadow_map);
+}
+
+void 
+Light::addToShader(Shader& shader, unsigned int lightID)
+{
+	shader.setLight("lights_frag[" + std::to_string(lightID) + "]", *(this));
+	shader.setMat4("lights_vert[" + std::to_string(lightID) + "].lightSpaceMatrix", lightSpace);
+	shader.setInt("lights_frag[" + std::to_string(lightID) + "].shadow_map", 4 + lightID);
 }

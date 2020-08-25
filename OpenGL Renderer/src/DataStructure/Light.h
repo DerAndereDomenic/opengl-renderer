@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <OpenGLObjects/FrameBuffer.h>
+#include <Shader/Shader.h>
 
 /**
 *	\brief A struct to model light
@@ -31,6 +32,13 @@ class Light
 		*	\param[in] light The object to destroy
 		*/
 		void destroyObject(Light& light);
+
+		/**
+		*	\brief Adds the light to the specified shader
+		*	\param[in] shader The shader where the light should be added
+		*	\param[in] lightID The ID of the light (i.e. the position in the light array used by the shader)
+		*/
+		void addToShader(Shader& shader, unsigned int lightID);
 
 		//Member variables
 		glm::vec3 position; /**<< The position of the light*/
