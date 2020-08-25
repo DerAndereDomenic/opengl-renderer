@@ -9,6 +9,7 @@ Light::createObject(glm::vec3 position, bool castShadows, unsigned int shadow_re
 	Light result;
 
 	result.position = position;
+	result.castShadows = castShadows;
 
 	if (castShadows)
 	{

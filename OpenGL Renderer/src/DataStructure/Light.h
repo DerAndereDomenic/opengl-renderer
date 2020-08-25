@@ -53,6 +53,8 @@ class Light
 		glm::mat4 lightSpace; /**<< The light space matrix of this lightsource*/
 		glm::mat4 lightView; /**<< The view matrix from this lightsource's perspective*/
 		glm::mat4 lightProjection; /**<< The light projection matrix*/
+		
+		bool castShadows;	/**<< If the light source casts shadows*/
 };
 
 #endif
