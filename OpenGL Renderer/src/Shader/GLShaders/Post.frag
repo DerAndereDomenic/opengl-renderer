@@ -8,6 +8,12 @@ uniform sampler2D screenTexture;
 
 void main()
 {
-	FragColor = texture(screenTexture, frag_tex);
-	FragColor.rgb = pow(FragColor.rgb, vec3(1.0/2.2));
+	float exposure = 1.5;
+	vec3 hdrColor = texture(screenTexture, frag_tex).rgb;
+
+	vec3 mapped = vec3(1.0) - exp(-hdrColor * exposure);
+
+	mapped = pow(mapped, vec3(1.0/2.2));
+
+	FragColor = vec4(mapped,1.0);
 }
