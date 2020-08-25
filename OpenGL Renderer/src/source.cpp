@@ -192,7 +192,10 @@ int main(void)
 
 	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
 
-	lights[0].addToShader(ShaderManager::instance()->getShader("Normal"),0);
+	for (unsigned int i = 0; i < LIGHTS; ++i)
+	{
+		lights[i].addToShader(ShaderManager::instance()->getShader("Normal"), i);
+	}
 	obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
 	ShaderManager::instance()->getShader("Shadow").bind();
 	ShaderManager::instance()->getShader("Shadow").setMat4("P", lights[0].lightProjection);
