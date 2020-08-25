@@ -14,6 +14,8 @@ Light::createObject(glm::vec3 position, unsigned int shadow_resx, unsigned int s
 	result.shadow_map.verify();
 	result.shadow_map.unbind();
 
+	result.position = position;
+
 	result.lightProjection = glm::perspective(360.0f, static_cast<float>(shadow_resx) / static_cast<float>(shadow_resy), near, far);
 	result.lightView = glm::lookAt(position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	result.lightSpace = result.lightProjection * result.lightView;
