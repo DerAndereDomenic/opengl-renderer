@@ -19,6 +19,7 @@ class Light
 		/**
 		*	\brief Creates a light object
 		*	\param[in] position The position of the light source
+		*	\param[in] castShadows If this lightsource should cast shadows
 		*	\param[in] shadow_resx The x resolution of the shadow map
 		*	\param[in] shadow_resy The y resolution of the shadow map
 		*	\param[in] near The near plane
@@ -26,7 +27,7 @@ class Light
 		*	\return The light object
 		*/
 		static
-		Light createObject(glm::vec3 position, unsigned int shadow_resx, unsigned int shadow_resy, float near, float far);
+		Light createObject(glm::vec3 position, bool castShadows, unsigned int shadow_resx, unsigned int shadow_resy, float near, float far);
 
 		/**
 		*	\brief Destroys a light object
