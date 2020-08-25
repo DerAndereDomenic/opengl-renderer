@@ -25,12 +25,14 @@ class Light
 		*	\param[in] far The far plane
 		*	\return The light object
 		*/
+		static
 		Light createObject(glm::vec3 position, unsigned int shadow_resx, unsigned int shadow_resy, float near, float far);
 
 		/**
 		*	\brief Destroys a light object
 		*	\param[in] light The object to destroy
 		*/
+		static
 		void destroyObject(Light& light);
 
 		/**
