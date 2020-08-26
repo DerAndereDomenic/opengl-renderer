@@ -13,6 +13,12 @@ namespace Math
 	*/
 	template<typename T>
 	T lerp(T a, T b, float t);
+
+	template<typename T>
+	T smoothstep(T x);
+
+	template<typename T>
+	T smoothlerp(T a, T b, T t);
 };
 
 #include <Math/impl/FunctionsDetail.h>
