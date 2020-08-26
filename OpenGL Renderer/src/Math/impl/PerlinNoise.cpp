@@ -66,12 +66,14 @@ PerlinGenerator::generate(const float x, const float y)
 
 	n0 = dot(x0,y0, x,y);
 	n1 = dot(x1,y0, x,y);
-	ix0 = Math::lerp(n0, n1, sx);
+	//ix0 = Math::lerp(n0, n1, sx);
+	ix0 = Math::smoothlerp(n0, n1, sx);
 
 	n0 = dot(x0, y1, x, y);
 	n1 = dot(x1, y1, x, y);
-	ix1 = Math::lerp(n0, n1, sx);
+	//ix1 = Math::lerp(n0, n1, sx);
+	ix1 = Math::smoothlerp(n0, n1, sx);
 
-	return Math::lerp(ix0, ix1, sy);
-
+	//return Math::lerp(ix0, ix1, sy);
+	return Math::smoothlerp(ix0, ix1, sy);
 }
