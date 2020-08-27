@@ -14,6 +14,7 @@
 #include <Renderer/RenderWindow.h>
 #include <Renderer/Camera.h>
 #include <DataStructure/EnvironmentMap.h>
+#include <Renderer/TerrainCreater.h>
 
 #define LIGHTS 2
 
@@ -132,6 +133,22 @@ int main(void)
 	materials.push_back(mat_brdf);
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
+
+	names.push_back("terrain");
+	Mesh terrain_mesh = ObjLoader::loadObj("res/plane.obj")[0];
+
+	Material mat_terrain = Material::createObject("materialmap", MaterialType::LAMBERT);
+	mat_terrain.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+	mat_terrain.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+	mat_terrain.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	mat_terrain.texture_height = Terrain::createTerrain(512, 512, 5);
+	mat_terrain.texture_diffuse = mat_terrain.texture_height;
+	mat_terrain.useTextures = true;
+	mat_terrain.shininess = 0.4f * 512.0f;
+
+	meshes.push_back(terrain_mesh);
+	materials.push_back(mat_terrain);
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(-20, 0, 0)));
 
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
@@ -293,6 +310,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Post").bind();
 		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure);
 		fbo.getTexture(0).bind(0);
+		//lights[0].shadow_map.getTexture().bind();
 		quad.render();		
 
 		window.spinOnce();
