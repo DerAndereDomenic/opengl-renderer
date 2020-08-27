@@ -81,6 +81,9 @@
     <ClCompile Include="src\DataStructure\impl\Light.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\impl\TerrainCreater.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OpenGLObjects\VertexBuffer.h">
@@ -153,6 +156,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader\ShaderManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\TerrainCreater.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
