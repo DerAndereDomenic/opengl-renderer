@@ -43,6 +43,14 @@ public:
 	static Texture createObject(const char* file_path, std::vector<std::string> faces);
 
 	/**
+	*	\brief Creates a texture and stores the given float data inside it
+	*	\param[in] data The data to be stored inside the texture
+	*	\param[in] width The width of the texture
+	*	\param[in] height The height of the texture
+	*/
+	static Texture createObject(float* data, unsigned int width, unsigned int height);
+
+	/**
 	*	\brief Create an empty Texture
 	*	\param[in] width The width of the texture
 	*	\param[in] height The height of the texture
