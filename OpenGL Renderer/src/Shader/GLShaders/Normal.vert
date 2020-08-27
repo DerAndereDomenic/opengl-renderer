@@ -55,7 +55,7 @@ void main()
 	//Displacement
 	if(materialmap.useTextures)
 	{
-		float stretchfactor = 0.1;
+		float stretchfactor = 10.0;
 		float displacement = texture(materialmap.height_map, tex).r;
 		frag_position += stretchfactor * displacement * N;
 	}
