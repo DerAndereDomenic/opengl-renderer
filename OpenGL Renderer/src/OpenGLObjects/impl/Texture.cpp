@@ -101,22 +101,6 @@ Texture::createObject(const char* file_path, std::vector<std::string> faces)
 	return result;
 }
 
-Texture
-Texture::createObject(float* data, unsigned int width, unsigned int height)
-{
-	Texture result;
-	glGenTextures(1, &result._ID);
-	glBindTexture(GL_TEXTURE_2D, result._ID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_FLOAT, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	return result;
-}
-
 void 
 Texture::destroyObject(Texture& texture)
 {
