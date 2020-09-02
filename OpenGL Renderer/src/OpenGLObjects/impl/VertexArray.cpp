@@ -30,7 +30,8 @@ void
 VertexArray::render() const
 {
 	bind();
-	glDrawElements(GL_TRIANGLES, _ibo.getCount(), GL_UNSIGNED_INT, (void*)0);
+	_hasIBO ? glDrawElements(GL_TRIANGLES, _ibo.getCount(), GL_UNSIGNED_INT, (void*)0) :
+		glDrawArrays(GL_TRIANGLES, 0, _count);
 }
 
 void 
@@ -46,10 +47,12 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 		glVertexAttribPointer(i, element._count, element._type, element._normalized, layout.getVertexSize(), (const void*)offset);
 		offset += element._count * BufferElement::getSizeOfType(element._type);
 	}
+	_count = vbo.getCount();
 }
 
 void 
 VertexArray::setIndexBuffer(const IndexBuffer &ibo)
 {
 	_ibo = ibo;
+	_hasIBO = true;
 }

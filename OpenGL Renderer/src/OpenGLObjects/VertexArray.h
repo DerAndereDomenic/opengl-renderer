@@ -57,7 +57,9 @@ public:
 	void setIndexBuffer(const IndexBuffer &ibo);
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the Vertex Array*/
-	IndexBuffer _ibo;
+	IndexBuffer _ibo; /**<< The Index buffer binded to this vao*/
+	unsigned int _count; /**<< The number of elements in the underlying vbo*/
+	bool _hasIBO = false; /**<< Checks if this vao has an index buffer*/
 };
 
 
