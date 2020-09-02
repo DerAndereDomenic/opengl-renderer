@@ -46,6 +46,8 @@ TextRenderer::destroyObject(TextRenderer& object)
 		FT_Done_Face(object._face);
 		FT_Done_FreeType(object._ft);
 	}
+	VertexBuffer::destroyObject(object._vbo);
+	VertexArray::destroyObject(object._vao);
 }
 
 void 
