@@ -5,6 +5,9 @@
 #include <glm/glm.hpp>
 #include <map>
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 struct Character
 {
 	Texture texture;		/**<< The texture of the glyph*/
@@ -18,12 +21,14 @@ class TextRenderer
 	public:
 		TextRenderer() = default;
 
-		static TextRenderer createObject(const char* path);
+		static TextRenderer createObject();
 
 		static void destroyObject(TextRenderer& object);
 
-		void loadFont(const unsigned int number_char, const unsigned int font_size);
+		void loadFont(const char* path, const unsigned int number_char, const unsigned int font_size);
 	private:
+		FT_Library _ft;
+		FT_Face _face;
 		std::map<char, Character> _characters;
 };
 
