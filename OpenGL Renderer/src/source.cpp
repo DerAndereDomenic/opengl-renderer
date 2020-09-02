@@ -207,7 +207,7 @@ int main(void)
 	ShaderManager::instance()->addShader("CubeMap");
 	ShaderManager::instance()->addShader("Reflection");
 
-	TextRenderer textRenderer = TextRenderer::createObject();
+	TextRenderer textRenderer = TextRenderer::createObject(width, height);
 	textRenderer.loadFont("C:/Windows/Fonts/arial.ttf", 128, 48);
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);

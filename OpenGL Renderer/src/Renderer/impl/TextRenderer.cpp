@@ -1,8 +1,9 @@
 #include <Renderer/TextRenderer.h>
 #include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
 
 TextRenderer 
-TextRenderer::createObject()
+TextRenderer::createObject(unsigned int width, unsigned int height)
 {
 	TextRenderer result;
 
@@ -18,6 +19,8 @@ TextRenderer::createObject()
 	result._vbo = VertexBuffer::createObject(NULL, 6 * 4);
 	result._vao = VertexArray::createObject();
 	result._vao.addBuffer(result._vbo, layout);
+
+	result._projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
 
 	return result;
 }
