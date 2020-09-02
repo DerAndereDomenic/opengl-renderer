@@ -30,6 +30,7 @@ class TextRenderer
 		FT_Library _ft;
 		FT_Face _face;
 		std::map<char, Character> _characters;
+		bool _loaded = false;
 };
 
 #endif
