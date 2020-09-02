@@ -1,13 +1,12 @@
 #include <OpenGLObjects/VertexBuffer.h>
-#include <GL/glew.h>
 
 VertexBuffer 
-VertexBuffer::createObject(const float* data, const unsigned int count)
+VertexBuffer::createObject(const float* data, const unsigned int count, GLenum usage)
 {
 	VertexBuffer result;
 	glGenBuffers(1, &result._ID);
 	glBindBuffer(GL_ARRAY_BUFFER, result._ID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*count, data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*count, data, usage);
 
 	result._size = count * sizeof(float);
 

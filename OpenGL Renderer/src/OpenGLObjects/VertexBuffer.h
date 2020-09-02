@@ -1,6 +1,8 @@
 #ifndef OPENGL_OBJECTS_VERTEX_BUFFER_H
 #define OPENGL_OBJECTS_VERTEX_BUFFER_H
 
+#include <GL/glew.h>
+
 /**
 *	\brief Class to model a Vertex Buffer
 */
@@ -17,7 +19,7 @@ public:
 	*	\param[in] data The Vertices Data
 	*	\param[in] count The count of elements in the array
 	*/
-	static VertexBuffer createObject(const float* data, const unsigned int count);
+	static VertexBuffer createObject(const float* data, const unsigned int count, GLenum usage = GL_STATIC_DRAW);
 
 	/**
 	*	\brief Destroys the Vertex Buffer object
