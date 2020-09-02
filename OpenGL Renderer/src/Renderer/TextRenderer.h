@@ -1,6 +1,7 @@
 #ifndef RENDERER_TEXTRENDERER_H
 #define RENDERER_TEXTRENDERER_H
 
+#include <OpenGLObjects/VertexArray.h>
 #include <OpenGLObjects/Texture.h>
 #include <glm/glm.hpp>
 #include <map>
@@ -31,6 +32,8 @@ class TextRenderer
 		FT_Face _face;
 		std::map<char, Character> _characters;
 		bool _loaded = false;
+		VertexArray _vao;
+		VertexBuffer _vbo;
 };
 
 #endif

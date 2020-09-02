@@ -11,6 +11,14 @@ TextRenderer::createObject()
 		std::cout << "ERROR::TEXTRENDERER::FREETYPE: Could not initialize FreeType Library" << std::endl;
 	}
 
+	VertexBufferLayout layout;
+	layout.add<float>(2);
+	layout.add<float>(2);
+
+	result._vbo = VertexBuffer::createObject(NULL, 6 * 4);
+	result._vao = VertexArray::createObject();
+	result._vao.addBuffer(result._vbo, layout);
+
 	return result;
 }
 
