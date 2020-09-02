@@ -17,6 +17,9 @@
 #include <Renderer/TerrainCreater.h>
 #include <Renderer/TextRenderer.h>
 
+#include <iomanip>
+#include <sstream>
+
 #define LIGHTS 2
 
 
@@ -34,6 +37,10 @@ int main(void)
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window, near, far);
+
+	std::stringstream stream_x;
+	std::stringstream stream_y;
+	std::stringstream stream_z;
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
@@ -208,7 +215,7 @@ int main(void)
 	ShaderManager::instance()->addShader("Reflection");
 
 	TextRenderer textRenderer = TextRenderer::createObject(width, height);
-	textRenderer.loadFont("C:/Windows/Fonts/arial.ttf", 128, 48);
+	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 128, 16);
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachHDR();
@@ -315,7 +322,19 @@ int main(void)
 		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure);
 		fbo.getTexture(0).bind(0);
 		//lights[0].shadow_map.getTexture().bind();
-		quad.render();		
+		quad.render();
+		
+		stream_x << "X: " << std::fixed << std::setprecision(2) << camera.getPosition().x;
+		textRenderer.render(stream_x.str(), width-100, height-16, 1, glm::vec3(1, 1, 1));
+		stream_x.str("");
+
+		stream_y << "Y: " << std::fixed << std::setprecision(2) << camera.getPosition().y;
+		textRenderer.render(stream_y.str(), width - 100, height - 32, 1, glm::vec3(1, 1, 1));
+		stream_y.str("");
+
+		stream_z << "Z: " << std::fixed << std::setprecision(2) << camera.getPosition().z;
+		textRenderer.render(stream_z.str(), width - 100, height - 48, 1, glm::vec3(1, 1, 1));
+		stream_z.str("");
 
 		window.spinOnce();
 
