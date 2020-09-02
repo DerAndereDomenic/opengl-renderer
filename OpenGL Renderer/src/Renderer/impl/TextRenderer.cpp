@@ -17,7 +17,21 @@ TextRenderer::createObject()
 void 
 TextRenderer::destroyObject(TextRenderer& object)
 {
-
+	if (object._loaded)
+	{
+		for (unsigned int i = 0; i < object._characters.size(); ++i)
+		{
+			Character character = object._characters[i];
+			Texture::destroyObject(character.texture);
+		}
+		object._characters.clear();
+		object._loaded = false;
+	}
+	else
+	{
+		FT_Done_Face(object._face);
+		FT_Done_FreeType(object._ft);
+	}
 }
 
 void 
