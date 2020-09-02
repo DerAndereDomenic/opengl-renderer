@@ -1,4 +1,4 @@
-*OpenGL Renderer*
+**OpenGL Renderer**
 
 A basic Renderer wrapping OpenGL functions
 
@@ -8,5 +8,5 @@ The Project comes with all necessary libraries:
 * glew
 * glm
 * glfw
-
-After cloning the project, only linking has to be done.
+* assimp
+* FreeType
