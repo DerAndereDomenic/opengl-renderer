@@ -137,7 +137,7 @@ int main(void)
 	names.push_back("terrain");
 	Mesh terrain_mesh = ObjLoader::loadObj("res/plane.obj")[0];
 
-	Material mat_terrain = Material::createObject("materialmap", MaterialType::LAMBERT);
+	Material mat_terrain = Material::createObject("materialmap", MaterialType::PHONG);
 	mat_terrain.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	mat_terrain.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	mat_terrain.specular = glm::vec3(1.0f, 1.0f, 1.0f);
