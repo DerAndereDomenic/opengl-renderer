@@ -52,16 +52,20 @@ public:
 
 	/**
 	*	\brief Create an empty Texture
+	*	\tparam T The type of data
 	*	\param[in] width The width of the texture
 	*	\param[in] height The height of the texture
+	*	\param[in] data The data stored in the texture (default = NULL)
 	*	\param[in] target The texture target (TEXTURE or CUBEMAP, default = TEXTURE)
 	*	\param[in] internal_format The type of texture (i.e. RGB or DEPTH for now)
 	*	\param[in] format The format of the pixel data
 	*	\param[in] type The data type of a channel (default: unsigned byte)
 	*	\return The Texture object
 	*/
+	template<typename T>
 	static Texture createObject(const unsigned int width,
 								const unsigned int height,
+								const T* data = NULL,
 								const unsigned int target = TEXTURE,
 								const unsigned int internal_format = RGB,
 								const unsigned int format = RGB,
