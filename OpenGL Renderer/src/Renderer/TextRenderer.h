@@ -20,23 +20,53 @@ struct Character
 class TextRenderer
 {
 	public:
+		/**
+		*	\brief Creates an empty Text Renderer
+		*/
 		TextRenderer() = default;
 
+		/**
+		*	\brief Create a TextRenderer Object
+		*	\param[in] width The width of the window
+		*	\param[in] height The height of the window
+		*	\return The TextRenderer Object
+		*	\note At this point the FT library and all vertex buffers are initialized
+		*/
 		static TextRenderer createObject(unsigned int width, unsigned int height);
 
+		/**
+		*	\brief Destroys the TextRenderer
+		*	\param[in] object The object to be destroyed
+		*	\note: This unloads the FT library if not already done by loadFont
+		*/
 		static void destroyObject(TextRenderer& object);
 
+		/**
+		*	\brief Loads the given font into an internal format where the textures for the glyphs are created
+		*	\param[in] path Path to the font
+		*	\param[in] number_char The number of characters that should be loaded
+		*	\param[in] font_size The size of the font
+		*	\note: This unloads the FT library components at the end
+		*/
 		void loadFont(const char* path, const unsigned int number_char, const unsigned int font_size);
 
+		/**
+		*	\brief Renders the text to the screen
+		*	\param[in] text The text to be rendered
+		*	\param[in] x The x position where the text should start
+		*	\param[in] y The y position of the text
+		*	\param[in] scale A scaling factor for the text
+		*	\param[in] color The color of the text
+		*/
 		void render(std::string text, float x, float y, float scale, glm::vec3 color);
 	private:
-		FT_Library _ft;
-		FT_Face _face;
-		std::map<char, Character> _characters;
-		bool _loaded = false;
-		VertexArray _vao;
-		VertexBuffer _vbo;
-		glm::mat4 _projection;
+		FT_Library _ft;							/**<< The internal FreeType library object*/
+		FT_Face _face;							/**<< The internal FreeType face object*/
+		std::map<char, Character> _characters;	/**<< The internal character structure, storing textures, etc.*/
+		bool _loaded = false;					/**<< Check if this object has a font loaded*/
+		VertexArray _vao;						/**<< The vao to render the text*/
+		VertexBuffer _vbo;						/**<< The vbo to render the text*/
+		glm::mat4 _projection;					/**<< The orthographic projection to render the text*/
 };
 
 #endif
