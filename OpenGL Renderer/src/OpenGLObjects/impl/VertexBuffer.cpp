@@ -31,3 +31,11 @@ VertexBuffer::unbind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+
+void 
+VertexBuffer::changeData(const float* data, const unsigned int count, const unsigned int offset)
+{
+	bind();
+	glBufferSubData(GL_ARRAY_BUFFER, offset, count * sizeof(float), data);
+	unbind();
+}

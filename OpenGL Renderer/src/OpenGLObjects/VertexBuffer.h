@@ -36,6 +36,14 @@ public:
 	*	\brief Unbind the buffer (bind default)
 	*/
 	void unbind() const;
+
+	/**
+	*	\brief Changes the data in the vertex buffer object
+	*	\param[in] data The new data
+	*	\param[in] count The count of new elements
+	*	\param[in] offset The data offset inside the vbo (default = 0)
+	*/
+	void changeData(const float* data, const unsigned int count, const unsigned int offset = 0);
 private:
 	unsigned int _ID; /**<< The OpenGL identifier for the Vertex Buffer*/
 	unsigned int _size; /**<< The Size of the Buffer in Bytes*/
