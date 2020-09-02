@@ -8,6 +8,6 @@ uniform mat4 projection;
 
 void main()
 {
-	gl_Position = projection * vec4(position,0,1);
+	gl_Position = projection * vec4(position,0.1,1);
 	frag_tex = tex;
 }
