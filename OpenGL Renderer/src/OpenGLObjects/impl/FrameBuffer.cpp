@@ -34,7 +34,7 @@ void
 FrameBuffer::attachColor()
 {
 	bind();
-	Texture texture = Texture::createObject(_width, _height);
+	Texture texture = Texture::createObject<void>(_width, _height);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, texture.getID(), 0);
 	_render_textures.push_back(texture);
 }
@@ -51,7 +51,7 @@ void
 FrameBuffer::attachHDR()
 {
 	bind();
-	Texture texture = Texture::createObject(_width, _height, TEXTURE, GL_RGBA16F, RGBA, GL_FLOAT);
+	Texture texture = Texture::createObject(_width, _height, (void*)NULL, TEXTURE, GL_RGBA16F, RGBA, GL_FLOAT);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, texture.getID(), 0);
 	_render_textures.push_back(texture);
 }
@@ -68,7 +68,7 @@ void
 FrameBuffer::attachDepthMap()
 {
 	bind();
-	Texture texture = Texture::createObject(_width, _height, TEXTURE, DEPTH, DEPTH, GL_FLOAT);
+	Texture texture = Texture::createObject(_width, _height, (void*)NULL, TEXTURE, DEPTH, DEPTH, GL_FLOAT);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture.getID(), 0);
 	_render_textures.push_back(texture);
 }

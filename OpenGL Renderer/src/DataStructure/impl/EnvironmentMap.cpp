@@ -5,7 +5,7 @@ EnvironmentMap::createObject(glm::vec3 position)
 {
 	EnvironmentMap result;
 	result._camera = Camera::createObject(position, 90.0f, 1.0f, 0.1f, 100.0f);
-	result._cube_map = Texture::createObject(1024, 1024, CUBEMAP);
+	result._cube_map = Texture::createObject(1024, 1024, (void*)NULL, CUBEMAP);
 	result._environment_map = FrameBuffer::createObject(1024, 1024);
 	result._environment_map.attachRenderBuffer();
 	result._environment_map.unbind();
