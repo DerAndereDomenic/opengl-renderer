@@ -186,5 +186,7 @@
     <None Include="src\Shader\GLShaders\CubeMap.frag" />
     <None Include="src\Shader\GLShaders\Reflection.vert" />
     <None Include="src\Shader\GLShaders\Reflection.frag" />
+    <None Include="src\Shader\GLShaders\Text.vert" />
+    <None Include="src\Shader\GLShaders\Text.frag" />
   </ItemGroup>
 </Project>
