@@ -1,6 +1,7 @@
 #include <Renderer/TextRenderer.h>
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
+#include <Shader/ShaderManager.h>
 
 TextRenderer 
 TextRenderer::createObject(unsigned int width, unsigned int height)
@@ -22,6 +23,8 @@ TextRenderer::createObject(unsigned int width, unsigned int height)
 
 	result._projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
 
+	ShaderManager::instance()->addShader("Text");
+
 	return result;
 }
 
@@ -42,6 +45,44 @@ TextRenderer::destroyObject(TextRenderer& object)
 	{
 		FT_Done_Face(object._face);
 		FT_Done_FreeType(object._ft);
+	}
+}
+
+void 
+TextRenderer::render(std::string text, float x, float y, float scale, glm::vec3 color)
+{
+	Shader text_shader = ShaderManager::instance()->getShader("Text");
+	text_shader.bind();
+	text_shader.setVec3("textColor", color);
+	text_shader.setMat4("projection", _projection);
+
+	std::string::const_iterator c;
+	for (c = text.begin(); c != text.end(); ++c)
+	{
+		Character ch = _characters[*c];
+
+		float xpos = x + ch.bearing.x * scale;
+		float ypos = y - (ch.size.y - ch.bearing.y) * scale;
+
+		float w = ch.size.x * scale;
+		float h = ch.size.y * scale;
+
+		float vertices[4 * 6] =
+		{
+			xpos    , ypos + h, 0.0f, 0.0f,
+			xpos    , ypos    , 0.0f, 1.0f,
+			xpos + w, ypos    , 1.0f, 1.0f,
+
+			xpos    , ypos + h, 0.0f, 0.0f,
+			xpos + w, ypos    , 1.0f, 1.0f,
+			xpos + w, ypos + h, 1.0f, 0.0f
+		};
+
+		ch.texture.bind();
+		_vbo.changeData(vertices, 4 * 6);
+		_vao.render();
+
+		x += (ch.advance >> 6) * scale;
 	}
 }
 
