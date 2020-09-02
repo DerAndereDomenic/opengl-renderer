@@ -95,4 +95,6 @@ private:
 	unsigned int _target = GL_TEXTURE_2D; /**<< The texture target*/
 };
 
+#include "impl/TextureDetail.h"
+
 #endif
