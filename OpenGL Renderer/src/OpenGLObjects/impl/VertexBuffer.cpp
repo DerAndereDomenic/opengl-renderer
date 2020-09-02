@@ -9,6 +9,7 @@ VertexBuffer::createObject(const float* data, const unsigned int count, GLenum u
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*count, data, usage);
 
 	result._size = count * sizeof(float);
+	result._count = count;
 
 	return result;
 }

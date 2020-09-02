@@ -44,9 +44,15 @@ public:
 	*	\param[in] offset The data offset inside the vbo (default = 0)
 	*/
 	void changeData(const float* data, const unsigned int count, const unsigned int offset = 0);
+
+	/**
+	*	\brief Returns the count (number of elements) in the vbo
+	*/
+	inline unsigned int getCount() const { return _count; }
 private:
 	unsigned int _ID; /**<< The OpenGL identifier for the Vertex Buffer*/
 	unsigned int _size; /**<< The Size of the Buffer in Bytes*/
+	unsigned int _count; /**<< The number of elements in the vbo*/
 };
 
 
