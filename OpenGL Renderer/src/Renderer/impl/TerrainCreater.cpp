@@ -20,8 +20,8 @@ Terrain::createTerrain(unsigned int resx, unsigned int resz, unsigned int gridde
 		}
 	}
 
-	Texture result = Texture::createObject(data, resx, resz);
-	delete data;
+	Texture result = Texture::createObject(resx, resz, data, TEXTURE, GL_RED, GL_RED, GL_FLOAT);
+	delete[] data;
 	PerlinGenerator::destroyObject(rng);
 	return result;
 }
