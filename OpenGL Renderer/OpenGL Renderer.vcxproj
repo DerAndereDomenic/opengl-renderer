@@ -170,6 +170,7 @@
     <ClInclude Include="src\Math\impl\FunctionsDetail.h" />
     <ClInclude Include="src\Math\PerlinNoise.h" />
     <ClInclude Include="src\OpenGLObjects\FrameBuffer.h" />
+    <ClInclude Include="src\OpenGLObjects\impl\TextureDetail.h" />
     <ClInclude Include="src\OpenGLObjects\IndexBuffer.h" />
     <ClInclude Include="src\OpenGLObjects\RenderBuffer.h" />
     <ClInclude Include="src\OpenGLObjects\Texture.h" />

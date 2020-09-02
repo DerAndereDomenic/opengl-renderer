@@ -161,6 +161,9 @@
     <ClInclude Include="src\Renderer\TerrainCreater.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\OpenGLObjects\impl\TextureDetail.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shader\GLShaders\basic.vert" />
