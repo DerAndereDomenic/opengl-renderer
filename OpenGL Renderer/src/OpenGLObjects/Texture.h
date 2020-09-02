@@ -55,7 +55,7 @@ public:
 	*	\param[in] width The width of the texture
 	*	\param[in] height The height of the texture
 	*	\param[in] target The texture target (TEXTURE or CUBEMAP, default = TEXTURE)
-	*	\param[in] channels The type of texture (i.e. RGB or DEPTH for now)
+	*	\param[in] internal_format The type of texture (i.e. RGB or DEPTH for now)
 	*	\param[in] format The format of the pixel data
 	*	\param[in] type The data type of a channel (default: unsigned byte)
 	*	\return The Texture object
@@ -63,7 +63,7 @@ public:
 	static Texture createObject(const unsigned int width,
 								const unsigned int height,
 								const unsigned int target = TEXTURE,
-								const unsigned int channels = RGB,
+								const unsigned int internal_format = RGB,
 								const unsigned int format = RGB,
 								const unsigned int type = GL_UNSIGNED_BYTE);
 
