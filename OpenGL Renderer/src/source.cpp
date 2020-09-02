@@ -15,6 +15,7 @@
 #include <Renderer/Camera.h>
 #include <DataStructure/EnvironmentMap.h>
 #include <Renderer/TerrainCreater.h>
+#include <Renderer/TextRenderer.h>
 
 #define LIGHTS 2
 
@@ -206,6 +207,8 @@ int main(void)
 	ShaderManager::instance()->addShader("CubeMap");
 	ShaderManager::instance()->addShader("Reflection");
 
+	TextRenderer textRenderer = TextRenderer::createObject();
+
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachHDR();
 	fbo.attachRenderBuffer();
@@ -348,6 +351,7 @@ int main(void)
 	FrameBuffer::destroyObject(fbo);
 	Light::destroyObject(lights[0]);
 	KeyManager::destroy();
+	TextRenderer::destroyObject(textRenderer);
 
 	return 0;
 }
