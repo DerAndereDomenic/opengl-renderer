@@ -38,9 +38,7 @@ int main(void)
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window, near, far);
 
-	std::stringstream stream_x;
-	std::stringstream stream_y;
-	std::stringstream stream_z;
+	std::stringstream stream;
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
@@ -324,17 +322,17 @@ int main(void)
 		//lights[0].shadow_map.getTexture().bind();
 		quad.render();
 		
-		stream_x << "X: " << std::fixed << std::setprecision(2) << camera.getPosition().x;
-		textRenderer.render(stream_x.str(), width-100, height-16, 1, glm::vec3(1, 1, 1));
-		stream_x.str("");
+		stream << "X: " << std::fixed << std::setprecision(2) << camera.getPosition().x;
+		textRenderer.render(stream.str(), width-100, height-16, 1, glm::vec3(1, 1, 1));
+		stream.str("");
 
-		stream_y << "Y: " << std::fixed << std::setprecision(2) << camera.getPosition().y;
-		textRenderer.render(stream_y.str(), width - 100, height - 32, 1, glm::vec3(1, 1, 1));
-		stream_y.str("");
+		stream << "Y: " << std::fixed << std::setprecision(2) << camera.getPosition().y;
+		textRenderer.render(stream.str(), width - 100, height - 32, 1, glm::vec3(1, 1, 1));
+		stream.str("");
 
-		stream_z << "Z: " << std::fixed << std::setprecision(2) << camera.getPosition().z;
-		textRenderer.render(stream_z.str(), width - 100, height - 48, 1, glm::vec3(1, 1, 1));
-		stream_z.str("");
+		stream << "Z: " << std::fixed << std::setprecision(2) << camera.getPosition().z;
+		textRenderer.render(stream.str(), width - 100, height - 48, 1, glm::vec3(1, 1, 1));
+		stream.str("");
 
 		window.spinOnce();
 
