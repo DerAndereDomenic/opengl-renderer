@@ -243,6 +243,7 @@ int main(void)
 	double currentTime;
 
 	float exposure = 1.0f;
+	double endFrame;
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -332,6 +333,12 @@ int main(void)
 
 		stream << "Z: " << std::fixed << std::setprecision(2) << camera.getPosition().z;
 		textRenderer.render(stream.str(), width - 100, height - 48, 1, glm::vec3(1, 1, 1));
+		stream.str("");
+
+		endFrame = glfwGetTime();
+
+		stream << "Render time: " << std::fixed << std::setprecision(5) << (endFrame - currentTime) << "ms FPS: " << std::fixed << std::setprecision(1) << 1.0f / (endFrame - currentTime) << "; Display FPS: " << std::fixed << std::setprecision(1) << 1.0f/deltaTime;
+		textRenderer.render(stream.str(), 16, 16, 1, glm::vec3(0, 1, 0));
 		stream.str("");
 
 		window.spinOnce();
