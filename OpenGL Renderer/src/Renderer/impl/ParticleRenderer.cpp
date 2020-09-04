@@ -69,7 +69,7 @@ ParticleRenderer::update(float deltaTime)
 }
 
 void 
-ParticleRenderer::render()
+ParticleRenderer::render(Camera& camera)
 {
 	ShaderManager::instance()->getShader("Particle").bind();
 	_texture.bind();

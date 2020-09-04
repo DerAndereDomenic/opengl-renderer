@@ -5,6 +5,7 @@
 #include <OpenGLObjects/Texture.h>
 #include <glm/glm.hpp>
 #include <OpenGLObjects/VertexArray.h>
+#include <Renderer/Camera.h>
 
 struct Particle
 {
@@ -27,7 +28,7 @@ class ParticleRenderer
 
 		void update(float deltaTime);
 
-		void render();
+		void render(Camera& camera);
 	private:
 		Texture _texture;
 		std::vector<Particle> _particles;
