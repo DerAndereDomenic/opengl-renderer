@@ -63,5 +63,8 @@ ParticleRenderer::update(float deltaTime)
 void 
 ParticleRenderer::render()
 {
-
+	ShaderManager::instance()->getShader("Particle").bind();
+	_texture.bind();
+	_vao.bind();
+	glDrawArraysInstanced(GL_POINTS, 0, 1, _particles.size());
 }
