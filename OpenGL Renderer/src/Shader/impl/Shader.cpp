@@ -67,7 +67,23 @@ Shader::compileShader(GLenum shaderType, const char* shader_source)
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
 		char* infoLog = (char*)malloc(sizeof(char) * length);
 		glGetShaderInfoLog(shader, length, &length, infoLog);
-		std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+		if (shaderType == GL_VERTEX_SHADER)
+		{
+			std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+		}
+		else if (shaderType == GL_FRAGMENT_SHADER)
+		{
+			std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+		}
+		else if (shaderType == GL_GEOMETRY_SHADER)
+		{
+			std::cerr << "ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n" << infoLog << std::endl;
+		}
+		else
+		{
+			std::cerr << "ERROR::SHADER::COMPILATION_FAILED\n" << "Unknown shader type" << std::endl;
+		}
+		
 		free(infoLog);
 	}
 
