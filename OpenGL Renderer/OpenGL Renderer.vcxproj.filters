@@ -191,5 +191,7 @@
     <None Include="src\Shader\GLShaders\DisplayNormal.vert" />
     <None Include="src\Shader\GLShaders\DisplayNormal.geom" />
     <None Include="src\Shader\GLShaders\DisplayNormal.frag" />
+    <None Include="src\Shader\GLShaders\Particle.vert" />
+    <None Include="src\Shader\GLShaders\Particle.frag" />
   </ItemGroup>
 </Project>

@@ -195,6 +195,8 @@
     <None Include="src\Shader\GLShaders\DisplayNormal.vert" />
     <None Include="src\Shader\GLShaders\Normal.frag" />
     <None Include="src\Shader\GLShaders\Normal.vert" />
+    <None Include="src\Shader\GLShaders\Particle.frag" />
+    <None Include="src\Shader\GLShaders\Particle.vert" />
     <None Include="src\Shader\GLShaders\Post.frag" />
     <None Include="src\Shader\GLShaders\Post.vert" />
     <None Include="src\Shader\GLShaders\Reflection.frag" />
