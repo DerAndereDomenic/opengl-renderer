@@ -65,9 +65,9 @@ public:
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the Vertex Array*/
 	IndexBuffer _ibo; /**<< The Index buffer binded to this vao*/
-	unsigned int _count; /**<< The number of elements in the underlying vbo*/
+	unsigned int _count = 0; /**<< The number of elements in the underlying vbo*/
 	bool _hasIBO = false; /**<< Checks if this vao has an index buffer*/
-	unsigned int _attribCount; /**<< The number of activated attributes*/
+	unsigned int _attribCount = 0; /**<< The number of activated attributes*/
 };
 
 
