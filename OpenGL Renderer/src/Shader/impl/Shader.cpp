@@ -35,37 +35,9 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
 
 	//Compiling
 	unsigned int vertex, fragment;
-	int success;
-
-	vertex = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex, 1, &vShaderCode, NULL);
-	glCompileShader(vertex);
-
-	glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		int length;
-		glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length);
-		char* infoLog = (char*)malloc(sizeof(char)*length);
-		glGetShaderInfoLog(vertex, length, &length, infoLog);
-		std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-		free(infoLog);
-	}
-
-	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment, 1, &fShaderCode, NULL);
-	glCompileShader(fragment);
-
-	glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		int length;
-		glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
-		char* infoLog = (char*)malloc(sizeof(char)*length);
-		glGetShaderInfoLog(fragment, length, &length, infoLog);
-		std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-		free(infoLog);
-	}
+	
+	vertex = result.compileShader(GL_VERTEX_SHADER, vShaderCode);
+	fragment = result.compileShader(GL_FRAGMENT_SHADER, fShaderCode);
 
 	result._ID = glCreateProgram();
 	glAttachShader(result._ID, vertex);
