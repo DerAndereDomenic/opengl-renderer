@@ -18,7 +18,7 @@ class ParticleRenderer
 	public:
 		ParticleRenderer() = default;
 
-		static ParticleRenderer createObject();
+		static ParticleRenderer createObject(const unsigned int num_particles, Texture texture);
 
 		static void destroyObject(ParticleRenderer& object);
 
