@@ -31,6 +31,15 @@ public:
 	static Shader createObject(const GLchar* vertexPath, const GLchar* fragmentPath);
 
 	/**
+	*	\brief Create a Shader Object
+	*	\param[in] vertexPath Path to the Vertex Shader
+	*	\param[in] geometryPath Path to the Geometry Shader
+	*	\param[in] fragmentPath Path to the Fragment Shader
+	*	\return The compiled and linked Shader
+	*/
+	static Shader createObject(const GLchar* vertexPath, const GLchar* geometryPath, const GLchar* fragmentPath);
+
+	/**
 	*	\brief Destroys the object
 	*	\param[in] The shader object
 	*/
