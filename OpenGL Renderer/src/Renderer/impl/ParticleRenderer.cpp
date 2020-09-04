@@ -52,6 +52,8 @@ ParticleRenderer::update(float deltaTime)
 	{
 		_particles[i].position += deltaTime * _particles[i].velocity;
 		_particles[i].timeAlive += deltaTime;
+		float position[] = { _particles[i].position.x, _particles[i].position.y, _particles[i].position.z };
+		_instanceArray.changeData(position, 3, i * 3);
 	}
 }
 
