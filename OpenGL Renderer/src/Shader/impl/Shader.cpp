@@ -4,34 +4,9 @@ Shader
 Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
 {
 	Shader result;
-	std::string vertexCode;
-	std::string fragmentCode;
-	std::ifstream vShaderFile;
-	std::ifstream fShaderFile;
-
-	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	try
-	{
-		vShaderFile.open(vertexPath);
-		fShaderFile.open(fragmentPath);
-		std::stringstream vShaderStream, fShaderStream;
-
-		vShaderStream << vShaderFile.rdbuf();
-		fShaderStream << fShaderFile.rdbuf();
-
-		vShaderFile.close();
-		fShaderFile.close();
-
-		vertexCode = vShaderStream.str();
-		fragmentCode = fShaderStream.str();
-	}
-	catch (std::ifstream::failure e)
-	{
-		std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-	}
-	const char* vShaderCode = vertexCode.c_str();
-	const char* fShaderCode = fragmentCode.c_str();
+	//File reading
+	const char* vShaderCode = result.readShaderCode(vertexPath);
+	const char* fShaderCode = result.readShaderCode(fragmentPath);
 
 	//Compiling
 	unsigned int vertex, fragment;
@@ -50,7 +25,7 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
 }
 
 const char* 
-Shader::readShaderCode(GLchar* path)
+Shader::readShaderCode(const GLchar* path)
 {
 	std::string code;
 	std::ifstream shaderFile;

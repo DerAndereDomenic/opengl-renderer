@@ -116,7 +116,7 @@ private:
 	*	\param[in] path The path to the shader file
 	*	\return The source code of the shader as c-String
 	*/
-	const char* readShaderCode(GLchar* path);
+	const char* readShaderCode(const GLchar* path);
 
 	/**
 	*	\brief Compiles the shader code
