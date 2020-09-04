@@ -1,5 +1,11 @@
 #include <Renderer/ParticleRenderer.h>
 
+Particle::Particle(glm::vec3 position)
+	:position(position)
+{
+
+}
+
 ParticleRenderer 
 ParticleRenderer::createObject(const unsigned int num_particles, Texture texture)
 {
