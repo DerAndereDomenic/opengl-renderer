@@ -27,9 +27,10 @@ class ShaderManager
 		/**
 		*	\brief Adds a shader to the manager
 		*	\param[in] name The name of the shader (Has to be like the filename)
+		*	\param[in] geoemtry If this shader does also contain a geometry shader
 		*/
 		void
-		addShader(const std::string& name);
+		addShader(const std::string& name, const bool geometry = false);
 
 		/**
 		*	\brief Get the shader corresponding to the name
