@@ -1,5 +1,6 @@
 #include <Renderer/ParticleRenderer.h>
 #include <ctime>
+#include <Shader/ShaderManager.h>
 
 Particle::Particle(glm::vec3 position)
 	:position(position)
@@ -32,6 +33,8 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 	{
 		result._particles.push_back(Particle(position));
 	}
+
+	ShaderManager::instance()->addShader("Particle", true);
 
 	return result;
 }
