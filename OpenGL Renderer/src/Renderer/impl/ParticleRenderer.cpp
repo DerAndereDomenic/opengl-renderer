@@ -41,6 +41,8 @@ ParticleRenderer::destroyObject(ParticleRenderer& object)
 {
 	Texture::destroyObject(object._texture);
 	object._particles.clear();
+	VertexArray::destroyObject(object._vao);
+	VertexBuffer::destroyObject(object._instanceArray);
 }
 
 void 
