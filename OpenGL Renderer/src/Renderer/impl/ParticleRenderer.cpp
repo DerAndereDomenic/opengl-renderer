@@ -21,6 +21,12 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 
 	result._texture = texture;
 
+	result._instanceArray = VertexBuffer::createObject(NULL, num_particles * 3, GL_DYNAMIC_DRAW);
+	VertexBufferLayout layout;
+	layout.add<float>(3);
+	result._vao = VertexArray::createObject();
+	result._vao.addInstanceBuffer(result._instanceArray, layout.getElements()[0]);
+
 	std::srand(std::time(nullptr));
 	for (unsigned int i = 0; i < num_particles; ++i)
 	{

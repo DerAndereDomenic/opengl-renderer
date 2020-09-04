@@ -32,7 +32,6 @@ class ParticleRenderer
 		Texture _texture;
 		std::vector<Particle> _particles;
 		VertexArray _vao;
-		VertexBuffer _vbo;
 		VertexBuffer _instanceArray;
 };
 
