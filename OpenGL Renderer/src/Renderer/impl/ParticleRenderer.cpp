@@ -38,9 +38,13 @@ ParticleRenderer::destroyObject(ParticleRenderer& object)
 }
 
 void 
-ParticleRenderer::update()
+ParticleRenderer::update(float deltaTime)
 {
-
+	for (unsigned int i = 0; i < _particles.size(); ++i)
+	{
+		_particles[i].position += deltaTime * _particles[i].velocity;
+		_particles[i].timeAlive += deltaTime;
+	}
 }
 
 void 

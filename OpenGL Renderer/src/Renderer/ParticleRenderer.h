@@ -24,7 +24,7 @@ class ParticleRenderer
 
 		static void destroyObject(ParticleRenderer& object);
 
-		void update();
+		void update(float deltaTime);
 
 		void render();
 	private:
