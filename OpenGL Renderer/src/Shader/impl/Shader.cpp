@@ -86,6 +86,30 @@ Shader::compileShader(GLenum shaderType, const char* shader_source)
 	return shader;
 }
 
+void 
+Shader::linkShader(unsigned int* shaders, unsigned int num_shaders)
+{
+	int success;
+
+	_ID = glCreateProgram();
+	for (unsigned int i = 0; i < num_shaders; ++i)
+	{
+		glAttachShader(_ID, shaders[i]);
+	}
+	glLinkProgram(_ID);
+
+	glGetProgramiv(_ID, GL_LINK_STATUS, &success);
+	if (!success)
+	{
+		int length;
+		glGetProgramiv(_ID, GL_INFO_LOG_LENGTH, &length);
+		char* infoLog = (char*)malloc(sizeof(char) * length);
+		glGetProgramInfoLog(_ID, length, &length, infoLog);
+		std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+		free(infoLog);
+	}
+}
+
 void
 Shader::destroyObject(Shader& shader)
 {

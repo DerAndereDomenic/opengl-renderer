@@ -117,6 +117,14 @@ private:
 	*	\return The handle of the shader 
 	*/
 	unsigned int compileShader(GLenum shaderType, const char* shader_source);
+
+	/**
+	*	\brief Links given shaders into a shader program
+	*	\param[in] shaders An array with the shader handles
+	*	\param[in] num_shaders The number of shaders to link
+	*/
+	void linkShader(unsigned int* shaders, unsigned int num_shaders);
+
 	unsigned int _ID; /**<< The internal OpenGL handle for the shader*/
 };
 
