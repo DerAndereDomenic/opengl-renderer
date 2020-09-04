@@ -188,5 +188,8 @@
     <None Include="src\Shader\GLShaders\Reflection.frag" />
     <None Include="src\Shader\GLShaders\Text.vert" />
     <None Include="src\Shader\GLShaders\Text.frag" />
+    <None Include="src\Shader\GLShaders\DisplayNormal.vert" />
+    <None Include="src\Shader\GLShaders\DisplayNormal.geom" />
+    <None Include="src\Shader\GLShaders\DisplayNormal.frag" />
   </ItemGroup>
 </Project>
