@@ -31,9 +31,10 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 }
 
 void 
-destroyObject(ParticleRenderer& object)
+ParticleRenderer::destroyObject(ParticleRenderer& object)
 {
-
+	Texture::destroyObject(object._texture);
+	object._particles.clear();
 }
 
 void 
