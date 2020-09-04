@@ -12,7 +12,7 @@ Particle::Particle(glm::vec3 position)
 
 	float z = sqrtf(fmax(0.0f, 1 - x * x - y * y));
 
-	velocity = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX) * glm::vec3(x, y, z);
+	velocity = glm::vec3(0, 1, 0);// static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX) * glm::vec3(x, y, z);
 }
 
 ParticleRenderer 
@@ -22,17 +22,23 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 
 	result._texture = texture;
 
-	result._instanceArray = VertexBuffer::createObject(NULL, num_particles * 3, GL_DYNAMIC_DRAW);
+	float* positions = new float[3 * num_particles];
+	std::srand(std::time(nullptr));
+	for (unsigned int i = 0; i < num_particles; ++i)
+	{
+		result._particles.push_back(Particle(position));
+		positions[3 * i] = position.x;
+		positions[3 * i + 1] = position.y;
+		positions[3 * i + 2] = position.z;
+	}
+
+	result._instanceArray = VertexBuffer::createObject(positions, num_particles * 3, GL_DYNAMIC_DRAW);
 	VertexBufferLayout layout;
 	layout.add<float>(3);
 	result._vao = VertexArray::createObject();
 	result._vao.addInstanceBuffer(result._instanceArray, layout.getElements()[0]);
 
-	std::srand(std::time(nullptr));
-	for (unsigned int i = 0; i < num_particles; ++i)
-	{
-		result._particles.push_back(Particle(position));
-	}
+	delete[] positions;
 
 	ShaderManager::instance()->addShader("Particle", true);
 
