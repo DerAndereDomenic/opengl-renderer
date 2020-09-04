@@ -114,9 +114,9 @@ private:
 	/**
 	*	\brief Reads shader code from disk
 	*	\param[in] path The path to the shader file
-	*	\return The source code of the shader as c-String
+	*	\param[out] code The output code
 	*/
-	const char* readShaderCode(const GLchar* path);
+	void readShaderCode(const GLchar* path, std::string* code);
 
 	/**
 	*	\brief Compiles the shader code
