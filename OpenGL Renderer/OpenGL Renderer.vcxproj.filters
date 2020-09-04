@@ -87,6 +87,9 @@
     <ClCompile Include="src\Renderer\impl\TextRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\impl\ParticleRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OpenGLObjects\VertexBuffer.h">
@@ -170,6 +173,9 @@
     <ClInclude Include="src\Renderer\TextRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\ParticleRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shader\GLShaders\basic.vert" />
@@ -193,5 +199,6 @@
     <None Include="src\Shader\GLShaders\DisplayNormal.frag" />
     <None Include="src\Shader\GLShaders\Particle.vert" />
     <None Include="src\Shader\GLShaders\Particle.frag" />
+    <None Include="src\Shader\GLShaders\Particle.geom" />
   </ItemGroup>
 </Project>

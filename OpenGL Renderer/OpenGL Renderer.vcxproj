@@ -149,6 +149,7 @@
     <ClCompile Include="src\OpenGLObjects\impl\VertexArray.cpp" />
     <ClCompile Include="src\OpenGLObjects\impl\VertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\impl\Camera.cpp" />
+    <ClCompile Include="src\Renderer\impl\ParticleRenderer.cpp" />
     <ClCompile Include="src\Renderer\impl\RenderWindow.cpp" />
     <ClCompile Include="src\Renderer\impl\TerrainCreater.cpp" />
     <ClCompile Include="src\Renderer\impl\TextRenderer.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\OpenGLObjects\VertexBuffer.h" />
     <ClInclude Include="src\OpenGLObjects\VertexBufferLayout.h" />
     <ClInclude Include="src\Renderer\Camera.h" />
+    <ClInclude Include="src\Renderer\ParticleRenderer.h" />
     <ClInclude Include="src\Renderer\RenderWindow.h" />
     <ClInclude Include="src\Renderer\TerrainCreater.h" />
     <ClInclude Include="src\Renderer\TextRenderer.h" />
@@ -196,6 +198,7 @@
     <None Include="src\Shader\GLShaders\Normal.frag" />
     <None Include="src\Shader\GLShaders\Normal.vert" />
     <None Include="src\Shader\GLShaders\Particle.frag" />
+    <None Include="src\Shader\GLShaders\Particle.geom" />
     <None Include="src\Shader\GLShaders\Particle.vert" />
     <None Include="src\Shader\GLShaders\Post.frag" />
     <None Include="src\Shader\GLShaders\Post.vert" />

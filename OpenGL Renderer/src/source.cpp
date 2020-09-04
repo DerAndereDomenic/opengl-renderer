@@ -16,6 +16,7 @@
 #include <DataStructure/EnvironmentMap.h>
 #include <Renderer/TerrainCreater.h>
 #include <Renderer/TextRenderer.h>
+#include <Renderer/ParticleRenderer.h>
 
 #include <iomanip>
 #include <sstream>
@@ -182,6 +183,8 @@ int main(void)
 	lights[0] = l1;
 	lights[1] = l2;
 
+	Texture particleTexture = Texture::createObject("res/particle.png");
+
 	std::vector<std::string> faces =
 	{
 		"right.jpg",
@@ -216,6 +219,8 @@ int main(void)
 
 	TextRenderer textRenderer = TextRenderer::createObject(width, height);
 	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 128, 16);
+
+	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(0, 0, 0), 100, particleTexture);
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachHDR();
@@ -392,6 +397,7 @@ int main(void)
 	Light::destroyObject(lights[0]);
 	KeyManager::destroy();
 	TextRenderer::destroyObject(textRenderer);
+	ParticleRenderer::destroyObject(particleRenderer);
 
 	return 0;
 }
