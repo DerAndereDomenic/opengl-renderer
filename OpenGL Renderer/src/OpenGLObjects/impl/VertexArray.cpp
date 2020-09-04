@@ -48,6 +48,7 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 		offset += element._count * BufferElement::getSizeOfType(element._type);
 	}
 	_count = vbo.getCount();
+	_attribCount = layout.getElements().size();
 }
 
 void 

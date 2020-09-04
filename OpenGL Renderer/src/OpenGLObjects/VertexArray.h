@@ -60,6 +60,7 @@ private:
 	IndexBuffer _ibo; /**<< The Index buffer binded to this vao*/
 	unsigned int _count; /**<< The number of elements in the underlying vbo*/
 	bool _hasIBO = false; /**<< Checks if this vao has an index buffer*/
+	unsigned int _attribCount; /**<< The number of activated attributes*/
 };
 
 
