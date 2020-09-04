@@ -39,21 +39,9 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
 	vertex = result.compileShader(GL_VERTEX_SHADER, vShaderCode);
 	fragment = result.compileShader(GL_FRAGMENT_SHADER, fShaderCode);
 
-	result._ID = glCreateProgram();
-	glAttachShader(result._ID, vertex);
-	glAttachShader(result._ID, fragment);
-	glLinkProgram(result._ID);
-
-	glGetProgramiv(result._ID, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		int length;
-		glGetProgramiv(result._ID, GL_INFO_LOG_LENGTH, &length);
-		char* infoLog = (char*)malloc(sizeof(char)*length);
-		glGetProgramInfoLog(result._ID, length, &length, infoLog);
-		std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-		free(infoLog);
-	}
+	//Linking
+	unsigned int shaders[] = { vertex,fragment };
+	result.linkShader(shaders, 2);
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
