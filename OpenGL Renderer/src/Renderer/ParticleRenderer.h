@@ -4,6 +4,7 @@
 #include <vector>
 #include <OpenGLObjects/Texture.h>
 #include <glm/glm.hpp>
+#include <OpenGLObjects/VertexArray.h>
 
 struct Particle
 {
@@ -30,6 +31,9 @@ class ParticleRenderer
 	private:
 		Texture _texture;
 		std::vector<Particle> _particles;
+		VertexArray _vao;
+		VertexBuffer _vbo;
+		VertexBuffer _instanceArray;
 };
 
 #endif
