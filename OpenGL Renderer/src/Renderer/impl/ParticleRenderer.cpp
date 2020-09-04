@@ -15,13 +15,17 @@ Particle::Particle(glm::vec3 position)
 }
 
 ParticleRenderer 
-ParticleRenderer::createObject(const unsigned int num_particles, Texture texture)
+ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_particles, Texture texture)
 {
 	ParticleRenderer result;
 
 	result._texture = texture;
 
 	std::srand(std::time(nullptr));
+	for (unsigned int i = 0; i < num_particles; ++i)
+	{
+		result._particles.push_back(Particle(position));
+	}
 
 	return result;
 }

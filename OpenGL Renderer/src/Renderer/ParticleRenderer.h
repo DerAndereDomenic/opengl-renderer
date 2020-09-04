@@ -20,7 +20,7 @@ class ParticleRenderer
 	public:
 		ParticleRenderer() = default;
 
-		static ParticleRenderer createObject(const unsigned int num_particles, Texture texture);
+		static ParticleRenderer createObject(glm::vec3 position, const unsigned int num_particles, Texture texture);
 
 		static void destroyObject(ParticleRenderer& object);
 
