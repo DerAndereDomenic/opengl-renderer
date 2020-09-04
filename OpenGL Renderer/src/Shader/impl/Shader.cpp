@@ -49,6 +49,33 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
 	return result;
 }
 
+const char* 
+Shader::readShaderCode(GLchar* path)
+{
+	std::string code;
+	std::ifstream shaderFile;
+
+	shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+	try
+	{
+		shaderFile.open(path);
+		std::stringstream shaderStream;
+
+		shaderStream << shaderFile.rdbuf();
+
+		shaderFile.close();
+
+		code = shaderStream.str();
+	}
+	catch (std::ifstream::failure e)
+	{
+		std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+	}
+
+	return code.c_str();
+}
+
 unsigned int 
 Shader::compileShader(GLenum shaderType, const char* shader_source)
 {

@@ -110,6 +110,14 @@ public:
 	*/
 	void setLight(const std::string& name, Light light);
 private:
+
+	/**
+	*	\brief Reads shader code from disk
+	*	\param[in] path The path to the shader file
+	*	\return The source code of the shader as c-String
+	*/
+	const char* readShaderCode(GLchar* path);
+
 	/**
 	*	\brief Compiles the shader code
 	*	\param[in] shaderType The type of the shader (Vertex, Fragment, Geometry)
