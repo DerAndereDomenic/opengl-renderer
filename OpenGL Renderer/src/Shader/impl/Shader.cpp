@@ -89,6 +89,31 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
 	return result;
 }
 
+unsigned int 
+Shader::compileShader(GLenum shaderType, const char* shader_source)
+{
+	unsigned int shader;
+	int success;
+
+	shader = glCreateShader(shaderType);
+	glShaderSource(shader, 1, &shader_source, NULL);
+	glCompileShader(shader);
+
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+
+	if (!success)
+	{
+		int length;
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
+		char* infoLog = (char*)malloc(sizeof(char) * length);
+		glGetShaderInfoLog(shader, length, &length, infoLog);
+		std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+		free(infoLog);
+	}
+
+	return shader;
+}
+
 void
 Shader::destroyObject(Shader& shader)
 {

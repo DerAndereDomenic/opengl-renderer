@@ -110,6 +110,13 @@ public:
 	*/
 	void setLight(const std::string& name, Light light);
 private:
+	/**
+	*	\brief Compiles the shader code
+	*	\param[in] shaderType The type of the shader (Vertex, Fragment, Geometry)
+	*	\param[in] shader_source The source code of the shader
+	*	\return The handle of the shader 
+	*/
+	unsigned int compileShader(GLenum shaderType, const char* shader_source);
 	unsigned int _ID; /**<< The internal OpenGL handle for the shader*/
 };
 
