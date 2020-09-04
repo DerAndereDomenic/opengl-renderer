@@ -39,6 +39,7 @@ int main(void)
 	Camera camera = Camera::createObject(window, near, far);
 
 	std::stringstream stream;
+	bool debug = false;
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
@@ -211,6 +212,7 @@ int main(void)
 	ShaderManager::instance()->addShader("Shadow");
 	ShaderManager::instance()->addShader("CubeMap");
 	ShaderManager::instance()->addShader("Reflection");
+	ShaderManager::instance()->addShader("DisplayNormal", true);
 
 	TextRenderer textRenderer = TextRenderer::createObject(width, height);
 	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 128, 16);
@@ -309,6 +311,14 @@ int main(void)
 		
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
+		if (debug)
+		{
+			ShaderManager::instance()->getShader("DisplayNormal").bind();
+			ShaderManager::instance()->getShader("DisplayNormal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+
+			scene.render(ShaderManager::instance()->getShader("DisplayNormal"));
+		}
+
 		//Render light
 
 		obj_light.render(ShaderManager::instance()->getShader("Normal"));
@@ -354,6 +364,11 @@ int main(void)
 		{
 			exposure += 0.01f;
 			std::cout << exposure << std::endl;
+		}
+
+		if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL) && KeyManager::instance()->isKeyDown(GLFW_KEY_D))
+		{
+			debug = !debug;
 		}
 
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_KP_SUBTRACT))
