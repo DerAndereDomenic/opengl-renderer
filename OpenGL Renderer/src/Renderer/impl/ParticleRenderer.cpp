@@ -22,23 +22,21 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 
 	result._texture = texture;
 
-	float* positions = new float[3 * num_particles];
+	result._positions = new float[3 * num_particles];
 	std::srand(std::time(nullptr));
 	for (unsigned int i = 0; i < num_particles; ++i)
 	{
 		result._particles.push_back(Particle(position));
-		positions[3 * i] = position.x;
-		positions[3 * i + 1] = position.y;
-		positions[3 * i + 2] = position.z;
+		result._positions[3 * i] = position.x;
+		result._positions[3 * i + 1] = position.y;
+		result._positions[3 * i + 2] = position.z;
 	}
 
-	result._instanceArray = VertexBuffer::createObject(positions, num_particles * 3, GL_DYNAMIC_DRAW);
+	result._instanceArray = VertexBuffer::createObject(result._positions, num_particles * 3, GL_DYNAMIC_DRAW);
 	VertexBufferLayout layout;
 	layout.add<float>(3);
 	result._vao = VertexArray::createObject();
 	result._vao.addInstanceBuffer(result._instanceArray, layout.getElements()[0]);
-
-	delete[] positions;
 
 	ShaderManager::instance()->addShader("Particle", true);
 
@@ -52,6 +50,7 @@ ParticleRenderer::destroyObject(ParticleRenderer& object)
 	object._particles.clear();
 	VertexArray::destroyObject(object._vao);
 	VertexBuffer::destroyObject(object._instanceArray);
+	delete[] object._positions;
 }
 
 void 

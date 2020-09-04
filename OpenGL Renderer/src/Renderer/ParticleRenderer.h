@@ -33,6 +33,7 @@ class ParticleRenderer
 		std::vector<Particle> _particles;
 		VertexArray _vao;
 		VertexBuffer _instanceArray;
+		float* _positions;
 };
 
 #endif
