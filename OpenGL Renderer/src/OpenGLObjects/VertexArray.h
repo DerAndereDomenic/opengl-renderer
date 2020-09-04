@@ -51,6 +51,13 @@ public:
 	void addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout);
 
 	/**
+	*	\brief Add an instance array to the vao
+	*	\param[in] vbo The instanced array vbo
+	*	\param[in] element The specification of the vertex
+	*/
+	void addInstanceBuffer(const VertexBuffer& vbo, const BufferElement& element);
+
+	/**
 	*	\brief Add a Layout for the given Vertex Buffer object and add an Index buffer to the vao
 	*	\param[in] ibo The Index Buffer
 	*/
