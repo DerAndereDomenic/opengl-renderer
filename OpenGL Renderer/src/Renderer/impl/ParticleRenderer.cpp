@@ -13,7 +13,7 @@ Particle::Particle(glm::vec3 position, float time_alive)
 	float y = sqrtf(fmax(0.0f, 1 - x * x - z * z));
 
 	velocity = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX) * glm::vec3(x, y, z);
-	timeAlive = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+	timeAlive = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)*time_alive;
 }
 
 ParticleRenderer 
