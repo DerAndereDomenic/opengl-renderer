@@ -11,7 +11,7 @@ struct Particle
 {
 	glm::vec3 position;									/**<< The position of the particle in world space*/
 	glm::vec3 velocity;									/**<< The velocity of the particle in world space*/
-	glm::vec3 color;									/**<< The color of the particle*/
+	glm::vec4 color;									/**<< The color of the particle*/
 
 	float timeAlive = 0.0f;								/**<< The time this particle has to live*/
 

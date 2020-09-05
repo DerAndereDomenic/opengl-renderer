@@ -4,11 +4,11 @@ layout (points) in;
 layout (triangle_strip, max_vertices = 4) out;
 
 out vec2 texCoords;
-out vec3 color;
+out vec4 color;
 
 in VS_OUT 
 {
-	vec3 color;
+	vec4 color;
 }gs_in[];
 
 uniform mat4 V,P;

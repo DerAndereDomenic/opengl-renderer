@@ -1,11 +1,11 @@
 #version 330 core 
 
 layout (location = 0) in vec3 aPosition;
-layout (location = 1) in vec3 aColor;
+layout (location = 1) in vec4 aColor;
 
 out VS_OUT 
 {
-	out vec3 color;
+	out vec4 color;
 } vs_out;
 
 void main()
