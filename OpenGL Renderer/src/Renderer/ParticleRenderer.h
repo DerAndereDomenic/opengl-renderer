@@ -35,8 +35,8 @@ class ParticleRenderer
 		VertexArray _vao;
 		VertexBuffer _instanceArray;
 		glm::vec3 _position;
-		float _timeAlive;
-		float* _positions;
+		float _timeAlive = 0.0f;
+		float* _positions = nullptr;
 };
 
 #endif
