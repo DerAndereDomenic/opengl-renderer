@@ -14,7 +14,7 @@ struct Particle
 
 	float timeAlive = 0.0f;
 
-	Particle(glm::vec3 position);
+	Particle(glm::vec3 position, float time_alive);
 };
 
 class ParticleRenderer

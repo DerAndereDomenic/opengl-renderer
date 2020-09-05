@@ -2,7 +2,7 @@
 #include <ctime>
 #include <Shader/ShaderManager.h>
 
-Particle::Particle(glm::vec3 position)
+Particle::Particle(glm::vec3 position, float time_alive)
 	:position(position)
 {
 	float angle = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)*3.14159f*2.0f;
@@ -13,6 +13,7 @@ Particle::Particle(glm::vec3 position)
 	float y = sqrtf(fmax(0.0f, 1 - x * x - z * z));
 
 	velocity = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX) * glm::vec3(x, y, z);
+	timeAlive = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
 }
 
 ParticleRenderer 
@@ -28,7 +29,7 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 	std::srand(std::time(nullptr));
 	for (unsigned int i = 0; i < num_particles; ++i)
 	{
-		result._particles.push_back(Particle(position));
+		result._particles.push_back(Particle(position, time_alive));
 		result._positions[3 * i] = position.x;
 		result._positions[3 * i + 1] = position.y;
 		result._positions[3 * i + 2] = position.z;
@@ -60,8 +61,12 @@ ParticleRenderer::update(float deltaTime)
 {
 	for (unsigned int i = 0; i < _particles.size(); ++i)
 	{
+		_particles[i].timeAlive -= deltaTime;
 		_particles[i].position += deltaTime * _particles[i].velocity;
-		_particles[i].timeAlive += deltaTime;
+		if (_particles[i].timeAlive <= 0)
+		{
+			_particles[i] = Particle(_position, _timeAlive);
+		}
 		_positions[3 * i] = _particles[i].position.x;
 		_positions[3 * i + 1] = _particles[i].position.y;
 		_positions[3 * i + 2] = _particles[i].position.z;
