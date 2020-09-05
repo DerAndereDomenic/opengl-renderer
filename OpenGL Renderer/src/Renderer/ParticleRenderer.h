@@ -22,7 +22,7 @@ class ParticleRenderer
 	public:
 		ParticleRenderer() = default;
 
-		static ParticleRenderer createObject(glm::vec3 position, const unsigned int num_particles, Texture texture);
+		static ParticleRenderer createObject(glm::vec3 position, const unsigned int num_particles, float time_alive, Texture texture);
 
 		static void destroyObject(ParticleRenderer& object);
 
@@ -35,6 +35,7 @@ class ParticleRenderer
 		VertexArray _vao;
 		VertexBuffer _instanceArray;
 		glm::vec3 _position;
+		float _timeAlive;
 		float* _positions;
 };
 
