@@ -78,9 +78,11 @@ ParticleRenderer::update(float deltaTime)
 void 
 ParticleRenderer::render(Camera& camera)
 {
+	glDepthMask(GL_FALSE);
 	ShaderManager::instance()->getShader("Particle").bind();
 	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 	_texture.bind();
 	_vao.bind();
 	glDrawArraysInstanced(GL_POINTS, 0, 1, _particles.size());
+	glDepthMask(GL_TRUE);
 }
