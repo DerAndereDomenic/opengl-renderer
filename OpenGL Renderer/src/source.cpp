@@ -220,7 +220,7 @@ int main(void)
 	TextRenderer textRenderer = TextRenderer::createObject(width, height);
 	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 128, 16);
 
-	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(0, 0, 0), 100, particleTexture);
+	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
 
 	FrameBuffer fbo = FrameBuffer::createObject(width, height);
 	fbo.attachHDR();
@@ -327,6 +327,9 @@ int main(void)
 		//Render light
 
 		obj_light.render(ShaderManager::instance()->getShader("Normal"));
+
+		particleRenderer.update(deltaTime);
+		particleRenderer.render(camera);
 
 
 		//Render to quad
