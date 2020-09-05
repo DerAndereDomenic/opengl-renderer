@@ -9,5 +9,5 @@ uniform sampler2D particle;
 
 void main()
 {
-	FragColor = texture(particle, texCoords)*vec4(vec3(1),timeAlive);
+	FragColor = texture(particle, texCoords)*vec4(vec3(1),min(1,timeAlive));
 }
