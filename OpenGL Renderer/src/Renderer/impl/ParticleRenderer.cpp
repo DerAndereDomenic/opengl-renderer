@@ -14,7 +14,7 @@ Particle::Particle(glm::vec3 position, float time_alive)
 
 	velocity = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX) * glm::vec3(x, y, z);
 	timeAlive = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
-	color = glm::vec4(1, 1, 1, 0.2);
+	color = glm::vec4(1, 1, 1, 1);
 }
 
 ParticleRenderer 
@@ -69,6 +69,7 @@ ParticleRenderer::update(float deltaTime)
 	{
 		_particles[i].timeAlive -= deltaTime;
 		_particles[i].position += deltaTime * _particles[i].velocity;
+		_particles[i].color -= deltaTime;
 		if (_particles[i].timeAlive <= 0)
 		{
 			_particles[i] = Particle(_position, _timeAlive);
@@ -76,10 +77,10 @@ ParticleRenderer::update(float deltaTime)
 		_attributes[7 * i] = _particles[i].position.x;
 		_attributes[7 * i + 1] = _particles[i].position.y;
 		_attributes[7 * i + 2] = _particles[i].position.z;
-		_attributes[7 * i + 3] = _particles[i].color.x;
-		_attributes[7 * i + 4] = _particles[i].color.y;
-		_attributes[7 * i + 5] = _particles[i].color.z;
-		_attributes[7 * i + 6] = _particles[i].color.w;
+		_attributes[7 * i + 3] = fmax(0.0f, _particles[i].color.x);
+		_attributes[7 * i + 4] = fmax(0.0f, _particles[i].color.y);
+		_attributes[7 * i + 5] = fmax(0.0f, _particles[i].color.z);
+		_attributes[7 * i + 6] = fmax(0.0f, _particles[i].color.w);
 	}
 
 	_instanceArray.changeData(_attributes, 6 * _particles.size());
