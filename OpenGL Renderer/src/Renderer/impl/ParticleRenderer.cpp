@@ -26,24 +26,21 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 	result._position = position;
 	result._timeAlive = time_alive;
 
-	result._attributes = new float[7 * num_particles];
+	result._attributes = new float[4 * num_particles];
 	std::srand(std::time(nullptr));
 	for (unsigned int i = 0; i < num_particles; ++i)
 	{
 		result._particles.push_back(Particle(position, time_alive));
-		result._attributes[7 * i] = position.x;
-		result._attributes[7 * i + 1] = position.y;
-		result._attributes[7 * i + 2] = position.z;
-		result._attributes[7 * i + 3] = 1;
-		result._attributes[7 * i + 4] = 1;
-		result._attributes[7 * i + 5] = 1;
-		result._attributes[7 * i + 6] = 1;
+		result._attributes[4 * i] = position.x;
+		result._attributes[4 * i + 1] = position.y;
+		result._attributes[4 * i + 2] = position.z;
+		result._attributes[4 * i + 3] = result._particles[i].timeAlive;
 	}
 
-	result._instanceArray = VertexBuffer::createObject(result._attributes, num_particles * 7, GL_DYNAMIC_DRAW);
+	result._instanceArray = VertexBuffer::createObject(result._attributes, num_particles * 4, GL_DYNAMIC_DRAW);
 	VertexBufferLayout layout;
 	layout.add<float>(3);
-	layout.add<float>(4);
+	layout.add<float>(1);
 	result._vao = VertexArray::createObject();
 	result._vao.addInstanceBuffer(result._instanceArray, layout);
 
@@ -74,16 +71,13 @@ ParticleRenderer::update(float deltaTime)
 		{
 			_particles[i] = Particle(_position, _timeAlive);
 		}
-		_attributes[7 * i] = _particles[i].position.x;
-		_attributes[7 * i + 1] = _particles[i].position.y;
-		_attributes[7 * i + 2] = _particles[i].position.z;
-		_attributes[7 * i + 3] = fmax(0.0f, _particles[i].color.x);
-		_attributes[7 * i + 4] = fmax(0.0f, _particles[i].color.y);
-		_attributes[7 * i + 5] = fmax(0.0f, _particles[i].color.z);
-		_attributes[7 * i + 6] = fmax(0.0f, _particles[i].color.w);
+		_attributes[4 * i] = _particles[i].position.x;
+		_attributes[4 * i + 1] = _particles[i].position.y;
+		_attributes[4 * i + 2] = _particles[i].position.z;
+		_attributes[4 * i + 3] = _particles[i].timeAlive;
 	}
 
-	_instanceArray.changeData(_attributes, 6 * _particles.size());
+	_instanceArray.changeData(_attributes, 4 * _particles.size());
 }
 
 void 

@@ -3,11 +3,11 @@
 out vec4 FragColor;
 
 in vec2 texCoords;
-in vec4 color;
+in float timeAlive;
 
 uniform sampler2D particle;
 
 void main()
 {
-	FragColor = texture(particle, texCoords)*color;
+	FragColor = texture(particle, texCoords)*vec4(vec3(1),timeAlive);
 }
