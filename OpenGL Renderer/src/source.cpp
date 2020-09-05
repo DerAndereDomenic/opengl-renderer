@@ -183,7 +183,7 @@ int main(void)
 	lights[0] = l1;
 	lights[1] = l2;
 
-	Texture particleTexture = Texture::createObject("res/particle.png");
+	Texture particleTexture = Texture::createObject("res/smoke.png");
 
 	std::vector<std::string> faces =
 	{
