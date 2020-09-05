@@ -6,7 +6,7 @@ Particle::Particle(glm::vec3 position, float time_alive)
 	:position(position)
 {
 	float angle = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)*3.14159f*2.0f;
-	float r = sqrtf(static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX));
+	float r = powf(static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX), 0.5f);
 	float x = r * cos(angle);
 	float z = r * sin(angle);
 
