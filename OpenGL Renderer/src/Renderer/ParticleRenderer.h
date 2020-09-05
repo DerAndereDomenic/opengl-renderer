@@ -65,7 +65,7 @@ class ParticleRenderer
 		VertexBuffer _instanceArray;		/**<< The data needed for each particle*/
 		glm::vec3 _position;				/**<< The position of the emitter in world space*/
 		float _timeAlive = 0.0f;			/**<< The maximum time a particle can stay alive*/
-		float* _positions = nullptr;		/**<< Internal buffer to update the vbo*/
+		float* _attributes = nullptr;		/**<< Internal buffer to update the vbo*/
 };
 
 #endif
