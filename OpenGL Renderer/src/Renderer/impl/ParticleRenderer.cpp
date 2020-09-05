@@ -72,7 +72,7 @@ ParticleRenderer::update(float deltaTime)
 		_attributes[4 * i] = _particles[i].position.x;
 		_attributes[4 * i + 1] = _particles[i].position.y;
 		_attributes[4 * i + 2] = _particles[i].position.z;
-		_attributes[4 * i + 3] = _particles[i].timeAlive;
+		_attributes[4 * i + 3] = _particles[i].timeAlive/_timeAlive;
 	}
 
 	_instanceArray.changeData(_attributes, 4 * _particles.size());
