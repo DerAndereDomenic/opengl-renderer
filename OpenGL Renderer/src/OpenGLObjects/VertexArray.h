@@ -53,9 +53,9 @@ public:
 	/**
 	*	\brief Add an instance array to the vao
 	*	\param[in] vbo The instanced array vbo
-	*	\param[in] element The specification of the vertex
+	*	\param[in] layout The Layout for the Vertex Buffer
 	*/
-	void addInstanceBuffer(const VertexBuffer& vbo, const BufferElement& element);
+	void addInstanceBuffer(const VertexBuffer& vbo, const VertexBufferLayout& layout);
 
 	/**
 	*	\brief Add a Layout for the given Vertex Buffer object and add an Index buffer to the vao

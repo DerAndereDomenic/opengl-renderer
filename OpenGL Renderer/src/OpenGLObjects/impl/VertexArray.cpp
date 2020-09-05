@@ -52,8 +52,9 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 }
 
 void 
-VertexArray::addInstanceBuffer(const VertexBuffer& vbo, const BufferElement& element)
+VertexArray::addInstanceBuffer(const VertexBuffer& vbo, const VertexBufferLayout& layout)
 {
+	BufferElement element = layout.getElements()[0];
 	bind();
 	glEnableVertexAttribArray(_attribCount);
 	vbo.bind();
