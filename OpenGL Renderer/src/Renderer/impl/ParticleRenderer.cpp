@@ -39,7 +39,7 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 	VertexBufferLayout layout;
 	layout.add<float>(3);
 	result._vao = VertexArray::createObject();
-	result._vao.addInstanceBuffer(result._instanceArray, layout.getElements()[0]);
+	result._vao.addInstanceBuffer(result._instanceArray, layout);
 
 	ShaderManager::instance()->addShader("Particle", true);
 
