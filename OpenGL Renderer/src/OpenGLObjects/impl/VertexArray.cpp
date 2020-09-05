@@ -54,15 +54,21 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 void 
 VertexArray::addInstanceBuffer(const VertexBuffer& vbo, const VertexBufferLayout& layout)
 {
-	BufferElement element = layout.getElements()[0];
 	bind();
-	glEnableVertexAttribArray(_attribCount);
-	vbo.bind();
-	glVertexAttribPointer(_attribCount, element._count, element._type, element._normalized, element._count*BufferElement::getSizeOfType(element._type), (const void*)0);
-	vbo.unbind();
-	glVertexAttribDivisor(_attribCount, 1);
-	_count += element._count;
-	++_attribCount;
+	unsigned int offset = 0;
+	for (unsigned int i = 0; i < layout.getElements().size(); ++i)
+	{
+		BufferElement element = layout.getElements()[i];
+		glEnableVertexAttribArray(_attribCount);
+		vbo.bind();
+		glVertexAttribPointer(_attribCount, element._count, element._type, element._normalized, layout.getVertexSize(), (const void*)offset);
+		offset += element._count * BufferElement::getSizeOfType(element._type);
+		vbo.unbind();
+		glVertexAttribDivisor(_attribCount, 1);
+		_count += element._count;
+		++_attribCount;
+	}
+	
 }
 
 void 
