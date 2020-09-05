@@ -21,6 +21,7 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 	ParticleRenderer result;
 
 	result._texture = texture;
+	result._position = position;
 
 	result._positions = new float[3 * num_particles];
 	std::srand(std::time(nullptr));

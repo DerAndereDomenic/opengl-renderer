@@ -34,6 +34,7 @@ class ParticleRenderer
 		std::vector<Particle> _particles;
 		VertexArray _vao;
 		VertexBuffer _instanceArray;
+		glm::vec3 _position;
 		float* _positions;
 };
 
