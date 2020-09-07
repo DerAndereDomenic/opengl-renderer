@@ -53,6 +53,15 @@ Scene::addLight(Light* light)
 	_lights.push_back(light);
 }
 
+void
+Scene::passLights2Shader(Shader shader)
+{
+	for (unsigned int i = 0; i < _lights.size(); ++i)
+	{
+		_lights[i]->addToShader(shader, i);
+	}
+}
+
 RenderObject&
 Scene::getObject(std::string name)
 {

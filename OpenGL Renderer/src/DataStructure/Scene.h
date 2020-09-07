@@ -53,6 +53,12 @@ public:
 	void addLight(Light* light);
 
 	/**
+	*	\brief Initializes the given shader with the light sources of the scene
+	*	\param[in] shader The shader where we want to pass the light information to
+	*/
+	void passLights2Shader(Shader shader);
+
+	/**
 	*	\brief Returns the RenderObject with the given name
 	*	\param[in] name The name of the object given when creating the scene
 	*	\return The corresponding object;
