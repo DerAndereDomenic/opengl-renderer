@@ -60,19 +60,10 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 void 
 VertexArray::addInstanceBuffer(const VertexBuffer& vbo, const VertexBufferLayout& layout)
 {
-	bind();
-	unsigned int offset = 0;
+	addBuffer(vbo, layout);
 	for (unsigned int i = 0; i < layout.getElements().size(); ++i)
 	{
-		BufferElement element = layout.getElements()[i];
-		glEnableVertexAttribArray(_attribCount);
-		vbo.bind();
-		glVertexAttribPointer(_attribCount, element._count, element._type, element._normalized, layout.getVertexSize(), (const void*)offset);
-		offset += element._count * BufferElement::getSizeOfType(element._type);
-		vbo.unbind();
-		glVertexAttribDivisor(_attribCount, 1);
-		_count += element._count;
-		++_attribCount;
+		glVertexAttribDivisor(_attribCount - 1 - i, 1);
 	}
 	
 }
