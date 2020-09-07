@@ -5,6 +5,8 @@
 #include <OpenGLObjects/VertexBufferLayout.h>
 #include <OpenGLObjects/IndexBuffer.h>
 
+using Geometry = GLenum;
+
 /**
 *	\brief A class to model a Vertex Array
 */
@@ -18,9 +20,10 @@ public:
 
 	/**
 	*	\brief Creates a Vertex Array
+	*	\param[in] geometry The type of geometry that should be rendered (default = GL_TRIANGLES)
 	*	\return The Vertex Array Object
 	*/
-	static VertexArray createObject();
+	static VertexArray createObject(Geometry geometry = GL_TRIANGLES);
 
 	/**
 	*	\brief Destroys a Vertex Array object
