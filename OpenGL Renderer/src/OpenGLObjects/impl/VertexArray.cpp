@@ -31,8 +31,8 @@ void
 VertexArray::render() const
 {
 	bind();
-	_hasIBO ? glDrawElements(GL_TRIANGLES, _ibo.getCount(), GL_UNSIGNED_INT, (void*)0) :
-		glDrawArrays(GL_TRIANGLES, 0, _count);
+	_hasIBO ? glDrawElements(_geometry, _ibo.getCount(), GL_UNSIGNED_INT, (void*)0) :
+		glDrawArrays(_geometry, 0, _count);
 }
 
 void
