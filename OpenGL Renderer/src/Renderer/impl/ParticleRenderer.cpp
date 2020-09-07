@@ -40,7 +40,7 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 	VertexBufferLayout layout;
 	layout.add<float>(3);
 	layout.add<float>(1);
-	result._vao = VertexArray::createObject();
+	result._vao = VertexArray::createObject(GL_POINTS);
 	result._vao.addInstanceBuffer(result._instanceArray, layout);
 
 	ShaderManager::instance()->addShader("Particle", true);
@@ -85,7 +85,6 @@ ParticleRenderer::render(Camera& camera)
 	ShaderManager::instance()->getShader("Particle").bind();
 	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 	_texture.bind();
-	_vao.bind();
-	glDrawArraysInstanced(GL_POINTS, 0, 1, _particles.size());
+	_vao.renderInstanced(1, _particles.size());
 	glDepthMask(GL_TRUE);
 }
