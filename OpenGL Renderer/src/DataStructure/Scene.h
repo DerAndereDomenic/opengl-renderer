@@ -59,6 +59,12 @@ public:
 	void passLights2Shader(Shader shader);
 
 	/**
+	*	\brief Updates the shadow maps of the light sources in the scene
+	*	\note: The viewport has to be set accordingly first
+	*/
+	void updateShadowMaps();
+
+	/**
 	*	\brief Returns the RenderObject with the given name
 	*	\param[in] name The name of the object given when creating the scene
 	*	\return The corresponding object;

@@ -1,4 +1,6 @@
 #include <DataStructure/Scene.h>
+#include <Shader/ShaderManager.h>
+#include <glm/gtx/transform.hpp>
 
 Scene 
 Scene::createObject(std::vector<std::string> names,
@@ -59,6 +61,24 @@ Scene::passLights2Shader(Shader shader)
 	for (unsigned int i = 0; i < _lights.size(); ++i)
 	{
 		_lights[i]->addToShader(shader, i);
+	}
+}
+
+void 
+Scene::updateShadowMaps()
+{
+	for (unsigned int i = 0; i < _lights.size(); ++i)
+	{
+		if (!_lights[i]->castShadows) continue;
+		_lights[i]->shadow_map.bind();
+		_lights[i]->shadow_map.clear();
+		_lights[i]->lightView = glm::lookAt(_lights[i]->position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		_lights[i]->lightSpace = _lights[i]->lightProjection * _lights[i]->lightView;
+
+		ShaderManager::instance()->getShader("Shadow").bind();
+		ShaderManager::instance()->getShader("Shadow").setMat4("P", _lights[i]->lightProjection);
+		ShaderManager::instance()->getShader("Shadow").setMat4("V", _lights[i]->lightView);
+		this->render(ShaderManager::instance()->getShader("Shadow"));
 	}
 }
 
