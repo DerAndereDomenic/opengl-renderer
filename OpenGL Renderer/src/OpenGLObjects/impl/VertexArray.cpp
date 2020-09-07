@@ -49,12 +49,12 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 	for (unsigned int i = 0; i < layout.getElements().size(); ++i)
 	{
 		BufferElement element = layout.getElements()[i];
-		glEnableVertexAttribArray(i);
-		glVertexAttribPointer(i, element._count, element._type, element._normalized, layout.getVertexSize(), (const void*)offset);
+		glEnableVertexAttribArray(_attribCount);
+		glVertexAttribPointer(_attribCount, element._count, element._type, element._normalized, layout.getVertexSize(), (const void*)offset);
 		offset += element._count * BufferElement::getSizeOfType(element._type);
+		++_attribCount;
 	}
 	_count = vbo.getCount();
-	_attribCount = layout.getElements().size();
 }
 
 void 
