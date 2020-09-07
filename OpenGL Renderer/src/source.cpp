@@ -233,13 +233,8 @@ int main(void)
 
 	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
 
-	for (unsigned int i = 0; i < LIGHTS; ++i)
-	{
-		lights[i].addToShader(ShaderManager::instance()->getShader("Normal"), i);
-	}
+	scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 	obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
-	ShaderManager::instance()->getShader("Shadow").bind();
-	ShaderManager::instance()->getShader("Shadow").setMat4("P", lights[0].lightProjection);
 
 	ShaderManager::instance()->getShader("Post").bind();
 	ShaderManager::instance()->getShader("Post").setInt("screenTexture", 0);
@@ -267,18 +262,7 @@ int main(void)
 
 		window.setViewport(shadow_width, shadow_height);
 		
-		for (unsigned int i = 0; i < LIGHTS;++i) 
-		{
-			if (!lights[i].castShadows) continue;
-			lights[i].shadow_map.bind();
-			lights[i].shadow_map.clear();
-			lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-			lights[i].lightSpace = lights[i].lightProjection * lights[i].lightView;
-
-			ShaderManager::instance()->getShader("Shadow").bind();
-			ShaderManager::instance()->getShader("Shadow").setMat4("V", lights[i].lightView);
-			scene.render(ShaderManager::instance()->getShader("Shadow"));
-		}
+		scene.updateShadowMaps();
 
 		//----------------------------------------------------------------------------------------------
 		window.resetViewport();
@@ -308,11 +292,6 @@ int main(void)
 		//Light
 		ShaderManager::instance()->getShader("Normal").bind();
 		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
-		for (unsigned int i = 0; i < LIGHTS; ++i)
-		{
-			if (!lights[i].castShadows) continue;
-			lights[i].shadow_map.getTexture().bind(4+i);
-		}
 		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		
 		scene.render(ShaderManager::instance()->getShader("Normal"));
