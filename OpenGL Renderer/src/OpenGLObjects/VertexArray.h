@@ -49,6 +49,13 @@ public:
 	void render() const;
 
 	/**
+	*	\brief Batch renderes the vao
+	*	\param[in] nr_vertices The number of vertices of one primitive
+	*	\param[in] nr_instances The number of instances that should be rendered
+	*/
+	void renderInstanced(unsigned int nr_vertices, unsigned nr_instances) const;
+
+	/**
 	*	\brief Add a Layout for the given Vertex Buffer object
 	*	\param[in] vbo The Vertex Buffer
 	*	\param[in] layout The Layout for the Vertex Buffer

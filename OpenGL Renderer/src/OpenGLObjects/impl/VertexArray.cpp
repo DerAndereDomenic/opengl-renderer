@@ -36,6 +36,13 @@ VertexArray::render() const
 }
 
 void
+VertexArray::renderInstanced(unsigned int nr_vertices, unsigned int nr_instances) const
+{
+	bind();
+	glDrawArraysInstanced(_geometry, 0, nr_vertices, nr_instances);
+}
+
+void
 VertexArray::setCount(unsigned int count)
 {
 	_count = count;
