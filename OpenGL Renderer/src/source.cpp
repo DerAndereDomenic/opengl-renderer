@@ -268,7 +268,7 @@ int main(void)
 		{
 			if (!lights[i].castShadows) continue;
 			lights[i].shadow_map.bind();
-			window.clear();
+			lights[i].shadow_map.clear();
 			lights[i].lightView = glm::lookAt(lights[i].position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 			lights[i].lightSpace = lights[i].lightProjection * lights[i].lightView;
 
@@ -289,7 +289,7 @@ int main(void)
 		window.resetViewport();
 		fbo.bind();
 
-		window.clear();
+		fbo.clear();
 		//Skybox
 		//Use vertex data of the light block
 
