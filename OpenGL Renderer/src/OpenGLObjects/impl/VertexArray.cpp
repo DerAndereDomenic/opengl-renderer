@@ -34,6 +34,12 @@ VertexArray::render() const
 		glDrawArrays(GL_TRIANGLES, 0, _count);
 }
 
+void
+VertexArray::setCount(unsigned int count)
+{
+	_count = count;
+}
+
 void 
 VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout)
 {

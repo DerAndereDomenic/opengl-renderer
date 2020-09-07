@@ -40,6 +40,8 @@ public:
 
 	/**
 	*	\brief Renders the vao
+	*	\note: If the Vertex Attributes where set manually, the number of elements in
+	*		   the VBO have to be set via setCount(...) first
 	*/
 	void render() const;
 
@@ -62,6 +64,12 @@ public:
 	*	\param[in] ibo The Index Buffer
 	*/
 	void setIndexBuffer(const IndexBuffer &ibo);
+
+	/**
+	*	\brief Sets the number of elements in the underlying vertex buffer
+	*	\param[in] count The number of elements in the underlying VBO
+	*/
+	void setCount(unsigned int count);
 private:
 	unsigned int _ID; /**<< The internal OpenGL handle for the Vertex Array*/
 	IndexBuffer _ibo; /**<< The Index buffer binded to this vao*/
