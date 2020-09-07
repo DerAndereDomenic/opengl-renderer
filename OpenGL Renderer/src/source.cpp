@@ -308,8 +308,6 @@ int main(void)
 		for (unsigned int i = 0; i < LIGHTS; ++i)
 		{
 			if (!lights[i].castShadows) continue;
-			ShaderManager::instance()->getShader("Normal").setLight("lights_frag["+std::to_string(i)+"]", lights[i]);
-			ShaderManager::instance()->getShader("Normal").setMat4("lights_vert["+std::to_string(i) + +"].lightSpaceMatrix", lights[i].lightSpace);
 			lights[i].shadow_map.getTexture().bind(4+i);
 		}
 		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
