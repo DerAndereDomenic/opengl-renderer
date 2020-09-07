@@ -47,6 +47,12 @@ public:
 	void render(Shader shader);
 
 	/**
+	*	\brief Add a light source to the scene
+	*	\param[in] light The light source to add 
+	*/
+	void addLight(Light* light);
+
+	/**
 	*	\brief Returns the RenderObject with the given name
 	*	\param[in] name The name of the object given when creating the scene
 	*	\return The corresponding object;

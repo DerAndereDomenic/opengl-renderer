@@ -47,6 +47,12 @@ Scene::render(Shader shader)
 	}
 }
 
+void 
+Scene::addLight(Light* light)
+{
+	_lights.push_back(light);
+}
+
 RenderObject&
 Scene::getObject(std::string name)
 {
