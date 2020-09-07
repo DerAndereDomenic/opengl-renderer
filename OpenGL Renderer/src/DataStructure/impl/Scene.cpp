@@ -35,6 +35,7 @@ Scene::destroyObject(Scene& scene)
 		RenderObject::destroyObject(it->second);
 	}
 	scene._objects.clear();
+	scene._lights.clear();
 }
 
 void 

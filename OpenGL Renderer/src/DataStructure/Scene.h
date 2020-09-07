@@ -7,6 +7,7 @@
 #include <DataStructure/Mesh.h>
 #include <DataStructure/Material.h>
 #include <DataStructure/RenderObject.h>
+#include <DataStructure/Light.h>
 #include <Shader/Shader.h>
 #include <glm/glm.hpp>
 
@@ -54,7 +55,7 @@ public:
 
 private:
 	std::unordered_map<std::string, RenderObject> _objects = {}; /**<< Hash Map to maintain the objects in this scene*/
-
+	std::vector<Light*> _lights = {};
 };
 
 #endif
