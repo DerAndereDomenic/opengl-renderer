@@ -78,6 +78,15 @@ public:
 	void unbind();
 
 	/**
+	*	\brief Clears the window
+	*	\param[in] r = 0.0f The red channel
+	*	\param[in] g = 0.0f The green channel
+	*	\param[in] b = 0.0f The blue channel
+	*	\param[in] a = 1.0f The alpha channel
+	*/
+	void clear(GLclampf r = 0, GLclampf g = 0, GLclampf b = 0, GLclampf a = 1);
+
+	/**
 	*	\brief The color attachment of the fbo
 	*	\param[in] index The index of the color attachment
 	*	\return The Texture for the Color attachment
