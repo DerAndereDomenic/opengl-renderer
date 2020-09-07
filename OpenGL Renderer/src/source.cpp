@@ -21,8 +21,6 @@
 #include <iomanip>
 #include <sstream>
 
-#define LIGHTS 2
-
 
 int main(void)
 {
@@ -179,10 +177,6 @@ int main(void)
 	l2.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
 	l2.specular = glm::vec3(1.0f, 0.0f, 0.0f);
 
-	Light lights[LIGHTS];
-	lights[0] = l1;
-	lights[1] = l2;
-
 	Texture particleTexture = Texture::createObject("res/smoke.png");
 
 	std::vector<std::string> faces =
@@ -234,7 +228,7 @@ int main(void)
 	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
 
 	scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
-	obj_light.setModel(glm::translate(glm::mat4(1), lights[0].position));
+	obj_light.setModel(glm::translate(glm::mat4(1), l1.position));
 
 	ShaderManager::instance()->getShader("Post").bind();
 	ShaderManager::instance()->getShader("Post").setInt("screenTexture", 0);
@@ -377,7 +371,6 @@ int main(void)
 	RenderObject::destroyObject(obj_light);
 	Scene::destroyObject(scene);
 	FrameBuffer::destroyObject(fbo);
-	Light::destroyObject(lights[0]);
 	KeyManager::destroy();
 	TextRenderer::destroyObject(textRenderer);
 	ParticleRenderer::destroyObject(particleRenderer);
