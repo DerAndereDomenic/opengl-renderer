@@ -43,6 +43,12 @@ Scene::destroyObject(Scene& scene)
 void 
 Scene::render(Shader shader)
 {
+	for (unsigned int i = 0; i < _lights.size(); ++i)
+	{
+		if (!_lights[i]->castShadows) continue;
+		_lights[i]->shadow_map.getTexture().bind(4 + i);
+	}
+
 	for (auto it = _objects.begin(); it != _objects.end(); ++it)
 	{
 		it->second.render(shader);
