@@ -79,6 +79,7 @@ private:
 	unsigned int _count = 0; /**<< The number of elements in the underlying vbo*/
 	bool _hasIBO = false; /**<< Checks if this vao has an index buffer*/
 	unsigned int _attribCount = 0; /**<< The number of activated attributes*/
+	Geometry _geometry = GL_TRIANGLES; /**<< The geometry type that should be rendered*/
 };
 
 

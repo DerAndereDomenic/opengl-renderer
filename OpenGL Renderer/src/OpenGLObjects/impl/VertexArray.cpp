@@ -1,10 +1,11 @@
 #include <OpenGLObjects/VertexArray.h>
 
 VertexArray 
-VertexArray::createObject()
+VertexArray::createObject(Geometry geometry)
 {
 	VertexArray result;
 	glGenVertexArrays(1, &result._ID);
+	result._geometry = geometry;
 	return result;
 }
 
