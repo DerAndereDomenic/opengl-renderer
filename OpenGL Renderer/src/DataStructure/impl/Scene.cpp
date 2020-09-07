@@ -36,6 +36,12 @@ Scene::destroyObject(Scene& scene)
 	{
 		RenderObject::destroyObject(it->second);
 	}
+
+	for (unsigned int i = 0; i < scene._lights.size(); ++i)
+	{
+		Light::destroyObject(*scene._lights[i]);
+	}
+
 	scene._objects.clear();
 	scene._lights.clear();
 }
