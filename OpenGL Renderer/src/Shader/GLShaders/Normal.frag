@@ -1,5 +1,5 @@
 #version 330 core
-#define LIGHTS 2
+#define LIGHTS 3
 
 #define LAMBERT 0
 #define PHONG 1
