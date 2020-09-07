@@ -182,6 +182,11 @@ int main(void)
 	l3.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
 	l3.specular = glm::vec3(0.0f, 1.0f, 0.0f);
 
+	Light l4 = Light::createObject(glm::vec3(0, 20, 20), true, shadow_width, shadow_height, near, far);
+	l4.ambient = glm::vec3(0.1f);
+	l4.diffuse = glm::vec3(500.0f);
+	l4.specular = glm::vec3(500.0f);
+
 	Texture particleTexture = Texture::createObject("res/smoke.png");
 
 	std::vector<std::string> faces =
@@ -209,6 +214,7 @@ int main(void)
 	scene.addLight(&l1);
 	scene.addLight(&l2);
 	scene.addLight(&l3);
+	scene.addLight(&l4);
 
 	//---------------------------------------------------------------------------------//
 	//                              RENDERING SETUP                                    //
