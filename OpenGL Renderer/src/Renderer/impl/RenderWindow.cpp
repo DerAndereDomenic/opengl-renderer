@@ -97,6 +97,9 @@ RenderWindow::spinOnce()
 {
 	glfwSwapBuffers(_window);
 	glfwPollEvents();
+	double currentTime = glfwGetTime();
+	_deltaTime = currentTime - _lastTime;
+	_lastTime = currentTime;
 }
 
 bool 
