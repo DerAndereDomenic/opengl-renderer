@@ -38,6 +38,12 @@ public:
 	void unbind() const;
 
 	/**
+	*	\brief Unbind the buffer (bind default)
+	*	\note: Does the same as unbind but isn't tied to an object
+	*/
+	static void bindDefault();
+
+	/**
 	*	\brief Changes the data in the vertex buffer object
 	*	\param[in] data The new data
 	*	\param[in] count The count of new elements

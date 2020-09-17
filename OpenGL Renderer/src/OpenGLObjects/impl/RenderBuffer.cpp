@@ -31,3 +31,9 @@ RenderBuffer::unbind() const
 {
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
+
+void
+RenderBuffer::bindDefault()
+{
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+}

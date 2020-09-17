@@ -33,6 +33,12 @@ VertexBuffer::unbind() const
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void
+VertexBuffer::bindDefault()
+{
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void 
 VertexBuffer::changeData(const float* data, const unsigned int count, const unsigned int offset)
 {

@@ -121,3 +121,10 @@ Texture::unbind(const unsigned int tex) const
 	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void
+Texture::bindDefault(const unsigned int tex)
+{
+	glActiveTexture(GL_TEXTURE0 + tex);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}

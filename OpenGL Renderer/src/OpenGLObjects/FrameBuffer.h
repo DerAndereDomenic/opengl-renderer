@@ -78,6 +78,12 @@ public:
 	void unbind() const;
 
 	/**
+	*	\brief Unbind the buffer (bind default)
+	*	\note: Does the same as unbind but isn't tied to an object
+	*/
+	static void bindDefault();
+
+	/**
 	*	\brief Clears the window
 	*	\param[in] r = 0.0f The red channel
 	*	\param[in] g = 0.0f The green channel

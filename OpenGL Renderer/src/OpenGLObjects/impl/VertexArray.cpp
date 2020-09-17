@@ -28,6 +28,12 @@ VertexArray::unbind() const
 }
 
 void
+VertexArray::bindDefault()
+{
+	glBindVertexArray(0);
+}
+
+void
 VertexArray::render() const
 {
 	bind();

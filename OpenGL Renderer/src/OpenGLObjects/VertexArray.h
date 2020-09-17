@@ -42,6 +42,12 @@ public:
 	void unbind() const;
 
 	/**
+	*	\brief Unbind the buffer (bind default)
+	*	\note: Does the same as unbind but isn't tied to an object
+	*/
+	static void bindDefault();
+
+	/**
 	*	\brief Renders the vao
 	*	\note: If the Vertex Attributes where set manually, the number of elements in
 	*		   the VBO have to be set via setCount(...) first

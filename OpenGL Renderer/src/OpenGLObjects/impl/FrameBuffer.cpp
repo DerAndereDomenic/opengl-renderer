@@ -106,6 +106,12 @@ FrameBuffer::unbind() const
 }
 
 void
+FrameBuffer::bindDefault()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void
 FrameBuffer::clear(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 {
 	glClearColor(r, g, b, a);

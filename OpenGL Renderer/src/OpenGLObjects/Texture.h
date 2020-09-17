@@ -82,6 +82,13 @@ public:
 	void unbind(const unsigned int tex = 0) const;
 
 	/**
+	*	\brief Unbind the buffer (bind default)
+	*	\param[in] tex The texture index (default = 0)
+	*	\note: Does the same as unbind but isn't tied to an object
+	*/
+	static void bindDefault(const unsigned int = 0);
+
+	/**
 	*	\brief The OpenGL handle of this texture
 	*	\return The integer handle that opengl uses for this texture
 	*/
