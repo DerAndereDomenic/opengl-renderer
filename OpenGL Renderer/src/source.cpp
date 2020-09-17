@@ -249,7 +249,6 @@ int main(void)
 
 	unsigned int frameID = 0;
 
-	double lastTime = glfwGetTime();
 	double currentTime;
 
 	float exposure = 1.0f;
@@ -260,10 +259,7 @@ int main(void)
 	{
 		currentTime = glfwGetTime();
 
-		double deltaTime = currentTime - lastTime;
-		lastTime = currentTime;
-
-		camera.processInput(deltaTime);
+		camera.processInput(window.DELTA_TIME());
 
 		window.setViewport(shadow_width, shadow_height);
 
@@ -314,7 +310,7 @@ int main(void)
 
 		obj_light.render(ShaderManager::instance()->getShader("Normal"));
 
-		particleRenderer.update(deltaTime);
+		particleRenderer.update(window.DELTA_TIME());
 		particleRenderer.render(camera);
 
 
@@ -341,7 +337,7 @@ int main(void)
 
 		endFrame = glfwGetTime();
 
-		stream << "Render time: " << std::fixed << std::setprecision(5) << (endFrame - currentTime) << "ms FPS: " << std::fixed << std::setprecision(1) << 1.0f / (endFrame - currentTime) << "; Display FPS: " << std::fixed << std::setprecision(1) << 1.0f/deltaTime;
+		stream << "Render time: " << std::fixed << std::setprecision(5) << (endFrame - currentTime) << "ms FPS: " << std::fixed << std::setprecision(1) << 1.0f / (endFrame - currentTime) << "; Display FPS: " << std::fixed << std::setprecision(1) << 1.0f/window.DELTA_TIME();
 		textRenderer.render(stream.str(), 16, 16, 1, glm::vec3(0, 1, 0));
 		stream.str("");
 
