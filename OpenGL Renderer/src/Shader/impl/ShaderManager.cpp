@@ -49,3 +49,9 @@ ShaderManager::getShader(const std::string& name)
 {
 	return _shader[name];
 }
+
+void 
+ShaderManager::setShaderDir(const std::string& path)
+{
+	SHADER_DIRECTORY = path;
+}

@@ -37,6 +37,13 @@ class ShaderManager
 		*/
 		Shader
 		getShader(const std::string& name);
+
+		/**
+		*	\brief Sets a new path to the Shader files
+		*	\param[in] path Path to the shader files
+		*/
+		void
+		setShaderDir(const std::string& path);
 	private:
 		static ShaderManager* _instance;						/**<< The ShaderManager instance*/
 
