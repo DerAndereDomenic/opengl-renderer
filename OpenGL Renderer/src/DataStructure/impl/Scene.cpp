@@ -95,6 +95,8 @@ Scene::updateShadowMaps()
 		shadow.setMat4("V", light->lightView);
 		this->render(shadow);
 	}
+
+	FrameBuffer::bindDefault();
 }
 
 RenderObject&
