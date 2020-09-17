@@ -105,12 +105,19 @@ public:
 	*	\return The aspect ratio of the window
 	*/
 	inline float getAspectRatio() const { return _aspect_ratio; }
+
+	/**
+	*	\brief Get the delta time between two frames
+	*	\return The delta time between two frames
+	*/
+	inline float DELTA_TIME() const { return _deltaTime; }
 private:
-	GLFWwindow* _window; /**<< The underlying GLFWwindow*/
-	unsigned int _width; /**<< The width*/
-	unsigned int _height; /**<< The height*/
-	float _aspect_ratio; /**<< The apsect ratio*/
-	bool _isOpen; /**<< Wether the window is open*/
+	GLFWwindow* _window;	/**<< The underlying GLFWwindow*/
+	unsigned int _width;	/**<< The width*/
+	unsigned int _height;	/**<< The height*/
+	float _aspect_ratio;	/**<< The apsect ratio*/
+	bool _isOpen;			/**<< Wether the window is open*/
+	float _deltaTime;		/**<< The delta time between two frames*/
 };
 
 
