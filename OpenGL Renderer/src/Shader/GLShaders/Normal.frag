@@ -63,10 +63,15 @@ float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 	vec3 projCoords = fragPositionLightSpace.xyz / fragPositionLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 
+	if(projCoords.x < 0 || projCoords.x > 1 || projCoords.y < 0 || projCoords.y > 1)
+	{
+		return 0;
+	}
+
 	float closestDepth = texture(shadowMap, projCoords.xy).r;
 	float currentDepth = projCoords.z;
 
-	return currentDepth - bias > closestDepth ? 1 : 0.0;
+	return currentDepth - bias > closestDepth ? 1 : 0;
 }
 
 //-------------GGX---------------------------
