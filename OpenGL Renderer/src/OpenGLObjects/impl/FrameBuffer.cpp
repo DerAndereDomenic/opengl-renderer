@@ -94,13 +94,13 @@ FrameBuffer::verify()
 }
 
 void 
-FrameBuffer::bind()
+FrameBuffer::bind() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, _ID);
 }
 
 void 
-FrameBuffer::unbind()
+FrameBuffer::unbind() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

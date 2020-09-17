@@ -21,13 +21,13 @@ RenderBuffer::destroyObject(RenderBuffer& rbo)
 }
 
 void 
-RenderBuffer::bind()
+RenderBuffer::bind() const
 {
 	glBindRenderbuffer(GL_RENDERBUFFER, _ID);
 }
 
 void 
-RenderBuffer::unbind()
+RenderBuffer::unbind() const
 {
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }

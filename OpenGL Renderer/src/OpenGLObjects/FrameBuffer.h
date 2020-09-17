@@ -70,12 +70,12 @@ public:
 	/**
 	*	\brief Binds the render buffer object
 	*/
-	void bind();
+	void bind() const;
 
 	/**
 	*	\brief Unbinds the render buffer object (bind = 0)
 	*/
-	void unbind();
+	void unbind() const;
 
 	/**
 	*	\brief Clears the window

@@ -29,12 +29,12 @@ public:
 	/**
 	*	\brief Binds the render buffer
 	*/
-	void bind();
+	void bind() const;
 
 	/**
 	*	\brief Unbinds the render buffer (bind 0)
 	*/
-	void unbind();
+	void unbind() const;
 
 	/**
 	*	\brief The opengl handle of the rbo
