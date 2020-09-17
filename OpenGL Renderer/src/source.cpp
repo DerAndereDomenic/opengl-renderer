@@ -221,7 +221,6 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	ShaderManager::instance()->addShader("Post");
 	ShaderManager::instance()->addShader("Normal");
-	ShaderManager::instance()->addShader("Shadow");
 	ShaderManager::instance()->addShader("CubeMap");
 	ShaderManager::instance()->addShader("Reflection");
 	ShaderManager::instance()->addShader("DisplayNormal", true);

@@ -26,6 +26,8 @@ Scene::createObject(std::vector<std::string> names,
 		result._objects.insert(std::make_pair(names[i], RenderObject::createObject(meshes[i], materials[i], models[i])));
 	}
 
+	ShaderManager::instance()->addShader("Shadow");
+
 	return result;
 }
 
