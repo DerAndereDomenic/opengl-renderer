@@ -5,8 +5,6 @@
 #include <unordered_map>
 #include <string>
 
-#define SHADER_DIRECTORY "src/Shader/GLShaders/"
-
 class ShaderManager
 {
 	public:
@@ -40,13 +38,15 @@ class ShaderManager
 		Shader
 		getShader(const std::string& name);
 	private:
-		static ShaderManager* _instance;					/**<< The ShaderManager instance*/
+		static ShaderManager* _instance;						/**<< The ShaderManager instance*/
 
-		ShaderManager() = default;							/**<< Make constructor private*/
+		ShaderManager() = default;								/**<< Make constructor private*/
 
-		ShaderManager(const ShaderManager&);				/**<< Make constructor private*/
+		ShaderManager(const ShaderManager&);					/**<< Make constructor private*/
 
-		std::unordered_map<std::string, Shader> _shader;	/**<< The container holding the shaders*/
+		std::unordered_map<std::string, Shader> _shader;		/**<< The container holding the shaders*/
+
+		std::string SHADER_DIRECTORY = "src/Shader/GLShaders/"; /**<< The path to the shader files*/
 };
 
 #endif
