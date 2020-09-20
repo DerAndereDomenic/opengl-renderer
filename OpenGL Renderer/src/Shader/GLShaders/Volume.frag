@@ -30,6 +30,11 @@ void main()
 {
 	vec3 ray_pos = frag_pos_model;
 
+	if(insideCube(viewPos_model))
+	{
+		ray_pos = viewPos_model;
+	}
+
 	vec3 view_dir_model = normalize(frag_pos_model - viewPos_model);
 
 	float density = collectDensity(ray_pos, view_dir_model, step_size);
