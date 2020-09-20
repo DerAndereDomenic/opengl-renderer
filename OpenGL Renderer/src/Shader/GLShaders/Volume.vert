@@ -1,16 +1,18 @@
 #version 330 core 
 
 layout (location = 0) in vec3 aPosition;
-layout (location = 2) in vec3 aTex;
 
-out vec2 frag_tex;
-out vec3 frag_pos;
+out vec3 frag_pos_model;
+out vec3 view_dir_model;
 
 uniform mat4 M, V, P;
+uniform vec3 viewPos;
 
 void main()
 {
-	frag_pos =  vec3(V * M * vec4(aPosition, 1));
-	frag_tex = aTex.xy;
-	gl_Position = P * vec4(frag_pos, 1);
+	vec4 viewPos_model = inverse(M)*vec4(viewPos,1);
+
+	frag_pos_model = aPosition + vec3(0.5);
+	gl_Position = P * V * M * vec4(frag_pos_model, 1);
+	view_dir_model = normalize(frag_pos_model - vec3(viewPos_model));
 }
