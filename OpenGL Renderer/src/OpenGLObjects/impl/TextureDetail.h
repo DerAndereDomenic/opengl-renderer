@@ -37,4 +37,31 @@ Texture::createObject(const unsigned int width,
 	return result;
 }
 
+template<typename T>
+Texture
+Texture::createObject(const unsigned int width,
+					  const unsigned int height,
+					  const unsigned int depth,
+					  const T* data,
+					  const unsigned int internal_format,
+					  const unsigned int format,
+					  const unsigned int type)
+{
+	Texture result;
+	glGenTextures(1, &result._ID);
+	glBindTexture(GL_TEXTURE_3D, result._ID);
+
+	glTexImage3D(GL_TEXTURE_3D, 0, internal_format, width, height, depth, 0, format, type, data);
+
+
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	result._target = GL_TEXTURE_3D;
+
+	return result;
+}
+
 #endif
