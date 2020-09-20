@@ -200,5 +200,7 @@
     <None Include="src\Shader\GLShaders\Particle.vert" />
     <None Include="src\Shader\GLShaders\Particle.frag" />
     <None Include="src\Shader\GLShaders\Particle.geom" />
+    <None Include="src\Shader\GLShaders\Volume.vert" />
+    <None Include="src\Shader\GLShaders\Volume.frag" />
   </ItemGroup>
 </Project>

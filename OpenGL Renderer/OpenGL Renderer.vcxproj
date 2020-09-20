@@ -210,6 +210,8 @@
     <None Include="src\Shader\GLShaders\Skybox.vert" />
     <None Include="src\Shader\GLShaders\Text.frag" />
     <None Include="src\Shader\GLShaders\Text.vert" />
+    <None Include="src\Shader\GLShaders\Volume.frag" />
+    <None Include="src\Shader\GLShaders\Volume.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
