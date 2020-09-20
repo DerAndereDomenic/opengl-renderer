@@ -261,8 +261,8 @@ int main(void)
 		float _y = 2.0f * static_cast<float>(y) / static_cast<float>(res);
 		float _z = 2.0f * static_cast<float>(z) / static_cast<float>(res);
 		float norm = sqrtf(_x * _x + _y * _y + _z * _z);
-		if (norm > 1) vol_data[i] = 0;
-		else vol_data[i] = norm;
+		if (norm > 0.8) vol_data[i] = 0;
+		else vol_data[i] = 0.01f;
 	}
 
 	Texture vol_tex = Texture::createObject(res, res, res, vol_data, GL_RED, GL_RED, GL_FLOAT);
