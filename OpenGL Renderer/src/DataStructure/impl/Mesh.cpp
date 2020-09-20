@@ -5,11 +5,11 @@ Mesh::createObject(const bool calcTangent)
 {
 	Mesh result;
 
-	result._layout.add<float>(3);
-	result._layout.add<float>(4);
-	result._layout.add<float>(3);
-	result._layout.add<float>(3);
-	result._layout.add<float>(3);
+	result._layout.add<float>(3);	//Position
+	result._layout.add<float>(4);	//Color
+	result._layout.add<float>(3);	//Texture coordinates
+	result._layout.add<float>(3);	//Normal
+	result._layout.add<float>(3);	//Tangent
 	result._vertex_count = 0;
 	result._calcTangent = calcTangent;
 

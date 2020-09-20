@@ -8,6 +8,14 @@
 
 /**
 *	\brief A class to model a mesh
+*	Each mesh has the following vertex layout:
+*	3 - float: Position
+*	4 - float: Color
+*	3 - float: Texture coordinates
+*	3 - float: Normal
+*	3 - float: Tangent
+*
+*	The tangent may be (0,0,0) if bool calcTangent = false in Mesh::createObject()
 */
 class Mesh
 {
