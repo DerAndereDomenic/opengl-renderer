@@ -2,7 +2,7 @@
 #define LIGHTS 4
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
-layout (location = 2) in vec2 tex;
+layout (location = 2) in vec3 tex;
 layout (location = 3) in vec3 normal;
 layout (location = 4) in vec3 tangent;
 
@@ -44,7 +44,7 @@ uniform Light lights_vert[LIGHTS];
 void main()
 {
 	frag_position = vec3(M*vec4(position,1));
-	frag_tex = tex;
+	frag_tex = tex.xy;
 
 	//Calculate TBN Matrix
 	vec3 T = normalize(vec3(M*vec4(tangent, 0)));
@@ -56,7 +56,7 @@ void main()
 	if(materialmap.useTextures)
 	{
 		float stretchfactor = 10.0;
-		float displacement = texture(materialmap.height_map, tex).r;
+		float displacement = texture(materialmap.height_map, tex.xy).r;
 		frag_position += stretchfactor * displacement * N;
 	}
 

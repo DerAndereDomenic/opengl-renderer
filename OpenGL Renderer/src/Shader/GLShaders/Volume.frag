@@ -3,8 +3,10 @@
 layout (location = 0) out vec4 FragColor;
 
 in vec2 frag_tex;
+in vec3 frag_pos;
 
 uniform sampler3D volume;
+uniform vec3 viewPos;
 uniform float w;
 
 void main()

@@ -223,6 +223,7 @@ int main(void)
 	ShaderManager::instance()->addShader("Normal");
 	ShaderManager::instance()->addShader("CubeMap");
 	ShaderManager::instance()->addShader("Reflection");
+	ShaderManager::instance()->addShader("Volume");
 	ShaderManager::instance()->addShader("DisplayNormal", true);
 
 	TextRenderer textRenderer = TextRenderer::createObject(width, height);
@@ -247,12 +248,35 @@ int main(void)
 
 	Skybox sky = Skybox::createObject(skybox);
 
+	int res = 512;
+	float halfres = static_cast<float>(res) / 2.0f;
+	float* vol_data = new float[res * res * res];
+
+	for (unsigned int i = 0; i < res * res * res; ++i)
+	{
+		int x = i % res - res/2;
+		int y = (i / res)% res - res/2;
+		int z = i / (res * res) - res/2;
+		float _x = 2.0f * static_cast<float>(x) / static_cast<float>(res);
+		float _y = 2.0f * static_cast<float>(y) / static_cast<float>(res);
+		float _z = 2.0f * static_cast<float>(z) / static_cast<float>(res);
+		float norm = sqrtf(_x * _x + _y * _y + _z * _z);
+		if (norm > 1) vol_data[i] = 0;
+		else vol_data[i] = norm;
+	}
+
+	Texture vol_tex = Texture::createObject(res, res, res, vol_data, GL_RED, GL_RED, GL_FLOAT);
+
+	delete[] vol_data;
+
 	unsigned int frameID = 0;
 
 	double currentTime;
 
 	float exposure = 1.0f;
 	double endFrame;
+
+	float w = 0;
 
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -310,6 +334,15 @@ int main(void)
 
 		obj_light.render(ShaderManager::instance()->getShader("Normal"));
 
+		ShaderManager::instance()->getShader("Volume").bind();
+		ShaderManager::instance()->getShader("Volume").setMVP(glm::translate(glm::mat4(1), glm::vec3(20, 0, -20)), camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Volume").setFloat("w", w);
+		ShaderManager::instance()->getShader("Volume").setVec3("viewPos", camera.getPosition());
+		vol_tex.bind();
+		light.render();
+		
+
+
 		particleRenderer.update(window.DELTA_TIME());
 		particleRenderer.render(camera);
 
@@ -354,6 +387,8 @@ int main(void)
 		{
 			exposure += 0.01f;
 			std::cout << exposure << std::endl;
+			w += 0.01f;
+			if (w > 1) w = 1;
 		}
 
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL) && KeyManager::instance()->isKeyDown(GLFW_KEY_D))
@@ -367,6 +402,8 @@ int main(void)
 			{
 				exposure -= 0.01f;
 				std::cout << exposure << std::endl;
+				w -= 0.01f;
+				if (w < 0) w = 0;
 			}
 		}
 	}
@@ -382,6 +419,7 @@ int main(void)
 	KeyManager::destroy();
 	TextRenderer::destroyObject(textRenderer);
 	ParticleRenderer::destroyObject(particleRenderer);
+	Texture::destroyObject(vol_tex);
 
 	return 0;
 }
