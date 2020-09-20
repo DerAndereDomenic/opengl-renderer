@@ -26,9 +26,9 @@ ObjLoader::loadObj(const char* path, const bool calcTangent)
 		for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
 		{
 			glm::vec3 position(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-			glm::vec2 uv(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+			glm::vec3 uvw(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y, mesh->mTextureCoords[0][i].z);
 			glm::vec3 normal(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
-			output_mesh.addVertex(position, glm::vec4(0), uv, normal);
+			output_mesh.addVertex(position, glm::vec4(0), uvw, normal);
 		}
 
 		for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
