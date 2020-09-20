@@ -3,7 +3,7 @@
 layout (location = 0) out vec4 FragColor;
 
 in vec3 frag_pos_model;
-in vec3 view_dir_model;
+flat in vec3 viewPos_model;
 
 uniform sampler3D volume;
 
@@ -30,8 +30,9 @@ void main()
 {
 	vec3 ray_pos = frag_pos_model;
 
+	vec3 view_dir_model = normalize(frag_pos_model - viewPos_model);
+
 	float density = collectDensity(ray_pos, view_dir_model, step_size);
 
-
-	FragColor = vec4(vec3(exp(-density)),density);
+	FragColor = vec4(vec3(exp(-density)),min(density,1));
 }
