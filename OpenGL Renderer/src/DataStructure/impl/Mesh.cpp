@@ -7,7 +7,7 @@ Mesh::createObject(const bool calcTangent)
 
 	result._layout.add<float>(3);
 	result._layout.add<float>(4);
-	result._layout.add<float>(2);
+	result._layout.add<float>(3);
 	result._layout.add<float>(3);
 	result._layout.add<float>(3);
 	result._vertex_count = 0;
@@ -47,7 +47,7 @@ Mesh::render()
 }
 
 unsigned int 
-Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec2 texture, glm::vec3 normal)
+Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec3 texture, glm::vec3 normal)
 {
 	_vertices.push_back(position.x);
 	_vertices.push_back(position.y);
@@ -60,6 +60,7 @@ Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec2 texture, glm::vec
 	
 	_vertices.push_back(texture.x);
 	_vertices.push_back(texture.y);
+	_vertices.push_back(texture.z);
 
 	_vertices.push_back(normal.x);
 	_vertices.push_back(normal.y);
@@ -130,8 +131,8 @@ Mesh::calculateTangent(const unsigned int index1, const unsigned int index2, uns
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		//Start of current vertex + position of tangent + current position in vector
-		_vertices[id1 + 12 + i] = tangent[i];
-		_vertices[id2 + 12 + i] = tangent[i];
-		_vertices[id3 + 12 + i] = tangent[i];
+		_vertices[id1 + 13 + i] = tangent[i];
+		_vertices[id2 + 13 + i] = tangent[i];
+		_vertices[id3 + 13 + i] = tangent[i];
 	}
 }

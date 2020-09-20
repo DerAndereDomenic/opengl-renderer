@@ -4,7 +4,7 @@
 #include <Renderer/RenderWindow.h>
 #include <glm/glm.hpp>
 #include <vector>
-#define VERTEX_SIZE 15
+#define VERTEX_SIZE 16
 
 /**
 *	\brief A class to model a mesh
@@ -51,7 +51,7 @@ public:
 	*	\return The number of vertex in the buffer (count)
 	*	\note The return can be used for the ibo initialized with 'addTriangle'
 	*/
-	unsigned int addVertex(glm::vec3 position, glm::vec4 color, glm::vec2 texture, glm::vec3 normal);
+	unsigned int addVertex(glm::vec3 position, glm::vec4 color, glm::vec3 texture, glm::vec3 normal);
 
 	/**
 	*	\brief Add a triangle to the ibo
