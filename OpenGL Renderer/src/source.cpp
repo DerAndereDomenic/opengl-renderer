@@ -251,7 +251,6 @@ int main(void)
 	int res = 512;
 	float halfres = static_cast<float>(res) / 2.0f;
 	float* vol_data = new float[res * res * res];
-
 	for (unsigned int i = 0; i < res * res * res; ++i)
 	{
 		int x = i % res - res/2;
@@ -261,10 +260,12 @@ int main(void)
 		float _y = 2.0f * static_cast<float>(y) / static_cast<float>(res);
 		float _z = 2.0f * static_cast<float>(z) / static_cast<float>(res);
 		float norm = sqrtf(_x * _x + _y * _y + _z * _z);
-		if (norm > 0.8) vol_data[i] = 0;
-		else vol_data[i] = 0.01f;
+		if (norm > 1.0f) vol_data[i] = 0;
+		else
+		{
+			vol_data[i] = 0.01f;
+		}
 	}
-
 	Texture vol_tex = Texture::createObject(res, res, res, vol_data, GL_RED, GL_RED, GL_FLOAT);
 
 	delete[] vol_data;
@@ -336,7 +337,7 @@ int main(void)
 
 		ShaderManager::instance()->getShader("Volume").bind();
 		ShaderManager::instance()->getShader("Volume").setMVP(glm::translate(glm::mat4(1), glm::vec3(20, 0, -20)), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Volume").setFloat("w", w);
+		ShaderManager::instance()->getShader("Volume").setVec3("lightPos", l1.position);
 		ShaderManager::instance()->getShader("Volume").setVec3("viewPos", camera.getPosition());
 		vol_tex.bind();
 		light.render();
