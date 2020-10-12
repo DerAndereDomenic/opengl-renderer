@@ -36,4 +36,11 @@ add_executable("${PROJECT_NAME}" "OpenGL Renderer/src/source.cpp"
 								 "OpenGL Renderer/src/Shader/impl/Shader.cpp"
 								 "OpenGL Renderer/src/Shader/impl/ShaderManager.cpp")
 								 
-target_include_directories("${PROJECT_NAME}" PRIVATE "${OPENGL_RENDERER_INCLUDE_DIR}")
+target_include_directories("${PROJECT_NAME}" PRIVATE "${OPENGL_RENDERER_INCLUDE_DIR}"
+													 "${ASSIMP_INCLUDE_DIR}"
+													 "${FREETYPE_INCLUDE_DIR}"
+													 "${GLEW_INCLUDE_DIR}"
+													 "${GLFW_INCLUDE_DIR}"
+													 "${GLM_INCLUDE_DIR}"
+													 "${STB_INCLUDE_DIR}")
+
