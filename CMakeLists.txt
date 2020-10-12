@@ -60,3 +60,6 @@ target_link_libraries("${PROJECT_NAME}" "${LIBS}")
 
 add_definitions(-DGLEW_STATIC)
 
+file(COPY ${ASSIMP_LIB_DIR}/assimp-vc142-mtd.dll DESTINATION Debug)
+file(COPY ${FREETYPE_LIB_DIR}/freetype.dll DESTINATION Debug)
+
