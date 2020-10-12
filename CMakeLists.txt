@@ -12,7 +12,7 @@ set(STB_INCLUDE_DIR "Dependencies/stb")
 
 set(ASSIMP_LIB_DIR "Dependencies/assimp/lib")
 set(FREETYPE_LIB_DIR "Dependencies/freetype/win64")
-set(GLEW_LIB_DIR "Dependencies/glew/lib/x64")
+set(GLEW_LIB_DIR "Dependencies/glew/lib/Release/x64")
 set(GLFW_LIB_DIR "Dependencies/glfw/lib-vc2019")
 
 set(LIBS glfw3 opengl32 assimp-vc142-mtd glew32s freetype)
