@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION "3.10")
 
 project(OpenGLRenderer LANGUAGES CXX)
 
+set(OPENGL_RENDERER_INCLUDE "OpenGL Renderer/src")
+
 add_executable("${PROJECT_NAME}" "OpenGL Renderer/src/source.cpp"
 								 "OpenGL Renderer/src/DataStructure/impl/EnvironmentMap.cpp" 
 								 "OpenGL Renderer/src/DataStructure/impl/Light.cpp"
@@ -28,4 +30,4 @@ add_executable("${PROJECT_NAME}" "OpenGL Renderer/src/source.cpp"
 								 "OpenGL Renderer/src/Shader/impl/Shader.cpp"
 								 "OpenGL Renderer/src/Shader/impl/ShaderManager.cpp")
 								 
-target_include_directories("${PROJECT_NAME}" PRIVATE "OpenGL Renderer/src")
+target_include_directories("${PROJECT_NAME}" PRIVATE "${OPENGL_RENDERER_INCLUDE}")
