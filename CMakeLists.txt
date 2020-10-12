@@ -58,3 +58,5 @@ target_link_directories("${PROJECT_NAME}" PRIVATE "${ASSIMP_LIB_DIR}"
 												  
 target_link_libraries("${PROJECT_NAME}" "${LIBS}")
 
+add_definitions(-DGLEW_STATIC)
+
