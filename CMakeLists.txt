@@ -15,6 +15,9 @@ set(FREETYPE_LIB_DIR "Dependencies/freetype/win64")
 set(GLEW_LIB_DIR "Dependencies/glew/lib/Release/x64")
 set(GLFW_LIB_DIR "Dependencies/glfw/lib-vc2019")
 
+set(OPENGL_RENDERER_RES_DIR "OpenGL Renderer/res")
+set(OPENGL_RENDERER_SHADER_DIR "OpenGL Renderer/src/Shader/GLShaders")
+
 set(LIBS glfw3 opengl32 assimp-vc142-mtd glew32s freetype)
 
 add_executable("${PROJECT_NAME}" "OpenGL Renderer/src/source.cpp"
@@ -62,4 +65,6 @@ add_definitions(-DGLEW_STATIC)
 
 file(COPY ${ASSIMP_LIB_DIR}/assimp-vc142-mtd.dll DESTINATION Debug)
 file(COPY ${FREETYPE_LIB_DIR}/freetype.dll DESTINATION Debug)
+file(COPY ${OPENGL_RENDERER_RES_DIR} DESTINATION Debug)
+file(COPY ${OPENGL_RENDERER_SHADER_DIR} DESTINATION Debug/src/Shader)
 
