@@ -15,6 +15,8 @@ set(FREETYPE_LIB_DIR "Dependencies/freetype/win64")
 set(GLEW_LIB_DIR "Dependencies/glew/lib/x64")
 set(GLFW_LIB_DIR "Dependencies/glfw/lib-vc2019")
 
+set(LIBS glfw3 opengl32 assimp-vc142-mtd glew32s freetype)
+
 add_executable("${PROJECT_NAME}" "OpenGL Renderer/src/source.cpp"
 								 "OpenGL Renderer/src/DataStructure/impl/EnvironmentMap.cpp" 
 								 "OpenGL Renderer/src/DataStructure/impl/Light.cpp"
@@ -48,4 +50,11 @@ target_include_directories("${PROJECT_NAME}" PRIVATE "${OPENGL_RENDERER_INCLUDE_
 													 "${GLFW_INCLUDE_DIR}"
 													 "${GLM_INCLUDE_DIR}"
 													 "${STB_INCLUDE_DIR}")
+													 
+target_link_directories("${PROJECT_NAME}" PRIVATE "${ASSIMP_LIB_DIR}"
+												  "${FREETYPE_LIB_DIR}"
+												  "${GLEW_LIB_DIR}"
+												  "${GLFW_LIB_DIR}")
+												  
+target_link_libraries("${PROJECT_NAME}" "${LIBS}")
 
