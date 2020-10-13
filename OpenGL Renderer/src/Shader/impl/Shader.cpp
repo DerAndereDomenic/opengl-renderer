@@ -91,7 +91,7 @@ uint32_t
 Shader::compileShader(GLenum shaderType, const char* shader_source)
 {
 	uint32_t shader;
-	int success;
+	int32_t success;
 
 	shader = glCreateShader(shaderType);
 	glShaderSource(shader, 1, &shader_source, NULL);
@@ -101,7 +101,7 @@ Shader::compileShader(GLenum shaderType, const char* shader_source)
 
 	if (!success)
 	{
-		int length;
+		int32_t length;
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
 		char* infoLog = (char*)malloc(sizeof(char) * length);
 		glGetShaderInfoLog(shader, length, &length, infoLog);
@@ -131,7 +131,7 @@ Shader::compileShader(GLenum shaderType, const char* shader_source)
 void 
 Shader::linkShader(const uint32_t* shaders, const uint32_t& num_shaders)
 {
-	int success;
+	int32_t success;
 
 	_ID = glCreateProgram();
 	for (uint32_t i = 0; i < num_shaders; ++i)
@@ -143,7 +143,7 @@ Shader::linkShader(const uint32_t* shaders, const uint32_t& num_shaders)
 	glGetProgramiv(_ID, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		int length;
+		int32_t length;
 		glGetProgramiv(_ID, GL_INFO_LOG_LENGTH, &length);
 		char* infoLog = (char*)malloc(sizeof(char) * length);
 		glGetProgramInfoLog(_ID, length, &length, infoLog);

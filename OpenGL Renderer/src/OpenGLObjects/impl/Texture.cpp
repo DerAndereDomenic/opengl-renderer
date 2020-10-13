@@ -11,9 +11,9 @@ Texture::createObject(const char* file_path)
 	glGenTextures(1, &result._ID);
 	glBindTexture(GL_TEXTURE_2D, result._ID);
 
-	int width;
-	int height;
-	int nr_channels;
+	int32_t width;
+	int32_t height;
+	int32_t nr_channels;
 
 	uint8_t* data = stbi_load(file_path, &width, &height, &nr_channels, 0);
 
@@ -59,7 +59,7 @@ Texture::createObject(const char* file_path, const std::vector<std::string>& fac
 	glGenTextures(1, &result._ID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, result._ID);
 
-	int width, height, nr_channels;
+	int32_t width, height, nr_channels;
 	for (uint32_t i = 0; i < faces.size(); ++i)
 	{
 		std::string path = (file_path + faces[i]);

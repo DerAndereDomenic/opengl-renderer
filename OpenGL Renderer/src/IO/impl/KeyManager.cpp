@@ -30,14 +30,14 @@ KeyManager::isKeyDown(const uint32_t& key)
 bool
 KeyManager::leftClicked()
 {
-	int state = glfwGetMouseButton(_window.getWindow(), GLFW_MOUSE_BUTTON_LEFT);
+	int32_t state = glfwGetMouseButton(_window.getWindow(), GLFW_MOUSE_BUTTON_LEFT);
 	return state == GLFW_PRESS;
 }
 
 bool
 KeyManager::rightClicked()
 {
-	int state = glfwGetMouseButton(_window.getWindow(), GLFW_MOUSE_BUTTON_RIGHT);
+	int32_t state = glfwGetMouseButton(_window.getWindow(), GLFW_MOUSE_BUTTON_RIGHT);
 	return state == GLFW_PRESS;
 }
 

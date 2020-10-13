@@ -52,10 +52,10 @@ float
 PerlinGenerator::generate(const float& x, const float& y)
 {
 	//Determine grid cell coordinates
-	int x0 = static_cast<int>(x);
-	int x1 = x0 + 1;
-	int y0 = static_cast<int>(y);
-	int y1 = y0 + 1;
+	int32_t x0 = static_cast<int>(x);
+	int32_t x1 = x0 + 1;
+	int32_t y0 = static_cast<int>(y);
+	int32_t y1 = y0 + 1;
 
 	//Determine interpolation weights
 	float sx = x - static_cast<float>(x0);
