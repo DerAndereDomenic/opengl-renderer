@@ -55,13 +55,13 @@ public:
 	*	\return The Texture object
 	*/
 	template<typename T>
-	static Texture createObject(const unsigned int width,
-								const unsigned int height,
+	static Texture createObject(const uint32_t width,
+								const uint32_t height,
 								const T* data = NULL,
-								const unsigned int target = TEXTURE,
-								const unsigned int internal_format = RGB,
-								const unsigned int format = RGB,
-								const unsigned int type = GL_UNSIGNED_BYTE);
+								const uint32_t target = TEXTURE,
+								const uint32_t internal_format = RGB,
+								const uint32_t format = RGB,
+								const uint32_t type = GL_UNSIGNED_BYTE);
 
 	/**
 	*	\brief Create an empty 3D Texture
@@ -76,13 +76,13 @@ public:
 	*	\return The Texture object
 	*/
 	template<typename T>
-	static Texture createObject(const unsigned int width,
-								const unsigned int height,
-								const unsigned int depth,
+	static Texture createObject(const uint32_t width,
+								const uint32_t height,
+								const uint32_t depth,
 								const T* data = NULL,
-								const unsigned int internal_format = RGB,
-								const unsigned int format = RGB,
-								const unsigned int type = GL_UNSIGNED_BYTE);
+								const uint32_t internal_format = RGB,
+								const uint32_t format = RGB,
+								const uint32_t type = GL_UNSIGNED_BYTE);
 
 	/**
 	*	\brief Destroys the Texture object
@@ -94,29 +94,29 @@ public:
 	*	\brief Binds the texture to the given texture index
 	*	\param[in] tex The texture index (default = 0)
 	*/
-	void bind(const unsigned int tex = 0) const;
+	void bind(const uint32_t tex = 0) const;
 
 	/**
 	*	\brief Unbinds the texture (bind 0)
 	*	\param[in] tex The texture index (default = 0)
 	*/
-	void unbind(const unsigned int tex = 0) const;
+	void unbind(const uint32_t tex = 0) const;
 
 	/**
 	*	\brief Unbind the buffer (bind default)
 	*	\param[in] tex The texture index (default = 0)
 	*	\note: Does the same as unbind but isn't tied to an object
 	*/
-	static void bindDefault(const unsigned int = 0);
+	static void bindDefault(const uint32_t = 0);
 
 	/**
 	*	\brief The OpenGL handle of this texture
 	*	\return The integer handle that opengl uses for this texture
 	*/
-	inline unsigned int getID(){return _ID;}
+	inline uint32_t getID(){return _ID;}
 private:
-	unsigned int _ID = 0; /**<< The internal openGL handle for the texture*/
-	unsigned int _target = GL_TEXTURE_2D; /**<< The texture target*/
+	uint32_t _ID = 0; /**<< The internal openGL handle for the texture*/
+	uint32_t _target = GL_TEXTURE_2D; /**<< The texture target*/
 };
 
 #include "impl/TextureDetail.h"

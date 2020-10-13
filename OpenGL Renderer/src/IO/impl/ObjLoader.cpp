@@ -19,11 +19,11 @@ ObjLoader::loadObj(const char* path, const bool calcTangent)
 		return meshes;
 	}
 
-	for (unsigned int k = 0; k < scene->mNumMeshes; ++k)
+	for (uint32_t k = 0; k < scene->mNumMeshes; ++k)
 	{
 		aiMesh* mesh = scene->mMeshes[k];
 		Mesh output_mesh = Mesh::createObject(calcTangent);
-		for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
+		for (uint32_t i = 0; i < mesh->mNumVertices; ++i)
 		{
 			glm::vec3 position(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
 			glm::vec3 uvw(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y, mesh->mTextureCoords[0][i].z);
@@ -31,7 +31,7 @@ ObjLoader::loadObj(const char* path, const bool calcTangent)
 			output_mesh.addVertex(position, glm::vec4(0), uvw, normal);
 		}
 
-		for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
+		for (uint32_t i = 0; i < mesh->mNumFaces; ++i)
 		{
 			aiFace face = mesh->mFaces[i];
 			output_mesh.addTriangle(face.mIndices[0], face.mIndices[1], face.mIndices[2]);

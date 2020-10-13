@@ -1,6 +1,8 @@
 #ifndef OPENGL_OBJECTS_INDEX_BUFFER_H
 #define OPENGL_OBJECTS_INDEX_BUFFER_H
 
+#include <cstdint>
+
 /**
 *	\brief A class to model an Index Buffer
 */
@@ -18,7 +20,7 @@ public:
 	*	\param[in] count The indice count
 	*	return The Index Buffer Object
 	*/
-	static IndexBuffer createObject(const unsigned int* data, const unsigned int count);
+	static IndexBuffer createObject(const uint32_t* data, const uint32_t count);
 
 	/**
 	*	\brief Destroys the Index Buffer object
@@ -46,12 +48,12 @@ public:
 	*	\brief Gives the Element count
 	*	\return The Element count
 	*/
-	inline unsigned int
+	inline uint32_t
 	getCount() const { return _count; }
 
 private:
-	unsigned int _ID; /**<< The internal OpenGL handle for the Buffer*/
-	unsigned int _count; /**<< The Index count*/
+	uint32_t _ID; /**<< The internal OpenGL handle for the Buffer*/
+	uint32_t _count; /**<< The Index count*/
 };
 
 #endif

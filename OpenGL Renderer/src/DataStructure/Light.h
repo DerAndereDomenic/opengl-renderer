@@ -27,7 +27,7 @@ class Light
 		*	\return The light object
 		*/
 		static
-		Light createObject(glm::vec3 position, bool castShadows = false, unsigned int shadow_resx = 0, unsigned int shadow_resy = 0, float near = 0, float far = 0);
+		Light createObject(glm::vec3 position, bool castShadows = false, uint32_t shadow_resx = 0, uint32_t shadow_resy = 0, float near = 0, float far = 0);
 
 		/**
 		*	\brief Destroys a light object
@@ -41,7 +41,7 @@ class Light
 		*	\param[in] shader The shader where the light should be added
 		*	\param[in] lightID The ID of the light (i.e. the position in the light array used by the shader)
 		*/
-		void addToShader(Shader shader, unsigned int lightID);
+		void addToShader(Shader shader, uint32_t lightID);
 
 		//Member variables
 		glm::vec3 position; /**<< The position of the light*/

@@ -8,10 +8,10 @@ Scene::createObject(std::vector<std::string> names,
 					std::vector<Material> materials,
 					std::vector<glm::mat4> models)
 {
-	unsigned int size_names = names.size();
-	unsigned int size_meshes = meshes.size();
-	unsigned int size_materials = materials.size();
-	unsigned int size_models = models.size();
+	uint32_t size_names = names.size();
+	uint32_t size_meshes = meshes.size();
+	uint32_t size_materials = materials.size();
+	uint32_t size_models = models.size();
 
 	if (size_names != size_meshes || size_names != size_materials || size_names != size_models)
 	{
@@ -20,7 +20,7 @@ Scene::createObject(std::vector<std::string> names,
 	}
 
 	Scene result;
-	for (unsigned int i = 0; i < size_names; ++i)
+	for (uint32_t i = 0; i < size_names; ++i)
 	{
 		meshes[i].create();
 		result._objects.insert(std::make_pair(names[i], RenderObject::createObject(meshes[i], materials[i], models[i])));
@@ -39,7 +39,7 @@ Scene::destroyObject(Scene& scene)
 		RenderObject::destroyObject(it->second);
 	}
 
-	for (unsigned int i = 0; i < scene._lights.size(); ++i)
+	for (uint32_t i = 0; i < scene._lights.size(); ++i)
 	{
 		Light::destroyObject(*scene._lights[i]);
 	}
@@ -51,7 +51,7 @@ Scene::destroyObject(Scene& scene)
 void 
 Scene::render(Shader shader)
 {
-	for (unsigned int i = 0; i < _lights.size(); ++i)
+	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
 		if (!_lights[i]->castShadows) continue;
 		_lights[i]->shadow_map.getTexture().bind(4 + i);
@@ -72,7 +72,7 @@ Scene::addLight(Light* light)
 void
 Scene::passLights2Shader(Shader shader)
 {
-	for (unsigned int i = 0; i < _lights.size(); ++i)
+	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
 		_lights[i]->addToShader(shader, i);
 	}
@@ -84,7 +84,7 @@ Scene::updateShadowMaps()
 	Shader shadow = ShaderManager::instance()->getShader("Shadow");
 	shadow.bind();
 	Light* light;
-	for (unsigned int i = 0; i < _lights.size(); ++i)
+	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
 		light = _lights[i];
 		if (!light->castShadows) continue;

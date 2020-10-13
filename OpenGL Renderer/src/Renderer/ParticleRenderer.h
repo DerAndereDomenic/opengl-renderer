@@ -38,7 +38,7 @@ class ParticleRenderer
 		*	\param[in] texture The texture of an particle
 		*	\return The Particle emitter
 		*/
-		static ParticleRenderer createObject(glm::vec3 position, const unsigned int num_particles, float time_alive, Texture texture);
+		static ParticleRenderer createObject(glm::vec3 position, const uint32_t num_particles, float time_alive, Texture texture);
 
 		/**
 		*	\brief Destroys the object

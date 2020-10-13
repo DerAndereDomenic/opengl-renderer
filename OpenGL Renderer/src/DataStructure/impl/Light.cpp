@@ -4,7 +4,7 @@
 #include <Shader/Shader.h>
 
 Light 
-Light::createObject(glm::vec3 position, bool castShadows, unsigned int shadow_resx, unsigned int shadow_resy, float near, float far)
+Light::createObject(glm::vec3 position, bool castShadows, uint32_t shadow_resx, uint32_t shadow_resy, float near, float far)
 {
 	Light result;
 
@@ -33,7 +33,7 @@ Light::destroyObject(Light& light)
 }
 
 void 
-Light::addToShader(Shader shader, unsigned int lightID)
+Light::addToShader(Shader shader, uint32_t lightID)
 {
 	shader.bind();
 	shader.setLight("lights_frag[" + std::to_string(lightID) + "]", *(this));

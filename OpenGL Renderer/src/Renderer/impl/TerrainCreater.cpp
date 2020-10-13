@@ -2,7 +2,7 @@
 #include <Math/PerlinNoise.h>
 
 Texture
-Terrain::createTerrain(unsigned int resx, unsigned int resz, unsigned int griddetail)
+Terrain::createTerrain(uint32_t resx, uint32_t resz, uint32_t griddetail)
 {
 	float* data = new float[resx * resz];
 	PerlinGenerator rng = PerlinGenerator::createObject();
@@ -10,10 +10,10 @@ Terrain::createTerrain(unsigned int resx, unsigned int resz, unsigned int gridde
 	float resolutionx = static_cast<float>(griddetail) / static_cast<float>(resx);
 	float resolutiony = static_cast<float>(griddetail) / static_cast<float>(resz);
 
-	unsigned int i = 0;
-	for (unsigned int x = 0; x < resx; ++x)
+	uint32_t i = 0;
+	for (uint32_t x = 0; x < resx; ++x)
 	{
-		for (unsigned int y = 0; y < resz; ++y)
+		for (uint32_t y = 0; y < resz; ++y)
 		{
 			data[i] = (rng.generate(x * resolutionx, y * resolutiony) + 1.0f) / 2.0f;
 			++i;

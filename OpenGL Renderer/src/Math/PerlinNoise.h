@@ -33,8 +33,8 @@ public:
 private:
 	glm::vec2 **_gradients; /**<< The gradient vector field*/
 
-	unsigned int GRIDX = 512; /**<< The x size of the grid*/
-	unsigned int GRIDY = 512; /**<< The y size of the grid*/
+	uint32_t GRIDX = 512; /**<< The x size of the grid*/
+	uint32_t GRIDY = 512; /**<< The y size of the grid*/
 
 	float dot(int ix, int iy, float x, float y);
 };

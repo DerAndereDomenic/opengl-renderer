@@ -9,6 +9,8 @@
 #include <OpenGLObjects/VertexArray.h>
 #include <Shader/Shader.h>
 
+#include <cstdint>
+
 /**
 *	\brief A class to model a render window
 */
@@ -27,7 +29,7 @@ public:
 	*	\param[in] title The title of the window
 	*	\return The given window
 	*/
-	static RenderWindow createObject(const unsigned int width, const unsigned int height, std::string title);
+	static RenderWindow createObject(const uint32_t width, const uint32_t height, std::string title);
 
 	/**
 	*	\brief Destroys the given window
@@ -65,7 +67,7 @@ public:
 	*	\param[in] width The width of the viewport
 	*	\param[in] height The height of the viewport
 	*/
-	void setViewport(const unsigned int width, const unsigned int height);
+	void setViewport(const uint32_t width, const uint32_t height);
 
 	/**
 	*	\brief Resets the viewport to the original window size
@@ -92,13 +94,13 @@ public:
 	*	\brief Get the width
 	*	\return The width of the window
 	*/
-	inline unsigned int getWidth() const { return _width; }
+	inline uint32_t getWidth() const { return _width; }
 
 	/**
 	*	\brief Get the height
 	*	\return The height of the window
 	*/
-	inline unsigned int getHeight() const { return _height; }
+	inline uint32_t getHeight() const { return _height; }
 
 	/**
 	*	\brief Get the aspect ratio
@@ -113,8 +115,8 @@ public:
 	inline double DELTA_TIME() const { return _deltaTime; }
 private:
 	GLFWwindow* _window;			/**<< The underlying GLFWwindow*/
-	unsigned int _width = 0.0f;		/**<< The width*/
-	unsigned int _height = 0.0f;	/**<< The height*/
+	uint32_t _width = 0.0f;		/**<< The width*/
+	uint32_t _height = 0.0f;	/**<< The height*/
 	float _aspect_ratio = 1.0f;		/**<< The apsect ratio*/
 	bool _isOpen = false;			/**<< Wether the window is open*/
 	double _deltaTime = 0;			/**<< The delta time between two frames*/

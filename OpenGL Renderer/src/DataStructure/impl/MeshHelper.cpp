@@ -14,7 +14,7 @@ MeshHelper::cubeMesh(glm::vec4 color, const bool calcTangent)
 	glm::vec3 p7(x - 0.5, y + 0.5, z - 0.5);
 	glm::vec3 p8(x + 0.5, y + 0.5, z - 0.5);
 
-	unsigned int v1, v2, v3, v4, v5, v6, v7, v8;
+	uint32_t v1, v2, v3, v4, v5, v6, v7, v8;
 
 	glm::vec3 tex = glm::vec3(0, 0, 0);
 	glm::vec3 right(1.0f, 0, 0);
@@ -85,7 +85,7 @@ MeshHelper::cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ, cons
 	glm::vec3 p7(x - lenX/2.0, y + lenY/2.0, z - lenZ/2.0);
 	glm::vec3 p8(x + lenX/2.0, y + lenY/2.0, z - lenZ/2.0);
 
-	unsigned int v1, v2, v3, v4, v5, v6, v7, v8;
+	uint32_t v1, v2, v3, v4, v5, v6, v7, v8;
 
 	glm::vec3 tex = glm::vec3(0, 0, 0);
 	glm::vec3 right(1.0f, 0, 0);
@@ -148,7 +148,7 @@ MeshHelper::quadMesh(float size, const bool calcTangent)
 	const float halfSize = size / 2;
 	Mesh quad = Mesh::createObject();
 
-	unsigned int id1, id2, id3, id4;
+	uint32_t id1, id2, id3, id4;
 
 	id1 = quad.addVertex(glm::vec3(-halfSize, -halfSize, 0), glm::vec4(1), glm::vec3(0, 0, 0), glm::vec3(0, 0, 1));
 	id2 = quad.addVertex(glm::vec3(halfSize, -halfSize, 0), glm::vec4(1), glm::vec3(1, 0, 0), glm::vec3(0, 0, 1));

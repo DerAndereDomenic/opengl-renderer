@@ -17,7 +17,7 @@ Particle::Particle(glm::vec3 position, float time_alive)
 }
 
 ParticleRenderer 
-ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_particles, float time_alive, Texture texture)
+ParticleRenderer::createObject(glm::vec3 position, const uint32_t num_particles, float time_alive, Texture texture)
 {
 	ParticleRenderer result;
 
@@ -27,7 +27,7 @@ ParticleRenderer::createObject(glm::vec3 position, const unsigned int num_partic
 
 	result._attributes = new float[4 * num_particles];
 	std::srand(std::time(nullptr));
-	for (unsigned int i = 0; i < num_particles; ++i)
+	for (uint32_t i = 0; i < num_particles; ++i)
 	{
 		result._particles.push_back(Particle(position, time_alive));
 		result._attributes[4 * i] = position.x;
@@ -61,7 +61,7 @@ ParticleRenderer::destroyObject(ParticleRenderer& object)
 void 
 ParticleRenderer::update(float deltaTime)
 {
-	for (unsigned int i = 0; i < _particles.size(); ++i)
+	for (uint32_t i = 0; i < _particles.size(); ++i)
 	{
 		_particles[i].timeAlive -= deltaTime;
 		_particles[i].position += deltaTime * _particles[i].velocity;

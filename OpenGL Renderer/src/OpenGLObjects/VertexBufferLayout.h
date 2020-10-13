@@ -9,8 +9,8 @@
 */
 struct BufferElement
 {
-	unsigned int _type; /**<< The Type of the stored data*/
-	unsigned int _count; /**<< The count of types per Element*/
+	uint32_t _type; /**<< The Type of the stored data*/
+	uint32_t _count; /**<< The count of types per Element*/
 	unsigned char _normalized; /**<< If the value should be normalized*/
 
 	/**
@@ -19,7 +19,7 @@ struct BufferElement
 	*	\return The size of the type in bytes
 	*	\note: Supported for: GL_FLOAT, GL_UNSIGNED_INT, GL_UNSIGNED_BYTE, GL_INT
 	*/
-	static unsigned int getSizeOfType(unsigned int type)
+	static uint32_t getSizeOfType(uint32_t type)
 	{
 		switch (type)
 		{
@@ -48,17 +48,17 @@ public:
 	*	\tparam The type that should be added
 	*	\param[in] count The count of the values to be added
 	*	\param[in] normalized = GL_FALSE
-	*	\note: Only supported for: float, unsigned int, unsigned char, int
+	*	\note: Only supported for: float, uint32_t, unsigned char, int
 	*/
 	template<typename T>
-	void add(unsigned int count, unsigned char normalized = GL_FALSE)
+	void add(uint32_t count, unsigned char normalized = GL_FALSE)
 	{
 		static_assert(false);
 	}
 
 	template<>
 	void
-		add<float>(unsigned int count, unsigned char normalized)
+		add<float>(uint32_t count, unsigned char normalized)
 	{
 		_elements.push_back({ GL_FLOAT, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_FLOAT)*count;
@@ -66,7 +66,7 @@ public:
 
 	template<>
 	void
-		add<unsigned int>(unsigned int count, unsigned char normalized)
+		add<uint32_t>(uint32_t count, unsigned char normalized)
 	{
 		_elements.push_back({ GL_UNSIGNED_INT, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_UNSIGNED_INT)*count;
@@ -74,7 +74,7 @@ public:
 
 	template<>
 	void
-		add<unsigned char>(unsigned int count, unsigned char normalized)
+		add<unsigned char>(uint32_t count, unsigned char normalized)
 	{
 		_elements.push_back({ GL_UNSIGNED_BYTE, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_UNSIGNED_BYTE)*count;
@@ -82,7 +82,7 @@ public:
 
 	template<>
 	void
-		add<int>(unsigned int count, unsigned char normalized)
+		add<int>(uint32_t count, unsigned char normalized)
 	{
 		_elements.push_back({ GL_INT, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_INT)*count;
@@ -102,7 +102,7 @@ public:
 	*	\brief The size of a vertex in byte
 	*	\return The size of a vertex in byte
 	*/
-	inline unsigned int
+	inline uint32_t
 		getVertexSize() const
 	{
 		return _size_vertex;
@@ -110,6 +110,6 @@ public:
 
 private:
 	std::vector<BufferElement> _elements; /**<< The array with the different elements for a vertex*/
-	unsigned int _size_vertex = 0; /**<< The size of a vertex in byte*/
+	uint32_t _size_vertex = 0; /**<< The size of a vertex in byte*/
 };
 #endif

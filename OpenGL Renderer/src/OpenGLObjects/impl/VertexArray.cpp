@@ -42,14 +42,14 @@ VertexArray::render() const
 }
 
 void
-VertexArray::renderInstanced(unsigned int nr_vertices, unsigned int nr_instances) const
+VertexArray::renderInstanced(uint32_t nr_vertices, uint32_t nr_instances) const
 {
 	bind();
 	glDrawArraysInstanced(_geometry, 0, nr_vertices, nr_instances);
 }
 
 void
-VertexArray::setCount(unsigned int count)
+VertexArray::setCount(uint32_t count)
 {
 	_count = count;
 }
@@ -59,8 +59,8 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 {
 	vbo.bind();
 	bind();
-	unsigned int offset = 0;
-	for (unsigned int i = 0; i < layout.getElements().size(); ++i)
+	uint32_t offset = 0;
+	for (uint32_t i = 0; i < layout.getElements().size(); ++i)
 	{
 		BufferElement element = layout.getElements()[i];
 		glEnableVertexAttribArray(_attribCount);
@@ -75,7 +75,7 @@ void
 VertexArray::addInstanceBuffer(const VertexBuffer& vbo, const VertexBufferLayout& layout)
 {
 	addBuffer(vbo, layout);
-	for (unsigned int i = 0; i < layout.getElements().size(); ++i)
+	for (uint32_t i = 0; i < layout.getElements().size(); ++i)
 	{
 		glVertexAttribDivisor(_attribCount - 1 - i, 1);
 	}

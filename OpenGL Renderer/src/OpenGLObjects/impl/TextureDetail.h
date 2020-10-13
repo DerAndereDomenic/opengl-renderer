@@ -3,13 +3,13 @@
 
 template<typename T>
 Texture
-Texture::createObject(const unsigned int width,
-					  const unsigned int height,
+Texture::createObject(const uint32_t width,
+					  const uint32_t height,
 					  const T* data,
-					  const unsigned int target,
-					  const unsigned int internal_format,
-					  const unsigned int format,
-					  const unsigned int type)
+					  const uint32_t target,
+					  const uint32_t internal_format,
+					  const uint32_t format,
+					  const uint32_t type)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);
@@ -21,7 +21,7 @@ Texture::createObject(const unsigned int width,
 	}
 	else
 	{
-		for (unsigned int i = 0; i < 6; ++i)
+		for (uint32_t i = 0; i < 6; ++i)
 		{
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internal_format, width, height, 0, format, type, data);
 		}
@@ -39,13 +39,13 @@ Texture::createObject(const unsigned int width,
 
 template<typename T>
 Texture
-Texture::createObject(const unsigned int width,
-					  const unsigned int height,
-					  const unsigned int depth,
+Texture::createObject(const uint32_t width,
+					  const uint32_t height,
+					  const uint32_t depth,
 					  const T* data,
-					  const unsigned int internal_format,
-					  const unsigned int format,
-					  const unsigned int type)
+					  const uint32_t internal_format,
+					  const uint32_t format,
+					  const uint32_t type)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);

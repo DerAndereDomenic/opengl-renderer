@@ -14,7 +14,7 @@ struct Character
 	Texture texture;		/**<< The texture of the glyph*/
 	glm::ivec2 size;		/**<< Size of the glyph*/
 	glm::ivec2 bearing;		/**<< Offset from baseline to left/top of the glyph*/
-	unsigned int advance;	/**<< Offset to advance to next glyth*/
+	uint32_t advance;	/**<< Offset to advance to next glyth*/
 };
 
 class TextRenderer
@@ -32,7 +32,7 @@ class TextRenderer
 		*	\return The TextRenderer Object
 		*	\note At this point the FT library and all vertex buffers are initialized
 		*/
-		static TextRenderer createObject(unsigned int width, unsigned int height);
+		static TextRenderer createObject(uint32_t width, uint32_t height);
 
 		/**
 		*	\brief Destroys the TextRenderer
@@ -48,7 +48,7 @@ class TextRenderer
 		*	\param[in] font_size The size of the font
 		*	\note: This unloads the FT library components at the end
 		*/
-		void loadFont(const char* path, const unsigned int number_char, const unsigned int font_size);
+		void loadFont(const char* path, const uint32_t number_char, const uint32_t font_size);
 
 		/**
 		*	\brief Renders the text to the screen

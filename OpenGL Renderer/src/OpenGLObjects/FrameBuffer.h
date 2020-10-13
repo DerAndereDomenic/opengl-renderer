@@ -22,7 +22,7 @@ public:
 	*	\param[in] height The height of the buffer
 	*	\return The render buffer object
 	*/
-	static FrameBuffer createObject(unsigned int width, unsigned int height);
+	static FrameBuffer createObject(uint32_t width, uint32_t height);
 
 	/**
 	*	\brief Destroy the render buffer object
@@ -97,14 +97,14 @@ public:
 	*	\param[in] index The index of the color attachment
 	*	\return The Texture for the Color attachment
 	*/
-	inline Texture getTexture(const unsigned int index = 0) { return _render_textures[index]; }
+	inline Texture getTexture(const uint32_t index = 0) { return _render_textures[index]; }
 private:
-	unsigned int _ID; /**<< The internal OpenGL handle for the fbo*/
+	uint32_t _ID; /**<< The internal OpenGL handle for the fbo*/
 	std::vector<Texture> _render_textures; /**<< The Color textures of this fbo*/
 	RenderBuffer _depth_stencil; /**<< The depth and stencil buffer of this fbo*/
 
-	unsigned int _width; /**<< The width of the Framebuffer*/
-	unsigned int _height; /**<< The height of the Framebuffer*/
+	uint32_t _width; /**<< The width of the Framebuffer*/
+	uint32_t _height; /**<< The height of the Framebuffer*/
 };
 
 #endif

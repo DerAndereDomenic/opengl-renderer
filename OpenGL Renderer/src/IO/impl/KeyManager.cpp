@@ -22,7 +22,7 @@ KeyManager::destroy()
 }
 
 bool
-KeyManager::isKeyDown(unsigned int key)
+KeyManager::isKeyDown(uint32_t key)
 {
 	return glfwGetKey(_window.getWindow(), key) == GLFW_PRESS;
 }

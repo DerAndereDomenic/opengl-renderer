@@ -14,13 +14,13 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
 	const char* fShaderCode = fragment_buffer.c_str();
 
 	//Compiling
-	unsigned int vertex, fragment;
+	uint32_t vertex, fragment;
 	
 	vertex = result.compileShader(GL_VERTEX_SHADER, vShaderCode);
 	fragment = result.compileShader(GL_FRAGMENT_SHADER, fShaderCode);
 
 	//Linking
-	unsigned int shaders[] = { vertex,fragment };
+	uint32_t shaders[] = { vertex,fragment };
 	result.linkShader(shaders, 2);
 
 	glDeleteShader(vertex);
@@ -46,14 +46,14 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* geometryPath, const
 	const char* gShaderCode = geometry_buffer.c_str();
 
 	//Compiling
-	unsigned int vertex, geometry, fragment;
+	uint32_t vertex, geometry, fragment;
 
 	vertex = result.compileShader(GL_VERTEX_SHADER, vShaderCode);
 	geometry = result.compileShader(GL_GEOMETRY_SHADER, gShaderCode);
 	fragment = result.compileShader(GL_FRAGMENT_SHADER, fShaderCode);
 
 	//Linking
-	unsigned int shaders[] = { vertex, geometry, fragment };
+	uint32_t shaders[] = { vertex, geometry, fragment };
 	result.linkShader(shaders, 3);
 
 	glDeleteShader(vertex);
@@ -87,10 +87,10 @@ Shader::readShaderCode(const GLchar* path, std::string* code)
 	}
 }
 
-unsigned int 
+uint32_t 
 Shader::compileShader(GLenum shaderType, const char* shader_source)
 {
-	unsigned int shader;
+	uint32_t shader;
 	int success;
 
 	shader = glCreateShader(shaderType);
@@ -134,7 +134,7 @@ Shader::linkShader(const uint32_t* shaders, const uint32_t& num_shaders)
 	int success;
 
 	_ID = glCreateProgram();
-	for (unsigned int i = 0; i < num_shaders; ++i)
+	for (uint32_t i = 0; i < num_shaders; ++i)
 	{
 		glAttachShader(_ID, shaders[i]);
 	}

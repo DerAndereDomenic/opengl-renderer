@@ -59,7 +59,7 @@ public:
 	*	\param[in] nr_vertices The number of vertices of one primitive
 	*	\param[in] nr_instances The number of instances that should be rendered
 	*/
-	void renderInstanced(unsigned int nr_vertices, unsigned nr_instances) const;
+	void renderInstanced(uint32_t nr_vertices, unsigned nr_instances) const;
 
 	/**
 	*	\brief Add a Layout for the given Vertex Buffer object
@@ -85,13 +85,13 @@ public:
 	*	\brief Sets the number of elements in the underlying vertex buffer
 	*	\param[in] count The number of elements in the underlying VBO
 	*/
-	void setCount(unsigned int count);
+	void setCount(uint32_t count);
 private:
-	unsigned int _ID; /**<< The internal OpenGL handle for the Vertex Array*/
+	uint32_t _ID; /**<< The internal OpenGL handle for the Vertex Array*/
 	IndexBuffer _ibo; /**<< The Index buffer binded to this vao*/
-	unsigned int _count = 0; /**<< The number of elements in the underlying vbo*/
+	uint32_t _count = 0; /**<< The number of elements in the underlying vbo*/
 	bool _hasIBO = false; /**<< Checks if this vao has an index buffer*/
-	unsigned int _attribCount = 0; /**<< The number of activated attributes*/
+	uint32_t _attribCount = 0; /**<< The number of activated attributes*/
 	Geometry _geometry = GL_TRIANGLES; /**<< The geometry type that should be rendered*/
 };
 

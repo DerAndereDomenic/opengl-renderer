@@ -1,7 +1,7 @@
 #include <Renderer/RenderWindow.h>
 
 RenderWindow 
-RenderWindow::createObject(const unsigned int width, const unsigned int height, std::string title)
+RenderWindow::createObject(const uint32_t width, const uint32_t height, std::string title)
 {
 	RenderWindow result;
 
@@ -62,7 +62,7 @@ RenderWindow::close()
 }
 
 void
-RenderWindow::setViewport(const unsigned int width, const unsigned int height)
+RenderWindow::setViewport(const uint32_t width, const uint32_t height)
 {
 	glViewport(0, 0, width, height);
 }

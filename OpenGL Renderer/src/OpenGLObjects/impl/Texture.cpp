@@ -19,7 +19,7 @@ Texture::createObject(const char* file_path)
 
 	if (data)
 	{
-		unsigned int channels;
+		uint32_t channels;
 		if (nr_channels == 4)
 		{
 			channels = GL_RGBA;
@@ -60,13 +60,13 @@ Texture::createObject(const char* file_path, std::vector<std::string> faces)
 	glBindTexture(GL_TEXTURE_CUBE_MAP, result._ID);
 
 	int width, height, nr_channels;
-	for (unsigned int i = 0; i < faces.size(); ++i)
+	for (uint32_t i = 0; i < faces.size(); ++i)
 	{
 		std::string path = (file_path + faces[i]);
 		unsigned char* data = stbi_load(path.c_str(), &width, &height, &nr_channels, 0);
 		if (data)
 		{
-			unsigned int channels;
+			uint32_t channels;
 			if (nr_channels == 3)
 			{
 				channels = GL_RGB;
@@ -109,21 +109,21 @@ Texture::destroyObject(Texture& texture)
 }
 
 void 
-Texture::bind(const unsigned int tex) const
+Texture::bind(const uint32_t tex) const
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(_target, _ID);
 }
 
 void 
-Texture::unbind(const unsigned int tex) const
+Texture::unbind(const uint32_t tex) const
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void
-Texture::bindDefault(const unsigned int tex)
+Texture::bindDefault(const uint32_t tex)
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(GL_TEXTURE_2D, 0);

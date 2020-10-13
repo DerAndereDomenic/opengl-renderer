@@ -133,7 +133,7 @@ private:
 	*	\param[in] shader_source The source code of the shader
 	*	\return The handle of the shader 
 	*/
-	unsigned int compileShader(GLenum shaderType, const char* shader_source);
+	uint32_t compileShader(GLenum shaderType, const char* shader_source);
 
 	/**
 	*	\brief Links given shaders into a shader program
@@ -142,7 +142,7 @@ private:
 	*/
 	void linkShader(const uint32_t* shaders, const uint32_t& num_shaders);
 
-	unsigned int _ID; /**<< The internal OpenGL handle for the shader*/
+	uint32_t _ID; /**<< The internal OpenGL handle for the shader*/
 };
 
 #endif

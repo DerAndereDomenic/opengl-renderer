@@ -1,6 +1,8 @@
 #ifndef OPENGL_OBJECTS_RENDERBUFFER_H
 #define OPENGL_OBJECTS_RENDERBUFFER_H
 
+#include <cstdint>
+
 /**
 *	\brief A class to model a render buffer object
 */
@@ -18,7 +20,7 @@ public:
 	*	\param[in] height The height of the buffer
 	*	\return The object
 	*/
-	static RenderBuffer createObject(unsigned int width, unsigned int height);
+	static RenderBuffer createObject(uint32_t width, uint32_t height);
 
 	/**
 	*	\brief Destroy a render buffer object
@@ -46,9 +48,9 @@ public:
 	*	\brief The opengl handle of the rbo
 	*	\return The frame buffer ID
 	*/
-	inline unsigned int getID() { return _ID; }
+	inline uint32_t getID() { return _ID; }
 private:
-	unsigned int _ID; /**<< The internal OpenGL handle of the rbo*/
+	uint32_t _ID; /**<< The internal OpenGL handle of the rbo*/
 };
 
 #endif

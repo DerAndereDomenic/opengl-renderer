@@ -46,7 +46,7 @@ Mesh::render()
 	_vao.render();
 }
 
-unsigned int 
+uint32_t 
 Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec3 texture, glm::vec3 normal)
 {
 	_vertices.push_back(position.x);
@@ -74,7 +74,7 @@ Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec3 texture, glm::vec
 }
 
 void 
-Mesh::addTriangle(const unsigned int vertex1, const unsigned int vertex2, const unsigned int vertex3)
+Mesh::addTriangle(const uint32_t vertex1, const uint32_t vertex2, const uint32_t vertex3)
 {
 	if (_calcTangent)
 	{
@@ -86,18 +86,18 @@ Mesh::addTriangle(const unsigned int vertex1, const unsigned int vertex2, const 
 }
 
 void 
-Mesh::calculateTangent(const unsigned int index1, const unsigned int index2, unsigned int index3)
+Mesh::calculateTangent(const uint32_t index1, const uint32_t index2, uint32_t index3)
 {
 	//Get data for the vertices
 	float vertex1[VERTEX_SIZE];
 	float vertex2[VERTEX_SIZE];
 	float vertex3[VERTEX_SIZE];
 
-	unsigned int id1 = VERTEX_SIZE * index1;
-	unsigned int id2 = VERTEX_SIZE * index2;
-	unsigned int id3 = VERTEX_SIZE * index3;
+	uint32_t id1 = VERTEX_SIZE * index1;
+	uint32_t id2 = VERTEX_SIZE * index2;
+	uint32_t id3 = VERTEX_SIZE * index3;
 
-	for (unsigned int i = 0; i < VERTEX_SIZE; ++i)
+	for (uint32_t i = 0; i < VERTEX_SIZE; ++i)
 	{
 		vertex1[i] = _vertices[id1 + i];
 		vertex2[i] = _vertices[id2 + i];
@@ -128,7 +128,7 @@ Mesh::calculateTangent(const unsigned int index1, const unsigned int index2, uns
 	tangent = glm::normalize(tangent);
 
 	//Write tangent into buffer
-	for (unsigned int i = 0; i < 3; ++i)
+	for (uint32_t i = 0; i < 3; ++i)
 	{
 		//Start of current vertex + position of tangent + current position in vector
 		_vertices[id1 + 13 + i] = tangent[i];

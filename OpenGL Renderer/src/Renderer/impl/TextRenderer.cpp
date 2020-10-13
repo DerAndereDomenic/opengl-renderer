@@ -4,7 +4,7 @@
 #include <Shader/ShaderManager.h>
 
 TextRenderer 
-TextRenderer::createObject(unsigned int width, unsigned int height)
+TextRenderer::createObject(uint32_t width, uint32_t height)
 {
 	TextRenderer result;
 
@@ -33,7 +33,7 @@ TextRenderer::destroyObject(TextRenderer& object)
 {
 	if (object._loaded)
 	{
-		for (unsigned int i = 0; i < object._characters.size(); ++i)
+		for (uint32_t i = 0; i < object._characters.size(); ++i)
 		{
 			Character character = object._characters[i];
 			Texture::destroyObject(character.texture);
@@ -89,7 +89,7 @@ TextRenderer::render(std::string text, float x, float y, float scale, glm::vec3 
 }
 
 void 
-TextRenderer::loadFont(const char* path, const unsigned int number_char, const unsigned int font_size)
+TextRenderer::loadFont(const char* path, const uint32_t number_char, const uint32_t font_size)
 {
 	if (FT_New_Face(_ft, path, 0, &_face))
 	{

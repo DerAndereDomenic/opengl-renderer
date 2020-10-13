@@ -16,10 +16,10 @@ PerlinGenerator::createObject()
 	std::mt19937 e2(rd());
 	std::uniform_real_distribution<float> dist(0.0f, 2.0f*M_PI);
 	rng._gradients = new glm::vec2*[rng.GRIDX];
-	for (unsigned int x = 0; x < rng.GRIDX; ++x)
+	for (uint32_t x = 0; x < rng.GRIDX; ++x)
 	{
 		rng._gradients[x] = new glm::vec2[rng.GRIDY];
-		for (unsigned int y = 0; y < rng.GRIDY; ++y)
+		for (uint32_t y = 0; y < rng.GRIDY; ++y)
 		{
 			float angle = dist(e2);
 			float rx = cosf(angle);
@@ -33,7 +33,7 @@ PerlinGenerator::createObject()
 void 
 PerlinGenerator::destroyObject(PerlinGenerator& object)
 {
-	for (unsigned int x = 0; x < object.GRIDX; ++x) {
+	for (uint32_t x = 0; x < object.GRIDX; ++x) {
 		delete[] object._gradients[x];
 	}
 	delete[] object._gradients;

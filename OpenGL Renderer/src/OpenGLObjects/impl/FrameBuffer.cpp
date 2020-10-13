@@ -3,7 +3,7 @@
 #include <iostream>
 
 FrameBuffer 
-FrameBuffer::createObject(unsigned int width, unsigned int height)
+FrameBuffer::createObject(uint32_t width, uint32_t height)
 {
 	FrameBuffer result;
 	result._width = width;
@@ -22,7 +22,7 @@ FrameBuffer::destroyObject(FrameBuffer& object)
 	object._width = 0;
 	object._height = 0;
 	glDeleteFramebuffers(1, &object._ID);
-	for (unsigned int i = 0; i < object._render_textures.size(); ++i) 
+	for (uint32_t i = 0; i < object._render_textures.size(); ++i) 
 	{
 		Texture::destroyObject(object._render_textures[i]);
 	}
@@ -84,7 +84,7 @@ bool
 FrameBuffer::verify()
 {
 	bind();
-	unsigned int error = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	uint32_t error = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if (error != GL_FRAMEBUFFER_COMPLETE)
 	{
 		std::cerr << "ERROR::FRAMEBUFFER:: Framebuffer is not complete: " << error << std::endl;

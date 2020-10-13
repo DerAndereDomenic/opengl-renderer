@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 
 IndexBuffer 
-IndexBuffer::createObject(const unsigned int* data, const unsigned int count)
+IndexBuffer::createObject(const uint32_t* data, const uint32_t count)
 {
 	IndexBuffer result;
 
@@ -10,7 +10,7 @@ IndexBuffer::createObject(const unsigned int* data, const unsigned int count)
 
 	glGenBuffers(1, &result._ID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result._ID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*count, data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t)*count, data, GL_STATIC_DRAW);
 
 	return result;
 }

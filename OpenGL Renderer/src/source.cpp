@@ -29,11 +29,11 @@ int main(void)
 	std::cout << "OpenGL Renderer Version: " << OpenGLRenderer_VERSION_MAJOR << "." << OpenGLRenderer_VERSION_MINOR << std::endl;
 
 
-	unsigned int width = 1280;
-	unsigned int height = 720;
+	uint32_t width = 1280;
+	uint32_t height = 720;
 
-	unsigned int shadow_width = 2000;
-	unsigned int shadow_height = 2000;
+	uint32_t shadow_width = 2000;
+	uint32_t shadow_height = 2000;
 
 	float near = 0.1f;
 	float far = 500.0f;
@@ -256,7 +256,7 @@ int main(void)
 	int res = 512;
 	float halfres = static_cast<float>(res) / 2.0f;
 	float* vol_data = new float[res * res * res];
-	for (unsigned int i = 0; i < res * res * res; ++i)
+	for (uint32_t i = 0; i < res * res * res; ++i)
 	{
 		int x = i % res - res/2;
 		int y = (i / res)% res - res/2;
@@ -275,7 +275,7 @@ int main(void)
 
 	delete[] vol_data;
 
-	unsigned int frameID = 0;
+	uint32_t frameID = 0;
 
 	double currentTime;
 

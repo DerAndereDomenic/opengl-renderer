@@ -28,7 +28,7 @@ public:
 	*	\param[in] key The key to be checked
 	*	\return True if the key is pressed, false otherwise
 	*/
-	bool isKeyDown(unsigned int key);
+	bool isKeyDown(uint32_t key);
 
 	/**
 	*	\brief Check if the left mouse button is pressed

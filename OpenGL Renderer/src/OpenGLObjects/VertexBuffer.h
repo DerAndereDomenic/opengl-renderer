@@ -2,6 +2,7 @@
 #define OPENGL_OBJECTS_VERTEX_BUFFER_H
 
 #include <GL/glew.h>
+#include <cstdint>
 
 /**
 *	\brief Class to model a Vertex Buffer
@@ -19,7 +20,7 @@ public:
 	*	\param[in] data The Vertices Data
 	*	\param[in] count The count of elements in the array
 	*/
-	static VertexBuffer createObject(const float* data, const unsigned int count, GLenum usage = GL_STATIC_DRAW);
+	static VertexBuffer createObject(const float* data, const uint32_t count, GLenum usage = GL_STATIC_DRAW);
 
 	/**
 	*	\brief Destroys the Vertex Buffer object
@@ -49,16 +50,16 @@ public:
 	*	\param[in] count The count of new elements
 	*	\param[in] offset The data offset inside the vbo (default = 0)
 	*/
-	void changeData(const float* data, const unsigned int count, const unsigned int offset = 0);
+	void changeData(const float* data, const uint32_t count, const uint32_t offset = 0);
 
 	/**
 	*	\brief Returns the count (number of elements) in the vbo
 	*/
-	inline unsigned int getCount() const { return _count; }
+	inline uint32_t getCount() const { return _count; }
 private:
-	unsigned int _ID; /**<< The OpenGL identifier for the Vertex Buffer*/
-	unsigned int _size; /**<< The Size of the Buffer in Bytes*/
-	unsigned int _count; /**<< The number of elements in the vbo*/
+	uint32_t _ID; /**<< The OpenGL identifier for the Vertex Buffer*/
+	uint32_t _size; /**<< The Size of the Buffer in Bytes*/
+	uint32_t _count; /**<< The number of elements in the vbo*/
 };
 
 
