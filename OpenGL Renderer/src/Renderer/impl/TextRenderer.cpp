@@ -100,7 +100,7 @@ TextRenderer::loadFont(const char* path, const uint32_t& number_char, const uint
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); //disable byte-alignment restriction;
 
-	for (unsigned char c = 0; c < number_char; ++c)
+	for (uint8_t c = 0; c < number_char; ++c)
 	{
 		//Load character glyph
 		if (FT_Load_Char(_face, c, FT_LOAD_RENDER))

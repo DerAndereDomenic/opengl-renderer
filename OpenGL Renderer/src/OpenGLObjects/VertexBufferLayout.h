@@ -11,7 +11,7 @@ struct BufferElement
 {
 	uint32_t _type; /**<< The Type of the stored data*/
 	uint32_t _count; /**<< The count of types per Element*/
-	unsigned char _normalized; /**<< If the value should be normalized*/
+	uint8_t _normalized; /**<< If the value should be normalized*/
 
 	/**
 	*	\brief Size of the given input type in bytes
@@ -48,17 +48,17 @@ public:
 	*	\tparam The type that should be added
 	*	\param[in] count The count of the values to be added
 	*	\param[in] normalized = GL_FALSE
-	*	\note: Only supported for: float, uint32_t, unsigned char, int
+	*	\note: Only supported for: float, uint32_t, uint8_t, int
 	*/
 	template<typename T>
-	void add(const uint32_t& count, const unsigned char& normalized = GL_FALSE)
+	void add(const uint32_t& count, const uint8_t& normalized = GL_FALSE)
 	{
 		static_assert(false);
 	}
 
 	template<>
 	void
-		add<float>(const uint32_t& count, const unsigned char& normalized)
+		add<float>(const uint32_t& count, const uint8_t& normalized)
 	{
 		_elements.push_back({ GL_FLOAT, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_FLOAT)*count;
@@ -66,7 +66,7 @@ public:
 
 	template<>
 	void
-		add<uint32_t>(const uint32_t& count, const unsigned char& normalized)
+		add<uint32_t>(const uint32_t& count, const uint8_t& normalized)
 	{
 		_elements.push_back({ GL_UNSIGNED_INT, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_UNSIGNED_INT)*count;
@@ -74,7 +74,7 @@ public:
 
 	template<>
 	void
-		add<unsigned char>(const uint32_t& count, const unsigned char& normalized)
+		add<uint8_t>(const uint32_t& count, const uint8_t& normalized)
 	{
 		_elements.push_back({ GL_UNSIGNED_BYTE, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_UNSIGNED_BYTE)*count;
@@ -82,7 +82,7 @@ public:
 
 	template<>
 	void
-		add<int>(const uint32_t& count, const unsigned char& normalized)
+		add<int>(const uint32_t& count, const uint8_t& normalized)
 	{
 		_elements.push_back({ GL_INT, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_INT)*count;

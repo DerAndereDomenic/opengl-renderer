@@ -15,7 +15,7 @@ Texture::createObject(const char* file_path)
 	int height;
 	int nr_channels;
 
-	unsigned char* data = stbi_load(file_path, &width, &height, &nr_channels, 0);
+	uint8_t* data = stbi_load(file_path, &width, &height, &nr_channels, 0);
 
 	if (data)
 	{
@@ -63,7 +63,7 @@ Texture::createObject(const char* file_path, const std::vector<std::string>& fac
 	for (uint32_t i = 0; i < faces.size(); ++i)
 	{
 		std::string path = (file_path + faces[i]);
-		unsigned char* data = stbi_load(path.c_str(), &width, &height, &nr_channels, 0);
+		uint8_t* data = stbi_load(path.c_str(), &width, &height, &nr_channels, 0);
 		if (data)
 		{
 			uint32_t channels;
