@@ -1,3 +1,5 @@
+#include <OpenGLRendererConfig.h>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -24,6 +26,9 @@
 
 int main(void)
 {
+	std::cout << "OpenGL Renderer Version: " << OpenGLRenderer_VERSION_MAJOR << "." << OpenGLRenderer_VERSION_MINOR << std::endl;
+
+
 	unsigned int width = 1280;
 	unsigned int height = 720;
 
