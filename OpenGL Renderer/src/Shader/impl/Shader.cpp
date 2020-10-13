@@ -129,7 +129,7 @@ Shader::compileShader(GLenum shaderType, const char* shader_source)
 }
 
 void 
-Shader::linkShader(unsigned int* shaders, unsigned int num_shaders)
+Shader::linkShader(const uint32_t* shaders, const uint32_t& num_shaders)
 {
 	int success;
 

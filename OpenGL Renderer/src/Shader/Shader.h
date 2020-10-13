@@ -140,7 +140,7 @@ private:
 	*	\param[in] shaders An array with the shader handles
 	*	\param[in] num_shaders The number of shaders to link
 	*/
-	void linkShader(unsigned int* shaders, unsigned int num_shaders);
+	void linkShader(const uint32_t* shaders, const uint32_t& num_shaders);
 
 	unsigned int _ID; /**<< The internal OpenGL handle for the shader*/
 };
