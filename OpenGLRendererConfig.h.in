@@ -2,6 +2,6 @@
 #define OPENGLRENDERER_CONFIG_H
 
 #define OpenGLRenderer_VERSION_MAJOR @OpenGLRenderer_VERSION_MAJOR@
-#define OpenGLRenderer_VERSION_MINOR @OpenGLRenderer_VERSION_MINOR
+#define OpenGLRenderer_VERSION_MINOR @OpenGLRenderer_VERSION_MINOR@
 
 #endif
