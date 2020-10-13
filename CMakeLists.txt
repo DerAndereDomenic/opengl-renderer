@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION "3.10")
 
-project(OpenGLRenderer LANGUAGES CXX)
+project(OpenGLRenderer LANGUAGES CXX VERSION 1.0)
 
 set(OPENGL_RENDERER_INCLUDE_DIR "OpenGL Renderer/src")
 set(ASSIMP_INCLUDE_DIR "Dependencies/assimp/include")
