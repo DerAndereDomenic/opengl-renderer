@@ -60,49 +60,49 @@ public:
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
 	*/
-	void setInt(const std::string& name, int value);
+	void setInt(const std::string& name, const int& value);
 
 	/**
 	*	\brief Set a uniform float
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
 	*/
-	void setFloat(const std::string& name, float value);
+	void setFloat(const std::string& name, const float& value);
 
 	/**
 	*	\brief Set a uniform bool
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
 	*/
-	void setBool(const std::string& name, bool value);
+	void setBool(const std::string& name, const bool& value);
 
 	/**
 	*	\brief Set a uniform Vector2
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
 	*/
-	void setVec2(const std::string& name, glm::vec2 value);
+	void setVec2(const std::string& name, const glm::vec2& value);
 
 	/**
 	*	\brief Set a uniform Vector3
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
 	*/
-	void setVec3(const std::string& name, glm::vec3 value);
+	void setVec3(const std::string& name, const glm::vec3& value);
 
 	/**
 	*	\brief Set a uniform Vector4
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
 	*/
-	void setVec4(const std::string& name, glm::vec4 value);
+	void setVec4(const std::string& name, const glm::vec4& value);
 
 	/**
 	*	\brief Set a uniform Matrix4x4
 	*	\param[in] name The name of the uniform variable at the shader
 	*	\param[in] value The value the variable should be initialized with
 	*/
-	void setMat4(const std::string& name, glm::mat4 value, bool transpose = GL_FALSE);
+	void setMat4(const std::string& name, const glm::mat4& value, const bool& transpose = GL_FALSE);
 
 	/**
 	*	\brief Set Model view and projection matrix
@@ -110,14 +110,14 @@ public:
 	*	\param[in] V The view matrix
 	*	\param[in] P The projection matrix
 	*/
-	void setMVP(glm::mat4 M = glm::mat4(1), glm::mat4 V = glm::mat4(1), glm::mat4 P = glm::mat4(1));
+	void setMVP(const glm::mat4& M = glm::mat4(1), const glm::mat4& V = glm::mat4(1), const glm::mat4& P = glm::mat4(1));
 
 	/**
 	*	\brief Set the light for the next draw call
 	*	\param[in] name The name of the light struct in the shader
 	*	\param[in] light The light for the next draw call
 	*/
-	void setLight(const std::string& name, Light light);
+	void setLight(const std::string& name, const Light& light);
 private:
 
 	/**

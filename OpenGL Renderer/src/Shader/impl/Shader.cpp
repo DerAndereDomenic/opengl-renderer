@@ -171,49 +171,49 @@ Shader::unbind()
 }
 
 void
-Shader::setInt(const std::string& name, int value)
+Shader::setInt(const std::string& name, const int& value)
 {
 	glUniform1i(glGetUniformLocation(_ID, name.c_str()), value);
 }
 
 void
-Shader::setFloat(const std::string& name, float value)
+Shader::setFloat(const std::string& name, const float& value)
 {
 	glUniform1f(glGetUniformLocation(_ID, name.c_str()), value);
 }
 
 void
-Shader::setBool(const std::string& name, bool value)
+Shader::setBool(const std::string& name, const bool& value)
 {
 	glUniform1i(glGetUniformLocation(_ID, name.c_str()), value);
 }
 
 void
-Shader::setVec2(const std::string& name, glm::vec2 value)
+Shader::setVec2(const std::string& name, const glm::vec2& value)
 {
 	glUniform2f(glGetUniformLocation(_ID, name.c_str()), value.x, value.y);
 }
 
 void
-Shader::setVec3(const std::string& name, glm::vec3 value)
+Shader::setVec3(const std::string& name, const glm::vec3& value)
 {
 	glUniform3f(glGetUniformLocation(_ID, name.c_str()), value.x, value.y, value.z);
 }
 
 void
-Shader::setVec4(const std::string& name, glm::vec4 value)
+Shader::setVec4(const std::string& name, const glm::vec4& value)
 {
 	glUniform4f(glGetUniformLocation(_ID, name.c_str()), value.x, value.y, value.z, value.w);
 }
 
 void
-Shader::setMat4(const std::string&name, glm::mat4 value, bool transpose)
+Shader::setMat4(const std::string&name, const glm::mat4& value, const bool& transpose)
 {
 	glUniformMatrix4fv(glGetUniformLocation(_ID, name.c_str()), 1, transpose, &value[0][0]);
 }
 
 void 
-Shader::setMVP(glm::mat4 M, glm::mat4 V, glm::mat4 P)
+Shader::setMVP(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
 {
 	setMat4("M", M);
 	setMat4("V", V);
@@ -221,7 +221,7 @@ Shader::setMVP(glm::mat4 M, glm::mat4 V, glm::mat4 P)
 }
 
 void
-Shader::setLight(const std::string& name, Light light)
+Shader::setLight(const std::string& name, const Light& light)
 {
 	setVec3(name + ".ambient", light.ambient);
 	setVec3(name + ".diffuse", light.diffuse);
