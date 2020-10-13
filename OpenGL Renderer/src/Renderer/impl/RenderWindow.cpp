@@ -1,7 +1,7 @@
 #include <Renderer/RenderWindow.h>
 
 RenderWindow 
-RenderWindow::createObject(const uint32_t width, const uint32_t height, std::string title)
+RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title)
 {
 	RenderWindow result;
 
@@ -62,7 +62,7 @@ RenderWindow::close()
 }
 
 void
-RenderWindow::setViewport(const uint32_t width, const uint32_t height)
+RenderWindow::setViewport(const uint32_t& width, const uint32_t& height)
 {
 	glViewport(0, 0, width, height);
 }
@@ -86,7 +86,7 @@ RenderWindow::disableDepthWriting()
 }
 
 void 
-RenderWindow::clear(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
+RenderWindow::clear(const GLclampf& r, const GLclampf& g, const GLclampf& b, const GLclampf& a)
 {
 	glClearColor(r, g, b, a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

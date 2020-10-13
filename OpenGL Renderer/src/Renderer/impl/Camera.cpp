@@ -4,7 +4,7 @@
 #include <IO/KeyManager.h>
 
 Camera
-Camera::createObject(RenderWindow window, float near, float far)
+Camera::createObject(const RenderWindow& window, const float& near, const float& far)
 {
 	Camera result;
 	result._window = window;
@@ -14,7 +14,7 @@ Camera::createObject(RenderWindow window, float near, float far)
 }
 
 Camera
-Camera::createObject(glm::vec3 position, float fov, float aspect_ratio, float near, float far)
+Camera::createObject(const glm::vec3& position, const float& fov, const float& aspect_ratio, const float& near, const float& far)
 {
 	Camera result;
 	result._cameraPos = position;
@@ -39,7 +39,7 @@ Camera::destroyObject(Camera& camera)
 }
 
 void
-Camera::processInput(float deltaTime)
+Camera::processInput(const float& deltaTime)
 {
 
 	double xpos, ypos;
@@ -65,7 +65,7 @@ Camera::processInput(float deltaTime)
 }
 
 void 
-Camera::updateDirection(float pitch, float yaw)
+Camera::updateDirection(const float& pitch, const float& yaw)
 {
 
 	_pitch = pitch;
@@ -81,7 +81,7 @@ Camera::updateDirection(float pitch, float yaw)
 }
 
 void
-Camera::processMouse(float xpos, float ypos)
+Camera::processMouse(const float& xpos, const float& ypos)
 {
 	if (_firstMouse)
 	{

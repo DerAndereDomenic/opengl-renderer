@@ -30,7 +30,7 @@ public:
 	*	\param[in] calcTangent If a tangent should be calculated and added to the vertices (default = false)
 	*	\return The mesh
 	*/
-	static Mesh createObject(const bool calcTangent = false);
+	static Mesh createObject(const bool& calcTangent = false);
 
 	/**
 	*	\brief Destroy the mesh
@@ -59,7 +59,7 @@ public:
 	*	\return The number of vertex in the buffer (count)
 	*	\note The return can be used for the ibo initialized with 'addTriangle'
 	*/
-	uint32_t addVertex(glm::vec3 position, glm::vec4 color, glm::vec3 texture, glm::vec3 normal);
+	uint32_t addVertex(const glm::vec3& position, const glm::vec4& color, const glm::vec3& texture, const glm::vec3& normal);
 
 	/**
 	*	\brief Add a triangle to the ibo
@@ -68,7 +68,7 @@ public:
 	*	\param[in] vertex3 Id of the third vertex
 	*	\note The ids are calculated by 'addVertex'
 	*/
-	void addTriangle(const uint32_t vertex1, const uint32_t vertex2, const uint32_t vertex3);
+	void addTriangle(const uint32_t& vertex1, const uint32_t& vertex2, const uint32_t& vertex3);
 private:
 
 	/**
@@ -77,7 +77,7 @@ private:
 	*	\param[in] index2 Id of the second vertex
 	*	\param[in] index3 Id of the third vertex
 	*/
-	void calculateTangent(const uint32_t index1, const uint32_t index2, uint32_t index3);
+	void calculateTangent(const uint32_t& index1, const uint32_t& index2, const uint32_t& index3);
 
 	std::vector<float> _vertices; /**<< A buffer to safe vertex information*/
 	std::vector<uint32_t> _indices; /**<< A buffer to safe index information*/

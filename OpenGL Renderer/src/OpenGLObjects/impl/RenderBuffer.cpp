@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 
 RenderBuffer 
-RenderBuffer::createObject(uint32_t width, uint32_t height)
+RenderBuffer::createObject(const uint32_t& width, const uint32_t& height)
 {
 	RenderBuffer result;
 

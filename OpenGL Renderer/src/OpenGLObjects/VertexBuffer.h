@@ -20,7 +20,7 @@ public:
 	*	\param[in] data The Vertices Data
 	*	\param[in] count The count of elements in the array
 	*/
-	static VertexBuffer createObject(const float* data, const uint32_t count, GLenum usage = GL_STATIC_DRAW);
+	static VertexBuffer createObject(const float* data, const uint32_t& count, const GLenum& usage = GL_STATIC_DRAW);
 
 	/**
 	*	\brief Destroys the Vertex Buffer object
@@ -50,7 +50,7 @@ public:
 	*	\param[in] count The count of new elements
 	*	\param[in] offset The data offset inside the vbo (default = 0)
 	*/
-	void changeData(const float* data, const uint32_t count, const uint32_t offset = 0);
+	void changeData(const float* data, const uint32_t& count, const uint32_t& offset = 0);
 
 	/**
 	*	\brief Returns the count (number of elements) in the vbo

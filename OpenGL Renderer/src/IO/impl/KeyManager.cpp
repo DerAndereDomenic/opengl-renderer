@@ -22,7 +22,7 @@ KeyManager::destroy()
 }
 
 bool
-KeyManager::isKeyDown(uint32_t key)
+KeyManager::isKeyDown(const uint32_t& key)
 {
 	return glfwGetKey(_window.getWindow(), key) == GLFW_PRESS;
 }
@@ -42,7 +42,7 @@ KeyManager::rightClicked()
 }
 
 void
-KeyManager::setup(RenderWindow window)
+KeyManager::setup(const RenderWindow& window)
 {
 	_window = window;
 }

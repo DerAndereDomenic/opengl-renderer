@@ -29,14 +29,14 @@ public:
 	*	\param[in] y The y-coordinate
 	*	\return The perlin random number
 	*/
-	float generate(const float x, const float y);
+	float generate(const float& x, const float& y);
 private:
 	glm::vec2 **_gradients; /**<< The gradient vector field*/
 
 	uint32_t GRIDX = 512; /**<< The x size of the grid*/
 	uint32_t GRIDY = 512; /**<< The y size of the grid*/
 
-	float dot(int ix, int iy, float x, float y);
+	float dot(const int& ix, const int& iy, const float& x, const float& y);
 };
 
 #endif

@@ -2,7 +2,7 @@
 #include <Math/PerlinNoise.h>
 
 Texture
-Terrain::createTerrain(uint32_t resx, uint32_t resz, uint32_t griddetail)
+Terrain::createTerrain(const uint32_t& resx, const uint32_t& resz, const uint32_t& griddetail)
 {
 	float* data = new float[resx * resz];
 	PerlinGenerator rng = PerlinGenerator::createObject();

@@ -53,7 +53,7 @@ Texture::createObject(const char* file_path)
 }
 
 Texture 
-Texture::createObject(const char* file_path, std::vector<std::string> faces)
+Texture::createObject(const char* file_path, const std::vector<std::string>& faces)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);
@@ -109,21 +109,21 @@ Texture::destroyObject(Texture& texture)
 }
 
 void 
-Texture::bind(const uint32_t tex) const
+Texture::bind(const uint32_t& tex) const
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(_target, _ID);
 }
 
 void 
-Texture::unbind(const uint32_t tex) const
+Texture::unbind(const uint32_t& tex) const
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void
-Texture::bindDefault(const uint32_t tex)
+Texture::bindDefault(const uint32_t& tex)
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
 	glBindTexture(GL_TEXTURE_2D, 0);

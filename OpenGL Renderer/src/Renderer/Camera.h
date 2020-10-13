@@ -22,7 +22,7 @@ public:
 	*	\param[in] far The far plane
 	*	\return The camera object
 	*/
-	static Camera createObject(RenderWindow window, float near, float far);
+	static Camera createObject(const RenderWindow& window, const float& near, const float& far);
 
 	/**
 	*	\brief Create a camera object
@@ -33,7 +33,7 @@ public:
 	*	\param[in] far The far plane
 	*	\return The camera object
 	*/
-	static Camera createObject(glm::vec3 position, float fov, float aspect_ratio, float near, float far);
+	static Camera createObject(const glm::vec3& position, const float& fov, const float& aspect_ratio, const float& near, const float& far);
 
 	/**
 	*	\brief Destroys the given camera
@@ -45,14 +45,14 @@ public:
 	*	\brief Processes the input of button presses and mouse movement
 	*	\param[in] deltaTime The time between two frames
 	*/
-	void processInput(float deltaTime);
+	void processInput(const float& deltaTime);
 
 	/**
 	*	\brief Change view direction based on pitch and yaw
 	*	\param[in] pitch The pitch angle
 	*	\param[in] yaw The yaw angle
 	*/
-	void updateDirection(float pitch, float yaw);
+	void updateDirection(const float& pitch, const float& yaw);
 
 	/**
 	*	\brief The Projection Matrix of the camera
@@ -76,14 +76,14 @@ public:
 	*	\brief The front facing vector of the camera
 	*	\return The front facing vector
 	*/
-	inline glm::vec3 getFront() { return _cameraFront; }
+	inline glm::vec3 getFront() const { return _cameraFront; }
 private:
 	/**
 	*	\brief Processes the mouse movement
 	*	\param[in] xpos The X Position of the mouse
 	*	\param[in] ypos The Y Position of the mouse
 	*/
-	void processMouse(float xpos, float ypos);
+	void processMouse(const float& xpos, const float& ypos);
 
 	bool _firstMouse = true; /**<< Check if the mouse is processed for the first time (special case)*/
 	float _lastX = 0.0f; /**<< Last X position of the mouse*/

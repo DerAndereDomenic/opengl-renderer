@@ -2,7 +2,7 @@
 #include <ctime>
 #include <Shader/ShaderManager.h>
 
-Particle::Particle(glm::vec3 position, float time_alive)
+Particle::Particle(const glm::vec3& position, const float& time_alive)
 	:position(position)
 {
 	float angle = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)*3.14159f*2.0f;
@@ -17,7 +17,7 @@ Particle::Particle(glm::vec3 position, float time_alive)
 }
 
 ParticleRenderer 
-ParticleRenderer::createObject(glm::vec3 position, const uint32_t num_particles, float time_alive, Texture texture)
+ParticleRenderer::createObject(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const Texture& texture)
 {
 	ParticleRenderer result;
 
@@ -59,7 +59,7 @@ ParticleRenderer::destroyObject(ParticleRenderer& object)
 }
 
 void 
-ParticleRenderer::update(float deltaTime)
+ParticleRenderer::update(const float& deltaTime)
 {
 	for (uint32_t i = 0; i < _particles.size(); ++i)
 	{
@@ -79,7 +79,7 @@ ParticleRenderer::update(float deltaTime)
 }
 
 void 
-ParticleRenderer::render(Camera& camera)
+ParticleRenderer::render(const Camera& camera)
 {
 	glDepthMask(GL_FALSE);
 	ShaderManager::instance()->getShader("Particle").bind();

@@ -21,14 +21,14 @@ public:
 	*	\brief Setup the KeyManager
 	*	\param[in] window The window the keys should be registered in
 	*/
-	void setup(RenderWindow window);
+	void setup(const RenderWindow& window);
 
 	/**
 	*	\brief Checks if a key is pressed
 	*	\param[in] key The key to be checked
 	*	\return True if the key is pressed, false otherwise
 	*/
-	bool isKeyDown(uint32_t key);
+	bool isKeyDown(const uint32_t& key);
 
 	/**
 	*	\brief Check if the left mouse button is pressed

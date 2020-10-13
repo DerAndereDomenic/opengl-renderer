@@ -19,7 +19,7 @@ struct Particle
 	*	\param[in] position The position of the particle in world space
 	*	\param[in] time_alive The maximum time the particle should stay alive
 	*/
-	Particle(glm::vec3 position, float time_alive);
+	Particle(const glm::vec3& position, const float& time_alive);
 };
 
 class ParticleRenderer
@@ -38,7 +38,7 @@ class ParticleRenderer
 		*	\param[in] texture The texture of an particle
 		*	\return The Particle emitter
 		*/
-		static ParticleRenderer createObject(glm::vec3 position, const uint32_t num_particles, float time_alive, Texture texture);
+		static ParticleRenderer createObject(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const Texture& texture);
 
 		/**
 		*	\brief Destroys the object
@@ -50,14 +50,14 @@ class ParticleRenderer
 		*	\brief Updates the particle system
 		*	\param[in] deltaTime The time between two frames
 		*/
-		void update(float deltaTime);
+		void update(const float& deltaTime);
 
 		/**
 		*	\brief Renders the particle system
 		*	\param[in] camera The camera that is observing the particle system
 		*	\note: This function disables depth writing for the draw call. The system should be rendered last in the scene
 		*/
-		void render(Camera& camera);
+		void render(const Camera& camera);
 	private:
 		Texture _texture;					/**<< The texture of a single particle*/
 		std::vector<Particle> _particles;	/**<< The particles managed by this system*/

@@ -3,13 +3,13 @@
 
 template<typename T>
 Texture
-Texture::createObject(const uint32_t width,
-					  const uint32_t height,
+Texture::createObject(const uint32_t& width,
+					  const uint32_t& height,
 					  const T* data,
-					  const uint32_t target,
-					  const uint32_t internal_format,
-					  const uint32_t format,
-					  const uint32_t type)
+					  const uint32_t& target,
+					  const uint32_t& internal_format,
+					  const uint32_t& format,
+					  const uint32_t& type)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);
@@ -39,13 +39,13 @@ Texture::createObject(const uint32_t width,
 
 template<typename T>
 Texture
-Texture::createObject(const uint32_t width,
-					  const uint32_t height,
-					  const uint32_t depth,
+Texture::createObject(const uint32_t& width,
+					  const uint32_t& height,
+					  const uint32_t& depth,
 					  const T* data,
-					  const uint32_t internal_format,
-					  const uint32_t format,
-					  const uint32_t type)
+					  const uint32_t& internal_format,
+					  const uint32_t& format,
+					  const uint32_t& type)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);

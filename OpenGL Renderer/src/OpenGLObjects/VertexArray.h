@@ -23,7 +23,7 @@ public:
 	*	\param[in] geometry The type of geometry that should be rendered (default = GL_TRIANGLES)
 	*	\return The Vertex Array Object
 	*/
-	static VertexArray createObject(Geometry geometry = GL_TRIANGLES);
+	static VertexArray createObject(const Geometry& geometry = GL_TRIANGLES);
 
 	/**
 	*	\brief Destroys a Vertex Array object
@@ -59,7 +59,7 @@ public:
 	*	\param[in] nr_vertices The number of vertices of one primitive
 	*	\param[in] nr_instances The number of instances that should be rendered
 	*/
-	void renderInstanced(uint32_t nr_vertices, unsigned nr_instances) const;
+	void renderInstanced(const uint32_t& nr_vertices, const uint32_t& nr_instances) const;
 
 	/**
 	*	\brief Add a Layout for the given Vertex Buffer object
@@ -85,7 +85,7 @@ public:
 	*	\brief Sets the number of elements in the underlying vertex buffer
 	*	\param[in] count The number of elements in the underlying VBO
 	*/
-	void setCount(uint32_t count);
+	void setCount(const uint32_t& count);
 private:
 	uint32_t _ID; /**<< The internal OpenGL handle for the Vertex Array*/
 	IndexBuffer _ibo; /**<< The Index buffer binded to this vao*/

@@ -1,7 +1,7 @@
 #include <OpenGLObjects/VertexBuffer.h>
 
 VertexBuffer 
-VertexBuffer::createObject(const float* data, const uint32_t count, GLenum usage)
+VertexBuffer::createObject(const float* data, const uint32_t& count, const GLenum& usage)
 {
 	VertexBuffer result;
 	glGenBuffers(1, &result._ID);
@@ -40,7 +40,7 @@ VertexBuffer::bindDefault()
 }
 
 void 
-VertexBuffer::changeData(const float* data, const uint32_t count, const uint32_t offset)
+VertexBuffer::changeData(const float* data, const uint32_t& count, const uint32_t& offset)
 {
 	bind();
 	glBufferSubData(GL_ARRAY_BUFFER, offset, count * sizeof(float), data);

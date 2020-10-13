@@ -32,7 +32,7 @@ class TextRenderer
 		*	\return The TextRenderer Object
 		*	\note At this point the FT library and all vertex buffers are initialized
 		*/
-		static TextRenderer createObject(uint32_t width, uint32_t height);
+		static TextRenderer createObject(const uint32_t& width, const uint32_t& height);
 
 		/**
 		*	\brief Destroys the TextRenderer
@@ -48,7 +48,7 @@ class TextRenderer
 		*	\param[in] font_size The size of the font
 		*	\note: This unloads the FT library components at the end
 		*/
-		void loadFont(const char* path, const uint32_t number_char, const uint32_t font_size);
+		void loadFont(const char* path, const uint32_t& number_char, const uint32_t& font_size);
 
 		/**
 		*	\brief Renders the text to the screen
@@ -58,7 +58,7 @@ class TextRenderer
 		*	\param[in] scale A scaling factor for the text
 		*	\param[in] color The color of the text
 		*/
-		void render(std::string text, float x, float y, float scale, glm::vec3 color);
+		void render(const std::string& text, float x, float y, const float& scale, const glm::vec3& color);
 	private:
 		FT_Library _ft;							/**<< The internal FreeType library object*/
 		FT_Face _face;							/**<< The internal FreeType face object*/

@@ -20,7 +20,7 @@ public:
 	*	\param[in] count The indice count
 	*	return The Index Buffer Object
 	*/
-	static IndexBuffer createObject(const uint32_t* data, const uint32_t count);
+	static IndexBuffer createObject(const uint32_t* data, const uint32_t& count);
 
 	/**
 	*	\brief Destroys the Index Buffer object

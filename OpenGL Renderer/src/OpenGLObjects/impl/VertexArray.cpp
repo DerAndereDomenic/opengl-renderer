@@ -1,7 +1,7 @@
 #include <OpenGLObjects/VertexArray.h>
 
 VertexArray 
-VertexArray::createObject(Geometry geometry)
+VertexArray::createObject(const Geometry& geometry)
 {
 	VertexArray result;
 	glGenVertexArrays(1, &result._ID);
@@ -42,14 +42,14 @@ VertexArray::render() const
 }
 
 void
-VertexArray::renderInstanced(uint32_t nr_vertices, uint32_t nr_instances) const
+VertexArray::renderInstanced(const uint32_t& nr_vertices, const uint32_t& nr_instances) const
 {
 	bind();
 	glDrawArraysInstanced(_geometry, 0, nr_vertices, nr_instances);
 }
 
 void
-VertexArray::setCount(uint32_t count)
+VertexArray::setCount(const uint32_t& count)
 {
 	_count = count;
 }

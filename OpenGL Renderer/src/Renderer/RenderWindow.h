@@ -29,7 +29,7 @@ public:
 	*	\param[in] title The title of the window
 	*	\return The given window
 	*/
-	static RenderWindow createObject(const uint32_t width, const uint32_t height, std::string title);
+	static RenderWindow createObject(const uint32_t& width, const uint32_t& height, const std::string& title);
 
 	/**
 	*	\brief Destroys the given window
@@ -49,7 +49,7 @@ public:
 	*	\param[in] b = 0.0f The blue channel
 	*	\param[in] a = 1.0f The alpha channel
 	*/
-	void clear(GLclampf r = 0.0f, GLclampf g = 0.0f, GLclampf b = 0.0f, GLclampf a = 1.0f);
+	void clear(const GLclampf& r = 0, const GLclampf& g = 0, const GLclampf& b = 0, const GLclampf& a = 1);
 
 	/**
 	*	\brief Swap buffers and polls GLFW events
@@ -67,7 +67,7 @@ public:
 	*	\param[in] width The width of the viewport
 	*	\param[in] height The height of the viewport
 	*/
-	void setViewport(const uint32_t width, const uint32_t height);
+	void setViewport(const uint32_t& width, const uint32_t& height);
 
 	/**
 	*	\brief Resets the viewport to the original window size

@@ -3,7 +3,7 @@
 #include <iostream>
 
 FrameBuffer 
-FrameBuffer::createObject(uint32_t width, uint32_t height)
+FrameBuffer::createObject(const uint32_t& width, const uint32_t& height)
 {
 	FrameBuffer result;
 	result._width = width;
@@ -40,7 +40,7 @@ FrameBuffer::attachColor()
 }
 
 void
-FrameBuffer::attachColor(Texture color_buffer)
+FrameBuffer::attachColor(const Texture& color_buffer)
 {
 	bind();
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, color_buffer.getID(), 0);
@@ -112,7 +112,7 @@ FrameBuffer::bindDefault()
 }
 
 void
-FrameBuffer::clear(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
+FrameBuffer::clear(const GLclampf& r, const GLclampf& g, const GLclampf& b, const GLclampf& a)
 {
 	glClearColor(r, g, b, a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

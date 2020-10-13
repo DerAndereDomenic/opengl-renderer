@@ -20,7 +20,7 @@ public:
 	*	\param[in] height The height of the buffer
 	*	\return The object
 	*/
-	static RenderBuffer createObject(uint32_t width, uint32_t height);
+	static RenderBuffer createObject(const uint32_t& width, const uint32_t& height);
 
 	/**
 	*	\brief Destroy a render buffer object
@@ -48,7 +48,7 @@ public:
 	*	\brief The opengl handle of the rbo
 	*	\return The frame buffer ID
 	*/
-	inline uint32_t getID() { return _ID; }
+	inline uint32_t getID() const { return _ID; }
 private:
 	uint32_t _ID; /**<< The internal OpenGL handle of the rbo*/
 };

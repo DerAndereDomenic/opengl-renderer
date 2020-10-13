@@ -1,7 +1,7 @@
 #include <DataStructure/Mesh.h>
 
 Mesh
-Mesh::createObject(const bool calcTangent)
+Mesh::createObject(const bool& calcTangent)
 {
 	Mesh result;
 
@@ -47,7 +47,7 @@ Mesh::render()
 }
 
 uint32_t 
-Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec3 texture, glm::vec3 normal)
+Mesh::addVertex(const glm::vec3& position, const glm::vec4& color, const glm::vec3& texture, const glm::vec3& normal)
 {
 	_vertices.push_back(position.x);
 	_vertices.push_back(position.y);
@@ -74,7 +74,7 @@ Mesh::addVertex(glm::vec3 position, glm::vec4 color, glm::vec3 texture, glm::vec
 }
 
 void 
-Mesh::addTriangle(const uint32_t vertex1, const uint32_t vertex2, const uint32_t vertex3)
+Mesh::addTriangle(const uint32_t& vertex1, const uint32_t& vertex2, const uint32_t& vertex3)
 {
 	if (_calcTangent)
 	{
@@ -86,7 +86,7 @@ Mesh::addTriangle(const uint32_t vertex1, const uint32_t vertex2, const uint32_t
 }
 
 void 
-Mesh::calculateTangent(const uint32_t index1, const uint32_t index2, uint32_t index3)
+Mesh::calculateTangent(const uint32_t& index1, const uint32_t& index2, const uint32_t& index3)
 {
 	//Get data for the vertices
 	float vertex1[VERTEX_SIZE];

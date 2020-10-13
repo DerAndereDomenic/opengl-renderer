@@ -40,7 +40,7 @@ PerlinGenerator::destroyObject(PerlinGenerator& object)
 }
 
 float
-PerlinGenerator::dot(int ix, int iy, float x, float y)
+PerlinGenerator::dot(const int& ix, const int& iy, const float& x, const float& y)
 {
 	float dx = x - static_cast<float>(ix);
 	float dy = y - static_cast<float>(iy);
@@ -49,7 +49,7 @@ PerlinGenerator::dot(int ix, int iy, float x, float y)
 }
 
 float 
-PerlinGenerator::generate(const float x, const float y)
+PerlinGenerator::generate(const float& x, const float& y)
 {
 	//Determine grid cell coordinates
 	int x0 = static_cast<int>(x);

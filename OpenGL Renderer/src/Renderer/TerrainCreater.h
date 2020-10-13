@@ -13,7 +13,7 @@ namespace Terrain
 	*	\return A texture containing the height values of the terrain
 	*/
 	Texture
-	createTerrain(uint32_t resx, uint32_t resz, uint32_t griddetail);
+	createTerrain(const uint32_t& resx, const uint32_t& resz, const uint32_t& griddetail);
 }
 
 #endif

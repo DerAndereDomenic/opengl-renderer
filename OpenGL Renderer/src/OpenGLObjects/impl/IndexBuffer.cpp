@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 
 IndexBuffer 
-IndexBuffer::createObject(const uint32_t* data, const uint32_t count)
+IndexBuffer::createObject(const uint32_t* data, const uint32_t& count)
 {
 	IndexBuffer result;
 

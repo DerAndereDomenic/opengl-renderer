@@ -22,7 +22,7 @@ public:
 	*	\param[in] height The height of the buffer
 	*	\return The render buffer object
 	*/
-	static FrameBuffer createObject(uint32_t width, uint32_t height);
+	static FrameBuffer createObject(const uint32_t& width, const uint32_t& height);
 
 	/**
 	*	\brief Destroy the render buffer object
@@ -39,7 +39,7 @@ public:
 	*	\brief Attaches a color texture to the Framebuffer
 	*	\param[in] color_buffer The texture that should be added
 	*/
-	void attachColor(Texture color_buffer);
+	void attachColor(const Texture& color_buffer);
 
 	/**
 	*	\brief Attaches a hdr texture (floating point texture) to the Framebuffer
@@ -90,14 +90,14 @@ public:
 	*	\param[in] b = 0.0f The blue channel
 	*	\param[in] a = 1.0f The alpha channel
 	*/
-	void clear(GLclampf r = 0, GLclampf g = 0, GLclampf b = 0, GLclampf a = 1);
+	void clear(const GLclampf& r = 0, const GLclampf& g = 0, const GLclampf& b = 0, const GLclampf& a = 1);
 
 	/**
 	*	\brief The color attachment of the fbo
 	*	\param[in] index The index of the color attachment
 	*	\return The Texture for the Color attachment
 	*/
-	inline Texture getTexture(const uint32_t index = 0) { return _render_textures[index]; }
+	inline Texture getTexture(const uint32_t& index = 0) { return _render_textures[index]; }
 private:
 	uint32_t _ID; /**<< The internal OpenGL handle for the fbo*/
 	std::vector<Texture> _render_textures; /**<< The Color textures of this fbo*/
