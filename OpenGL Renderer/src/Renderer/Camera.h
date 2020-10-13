@@ -58,19 +58,19 @@ public:
 	*	\brief The Projection Matrix of the camera
 	*	\return The Projection Matrix
 	*/
-	inline glm::mat4 getProjection() { return _projection; }
+	inline glm::mat4 getProjection() const { return _projection; }
 
 	/**
 	*	\brief The View Matrix of the camera
 	*	\return the View Matrix
 	*/
-	inline glm::mat4 getView() { return _view; }
+	inline glm::mat4 getView() const { return _view; }
 
 	/**
 	*	\brief The Position of the camera
 	*	\return The Position
 	*/
-	inline glm::vec3 getPosition() { return _cameraPos; }
+	inline glm::vec3 getPosition() const { return _cameraPos; }
 
 	/**
 	*	\brief The front facing vector of the camera
