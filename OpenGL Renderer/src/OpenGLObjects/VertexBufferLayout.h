@@ -51,7 +51,7 @@ public:
 	*	\note: Only supported for: float, uint32_t, uint8_t, int32_t
 	*/
 	void
-	add(const uint32_t& type, const uint32_t& count, const uint8_t& normalized)
+	add(const uint32_t& type, const uint32_t& count, const uint8_t& normalized = false)
 	{
 		_elements.push_back({ type, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(type)*count;
