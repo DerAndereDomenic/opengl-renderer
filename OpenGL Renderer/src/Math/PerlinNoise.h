@@ -31,10 +31,10 @@ public:
 	*/
 	float generate(const float& x, const float& y);
 private:
-	glm::vec2 **_gradients; /**<< The gradient vector field*/
+	glm::vec2 **_gradients = nullptr; /**<< The gradient vector field*/
 
-	uint32_t GRIDX = 512; /**<< The x size of the grid*/
-	uint32_t GRIDY = 512; /**<< The y size of the grid*/
+	uint32_t GRIDX = 512;			  /**<< The x size of the grid*/
+	uint32_t GRIDY = 512;			  /**<< The y size of the grid*/
 
 	float dot(const int& ix, const int& iy, const float& x, const float& y);
 };
