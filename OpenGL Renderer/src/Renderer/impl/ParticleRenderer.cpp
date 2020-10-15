@@ -38,8 +38,8 @@ ParticleRenderer::createObject(const glm::vec3& position, const uint32_t& num_pa
 
 	result._instanceArray = VertexBuffer::createObject(result._attributes, num_particles * 4, GL_DYNAMIC_DRAW);
 	VertexBufferLayout layout;
-	layout.add<float>(3);
-	layout.add<float>(1);
+	layout.add(GL_FLOAT, 3);
+	layout.add(GL_FLOAT, 1);
 	result._vao = VertexArray::createObject(GL_POINTS);
 	result._vao.addInstanceBuffer(result._instanceArray, layout);
 

@@ -14,8 +14,8 @@ TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
 	}
 
 	VertexBufferLayout layout;
-	layout.add<float>(2);
-	layout.add<float>(2);
+	layout.add(GL_FLOAT, 2);
+	layout.add(GL_FLOAT, 2);
 
 	result._vbo = VertexBuffer::createObject(NULL, 6 * 4);
 	result._vao = VertexArray::createObject();
