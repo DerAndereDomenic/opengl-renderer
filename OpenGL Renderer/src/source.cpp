@@ -363,15 +363,15 @@ int main(void)
 		quad.render();
 		
 		stream << "X: " << std::fixed << std::setprecision(2) << camera.getPosition().x;
-		textRenderer.render(stream.str(), width-100, height-16, 1, glm::vec3(1, 1, 1));
+		textRenderer.render(stream.str(), window.getWidth()-100, window.getHeight()-16, 1, glm::vec3(1, 1, 1));
 		stream.str("");
 
 		stream << "Y: " << std::fixed << std::setprecision(2) << camera.getPosition().y;
-		textRenderer.render(stream.str(), width - 100, height - 32, 1, glm::vec3(1, 1, 1));
+		textRenderer.render(stream.str(), window.getWidth() - 100, window.getHeight() - 32, 1, glm::vec3(1, 1, 1));
 		stream.str("");
 
 		stream << "Z: " << std::fixed << std::setprecision(2) << camera.getPosition().z;
-		textRenderer.render(stream.str(), width - 100, height - 48, 1, glm::vec3(1, 1, 1));
+		textRenderer.render(stream.str(), window.getWidth() - 100, window.getHeight() - 48, 1, glm::vec3(1, 1, 1));
 		stream.str("");
 
 		endFrame = glfwGetTime();
