@@ -106,7 +106,18 @@ RenderWindow::spinOnce()
 void 
 RenderWindow::updateCamera(Camera& camera)
 {
+	int32_t width_new;
+	int32_t height_new;
 
+	glfwGetWindowSize(_window, &width_new, &height_new);
+
+	if (&width_new != NULL && &height_new != NULL)
+	{
+		if (width_new != _width || height_new != _height)
+		{
+			printf("Resized\n");
+		}
+	}
 }
 
 bool 
