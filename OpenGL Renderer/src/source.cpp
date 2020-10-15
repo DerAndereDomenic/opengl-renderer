@@ -231,12 +231,12 @@ int main(void)
 	ShaderManager::instance()->addShader("Volume");
 	ShaderManager::instance()->addShader("DisplayNormal", true);
 
-	TextRenderer textRenderer = TextRenderer::createObject(width, height);
+	TextRenderer textRenderer = TextRenderer::createObject(window.getWidth(), window.getHeight());
 	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 128, 16);
 
 	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
 
-	FrameBuffer fbo = FrameBuffer::createObject(width, height);
+	FrameBuffer fbo = FrameBuffer::createObject(window.getWidth(), window.getHeight());
 	fbo.attachHDR();
 	fbo.attachRenderBuffer();
 	fbo.verify();
