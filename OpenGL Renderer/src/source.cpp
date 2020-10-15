@@ -168,7 +168,7 @@ int main(void)
 	mat_lamp.ambient = glm::vec3(10, 10, 10);
 	mat_lamp.diffuse = glm::vec3(1, 1, 1);
 	mat_lamp.specular = glm::vec3(1, 1, 1);
-	mat_lamp.shininess = 128.0f * 0.4;
+	mat_lamp.shininess = 128.0f * 0.4f;
 
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
 
@@ -253,7 +253,7 @@ int main(void)
 
 	Skybox sky = Skybox::createObject(skybox);
 
-	int32_t res = 512;
+	uint32_t res = 512;
 	float halfres = static_cast<float>(res) / 2.0f;
 	float* vol_data = new float[res * res * res];
 	for (uint32_t i = 0; i < res * res * res; ++i)

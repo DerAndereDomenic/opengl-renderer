@@ -115,8 +115,8 @@ public:
 	inline double DELTA_TIME() const { return _deltaTime; }
 private:
 	GLFWwindow* _window;			/**<< The underlying GLFWwindow*/
-	uint32_t _width = 0.0f;		/**<< The width*/
-	uint32_t _height = 0.0f;	/**<< The height*/
+	uint32_t _width = 0;			/**<< The width*/
+	uint32_t _height = 0;			/**<< The height*/
 	float _aspect_ratio = 1.0f;		/**<< The apsect ratio*/
 	bool _isOpen = false;			/**<< Wether the window is open*/
 	double _deltaTime = 0;			/**<< The delta time between two frames*/
