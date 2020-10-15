@@ -48,7 +48,7 @@ public:
 	*	\tparam The type that should be added
 	*	\param[in] count The count of the values to be added
 	*	\param[in] normalized = GL_FALSE
-	*	\note: Only supported for: float, uint32_t, uint8_t, int
+	*	\note: Only supported for: float, uint32_t, uint8_t, int32_t
 	*/
 	template<typename T>
 	void add(const uint32_t& count, const uint8_t& normalized = GL_FALSE)
@@ -82,7 +82,7 @@ public:
 
 	template<>
 	void
-		add<int>(const uint32_t& count, const uint8_t& normalized)
+		add<int32_t>(const uint32_t& count, const uint8_t& normalized)
 	{
 		_elements.push_back({ GL_INT, count, normalized });
 		_size_vertex += BufferElement::getSizeOfType(GL_INT)*count;
