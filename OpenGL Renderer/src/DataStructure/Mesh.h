@@ -1,5 +1,5 @@
-#ifndef DATASTRUCTURE_MESH_H
-#define DATASTRUCTURE_MESH_H
+#ifndef __OPENGLRENDERER_DATASTRUCTURE_MESH_H
+#define __OPENGLRENDERER_DATASTRUCTURE_MESH_H
 
 #include <Renderer/RenderWindow.h>
 #include <glm/glm.hpp>

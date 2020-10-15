@@ -1,5 +1,5 @@
-#ifndef DATA_STRUCTURE_MATERIAL_H
-#define DATA_STRUCTURE_MATERIAL_H
+#ifndef __OPENGLRENDERER_DATASTRUCTURE_MATERIAL_H
+#define __OPENGLRENDERER_DATASTRUCTURE_MATERIAL_H
 
 #include <glm/glm.hpp>
 #include "OpenGLObjects/Texture.h"

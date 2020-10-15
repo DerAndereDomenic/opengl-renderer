@@ -1,5 +1,5 @@
-#ifndef OPENGL_OBJECTS_VERTEX_ARRAY_H
-#define OPENGL_OBJECTS_VERTEX_ARRAY_H
+#ifndef __OPENGLRENDERER_OPENGL_OBJECTS_VERTEX_ARRAY_H
+#define __OPENGLRENDERER_OPENGL_OBJECTS_VERTEX_ARRAY_H
 
 #include <OpenGLObjects/VertexBuffer.h>
 #include <OpenGLObjects/VertexBufferLayout.h>

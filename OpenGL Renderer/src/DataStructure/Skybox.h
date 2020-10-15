@@ -1,5 +1,5 @@
-#ifndef DATASTRUCTURE_SKYBOX_H
-#define DATASTRUCTURE_SKYBOX_H
+#ifndef __OPENGLRENDERER_DATASTRUCTURE_SKYBOX_H
+#define __OPENGLRENDERER_DATASTRUCTURE_SKYBOX_H
 
 #include <DataStructure/Mesh.h>
 #include <OpenGLObjects/Texture.h>

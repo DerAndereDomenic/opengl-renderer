@@ -1,5 +1,5 @@
-#ifndef RENDERER_CAMERA_H
-#define RENDERER_CAMERA_H
+#ifndef __OPENGLRENDERER_RENDERER_CAMERA_H
+#define __OPENGLRENDERER_RENDERER_CAMERA_H
 
 #include <Renderer/RenderWindow.h>
 #include <glm/glm.hpp>

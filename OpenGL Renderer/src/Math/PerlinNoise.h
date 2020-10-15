@@ -1,5 +1,5 @@
-#ifndef MATH_PERLIN_NOISE
-#define MATH_PERLIN_NOISE
+#ifndef __OPENGLRENDERER_MATH_PERLIN_NOISE
+#define __OPENGLRENDERER_MATH_PERLIN_NOISE
 
 #include <glm/glm.hpp>
 

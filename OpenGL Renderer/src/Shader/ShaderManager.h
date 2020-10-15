@@ -1,5 +1,5 @@
-#ifndef SHADER_SHADERMANAGER_H
-#define SHADER_SHADERMANAGER_H
+#ifndef __OPENGLRENDERER_SHADER_SHADERMANAGER_H
+#define __OPENGLRENDERER_SHADER_SHADERMANAGER_H
 
 #include <Shader/Shader.h>
 #include <unordered_map>

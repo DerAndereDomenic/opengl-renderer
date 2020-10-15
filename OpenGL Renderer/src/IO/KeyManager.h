@@ -1,5 +1,5 @@
-#ifndef IO_KEY_MANAGER_H
-#define IO_KEY_MANAGER_H
+#ifndef __OPENGLRENDERER_IO_KEY_MANAGER_H
+#define __OPENGLRENDERER_IO_KEY_MANAGER_H
 
 #include <Renderer/RenderWindow.h>
 

@@ -1,5 +1,5 @@
-#ifndef RENDERER_TEXTRENDERER_H
-#define RENDERER_TEXTRENDERER_H
+#ifndef __OPENGLRENDERER_RENDERER_TEXTRENDERER_H
+#define __OPENGLRENDERER_RENDERER_TEXTRENDERER_H
 
 #include <OpenGLObjects/VertexArray.h>
 #include <OpenGLObjects/Texture.h>

@@ -1,5 +1,5 @@
-#ifndef DATA_STRUCTURE_LIGHT_H
-#define DATA_STRUCTURE_LIGHT_H
+#ifndef __OPENGLRENDERER_DATASTRUCTURE_LIGHT_H
+#define __OPENGLRENDERER_DATASTRUCTURE_LIGHT_H
 
 #include <glm/glm.hpp>
 #include <OpenGLObjects/FrameBuffer.h>

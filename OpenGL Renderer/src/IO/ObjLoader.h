@@ -1,5 +1,5 @@
-#ifndef IO_OBJLOADER_H
-#define IO_OBJLOADER_H
+#ifndef __OPENGLRENDERER_IO_OBJLOADER_H
+#define __OPENGLRENDERER_IO_OBJLOADER_H
 
 #include <DataStructure/Mesh.h>
 
