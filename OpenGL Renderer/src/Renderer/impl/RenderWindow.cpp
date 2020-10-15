@@ -1,4 +1,5 @@
 #include <Renderer/RenderWindow.h>
+#include <Renderer/Camera.h>
 
 RenderWindow 
 RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title)
@@ -100,6 +101,12 @@ RenderWindow::spinOnce()
 	double currentTime = glfwGetTime();
 	_deltaTime = currentTime - _lastTime;
 	_lastTime = currentTime;
+}
+
+void 
+RenderWindow::updateCamera(Camera& camera)
+{
+
 }
 
 bool 

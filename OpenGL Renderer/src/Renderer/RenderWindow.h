@@ -11,6 +11,8 @@
 
 #include <cstdint>
 
+class Camera;
+
 /**
 *	\brief A class to model a render window
 */
@@ -55,6 +57,12 @@ public:
 	*	\brief Swap buffers and polls GLFW events
 	*/
 	void spinOnce();
+
+	/**
+	*	\brief Updates the camera (projection matrix) if the window was resized
+	*	\param[in] camera The camera that should be updated
+	*/
+	void updateCamera(Camera& camera);
 
 	/**
 	*	\brief Checks if the window is open
