@@ -108,7 +108,7 @@ RenderWindow::updateSize()
 	int32_t width_new;
 	int32_t height_new;
 
-	glfwGetWindowSize(_window, &width_new, &height_new);
+	glfwGetFramebufferSize(_window, &width_new, &height_new);
 
 	if (&width_new != NULL && &height_new != NULL)
 	{
@@ -117,6 +117,8 @@ RenderWindow::updateSize()
 			_width = width_new;
 			_height = height_new;
 			_aspect_ratio = static_cast<float>(_width) / static_cast<float>(_height);
+
+			resetViewport();
 
 			return true;
 		}
