@@ -115,7 +115,9 @@ RenderWindow::updateCamera(Camera& camera)
 	{
 		if (width_new != _width || height_new != _height)
 		{
-			printf("Resized\n");
+			_width = width_new;
+			_height = height_new;
+			_aspect_ratio = static_cast<float>(_width) / static_cast<float>(_height);
 		}
 	}
 }
