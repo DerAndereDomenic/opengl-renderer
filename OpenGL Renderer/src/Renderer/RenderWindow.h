@@ -11,8 +11,6 @@
 
 #include <cstdint>
 
-class Camera;
-
 /**
 *	\brief A class to model a render window
 */
@@ -59,10 +57,9 @@ public:
 	void spinOnce();
 
 	/**
-	*	\brief Updates the camera (projection matrix) if the window was resized
-	*	\param[in] camera The camera that should be updated
+	*	\brief Updates the size of the window if resized
 	*/
-	void updateCamera(Camera& camera);
+	bool updateSize();
 
 	/**
 	*	\brief Checks if the window is open

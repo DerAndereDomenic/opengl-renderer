@@ -1,5 +1,4 @@
 #include <Renderer/RenderWindow.h>
-#include <Renderer/Camera.h>
 
 RenderWindow 
 RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title)
@@ -103,8 +102,8 @@ RenderWindow::spinOnce()
 	_lastTime = currentTime;
 }
 
-void 
-RenderWindow::updateCamera(Camera& camera)
+bool 
+RenderWindow::updateSize()
 {
 	int32_t width_new;
 	int32_t height_new;
@@ -118,8 +117,11 @@ RenderWindow::updateCamera(Camera& camera)
 			_width = width_new;
 			_height = height_new;
 			_aspect_ratio = static_cast<float>(_width) / static_cast<float>(_height);
+
+			return true;
 		}
 	}
+	return false;
 }
 
 bool 
