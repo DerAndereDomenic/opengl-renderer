@@ -69,6 +69,11 @@ Camera::processInput(const float& deltaTime)
 		_cameraPos += cameraSpeed * _cameraUp;
 	if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL))
 		_cameraPos -= cameraSpeed * _cameraUp;
+
+	if (_window.updateSize())
+	{
+		_projection = glm::perspective(glm::radians(90.0f), _window.getAspectRatio(), _near, _far);
+	}
 }
 
 void 

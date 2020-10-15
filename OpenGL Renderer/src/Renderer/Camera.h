@@ -42,7 +42,7 @@ public:
 	static void destroyObject(Camera& camera);
 
 	/**
-	*	\brief Processes the input of button presses and mouse movement
+	*	\brief Processes the input of button presses, mouse movement and window resize
 	*	\param[in] deltaTime The time between two frames
 	*/
 	void processInput(const float& deltaTime);
