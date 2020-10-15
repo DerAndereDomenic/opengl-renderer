@@ -381,6 +381,7 @@ int main(void)
 		stream.str("");
 
 		window.spinOnce();
+		window.updateCamera(camera);
 
 		++frameID;
 
