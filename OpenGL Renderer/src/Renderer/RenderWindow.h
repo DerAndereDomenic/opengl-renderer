@@ -58,6 +58,7 @@ public:
 
 	/**
 	*	\brief Updates the size of the window if resized
+	*	\return If the window was resized
 	*/
 	bool updateSize();
 
