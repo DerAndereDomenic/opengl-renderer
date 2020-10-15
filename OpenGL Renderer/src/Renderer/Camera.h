@@ -93,6 +93,9 @@ private:
 
 	float _sensitivity = 0.25f; /**<< The mouse sensitivity*/
 
+	float _near = 0.0f;			/**<< The near plane*/
+	float _far = 0.0f;			/**<< The far plane*/
+
 	RenderWindow _window = {}; /**<< The window the camera is operating at*/
 	glm::mat4 _view = glm::mat4(1); /**<< The view matrix*/
 	glm::mat4 _projection = glm::mat4(1); /**<< The projection matrix*/

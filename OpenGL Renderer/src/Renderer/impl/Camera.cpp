@@ -7,6 +7,8 @@ Camera
 Camera::createObject(const RenderWindow& window, const float& near, const float& far)
 {
 	Camera result;
+	result._near = near;
+	result._far = far;
 	result._window = window;
 	result._projection = glm::perspective(glm::radians(90.0f), window.getAspectRatio(), near, far);
 	result._view = glm::lookAt(result._cameraPos, result._cameraPos + result._cameraFront, result._cameraUp);
@@ -17,6 +19,8 @@ Camera
 Camera::createObject(const glm::vec3& position, const float& fov, const float& aspect_ratio, const float& near, const float& far)
 {
 	Camera result;
+	result._near = near;
+	result._far = far;
 	result._cameraPos = position;
 	result._cameraUp = -result._cameraUp;
 	result._projection = glm::perspective(glm::radians(fov), aspect_ratio, near, far);
@@ -36,6 +40,9 @@ Camera::destroyObject(Camera& camera)
 	camera._cameraPos = glm::vec3(8.0f, 66.0f, 8.0f); 
 	camera._cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); 
 	camera._cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); 
+
+	camera._near = 0.0f;
+	camera._far = 0.0f;
 }
 
 void
