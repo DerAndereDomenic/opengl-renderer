@@ -45,47 +45,16 @@ public:
 
 	/**
 	*	\brief Add Buffer Element to layout
-	*	\tparam The type that should be added
+	*	\param[in] type The element type
 	*	\param[in] count The count of the values to be added
 	*	\param[in] normalized = GL_FALSE
 	*	\note: Only supported for: float, uint32_t, uint8_t, int32_t
 	*/
-	template<typename T>
-	void add(const uint32_t& count, const uint8_t& normalized = GL_FALSE)
-	{
-		static_assert(false);
-	}
-
-	template<>
 	void
-		add<float>(const uint32_t& count, const uint8_t& normalized)
+	add(const uint32_t& type, const uint32_t& count, const uint8_t& normalized)
 	{
-		_elements.push_back({ GL_FLOAT, count, normalized });
-		_size_vertex += BufferElement::getSizeOfType(GL_FLOAT)*count;
-	}
-
-	template<>
-	void
-		add<uint32_t>(const uint32_t& count, const uint8_t& normalized)
-	{
-		_elements.push_back({ GL_UNSIGNED_INT, count, normalized });
-		_size_vertex += BufferElement::getSizeOfType(GL_UNSIGNED_INT)*count;
-	}
-
-	template<>
-	void
-		add<uint8_t>(const uint32_t& count, const uint8_t& normalized)
-	{
-		_elements.push_back({ GL_UNSIGNED_BYTE, count, normalized });
-		_size_vertex += BufferElement::getSizeOfType(GL_UNSIGNED_BYTE)*count;
-	}
-
-	template<>
-	void
-		add<int32_t>(const uint32_t& count, const uint8_t& normalized)
-	{
-		_elements.push_back({ GL_INT, count, normalized });
-		_size_vertex += BufferElement::getSizeOfType(GL_INT)*count;
+		_elements.push_back({ type, count, normalized });
+		_size_vertex += BufferElement::getSizeOfType(type)*count;
 	}
 
 	/**
