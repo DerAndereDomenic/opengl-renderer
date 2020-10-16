@@ -4,6 +4,7 @@
 #include <Shader/Shader.h>
 #include <unordered_map>
 #include <string>
+#include <OpenGLRendererConfig.h>
 
 class ShaderManager
 {
@@ -53,7 +54,7 @@ class ShaderManager
 
 		std::unordered_map<std::string, Shader> _shader;		/**<< The container holding the shaders*/
 
-		std::string SHADER_DIRECTORY = "src/Shader/GLShaders/"; /**<< The path to the shader files*/
+		std::string SHADER_DIRECTORY = SHADER_SOURCE_PATH; /**<< The path to the shader files*/
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include <DataStructure/Skybox.h>
 #include <DataStructure/MeshHelper.h>
+#include <OpenGLRendererConfig.h>
 
 Skybox 
 Skybox::createObject(Texture cubemap)
@@ -8,8 +9,8 @@ Skybox::createObject(Texture cubemap)
 	result._cubemap = cubemap;
 	result._cube = MeshHelper::cubeMesh(glm::vec4(1));
 	result._cube.create();
-	result._shader = Shader::createObject("src/Shader/GLShaders/Skybox.vert",
-		"src/Shader/GLShaders/Skybox.frag");
+	result._shader = Shader::createObject((SHADER_SOURCE_PATH + "Skybox.vert").c_str(),
+		(SHADER_SOURCE_PATH + "Skybox.frag").c_str());
 	result._shader.setInt("skybox", 0);
 	return result;
 }
