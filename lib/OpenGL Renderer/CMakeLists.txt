@@ -8,9 +8,6 @@ file(GLOB_RECURSE _source_list LIST_DIRECTORIES false "${OPENGL_RENDERER_RELATIV
 
 add_library(OpenGLRendererLib "${_source_list}")
 								 
-#configure_file(OpenGLRendererConfig.h.in OpenGLRendererConfig.h)
-#target_include_directories("${PROJECT_NAME}" PUBLIC "${PROJECT_BINARY_DIR}")
-								 
 
 
 #file(COPY ${ASSIMP_LIB_DIR}/assimp-vc142-mtd.dll DESTINATION Debug)

@@ -4,6 +4,8 @@ project(OpenGLRenderer LANGUAGES CXX VERSION 1.0)
 
 option(BUILD_TESTSCENE "Build the test scene for this renderer" ON)
 
+configure_file(OpenGLRendererConfig.h.in OpenGLRendererConfig.h)
+
 #==================================================================#
 #							LIBRARIES							   #
 #==================================================================#
@@ -28,7 +30,8 @@ include_directories(${OPENGL_RENDERER_INCLUDE_DIR}
 					${GLEW_INCLUDE_DIR}
 					${GLFW_INCLUDE_DIR}
 					${GLM_INCLUDE_DIR}
-					${STB_INCLUDE_DIR})
+					${STB_INCLUDE_DIR}
+					${PROJECT_BINARY_DIR})
 													
 link_directories(${ASSIMP_LIB_DIR}
 				 ${FREETYPE_LIB_DIR}
