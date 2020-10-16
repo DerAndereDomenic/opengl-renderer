@@ -19,7 +19,7 @@ set(OPENGL_RENDERER_INCLUDE_DIR "src")
 file(GLOB_RECURSE _source_list LIST_DIRECTORIES false "${OPENGL_RENDERER_INCLUDE_DIR}/*.c*"
 													  "${OPENGL_RENDERER_INCLUDE_DIR}/*.h*")
 
-add_library("${PROJECT_NAME}" "${_source_list}")
+add_library(OpenGLRendererLib "${_source_list}")
 								 
 #configure_file(OpenGLRendererConfig.h.in OpenGLRendererConfig.h)
 #target_include_directories("${PROJECT_NAME}" PUBLIC "${PROJECT_BINARY_DIR}")
