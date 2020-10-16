@@ -20,8 +20,8 @@ set(GLFW_INCLUDE_DIR "Dependencies/glfw/include")
 set(GLM_INCLUDE_DIR "Dependencies/glm")
 set(STB_INCLUDE_DIR "Dependencies/stb")
 
-set(ASSIMP_LIB_DIR "Dependencies/assimp/lib")
-set(FREETYPE_LIB_DIR "Dependencies/freetype/win64")
+set(ASSIMP_LIB_DIR "${CMAKE_SOURCE_DIR}/Dependencies/assimp/lib")
+set(FREETYPE_LIB_DIR "${CMAKE_SOURCE_DIR}/Dependencies/freetype/win64")
 set(GLEW_LIB_DIR "Dependencies/glew/lib/Release/x64")
 set(GLFW_LIB_DIR "Dependencies/glfw/lib-vc2019")
 
