@@ -6,6 +6,9 @@ option(BUILD_TESTSCENE "Build the test scene for this renderer" ON)
 
 configure_file(OpenGLRendererConfig.h.in OpenGLRendererConfig.h)
 
+set(OPENGL_RENDERER_RES_DIR "lib/OpenGL Renderer/res")
+set(OPENGL_RENDERER_SHADER_DIR "lib/OpenGL Renderer/src/Shader/GLShaders")
+
 #==================================================================#
 #							LIBRARIES							   #
 #==================================================================#
@@ -48,6 +51,13 @@ add_subdirectory(lib)
 #							EXECUTABLES							   #
 #==================================================================#
 add_subdirectory(src)
+
+#==================================================================#
+#							RUNTIME 							   #
+#==================================================================#
+
+file(COPY ${OPENGL_RENDERER_RES_DIR} DESTINATION /)
+file(COPY ${OPENGL_RENDERER_SHADER_DIR} DESTINATION src/Shader)
 
 
 
