@@ -61,8 +61,8 @@ add_subdirectory(src)
 #							RUNTIME 							   #
 #==================================================================#
 
-file(COPY ${OPENGL_RENDERER_RES_DIR} DESTINATION /)
-file(COPY ${OPENGL_RENDERER_SHADER_DIR} DESTINATION src/Shader)
+#file(COPY ${OPENGL_RENDERER_RES_DIR} DESTINATION /)
+#file(COPY ${OPENGL_RENDERER_SHADER_DIR} DESTINATION src/Shader)
 
 
 
