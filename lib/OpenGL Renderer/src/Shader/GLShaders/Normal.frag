@@ -22,6 +22,7 @@ struct Light
 	vec3 diffuse;
 	vec3 specular;
 	sampler2D shadow_map;
+	int cast_shadow;
 };
 
 uniform Light lights_frag[LIGHTS];
@@ -113,7 +114,7 @@ vec3 brdf_ggx(Light plight, vec3 lightDir, Material material, vec3 normal, int p
 
 	float vis = V_SmithJohnGGX(NdotL, NdotV, roughness);
 
-	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
+	float shadow = plight.cast_shadow == 1 ? shadowCalculation(frag_position_light_space[pass], plight.shadow_map) : 0;
 
 	return (1-shadow)*ndf*vis*fresnel_schlick(material.specular, LdotH);
 }
@@ -122,7 +123,7 @@ vec3 brdf_ggx(Light plight, vec3 lightDir, Material material, vec3 normal, int p
 
 vec3 brdf_lambert(Light plight, vec3 lightDir, Material material, vec3 normal, int pass)
 {
-	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
+	float shadow = plight.cast_shadow == 1 ? shadowCalculation(frag_position_light_space[pass], plight.shadow_map) : 0;
 
 	return (1-shadow)*material.diffuse/PI;
 }
@@ -133,7 +134,7 @@ vec3 brdf_phong(Light plight, vec3 lightDir, Material material, vec3 normal, int
 	vec3 viewDir = normalize(viewPos - frag_position);
 	vec3 halfwayDir = normalize(lightDir+viewDir);
 
-	float shadow = shadowCalculation(frag_position_light_space[pass], plight.shadow_map);
+	float shadow = plight.cast_shadow == 1 ? shadowCalculation(frag_position_light_space[pass], plight.shadow_map) : 0;
 
 	return (1-shadow)*(material.specular * pow(max(0,dot(halfwayDir,normal)), material.shininess));
 }
