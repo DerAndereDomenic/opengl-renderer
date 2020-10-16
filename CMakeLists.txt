@@ -4,6 +4,4 @@ project(OpenGLRenderer LANGUAGES CXX VERSION 1.0)
 
 option(BUILD_TESTSCENE "Build the test scene for this renderer" ON)
 
-if(BUILD_TESTSCENE)
-	add_subdirectory(src)
-endif()
+add_subdirectory(src)
