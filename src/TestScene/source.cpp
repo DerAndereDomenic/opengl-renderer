@@ -60,8 +60,9 @@ int main(void)
 	meshes.push_back(crate);
 
 	Material mat_crate = Material::createObject("materialmap");
-	mat_crate.texture_diffuse = Texture::createObject("res/crate_diffuse.png");
-	mat_crate.texture_specular = Texture::createObject("res/crate_specular.png");
+	std::stringstream ss;
+	mat_crate.texture_diffuse = Texture::createObject((RESOURCE_PATH + "crate_diffuse.png").c_str());
+	mat_crate.texture_specular = Texture::createObject((RESOURCE_PATH + "crate_specular.png").c_str());
 	mat_crate.useTextures = true;
 	mat_crate.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_crate);
@@ -70,13 +71,13 @@ int main(void)
 
 	names.push_back("Table");
 
-	Mesh table = ObjLoader::loadObj("res/table/simple-table.obj", true)[0];
+	Mesh table = ObjLoader::loadObj((RESOURCE_PATH + "table/simple-table.obj").c_str(), true)[0];
 	meshes.push_back(table);
 
 	Material mat_table = Material::createObject("materialmap");
-	mat_table.texture_diffuse = Texture::createObject("res/table/table_diffuse.png");
-	mat_table.texture_specular = Texture::createObject("res/table/table_specular.png");
-	mat_table.texture_normal = Texture::createObject("res/table/table_normal.png");
+	mat_table.texture_diffuse = Texture::createObject((RESOURCE_PATH + "table/table_diffuse.png").c_str());
+	mat_table.texture_specular = Texture::createObject((RESOURCE_PATH + "table/table_specular.png").c_str());
+	mat_table.texture_normal = Texture::createObject((RESOURCE_PATH + "table/table_normal.png").c_str());
 	mat_table.shininess = 128.0f * 0.4f;
 	mat_table.useTextures = true;
 	materials.push_back(mat_table);
@@ -89,9 +90,9 @@ int main(void)
 	meshes.push_back(wall);
 
 	Material mat_brick = Material::createObject("materialmap");
-	mat_brick.texture_diffuse = Texture::createObject("res/brickwall.png");
+	mat_brick.texture_diffuse = Texture::createObject((RESOURCE_PATH + "brickwall.png").c_str());
 	mat_brick.texture_specular = mat_brick.texture_diffuse;
-	mat_brick.texture_normal = Texture::createObject("res/brickwall_normal.png");
+	mat_brick.texture_normal = Texture::createObject((RESOURCE_PATH + "brickwall_normal.png").c_str());
 	mat_brick.useTextures = true;
 	mat_brick.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_brick);
@@ -104,9 +105,9 @@ int main(void)
 	meshes.push_back(mesh);
 
 	Material mat_fabric = Material::createObject("materialmap");
-	mat_fabric.texture_diffuse = Texture::createObject("res/fabric.png");
+	mat_fabric.texture_diffuse = Texture::createObject((RESOURCE_PATH + "fabric.png").c_str());
 	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
-	mat_fabric.texture_normal = Texture::createObject("res/fabric_normal.png");
+	mat_fabric.texture_normal = Texture::createObject((RESOURCE_PATH + "fabric_normal.png").c_str());
 	mat_fabric.useTextures = true;
 	mat_fabric.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_fabric);
@@ -115,7 +116,7 @@ int main(void)
 
 	names.push_back("suzanne");
 
-	Mesh suzanne = ObjLoader::loadObj("res/suzanne_blender.obj")[0];
+	Mesh suzanne = ObjLoader::loadObj((RESOURCE_PATH + "suzanne_blender.obj").c_str())[0];
 	meshes.push_back(suzanne);
 
 	Material mat_suzanne = Material::createObject("materialmap");
@@ -127,12 +128,12 @@ int main(void)
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 
-	Mesh sphere = ObjLoader::loadObj("res/sphere.obj")[0];
+	Mesh sphere = ObjLoader::loadObj((RESOURCE_PATH + "sphere.obj").c_str())[0];
 	sphere.create();
 
 	names.push_back("BRDF Sphere");
 
-	Mesh sphere_brdf = ObjLoader::loadObj("res/sphere.obj")[0];
+	Mesh sphere_brdf = ObjLoader::loadObj((RESOURCE_PATH + "sphere.obj").c_str())[0];
 	meshes.push_back(sphere_brdf);
 
 	Material mat_brdf = Material::createObject("materialmap", MaterialType::GGX);
@@ -146,7 +147,7 @@ int main(void)
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
 
 	names.push_back("terrain");
-	Mesh terrain_mesh = ObjLoader::loadObj("res/plane.obj")[0];
+	Mesh terrain_mesh = ObjLoader::loadObj((RESOURCE_PATH + "plane.obj").c_str())[0];
 
 	Material mat_terrain = Material::createObject("materialmap", MaterialType::PHONG);
 	mat_terrain.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
@@ -192,7 +193,7 @@ int main(void)
 	l4.diffuse = glm::vec3(500.0f);
 	l4.specular = glm::vec3(500.0f);
 
-	Texture particleTexture = Texture::createObject("res/smoke.png");
+	Texture particleTexture = Texture::createObject((RESOURCE_PATH + "smoke.png").c_str());
 
 	std::vector<std::string> faces =
 	{
@@ -204,7 +205,7 @@ int main(void)
 		"back.jpg"
 	};
 
-	Texture skybox = Texture::createObject("res/skybox/", faces);
+	Texture skybox = Texture::createObject((RESOURCE_PATH + "skybox/").c_str(), faces);
 
 	Mesh quad = MeshHelper::quadMesh(2.0f);
 
@@ -258,9 +259,9 @@ int main(void)
 	float* vol_data = new float[res * res * res];
 	for (uint32_t i = 0; i < res * res * res; ++i)
 	{
-		int32_t x = i % res - res/2;
-		int32_t y = (i / res)% res - res/2;
-		int32_t z = i / (res * res) - res/2;
+		int32_t x = i % res - 2;
+		int32_t y = (i / res)% res - 2;
+		int32_t z = i / (res * res) - 2;
 		float _x = 2.0f * static_cast<float>(x) / static_cast<float>(res);
 		float _y = 2.0f * static_cast<float>(y) / static_cast<float>(res);
 		float _z = 2.0f * static_cast<float>(z) / static_cast<float>(res);
