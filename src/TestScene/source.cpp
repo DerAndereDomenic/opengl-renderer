@@ -60,7 +60,6 @@ int main(void)
 	meshes.push_back(crate);
 
 	Material mat_crate = Material::createObject("materialmap");
-	std::stringstream ss;
 	mat_crate.texture_diffuse = Texture::createObject((RESOURCE_PATH + "crate_diffuse.png").c_str());
 	mat_crate.texture_specular = Texture::createObject((RESOURCE_PATH + "crate_specular.png").c_str());
 	mat_crate.useTextures = true;
