@@ -4,4 +4,12 @@ project(OpenGLRenderer LANGUAGES CXX VERSION 1.0)
 
 option(BUILD_TESTSCENE "Build the test scene for this renderer" ON)
 
+#==================================================================#
+#							LIBRARIES							   #
+#==================================================================#
+add_subdirectory(lib)
+
+#==================================================================#
+#							EXECUTABLES							   #
+#==================================================================#
 add_subdirectory(src)
