@@ -259,9 +259,9 @@ int main(void)
 	float* vol_data = new float[res * res * res];
 	for (uint32_t i = 0; i < res * res * res; ++i)
 	{
-		int32_t x = i % res - 2;
-		int32_t y = (i / res)% res - 2;
-		int32_t z = i / (res * res) - 2;
+		int32_t x = i % res - res/2;
+		int32_t y = (i / res)% res - res/2;
+		int32_t z = i / (res * res) - res/2;
 		float _x = 2.0f * static_cast<float>(x) / static_cast<float>(res);
 		float _y = 2.0f * static_cast<float>(y) / static_cast<float>(res);
 		float _z = 2.0f * static_cast<float>(z) / static_cast<float>(res);
