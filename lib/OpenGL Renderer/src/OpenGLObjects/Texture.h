@@ -114,12 +114,31 @@ public:
 	*	\return The integer handle that opengl uses for this texture
 	*/
 	inline uint32_t getID() const {return _ID;}
+
+	/**
+	*	\brief The width of the texture
+	*	\return The width 
+	*/
+	inline uint32_t getWidth() const {return _width;}
+
+	/**
+	*	\brief The height of the texture
+	*	\return The height 
+	*/
+	inline uint32_t getHeight() const {return _height;}
+
+	/**
+	*	\brief The depth of the texture
+	*	\return The depth 
+	*/
+	inline uint32_t getDepth() const {return _depth;}
+	}
 private:
 	uint32_t _ID = 0; 					/**<< The internal openGL handle for the texture*/
 	uint32_t _target = GL_TEXTURE_2D; 	/**<< The texture target*/
-	uint32_t width = 0;					/**<< The width of the texture*/
-	uint32_t height = 0;				/**<< The height of the texture*/
-	uint32_t depth = 0;					/**<< The depth of the texture*/
+	uint32_t _width = 0;				/**<< The width of the texture*/
+	uint32_t _height = 0;				/**<< The height of the texture*/
+	uint32_t _depth = 0;				/**<< The depth of the texture*/
 };
 
 #include "impl/TextureDetail.h"
