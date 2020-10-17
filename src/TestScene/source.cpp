@@ -232,7 +232,16 @@ int main(void)
 	ShaderManager::instance()->addShader("DisplayNormal", true);
 
 	TextRenderer textRenderer = TextRenderer::createObject(window.getWidth(), window.getHeight());
+
+#ifdef WIN32
+
 	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 128, 16);
+
+#elif defined(UNIX)
+
+	textRenderer.loadFont("/usr/share/fonts/truetype/hack/Hack-Regular.ttf", 128, 16);
+
+#endif
 
 	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
 
