@@ -1,12 +1,17 @@
-**OpenGL Renderer**
+OpenGL Renderer
+===============
+A basic Renderer wrapping OpenGL functions. Comes with different demos using the framework
 
-A basic Renderer wrapping OpenGL functions
+Building:
+============
+The framework is build using CMake.
 
-Installation:
+**Windows:** <br>
+The library comes with all needed dependencies compiled for MSVC 2019.
 
-The Project comes with all necessary libraries:
-* glew
-* glm
-* glfw
-* assimp
-* FreeType
+**Linux/Ubuntu** <br>
+The following libraries and its dependencies have to be installed
+* GLFW
+* GLEW
+* ASSIMP
+* FREETYPE
