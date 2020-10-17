@@ -34,7 +34,6 @@ public:
 private:
 	Mesh _cube; /**<< A generic cube Mesh to render the skybox*/
 	Texture _cubemap; /**<< The texture of the skybox*/
-	Shader _shader; /**<< The skybox shader*/
 };
 
 #endif
