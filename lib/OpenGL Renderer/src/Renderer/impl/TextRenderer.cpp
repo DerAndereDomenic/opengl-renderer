@@ -80,20 +80,10 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 		float w = ch.size.x * scale;
 		float h = ch.size.y * scale;
 
-		float vertices[4 * 6] =
-		{
-			xpos    , ypos + h, 0.0f, 0.0f,
-			xpos    , ypos    , 0.0f, 1.0f,
-			xpos + w, ypos    , 1.0f, 1.0f,
-
-			xpos    , ypos + h, 0.0f, 0.0f,
-			xpos + w, ypos    , 1.0f, 1.0f,
-			xpos + w, ypos + h, 1.0f, 0.0f
-		};
 		glm::mat4 model = glm::scale(glm::translate(glm::mat4(1), glm::vec3(xpos, ypos, 0)), glm::vec3(w, h, 10));
+
 		text_shader.setMat4("model", model);
 		ch.texture.bind();
-		//_vbo.changeData(vertices, 4 * 6);
 		_vao.render();
 
 		x += (ch.advance >> 6) * scale;
