@@ -1,7 +1,7 @@
 #include <Shader/Shader.h>
 
 Shader
-Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
+Shader::createObject(const std::string& vertexPath, const std::string& fragmentPath)
 {
 	Shader result;
 	//File reading
@@ -30,7 +30,7 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* fragmentPath)
 }
 
 Shader
-Shader::createObject(const GLchar* vertexPath, const GLchar* geometryPath, const GLchar* fragmentPath)
+Shader::createObject(const std::string& vertexPath, const std::string& geometryPath, const std::string& fragmentPath)
 {
 	Shader result;
 	//File reading
@@ -64,7 +64,7 @@ Shader::createObject(const GLchar* vertexPath, const GLchar* geometryPath, const
 }
 
 void
-Shader::readShaderCode(const GLchar* path, std::string* code)
+Shader::readShaderCode(const std::string& path, std::string* code)
 {
 	std::ifstream shaderFile;
 
@@ -88,13 +88,14 @@ Shader::readShaderCode(const GLchar* path, std::string* code)
 }
 
 uint32_t 
-Shader::compileShader(GLenum shaderType, const char* shader_source)
+Shader::compileShader(GLenum shaderType, const std::string& shader_source)
 {
 	uint32_t shader;
 	int32_t success;
 
 	shader = glCreateShader(shaderType);
-	glShaderSource(shader, 1, &shader_source, NULL);
+	const char* shader_source_c_str = shader_source.c_str();
+	glShaderSource(shader, 1, &shader_source_c_str, NULL);
 	glCompileShader(shader);
 
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);

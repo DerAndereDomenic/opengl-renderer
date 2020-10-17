@@ -28,7 +28,7 @@ public:
 	*	\param[in] fragmentPath Path to the Fragment Shader
 	*	\return The compiled and linked Shader
 	*/
-	static Shader createObject(const GLchar* vertexPath, const GLchar* fragmentPath);
+	static Shader createObject(const std::string& vertexPath, const std::string& fragmentPath);
 
 	/**
 	*	\brief Create a Shader Object
@@ -37,7 +37,7 @@ public:
 	*	\param[in] fragmentPath Path to the Fragment Shader
 	*	\return The compiled and linked Shader
 	*/
-	static Shader createObject(const GLchar* vertexPath, const GLchar* geometryPath, const GLchar* fragmentPath);
+	static Shader createObject(const std::string& vertexPath, const std::string& geometryPath, const std::string& fragmentPath);
 
 	/**
 	*	\brief Destroys the object
@@ -125,7 +125,7 @@ private:
 	*	\param[in] path The path to the shader file
 	*	\param[out] code The output code
 	*/
-	void readShaderCode(const GLchar* path, std::string* code);
+	void readShaderCode(const std::string& path, std::string* code);
 
 	/**
 	*	\brief Compiles the shader code
@@ -133,7 +133,7 @@ private:
 	*	\param[in] shader_source The source code of the shader
 	*	\return The handle of the shader 
 	*/
-	uint32_t compileShader(GLenum shaderType, const char* shader_source);
+	uint32_t compileShader(GLenum shaderType, const std::string& shader_soruce);
 
 	/**
 	*	\brief Links given shaders into a shader program
