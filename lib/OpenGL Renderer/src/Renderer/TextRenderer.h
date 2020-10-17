@@ -44,11 +44,10 @@ class TextRenderer
 		/**
 		*	\brief Loads the given font into an internal format where the textures for the glyphs are created
 		*	\param[in] path Path to the font
-		*	\param[in] number_char The number of characters that should be loaded
 		*	\param[in] font_size The size of the font
 		*	\note: This unloads the FT library components at the end
 		*/
-		void loadFont(const char* path, const uint32_t& number_char, const uint32_t& font_size);
+		void loadFont(const char* path, const uint32_t& font_size);
 
 		/**
 		*	\brief Renders the text to the screen

@@ -89,7 +89,7 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 }
 
 void 
-TextRenderer::loadFont(const char* path, const uint32_t& number_char, const uint32_t& font_size)
+TextRenderer::loadFont(const char* path, const uint32_t& font_size)
 {
 	if (FT_New_Face(_ft, path, 0, &_face))
 	{

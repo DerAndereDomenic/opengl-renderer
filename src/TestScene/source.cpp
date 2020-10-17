@@ -235,11 +235,11 @@ int main(void)
 
 #ifdef WIN32
 
-	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 128, 16);
+	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 16);
 
 #elif defined(UNIX)
 
-	textRenderer.loadFont("/usr/share/fonts/truetype/hack/Hack-Regular.ttf", 128, 16);
+	textRenderer.loadFont("/usr/share/fonts/truetype/hack/Hack-Regular.ttf", 16);
 
 #endif
 
