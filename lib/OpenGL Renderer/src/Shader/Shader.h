@@ -126,6 +126,13 @@ public:
 	*	\param[in] light The light for the next draw call
 	*/
 	void setLight(const std::string& name, const Light& light);
+
+	/**
+	*	\brief Dispatch compute on the given texture
+	*	\param[in] texture The texture to compute to
+	*	\note: This should only be called if the shader is a compute shader 
+	*/
+	void dispatch(const Texture& texture);
 private:
 
 	/**

@@ -250,3 +250,14 @@ Shader::setLight(const std::string& name, const Light& light)
 	setVec3(name + ".specular", light.specular);
 	setVec3(name + ".position", light.position);
 }
+
+void 
+Shader::dispatch(const Texture& texture)
+{
+	bind();
+	texture.bind();
+
+	glDispatchCompute((GLuint)texture.getWidth(), (GLuint)texture.getHeight(), 1);
+
+	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+}
