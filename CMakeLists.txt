@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION "3.10")
 project(OpenGLRenderer LANGUAGES CXX VERSION 1.0)
 
 #==================================================================#
-#							OPTIONS							   #
+#							OPTIONS							   	   #
 #==================================================================#
 option(BUILD_TESTSCENE "Build the test scene for this renderer" ON)
 set(SHADER_SOURCE_PATH "\"${CMAKE_SOURCE_DIR}/lib/OpenGL Renderer/src/Shader/GLShaders/\"")
@@ -56,13 +56,6 @@ add_subdirectory(lib)
 #							EXECUTABLES							   #
 #==================================================================#
 add_subdirectory(src)
-
-#==================================================================#
-#							RUNTIME 							   #
-#==================================================================#
-
-#file(COPY ${OPENGL_RENDERER_RES_DIR} DESTINATION /)
-#file(COPY ${OPENGL_RENDERER_SHADER_DIR} DESTINATION src/Shader)
 
 
 
