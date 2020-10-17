@@ -17,7 +17,18 @@ TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
 	layout.add(GL_FLOAT, 2);
 	layout.add(GL_FLOAT, 2);
 
-	result._vbo = VertexBuffer::createObject(NULL, 6 * 4);
+	float vertices[4*6] =
+	{
+		0.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+
+		1.0f, 1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 1.0f, 1.0f,
+		0.0f, 0.0f, 1.0f, 0.0f
+	};
+
+	result._vbo = VertexBuffer::createObject(vertices, 6 * 4);
 	result._vao = VertexArray::createObject();
 	result._vao.addBuffer(result._vbo, layout);
 
