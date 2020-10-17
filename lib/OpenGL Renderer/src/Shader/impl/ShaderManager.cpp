@@ -35,7 +35,7 @@ ShaderManager::addShader(const std::string& name, const bool geometry)
 	if (geometry)
 	{
 		const std::string geometryPath = SHADER_DIRECTORY + name + ".geom";
-		shader = Shader::createObject(vertexPath.c_str(), geometryPath.c_str(), fragmentPath.c_str());
+		shader = Shader::createObject(vertexPath, geometryPath, fragmentPath);
 	}
 	else
 	{
