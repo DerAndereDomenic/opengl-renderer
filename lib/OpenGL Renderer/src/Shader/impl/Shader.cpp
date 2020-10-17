@@ -255,7 +255,7 @@ void
 Shader::dispatch(const Texture& texture)
 {
 	bind();
-	texture.bind();
+	glBindImageTexture(0, texture.getID(), 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
 
 	glDispatchCompute((GLuint)texture.getWidth(), (GLuint)texture.getHeight(), 1);
 
