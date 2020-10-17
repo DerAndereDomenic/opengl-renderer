@@ -1,7 +1,7 @@
 #version 430
 
 layout(local_size_x = 1, local_size_y = 1) in;
-layout(rgbaf, binding = 0) uniform image2D img_output;
+layout(rgba32f, binding = 0) uniform image2D img_output;
 
 void main()
 {
