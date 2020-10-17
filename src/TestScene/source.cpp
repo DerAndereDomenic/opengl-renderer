@@ -230,6 +230,7 @@ int main(void)
 	ShaderManager::instance()->addShader("Reflection");
 	ShaderManager::instance()->addShader("Volume");
 	ShaderManager::instance()->addShader("DisplayNormal", true);
+	ShaderManager::instance()->addComputeShader("BasicCompute");
 
 	TextRenderer textRenderer = TextRenderer::createObject(window.getWidth(), window.getHeight());
 
