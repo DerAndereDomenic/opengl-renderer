@@ -52,11 +52,8 @@ TextRenderer::destroyObject(TextRenderer& object)
 		object._characters.clear();
 		object._loaded = false;
 	}
-	else
-	{
-		FT_Done_Face(object._face);
-		FT_Done_FreeType(object._ft);
-	}
+	FT_Done_Face(object._face);
+	FT_Done_FreeType(object._ft);
 	VertexBuffer::destroyObject(object._vbo);
 	VertexArray::destroyObject(object._vao);
 }
@@ -124,8 +121,5 @@ TextRenderer::loadFont(const char* path, const uint32_t& number_char, const uint
 
 		_characters.insert(std::pair<char, Character>(c, character));
 	}
-
-	FT_Done_Face(_face);
-	FT_Done_FreeType(_ft);
 	_loaded = true;
 }
