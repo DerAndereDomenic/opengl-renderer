@@ -42,16 +42,12 @@ TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
 void 
 TextRenderer::destroyObject(TextRenderer& object)
 {
-	if (object._loaded)
+	for (uint32_t i = 0; i < object._characters.size(); ++i)
 	{
-		for (uint32_t i = 0; i < object._characters.size(); ++i)
-		{
-			Character character = object._characters[i];
-			Texture::destroyObject(character.texture);
-		}
-		object._characters.clear();
-		object._loaded = false;
+		Character character = object._characters[i];
+		Texture::destroyObject(character.texture);
 	}
+	object._characters.clear();
 	FT_Done_Face(object._face);
 	FT_Done_FreeType(object._ft);
 	VertexBuffer::destroyObject(object._vbo);
@@ -103,8 +99,6 @@ TextRenderer::loadFont(const char* path, const uint32_t& number_char, const uint
 	FT_Set_Pixel_Sizes(_face, 0, font_size);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); //disable byte-alignment restriction;
-
-	_loaded = true;
 }
 
 void 

@@ -66,11 +66,10 @@ class TextRenderer
 		*	\param[in] c The character to load 
 		*/
 		void loadCharacter(const uint8_t& c);
-		
+
 		FT_Library _ft;							/**<< The internal FreeType library object*/
 		FT_Face _face;							/**<< The internal FreeType face object*/
 		std::map<char, Character> _characters;	/**<< The internal character structure, storing textures, etc.*/
-		bool _loaded = false;					/**<< Check if this object has a font loaded*/
 		VertexArray _vao;						/**<< The vao to render the text*/
 		VertexBuffer _vbo;						/**<< The vbo to render the text*/
 		glm::mat4 _projection;					/**<< The orthographic projection to render the text*/
