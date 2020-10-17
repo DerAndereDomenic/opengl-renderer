@@ -129,5 +129,5 @@ RenderWindow::updateSize()
 bool 
 RenderWindow::isOpen()
 {
-	return !glfwWindowShouldClose(_window) && _isOpen;
+	return _isOpen && !glfwWindowShouldClose(_window);
 }
