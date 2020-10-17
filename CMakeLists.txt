@@ -15,9 +15,10 @@ configure_file(OpenGLRendererConfig.h.in OpenGLRendererConfig.h)
 #							LIBRARIES							   #
 #==================================================================#
 
+set(OPENGL_RENDERER_INCLUDE_DIR "lib/OpenGL Renderer/src")
+
 if(WIN32)
 	if(MSVC)
-		set(OPENGL_RENDERER_INCLUDE_DIR "lib/OpenGL Renderer/src")
 		set(ASSIMP_INCLUDE_DIR "Dependencies/assimp/include")
 		set(FREETYPE_INCLUDE_DIR "Dependencies/freetype/include")
 		set(GLEW_INCLUDE_DIR "Dependencies/glew/include")
@@ -53,10 +54,27 @@ if(WIN32)
 		message(ONLY MSVC SUPPORTED)
 	endif()
 elseif(UNIX)
-	message(NOT SUPPORTED)
+	find_package(GLEW REQUIRED)
+
+	set(OpenGL_GL_PREFERENCE GLVND)
+	find_package(OpenGL REQUIRED)
+
+	find_package(ASSIMP REQUIRED)
+
+	find_package(PkgConfig REQUIRED)
+
+	pkg_search_module(GLFW REQUIRED glfw3)
+
+	find_package(Freetype REQUIRED)
+
+	find_package(PNG REQUIRED)
 else()
 	message(NOT SUPPORTED)
 endif()
+
+
+
+
 add_subdirectory(lib)
 
 #==================================================================#
