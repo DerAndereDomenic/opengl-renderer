@@ -14,38 +14,47 @@ configure_file(OpenGLRendererConfig.h.in OpenGLRendererConfig.h)
 #==================================================================#
 #							LIBRARIES							   #
 #==================================================================#
-set(OPENGL_RENDERER_INCLUDE_DIR "lib/OpenGL Renderer/src")
-set(ASSIMP_INCLUDE_DIR "Dependencies/assimp/include")
-set(FREETYPE_INCLUDE_DIR "Dependencies/freetype/include")
-set(GLEW_INCLUDE_DIR "Dependencies/glew/include")
-set(GLFW_INCLUDE_DIR "Dependencies/glfw/include")
-set(GLM_INCLUDE_DIR "Dependencies/glm")
-set(STB_INCLUDE_DIR "Dependencies/stb")
 
-set(ASSIMP_LIB_DIR "${CMAKE_SOURCE_DIR}/Dependencies/assimp/lib")
-set(FREETYPE_LIB_DIR "${CMAKE_SOURCE_DIR}/Dependencies/freetype/win64")
-set(GLEW_LIB_DIR "Dependencies/glew/lib/Release/x64")
-set(GLFW_LIB_DIR "Dependencies/glfw/lib-vc2019")
+if(WIN32)
+	if(MSVC)
+		set(OPENGL_RENDERER_INCLUDE_DIR "lib/OpenGL Renderer/src")
+		set(ASSIMP_INCLUDE_DIR "Dependencies/assimp/include")
+		set(FREETYPE_INCLUDE_DIR "Dependencies/freetype/include")
+		set(GLEW_INCLUDE_DIR "Dependencies/glew/include")
+		set(GLFW_INCLUDE_DIR "Dependencies/glfw/include")
+		set(GLM_INCLUDE_DIR "Dependencies/glm")
+		set(STB_INCLUDE_DIR "Dependencies/stb")
 
-set(LIBS glfw3 opengl32 assimp-vc142-mtd glew32s freetype)
+		set(ASSIMP_LIB_DIR "${CMAKE_SOURCE_DIR}/Dependencies/assimp/lib")
+		set(FREETYPE_LIB_DIR "${CMAKE_SOURCE_DIR}/Dependencies/freetype/win64")
+		set(GLEW_LIB_DIR "Dependencies/glew/lib/Release/x64")
+		set(GLFW_LIB_DIR "Dependencies/glfw/lib-vc2019")
 
-include_directories(${OPENGL_RENDERER_INCLUDE_DIR}
-					${ASSIMP_INCLUDE_DIR}
-					${FREETYPE_INCLUDE_DIR}
-					${GLEW_INCLUDE_DIR}
-					${GLFW_INCLUDE_DIR}
-					${GLM_INCLUDE_DIR}
-					${STB_INCLUDE_DIR}
-					${PROJECT_BINARY_DIR})
-													
-link_directories(${ASSIMP_LIB_DIR}
-				 ${FREETYPE_LIB_DIR}
-				 ${GLEW_LIB_DIR}
-				 ${GLFW_LIB_DIR})
-												  
-link_libraries("${LIBS}")
+		set(LIBS glfw3 opengl32 assimp-vc142-mtd glew32s freetype)
 
-add_definitions(-DGLEW_STATIC)
+		include_directories(${OPENGL_RENDERER_INCLUDE_DIR}
+							${ASSIMP_INCLUDE_DIR}
+							${FREETYPE_INCLUDE_DIR}
+							${GLEW_INCLUDE_DIR}
+							${GLFW_INCLUDE_DIR}
+							${GLM_INCLUDE_DIR}
+							${STB_INCLUDE_DIR}
+							${PROJECT_BINARY_DIR})
+															
+		link_directories(${ASSIMP_LIB_DIR}
+						 ${FREETYPE_LIB_DIR}
+						 ${GLEW_LIB_DIR}
+						 ${GLFW_LIB_DIR})
+														  
+		link_libraries("${LIBS}")
+
+		add_definitions(-DGLEW_STATIC)
+	else()
+		message(ONLY MSVC SUPPORTED)
+	endif()
+elseif(UNIX)
+	message(NOT SUPPORTED)
+endif()
 
 add_subdirectory(lib)
 
