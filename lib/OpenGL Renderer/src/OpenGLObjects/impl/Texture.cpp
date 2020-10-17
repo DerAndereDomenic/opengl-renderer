@@ -5,7 +5,7 @@
 #include <iostream>
 
 Texture 
-Texture::createObject(const char* file_path)
+Texture::createObject(const std::string& file_path)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);
@@ -15,7 +15,7 @@ Texture::createObject(const char* file_path)
 	int32_t height;
 	int32_t nr_channels;
 
-	uint8_t* data = stbi_load(file_path, &width, &height, &nr_channels, 0);
+	uint8_t* data = stbi_load(file_path.c_str(), &width, &height, &nr_channels, 0);
 
 	if (data)
 	{
@@ -53,7 +53,7 @@ Texture::createObject(const char* file_path)
 }
 
 Texture 
-Texture::createObject(const char* file_path, const std::vector<std::string>& faces)
+Texture::createObject(const std::string& file_path, const std::vector<std::string>& faces)
 {
 	Texture result;
 	glGenTextures(1, &result._ID);

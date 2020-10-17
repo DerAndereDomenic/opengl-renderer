@@ -74,9 +74,9 @@ int main(void)
 	meshes.push_back(table);
 
 	Material mat_table = Material::createObject("materialmap");
-	mat_table.texture_diffuse = Texture::createObject((RESOURCE_PATH + "table/table_diffuse.png").c_str());
-	mat_table.texture_specular = Texture::createObject((RESOURCE_PATH + "table/table_specular.png").c_str());
-	mat_table.texture_normal = Texture::createObject((RESOURCE_PATH + "table/table_normal.png").c_str());
+	mat_table.texture_diffuse = Texture::createObject(RESOURCE_PATH + "table/table_diffuse.png");
+	mat_table.texture_specular = Texture::createObject(RESOURCE_PATH + "table/table_specular.png");
+	mat_table.texture_normal = Texture::createObject(RESOURCE_PATH + "table/table_normal.png");
 	mat_table.shininess = 128.0f * 0.4f;
 	mat_table.useTextures = true;
 	materials.push_back(mat_table);
@@ -89,9 +89,9 @@ int main(void)
 	meshes.push_back(wall);
 
 	Material mat_brick = Material::createObject("materialmap");
-	mat_brick.texture_diffuse = Texture::createObject((RESOURCE_PATH + "brickwall.png").c_str());
+	mat_brick.texture_diffuse = Texture::createObject(RESOURCE_PATH + "brickwall.png");
 	mat_brick.texture_specular = mat_brick.texture_diffuse;
-	mat_brick.texture_normal = Texture::createObject((RESOURCE_PATH + "brickwall_normal.png").c_str());
+	mat_brick.texture_normal = Texture::createObject(RESOURCE_PATH + "brickwall_normal.png");
 	mat_brick.useTextures = true;
 	mat_brick.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_brick);
@@ -104,9 +104,9 @@ int main(void)
 	meshes.push_back(mesh);
 
 	Material mat_fabric = Material::createObject("materialmap");
-	mat_fabric.texture_diffuse = Texture::createObject((RESOURCE_PATH + "fabric.png").c_str());
+	mat_fabric.texture_diffuse = Texture::createObject(RESOURCE_PATH + "fabric.png");
 	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
-	mat_fabric.texture_normal = Texture::createObject((RESOURCE_PATH + "fabric_normal.png").c_str());
+	mat_fabric.texture_normal = Texture::createObject(RESOURCE_PATH + "fabric_normal.png");
 	mat_fabric.useTextures = true;
 	mat_fabric.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_fabric);
@@ -192,7 +192,7 @@ int main(void)
 	l4.diffuse = glm::vec3(500.0f);
 	l4.specular = glm::vec3(500.0f);
 
-	Texture particleTexture = Texture::createObject((RESOURCE_PATH + "smoke.png").c_str());
+	Texture particleTexture = Texture::createObject(RESOURCE_PATH + "smoke.png");
 
 	std::vector<std::string> faces =
 	{
@@ -204,7 +204,7 @@ int main(void)
 		"back.jpg"
 	};
 
-	Texture skybox = Texture::createObject((RESOURCE_PATH + "skybox/").c_str(), faces);
+	Texture skybox = Texture::createObject(RESOURCE_PATH + "skybox/", faces);
 
 	Mesh quad = MeshHelper::quadMesh(2.0f);
 

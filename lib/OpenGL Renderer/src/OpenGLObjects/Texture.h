@@ -31,7 +31,7 @@ public:
 	*	\param[in] file_path Path to the texture data
 	*	\return The Texture object
 	*/
-	static Texture createObject(const char* file_path);
+	static Texture createObject(const std::string& file_path);
 
 	/**
 	*	\brief Creates a Cubemap texture
@@ -40,7 +40,7 @@ public:
 	*	\return The Cubemap object
 	*	\note The order should be: right, left, top, bottom, front, back
 	*/
-	static Texture createObject(const char* file_path, const std::vector<std::string>& faces);
+	static Texture createObject(const std::string&, const std::vector<std::string>& faces);
 
 	/**
 	*	\brief Create an empty Texture
