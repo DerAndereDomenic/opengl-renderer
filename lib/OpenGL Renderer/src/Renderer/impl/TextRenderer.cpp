@@ -19,13 +19,13 @@ TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
 
 	float vertices[4*6] =
 	{
-		0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 1.0f, 1.0f,
-
-		1.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f,
 		1.0f, 0.0f, 1.0f, 1.0f,
-		0.0f, 0.0f, 1.0f, 0.0f
+
+		0.0f, 1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 0.0f
 	};
 
 	result._vbo = VertexBuffer::createObject(vertices, 6 * 4);
@@ -68,7 +68,6 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 	text_shader.bind();
 	text_shader.setVec3("textColor", color);
 	text_shader.setMat4("projection", _projection);
-	text_shader.setMat4("model", glm::mat4(1));
 
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); ++c)
@@ -91,9 +90,10 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 			xpos + w, ypos    , 1.0f, 1.0f,
 			xpos + w, ypos + h, 1.0f, 0.0f
 		};
-
+		glm::mat4 model = glm::scale(glm::translate(glm::mat4(1), glm::vec3(xpos, ypos, 0)), glm::vec3(w, h, 10));
+		text_shader.setMat4("model", model);
 		ch.texture.bind();
-		_vbo.changeData(vertices, 4 * 6);
+		//_vbo.changeData(vertices, 4 * 6);
 		_vao.render();
 
 		x += (ch.advance >> 6) * scale;
