@@ -32,6 +32,13 @@ class ShaderManager
 		addShader(const std::string& name, const bool geometry = false);
 
 		/**
+		* 	\brief Adds a compute shader to the manager
+		*	\param[in] name The name of the shader (Has to be like the filename)
+		*/ 
+		void 
+		addComputeShader(const std::string& name);
+
+		/**
 		*	\brief Get the shader corresponding to the name
 		*	\param[in] name The name of the shader
 		*	\return The Shader with the specified name

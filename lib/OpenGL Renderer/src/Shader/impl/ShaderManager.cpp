@@ -44,6 +44,16 @@ ShaderManager::addShader(const std::string& name, const bool geometry)
 	_shader.insert(std::pair<std::string, Shader>(name, shader));
 }
 
+void 
+ShaderManager::addComputeShader(const std::string& name)
+{
+	const std::string computePath = SHADER_DIRECTORY + name + ".glsl";
+
+	Shader shader = Shader::createObject(computePath);
+
+	_shader.insert(std::pair<std::string, Shader>(name, shader));
+}
+
 Shader
 ShaderManager::getShader(const std::string& name)
 {
