@@ -60,6 +60,13 @@ class TextRenderer
 		*/
 		void render(const std::string& text, float x, float y, const float& scale, const glm::vec3& color);
 	private:
+
+		/**
+		*	\brief Loads a character from the loaded font
+		*	\param[in] c The character to load 
+		*/
+		void loadCharacter(const uint8_t& c);
+		
 		FT_Library _ft;							/**<< The internal FreeType library object*/
 		FT_Face _face;							/**<< The internal FreeType face object*/
 		std::map<char, Character> _characters;	/**<< The internal character structure, storing textures, etc.*/
