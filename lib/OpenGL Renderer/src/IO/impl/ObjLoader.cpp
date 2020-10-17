@@ -4,7 +4,7 @@
 #include <assimp/postprocess.h>
 
 std::vector<Mesh>
-ObjLoader::loadObj(const char* path, const bool calcTangent)
+ObjLoader::loadObj(const std::string& path, const bool calcTangent)
 {
 	std::vector<Mesh> meshes;
 	

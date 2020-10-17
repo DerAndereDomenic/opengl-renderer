@@ -70,7 +70,7 @@ int main(void)
 
 	names.push_back("Table");
 
-	Mesh table = ObjLoader::loadObj((RESOURCE_PATH + "table/simple-table.obj").c_str(), true)[0];
+	Mesh table = ObjLoader::loadObj(RESOURCE_PATH + "table/simple-table.obj", true)[0];
 	meshes.push_back(table);
 
 	Material mat_table = Material::createObject("materialmap");
@@ -115,7 +115,7 @@ int main(void)
 
 	names.push_back("suzanne");
 
-	Mesh suzanne = ObjLoader::loadObj((RESOURCE_PATH + "suzanne_blender.obj").c_str())[0];
+	Mesh suzanne = ObjLoader::loadObj(RESOURCE_PATH + "suzanne_blender.obj")[0];
 	meshes.push_back(suzanne);
 
 	Material mat_suzanne = Material::createObject("materialmap");
@@ -127,15 +127,15 @@ int main(void)
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 
-	Mesh sphere = ObjLoader::loadObj((RESOURCE_PATH + "sphere.obj").c_str())[0];
+	Mesh sphere = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
 	sphere.create();
 
 	names.push_back("BRDF Sphere");
 
-	Mesh sphere_brdf = ObjLoader::loadObj((RESOURCE_PATH + "sphere.obj").c_str())[0];
+	Mesh sphere_brdf = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
 	meshes.push_back(sphere_brdf);
 
-	Material mat_brdf = Material::createObject("materialmap", MaterialType::GGX);
+	Material mat_brdf = Material::createObject(RESOURCE_PATH + "materialmap", MaterialType::GGX);
 	mat_brdf.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	mat_brdf.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	mat_brdf.specular = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -146,7 +146,7 @@ int main(void)
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
 
 	names.push_back("terrain");
-	Mesh terrain_mesh = ObjLoader::loadObj((RESOURCE_PATH + "plane.obj").c_str())[0];
+	Mesh terrain_mesh = ObjLoader::loadObj(RESOURCE_PATH + "plane.obj")[0];
 
 	Material mat_terrain = Material::createObject("materialmap", MaterialType::PHONG);
 	mat_terrain.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
