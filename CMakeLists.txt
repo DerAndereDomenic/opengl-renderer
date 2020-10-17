@@ -60,6 +60,18 @@ elseif(UNIX)
 	find_package(PNG REQUIRED)
 
 
+	link_libraries(${GLFW_STATIC_LIBRARIES})
+	link_libraries(-lpthread -lm)
+
+	link_libraries(${GLEW_LIBRARIES})
+	link_libraries(OpenGL::GL)
+
+	link_libraries(${FREETYPE_LIBRARIES})
+
+	link_libraries(${ASSIMP_LIBRARIES})
+
+	link_libraries(${PNG_LIBRARY})
+	link_libraries(-lz)
 else()
 	message(NOT SUPPORTED)
 endif()
