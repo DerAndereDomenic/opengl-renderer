@@ -132,7 +132,6 @@ public:
 	*	\return The depth 
 	*/
 	inline uint32_t getDepth() const {return _depth;}
-	}
 private:
 	uint32_t _ID = 0; 					/**<< The internal openGL handle for the texture*/
 	uint32_t _target = GL_TEXTURE_2D; 	/**<< The texture target*/
