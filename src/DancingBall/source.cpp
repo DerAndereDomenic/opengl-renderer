@@ -1,3 +1,5 @@
+#include <OpenGLRendererConfig.h>
+
 #include <iostream>
 #include <Renderer/RenderWindow.h>
 #include <IO/KeyManager.h>
@@ -15,7 +17,7 @@ Scene generateScene()
 	std::vector<glm::mat4> models;
 
 	names.push_back("Ball");
-	meshes.push_back(ObjLoader::loadObj("res/sphere.obj")[0]);
+	meshes.push_back(ObjLoader::loadObj(RESOURCE_PATH + "res/sphere.obj")[0]);
 	models.push_back(glm::mat4(1));
 	Material ball_mat = Material::createObject("materialmap", PHONG);
 	ball_mat.useTextures = false;
@@ -26,7 +28,7 @@ Scene generateScene()
 	materials.push_back(ball_mat);
 
 	names.push_back("Plane");
-	meshes.push_back(ObjLoader::loadObj("res/plane.obj")[0]);
+	meshes.push_back(ObjLoader::loadObj(RESOURCE_PATH + "res/plane.obj")[0]);
 	models.push_back(glm::scale(glm::translate(glm::mat4(1), glm::vec3(0, -1, 0)), glm::vec3(500, 500, 500)));
 	Material plane_mat = Material::createObject("materialmap");
 	plane_mat.useTextures = false;
