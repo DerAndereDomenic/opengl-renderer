@@ -16,6 +16,8 @@ configure_file(OpenGLRendererConfig.h.in OpenGLRendererConfig.h)
 #==================================================================#
 
 set(OPENGL_RENDERER_INCLUDE_DIR "lib/OpenGL Renderer/src")
+set(GLM_INCLUDE_DIR "Dependencies/glm")
+set(STB_INCLUDE_DIR "Dependencies/stb")
 
 if(WIN32)
 	if(MSVC)
@@ -23,8 +25,6 @@ if(WIN32)
 		set(FREETYPE_INCLUDE_DIR "Dependencies/freetype/include")
 		set(GLEW_INCLUDE_DIR "Dependencies/glew/include")
 		set(GLFW_INCLUDE_DIR "Dependencies/glfw/include")
-		set(GLM_INCLUDE_DIR "Dependencies/glm")
-		set(STB_INCLUDE_DIR "Dependencies/stb")
 
 		set(ASSIMP_LIB_DIR "${CMAKE_SOURCE_DIR}/Dependencies/assimp/lib")
 		set(FREETYPE_LIB_DIR "${CMAKE_SOURCE_DIR}/Dependencies/freetype/win64")
@@ -68,6 +68,8 @@ elseif(UNIX)
 	find_package(Freetype REQUIRED)
 
 	find_package(PNG REQUIRED)
+
+
 else()
 	message(NOT SUPPORTED)
 endif()
