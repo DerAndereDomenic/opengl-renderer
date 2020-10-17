@@ -57,6 +57,7 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 	text_shader.bind();
 	text_shader.setVec3("textColor", color);
 	text_shader.setMat4("projection", _projection);
+	text_shader.setMat4("model", glm::mat4(1));
 
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); ++c)
