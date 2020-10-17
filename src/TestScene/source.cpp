@@ -60,8 +60,8 @@ int main(void)
 	meshes.push_back(crate);
 
 	Material mat_crate = Material::createObject("materialmap");
-	mat_crate.texture_diffuse = Texture::createObject((RESOURCE_PATH + "crate_diffuse.png").c_str());
-	mat_crate.texture_specular = Texture::createObject((RESOURCE_PATH + "crate_specular.png").c_str());
+	mat_crate.texture_diffuse = Texture::createObject(RESOURCE_PATH + "crate_diffuse.png");
+	mat_crate.texture_specular = Texture::createObject(RESOURCE_PATH + "crate_specular.png");
 	mat_crate.useTextures = true;
 	mat_crate.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_crate);
