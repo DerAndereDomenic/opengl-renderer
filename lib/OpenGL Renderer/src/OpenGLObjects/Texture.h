@@ -115,8 +115,11 @@ public:
 	*/
 	inline uint32_t getID() const {return _ID;}
 private:
-	uint32_t _ID = 0; /**<< The internal openGL handle for the texture*/
-	uint32_t _target = GL_TEXTURE_2D; /**<< The texture target*/
+	uint32_t _ID = 0; 					/**<< The internal openGL handle for the texture*/
+	uint32_t _target = GL_TEXTURE_2D; 	/**<< The texture target*/
+	uint32_t width = 0;					/**<< The width of the texture*/
+	uint32_t height = 0;				/**<< The height of the texture*/
+	uint32_t depth = 0;					/**<< The depth of the texture*/
 };
 
 #include "impl/TextureDetail.h"
