@@ -33,6 +33,8 @@ Texture::createObject(const uint32_t& width,
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	result._target = target;
+	result._width = width;
+	result._height = height;
 
 	return result;
 }
@@ -60,6 +62,10 @@ Texture::createObject(const uint32_t& width,
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	result._target = GL_TEXTURE_3D;
+
+	result._width = width;
+	result._height = height;
+	result._depth = depth;
 
 	return result;
 }

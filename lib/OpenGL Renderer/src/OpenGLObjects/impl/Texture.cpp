@@ -48,6 +48,8 @@ Texture::createObject(const std::string& file_path)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	result._target = TEXTURE;
+	result._width = width;
+	result._height = height;
 
 	return result;
 }
@@ -97,6 +99,8 @@ Texture::createObject(const std::string& file_path, const std::vector<std::strin
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
 	result._target = CUBEMAP;
+	result._width = width;
+	result._height = height;
 
 	return result;
 }
