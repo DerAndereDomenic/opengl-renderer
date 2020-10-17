@@ -54,8 +54,9 @@ if(WIN32)
 	endif()
 elseif(UNIX)
 	message(NOT SUPPORTED)
+else()
+	message(NOT SUPPORTED)
 endif()
-
 add_subdirectory(lib)
 
 #==================================================================#
