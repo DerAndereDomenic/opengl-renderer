@@ -69,6 +69,11 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); ++c)
 	{
+		if(_characters.find(*c) == _characters.end())
+		{
+			loadCharacter(*c);
+		}
+
 		Character ch = _characters[*c];
 
 		float xpos = x + ch.bearing.x * scale;
@@ -99,10 +104,6 @@ TextRenderer::loadFont(const char* path, const uint32_t& number_char, const uint
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); //disable byte-alignment restriction;
 
-	for (uint8_t c = 0; c < number_char; ++c)
-	{
-		loadCharacter(c);
-	}
 	_loaded = true;
 }
 
