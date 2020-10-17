@@ -11,9 +11,6 @@ set(RESOURCE_PATH "\"${CMAKE_SOURCE_DIR}/lib/OpenGL Renderer/res/\"")
 
 configure_file(OpenGLRendererConfig.h.in OpenGLRendererConfig.h)
 
-set(OPENGL_RENDERER_RES_DIR "lib/OpenGL Renderer/res")
-set(OPENGL_RENDERER_SHADER_DIR "lib/OpenGL Renderer/src/Shader/GLShaders")
-
 #==================================================================#
 #							LIBRARIES							   #
 #==================================================================#
