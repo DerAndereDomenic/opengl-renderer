@@ -40,6 +40,14 @@ public:
 	static Shader createObject(const std::string& vertexPath, const std::string& geometryPath, const std::string& fragmentPath);
 
 	/**
+	*	\brief Creats a Shader object
+	*	\param[in] computePath The path to the Compute Shader
+	*	\return The compiled and linked shader
+	*	\note: This function is used to create compute shaders 
+	*/
+	static Shader createObject(const std::string& computePath);
+
+	/**
 	*	\brief Destroys the object
 	*	\param[in] The shader object
 	*/

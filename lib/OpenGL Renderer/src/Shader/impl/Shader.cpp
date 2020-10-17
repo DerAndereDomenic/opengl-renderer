@@ -63,6 +63,27 @@ Shader::createObject(const std::string& vertexPath, const std::string& geometryP
 	return result;
 }
 
+Shader 
+Shader::createObject(const std::string& computePath)
+{
+	Shader result;
+
+	std::string compute_buffer;
+
+	result.readShaderCode(computePath, &compute_buffer);
+	const char* cShaderCode = compute_buffer.c_str();
+
+	uint32_t compute;
+
+	compute = result.compileShader(GL_COMPUTE_SHADER, cShaderCode);
+
+	result.linkShader(&compute, 1);
+
+	glDeleteShader(compute);
+	
+	return result;
+}
+
 void
 Shader::readShaderCode(const std::string& path, std::string* code)
 {
