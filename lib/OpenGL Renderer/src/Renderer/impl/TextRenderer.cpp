@@ -101,25 +101,7 @@ TextRenderer::loadFont(const char* path, const uint32_t& number_char, const uint
 
 	for (uint8_t c = 0; c < number_char; ++c)
 	{
-		//Load character glyph
-		if (FT_Load_Char(_face, c, FT_LOAD_RENDER))
-		{
-			std::cout << "ERROR::TEXTRENDERER::FREETYPE: Could not load Glyph: " << c << std::endl;
-		}
-
-		Character character;
-		character.texture = Texture::createObject(_face->glyph->bitmap.width,
-												  _face->glyph->bitmap.rows,
-												  _face->glyph->bitmap.buffer,
-												  TEXTURE,
-												  GL_RED,
-												  GL_RED);
-
-		character.size = glm::ivec2(_face->glyph->bitmap.width, _face->glyph->bitmap.rows);
-		character.bearing = glm::ivec2(_face->glyph->bitmap_left, _face->glyph->bitmap_top);
-		character.advance = _face->glyph->advance.x;
-
-		_characters.insert(std::pair<char, Character>(c, character));
+		loadCharacter(c);
 	}
 	_loaded = true;
 }
