@@ -5,3 +5,7 @@ endif()
 if(BUILD_DANCINGBALL)
 	add_subdirectory(DancingBall)
 endif()
+
+if(BUILD_VR_VIEWER)
+	add_subdirectory(VRViewer)
+endif()
