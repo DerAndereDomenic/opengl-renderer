@@ -32,5 +32,9 @@ VRRenderer::destroyObject(VRRenderer& object)
 void 
 VRRenderer::spinOnce()
 {
-    
+    vr::VREvent_t event;
+    if(_vr_pointer->PollNextEvent(&event, sizeof(event)))
+    {
+        handleEvents(event);
+    }
 }
