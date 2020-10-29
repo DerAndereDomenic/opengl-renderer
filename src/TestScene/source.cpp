@@ -50,7 +50,7 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
 	//---------------------------------------------------------------------------------//
-
+	LOGGER::DEBUG("Started scene setup!\n");
 	std::vector<std::string> names;
 	std::vector<Mesh> meshes;
 	std::vector<Material> materials;
@@ -223,9 +223,11 @@ int main(void)
 	scene.addLight(&l3);
 	scene.addLight(&l4);
 
+	LOGGER::DEBUG("Finished scene setup!\n");
 	//---------------------------------------------------------------------------------//
 	//                              RENDERING SETUP                                    //
 	//---------------------------------------------------------------------------------//
+	LOGGER::DEBUG("Start Renderer setup!\n");
 	ShaderManager::instance()->addShader("Post");
 	ShaderManager::instance()->addShader("Normal");
 	ShaderManager::instance()->addShader("CubeMap");
@@ -295,7 +297,7 @@ int main(void)
 	double endFrame;
 
 	float w = 0;
-
+	LOGGER::DEBUG("Finished rendering setup!\n");
 	/* Loop until the user closes the window */
 	while (window.isOpen())
 	{
