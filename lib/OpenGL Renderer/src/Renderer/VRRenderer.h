@@ -14,7 +14,9 @@ class VRRenderer
 
         void spinOnce();
     private:
-        vr::IVRSystem* vr_pointer = NULL;
+        void handleEvents(const vr::VREvent_t& event);
+
+        vr::IVRSystem* _vr_pointer = NULL;
 };
 
 #endif
