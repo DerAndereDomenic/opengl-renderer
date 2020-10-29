@@ -22,7 +22,11 @@ VRRenderer::createObject()
 void 
 VRRenderer::destroyObject(VRRenderer& object)
 {
-
+    if(object._vr_pointer != NULL)
+    {
+        vr::VR_Shutdown();
+        object._vr_pointer = NULL;
+    }
 }
 
 void 
