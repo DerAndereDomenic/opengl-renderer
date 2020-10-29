@@ -1,0 +1,6 @@
+#ifndef __OPENGLRENDERER_RENDERER_VRRENDERER_H
+#define __OPENGLRENDERER_RENDERER_VRRENDERER_H
+
+#include <openvr.h>
+
+#endif
