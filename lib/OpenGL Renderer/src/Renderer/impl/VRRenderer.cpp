@@ -30,6 +30,16 @@ VRRenderer::destroyObject(VRRenderer& object)
 }
 
 void 
+VRRenderer::handleEvents(const vr::VREvent_t& event)
+{
+    switch(event.eventType)
+    {
+        default:
+            LOGGER::DEBUG("Event (OpenVR) Event: " + std::to_string(event.eventType) + "\n");
+    }
+}
+
+void 
 VRRenderer::spinOnce()
 {
     vr::VREvent_t event;
