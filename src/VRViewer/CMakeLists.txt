@@ -12,4 +12,9 @@ if(WIN32)
 					COMMAND ${CMAKE_COMMAND} -E copy_if_different
 					"${FREETYPE_LIB_DIR}/freetype.dll"
 					$<TARGET_FILE_DIR:VRViewer>)
+					
+	add_custom_command(TARGET VRViewer POST_BUILD
+					COMMAND ${CMAKE_COMMAND} -E copy_if_different
+					"${OPENVR_BIN_DIR}/openvr_api.dll"
+					$<TARGET_FILE_DIR:VRViewer>)
 endif()

@@ -32,6 +32,7 @@ if(WIN32)
 		set(GLEW_LIB_DIR "Dependencies/glew/lib/Release/x64")
 		set(GLFW_LIB_DIR "Dependencies/glfw/lib-vc2019")
 		set(OPENVR_LIB_DIR "Dependencies/openvr/lib/win64")
+		set(OPENVR_BIN_DIR "${CMAKE_SOURCE_DIR}/Dependencies/openvr/bin/win64")
 
 		set(LIBS glfw3 opengl32 assimp-vc142-mtd glew32s freetype openvr_api.lib)
 															
