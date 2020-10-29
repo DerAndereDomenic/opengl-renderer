@@ -21,6 +21,7 @@ set(FREETYPE_INCLUDE_DIR "Dependencies/freetype/include")
 set(ASSIMP_INCLUDE_DIR "Dependencies/assimp/include")
 set(GLEW_INCLUDE_DIR "Dependencies/glew/include")
 set(GLFW_INCLUDE_DIR "Dependencies/glfw/include")
+set(DLOGGER_INCLUDE_DIR "lib/DLogger/include")
 
 if(WIN32)
 	if(MSVC)
@@ -88,9 +89,12 @@ include_directories(${OPENGL_RENDERER_INCLUDE_DIR}
 					${GLFW_INCLUDE_DIR}
 					SYSTEM PRIVATE ${GLM_INCLUDE_DIR}
 					${STB_INCLUDE_DIR}
-					${PROJECT_BINARY_DIR})
+					${PROJECT_BINARY_DIR}
+					${DLOGGER_INCLUDE_DIR})
 
 add_subdirectory(lib)
+
+link_libraries(DLogger)
 
 #==================================================================#
 #							EXECUTABLES							   #
