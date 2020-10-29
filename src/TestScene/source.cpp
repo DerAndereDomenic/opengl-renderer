@@ -1,4 +1,5 @@
 #include <OpenGLRendererConfig.h>
+#include <DLogger/Logger.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -26,7 +27,8 @@
 
 int main(void)
 {
-	std::cout << "OpenGL Renderer Version: " << OpenGLRenderer_VERSION_MAJOR << "." << OpenGLRenderer_VERSION_MINOR << std::endl;
+	LOGGER::setProject("OpenGL Renderer", std::to_string(OpenGLRenderer_VERSION_MAJOR) + "." + std::to_string(OpenGLRenderer_VERSION_MINOR));
+	LOGGER::start();
 
 
 	uint32_t width = 1280;
@@ -436,6 +438,8 @@ int main(void)
 	TextRenderer::destroyObject(textRenderer);
 	ParticleRenderer::destroyObject(particleRenderer);
 	Texture::destroyObject(vol_tex);
+
+	LOGGER::end();
 
 	return 0;
 }
