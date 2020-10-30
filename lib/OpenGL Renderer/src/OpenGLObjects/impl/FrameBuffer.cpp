@@ -1,6 +1,7 @@
 #include <OpenGLObjects/FrameBuffer.h>
 #include <GL/glew.h>
 #include <iostream>
+#include <DLogger/Logger.h>
 
 FrameBuffer 
 FrameBuffer::createObject(const uint32_t& width, const uint32_t& height)
@@ -87,7 +88,7 @@ FrameBuffer::verify()
 	uint32_t error = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if (error != GL_FRAMEBUFFER_COMPLETE)
 	{
-		std::cerr << "ERROR::FRAMEBUFFER:: Framebuffer is not complete: " << error << std::endl;
+		LOGGER::ERROR("ERROR::FRAMEBUFFER:: Framebuffer is not complete: " + std::to_string(error) + "\n");
 		return false;
 	}
 	return true;
