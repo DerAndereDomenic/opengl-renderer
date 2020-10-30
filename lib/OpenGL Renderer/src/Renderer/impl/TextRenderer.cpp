@@ -2,6 +2,7 @@
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Shader/ShaderManager.h>
+#include <DLogger/Logger.h>
 
 TextRenderer 
 TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
@@ -10,7 +11,7 @@ TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
 
 	if (FT_Init_FreeType(&result._ft))
 	{
-		std::cout << "ERROR::TEXTRENDERER::FREETYPE: Could not initialize FreeType Library" << std::endl;
+		LOGGER::ERROR("ERROR::TEXTRENDERER::FREETYPE: Could not initialize FreeType Library\n");
 	}
 
 	VertexBufferLayout layout;
@@ -93,7 +94,7 @@ TextRenderer::loadFont(const char* path, const uint32_t& font_size)
 {
 	if (FT_New_Face(_ft, path, 0, &_face))
 	{
-		std::cout << "ERROR::TEXTRENDERER::FREETYPE: Could not load font at: " << path << std::endl;
+		LOGGER::ERROR("ERROR::TEXTRENDERER::FREETYPE: Could not load font at: " + std::string(path) + "\n");
 	}
 
 	FT_Set_Pixel_Sizes(_face, 0, font_size);
@@ -107,7 +108,7 @@ TextRenderer::loadCharacter(const uint8_t& c)
 	//Load character glyph
 	if (FT_Load_Char(_face, c, FT_LOAD_RENDER))
 	{
-		std::cout << "ERROR::TEXTRENDERER::FREETYPE: Could not load Glyph: " << c << std::endl;
+		LOGGER::ERROR("ERROR::TEXTRENDERER::FREETYPE: Could not load Glyph: " + std::to_string(c) + "\n");
 	}
 
 	Character character;
