@@ -18,6 +18,7 @@ Scene::createObject(std::vector<std::string> names,
 	{
 		LOGGER::ERROR("ERROR::SCENE: The sizes of the given buffers is not equal: ("
 			+ std::to_string(size_names) + ", " + std::to_string(size_meshes) + ", " + std::to_string(size_materials) + ", " + std::to_string(size_models) + ")\n");
+		return Scene();
 	}
 
 	Scene result;
