@@ -1,4 +1,5 @@
 #include <Renderer/RenderWindow.h>
+#include <DLogger/Logger.h>
 
 RenderWindow 
 RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title)
@@ -11,21 +12,21 @@ RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const 
 
 	if (!glfwInit())
 	{
-		std::cerr << "RENDERER::GLFWINIT::ERROR" << std::endl;
+		LOGGER::ERROR("RENDERER::GLFWINIT::ERROR\n");
 	}
 
 	result._window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (!result._window)
 	{
 		glfwTerminate();
-		std::cerr << "RENDERER::WINDOW::ERROR" << std::endl;
+		LOGGER::ERROR("RENDERER::WINDOW::ERROR\n");
 	}
 
 	glfwMakeContextCurrent(result._window);
 
 	if (glewInit() != GLEW_OK)
 	{
-		std::cerr << "RENDERER::GLEWINIT::ERROR" << std::endl;
+		LOGGER::ERROR("RENDERER::GLEWINIT::ERROR\n");
 	}
 
 	glfwSetInputMode(result._window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
