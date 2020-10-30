@@ -1,6 +1,7 @@
 #include <DataStructure/Scene.h>
 #include <Shader/ShaderManager.h>
 #include <glm/gtx/transform.hpp>
+#include <DLogger/Logger.h>
 
 Scene 
 Scene::createObject(std::vector<std::string> names,
@@ -15,8 +16,8 @@ Scene::createObject(std::vector<std::string> names,
 
 	if (size_names != size_meshes || size_names != size_materials || size_names != size_models)
 	{
-		std::cerr << "ERROR::SCENE: The sizes of the given buffers is not equal: ("
-			<< size_names << ", " << size_meshes << ", " << size_materials << ", " << size_models << ")" << std::endl;
+		LOGGER::ERROR("ERROR::SCENE: The sizes of the given buffers is not equal: ("
+			+ std::to_string(size_names) + ", " + std::to_string(size_meshes) + ", " + std::to_string(size_materials) + ", " + std::to_string(size_models) + ")\n");
 	}
 
 	Scene result;
