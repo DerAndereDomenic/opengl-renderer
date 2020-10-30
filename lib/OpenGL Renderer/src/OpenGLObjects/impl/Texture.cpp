@@ -3,6 +3,7 @@
 #include <OpenGLObjects/Texture.h>
 #include <stb_image.h>
 #include <iostream>
+#include <DLogger/Logger.h>
 
 Texture 
 Texture::createObject(const std::string& file_path)
@@ -30,14 +31,14 @@ Texture::createObject(const std::string& file_path)
 		}
 		else
 		{
-			std::cerr << "ERROR::TEXTURE Wrong format. Number of channels: " << nr_channels << ". Only 3 or 4 are supported" << std::endl;
+			LOGGER::ERROR("ERROR::TEXTURE Wrong format. Number of channels: " + std::to_string(nr_channels) + ". Only 3 or 4 are supported\n");
 		}
 		glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, channels, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 	{
-		std::cerr << "Failed to load texture: " << file_path << std::endl;
+		LOGGER::ERROR("Failed to load texture: " + file_path + "\n");
 	}
 
 	stbi_image_free(data);
@@ -79,14 +80,14 @@ Texture::createObject(const std::string& file_path, const std::vector<std::strin
 			}
 			else
 			{
-				std::cerr << "ERROR::TEXTURE Wrong format. Number of channels: " << nr_channels << ". Only 3 or 4 are supported" << std::endl;
+				LOGGER::ERROR("ERROR::TEXTURE Wrong format. Number of channels: " + std::to_string(nr_channels) + ". Only 3 or 4 are supported\n");
 			}
 
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, channels, GL_UNSIGNED_BYTE, data);
 		}
 		else
 		{
-			std::cerr << "Failed to load texture: " << path << std::endl;
+			LOGGER::ERROR("Failed to load texture: " + file_path + "\n");
 		}
 
 		stbi_image_free(data);
