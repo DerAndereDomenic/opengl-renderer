@@ -1,4 +1,5 @@
 #include <Shader/Shader.h>
+#include <DLogger/Logger.h>
 
 Shader
 Shader::createObject(const std::string& vertexPath, const std::string& fragmentPath)
@@ -104,7 +105,7 @@ Shader::readShaderCode(const std::string& path, std::string* code)
 	}
 	catch (std::ifstream::failure e)
 	{
-		std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+		LOGGER::ERROR("ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ\n");
 	}
 }
 
@@ -129,19 +130,19 @@ Shader::compileShader(GLenum shaderType, const std::string& shader_source)
 		glGetShaderInfoLog(shader, length, &length, infoLog);
 		if (shaderType == GL_VERTEX_SHADER)
 		{
-			std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+			LOGGER::ERROR("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" + std::string(infoLog) + "\n");
 		}
 		else if (shaderType == GL_FRAGMENT_SHADER)
 		{
-			std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+			LOGGER::ERROR("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" + std::string(infoLog) + "\n");
 		}
 		else if (shaderType == GL_GEOMETRY_SHADER)
 		{
-			std::cerr << "ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n" << infoLog << std::endl;
+			LOGGER::ERROR("ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n" + std::string(infoLog) + "\n");
 		}
 		else
 		{
-			std::cerr << "ERROR::SHADER::COMPILATION_FAILED\n" << "Unknown shader type" << std::endl;
+			LOGGER::ERROR("ERROR::SHADER::COMPILATION_FAILED\nUnknown shader type");
 		}
 		
 		free(infoLog);
@@ -169,7 +170,7 @@ Shader::linkShader(const uint32_t* shaders, const uint32_t& num_shaders)
 		glGetProgramiv(_ID, GL_INFO_LOG_LENGTH, &length);
 		char* infoLog = (char*)malloc(sizeof(char) * length);
 		glGetProgramInfoLog(_ID, length, &length, infoLog);
-		std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+		LOGGER::ERROR("ERROR::SHADER::PROGRAM::LINKING_FAILED\n" + std::string(infoLog));
 		free(infoLog);
 	}
 }
