@@ -2,6 +2,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <DLogger/Logger.h>
 
 std::vector<Mesh>
 ObjLoader::loadObj(const std::string& path, const bool calcTangent)
@@ -15,7 +16,7 @@ ObjLoader::loadObj(const std::string& path, const bool calcTangent)
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
+		LOGGER::ERROR("ERROR::ASSIMP::" + std::string(importer.GetErrorString()) + "\n");
 		return meshes;
 	}
 
