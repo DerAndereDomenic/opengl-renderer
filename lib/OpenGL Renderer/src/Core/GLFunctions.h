@@ -7,7 +7,7 @@
 namespace GL
 {
     /**
-	*	\brief Clears the window
+	*	\brief Clears the currently binded FrameBuffer
 	*	\param[in] r = 0.0f The red channel
 	*	\param[in] g = 0.0f The green channel
 	*	\param[in] b = 0.0f The blue channel
