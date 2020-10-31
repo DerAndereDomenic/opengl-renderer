@@ -43,6 +43,7 @@ int main(void)
 	float far = 500.0f;
 
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
+	GL::enableDebugOutput();
 	KeyManager::instance()->setup(window);
 	Camera camera = Camera::createObject(window, near, far);
 
