@@ -63,34 +63,9 @@ RenderWindow::close()
 }
 
 void
-RenderWindow::setViewport(const uint32_t& width, const uint32_t& height)
-{
-	glViewport(0, 0, width, height);
-}
-
-void
 RenderWindow::resetViewport()
 {
 	glViewport(0, 0, _width, _height);
-}
-
-void
-RenderWindow::enableDepthWriting()
-{
-	glDepthMask(GL_TRUE);
-}
-
-void
-RenderWindow::disableDepthWriting()
-{
-	glDepthMask(GL_FALSE);
-}
-
-void 
-RenderWindow::clear(const GLclampf& r, const GLclampf& g, const GLclampf& b, const GLclampf& a)
-{
-	glClearColor(r, g, b, a);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void 

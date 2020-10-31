@@ -43,15 +43,6 @@ public:
 	void close();
 
 	/**
-	*	\brief Clears the window
-	*	\param[in] r = 0.0f The red channel
-	*	\param[in] g = 0.0f The green channel
-	*	\param[in] b = 0.0f The blue channel
-	*	\param[in] a = 1.0f The alpha channel
-	*/
-	void clear(const GLclampf& r = 0, const GLclampf& g = 0, const GLclampf& b = 0, const GLclampf& a = 1);
-
-	/**
 	*	\brief Swap buffers and polls GLFW events
 	*/
 	void spinOnce();
@@ -69,26 +60,9 @@ public:
 	bool isOpen();
 
 	/**
-	*	\brief Sets the viewport (location = (0,0))
-	*	\param[in] width The width of the viewport
-	*	\param[in] height The height of the viewport
-	*/
-	void setViewport(const uint32_t& width, const uint32_t& height);
-
-	/**
 	*	\brief Resets the viewport to the original window size
 	*/
 	void resetViewport();
-
-	/**
-	*	\brief Enables depth testing
-	*/
-	void enableDepthWriting();
-
-	/**
-	*	\brief Disables depth testing
-	*/
-	void disableDepthWriting();
 
 	/**
 	*	\brief Get the underlying GLFW window
