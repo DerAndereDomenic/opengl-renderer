@@ -1,5 +1,6 @@
 #include <OpenGLRendererConfig.h>
 #include <Core/Platform.h>
+#include <Core/GLFunctions.h>
 #include <DLogger/Logger.h>
 
 #include <GL/glew.h>
@@ -306,7 +307,7 @@ int main(void)
 
 		camera.processInput(window.DELTA_TIME());
 
-		window.setViewport(shadow_width, shadow_height);
+		GL::setViewport(shadow_width, shadow_height);
 
 		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 		scene.updateShadowMaps();
@@ -370,7 +371,7 @@ int main(void)
 
 		//Render to quad
 		fbo.unbind();
-		window.clear();
+		GL::clear();
 		ShaderManager::instance()->getShader("Post").bind();
 		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure);
 		fbo.getTexture(0).bind(0);

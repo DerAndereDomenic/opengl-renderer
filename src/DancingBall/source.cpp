@@ -1,4 +1,5 @@
 #include <OpenGLRendererConfig.h>
+#include <Core/GLFunctions.h>
 
 #include <iostream>
 #include <Renderer/RenderWindow.h>
@@ -117,9 +118,9 @@ int main()
 
 		ball.setModel(glm::translate(glm::mat4(1), p));
 
-		window.clear();
+		GL::clear();
 
-		window.setViewport(2000, 2000);
+		GL::setViewport(2000, 2000);
 
 		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 		scene.updateShadowMaps();
