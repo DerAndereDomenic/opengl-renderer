@@ -1,6 +1,7 @@
 #include <Renderer/ParticleRenderer.h>
 #include <ctime>
 #include <Shader/ShaderManager.h>
+#include <Core/GLFunctions.h>
 
 Particle::Particle(const glm::vec3& position, const float& time_alive)
 	:position(position)
@@ -81,10 +82,10 @@ ParticleRenderer::update(const float& deltaTime)
 void 
 ParticleRenderer::render(const Camera& camera)
 {
-	glDepthMask(GL_FALSE);
+	GL::disableDepthWriting();
 	ShaderManager::instance()->getShader("Particle").bind();
 	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 	_texture.bind();
 	_vao.renderInstanced(1, _particles.size());
-	glDepthMask(GL_TRUE);
+	GL::enableDepthWriting();
 }

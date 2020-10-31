@@ -1,6 +1,7 @@
 #include <DataStructure/Skybox.h>
 #include <DataStructure/MeshHelper.h>
 #include <Shader/ShaderManager.h>
+#include <Core/GLFunctions.h>
 
 Skybox 
 Skybox::createObject(Texture cubemap)
@@ -27,12 +28,12 @@ Skybox::destroyObject(Skybox& skybox)
 void
 Skybox::render(Camera camera) 
 {
-	glDepthMask(GL_FALSE);
+	GL::disableDepthWriting();
 	ShaderManager::instance()->getShader("Skybox").bind();
 	_cubemap.bind(0);
 	ShaderManager::instance()->getShader("Skybox").setMVP(glm::mat4(1),
 		glm::mat4(glm::mat3(camera.getView())),
 		camera.getProjection());
 	_cube.render();
-	glDepthMask(GL_TRUE);
+	GL::enableDepthWriting();
 }
