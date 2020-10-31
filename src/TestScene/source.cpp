@@ -1,4 +1,5 @@
 #include <OpenGLRendererConfig.h>
+#include <Core/Platform.h>
 #include <DLogger/Logger.h>
 
 #include <GL/glew.h>
@@ -238,11 +239,11 @@ int main(void)
 
 	TextRenderer textRenderer = TextRenderer::createObject(window.getWidth(), window.getHeight());
 
-#ifdef WIN32
+#ifdef __OPENGLRENDERER_WINDOWS
 
 	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 16);
 
-#elif defined(UNIX)
+#elif __OPENGLRENDERER_UNIX
 
 	textRenderer.loadFont("/usr/share/fonts/truetype/hack/Hack-Regular.ttf", 16);
 
