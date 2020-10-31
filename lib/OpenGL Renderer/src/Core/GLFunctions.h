@@ -1,7 +1,7 @@
 #ifndef __OPENGLRENDERER_CORE_GLFUNCTIONS_H
 #define __OPENGLRENDERER_CORE_GLFUNCTIONS_H
 
-#include <glew.h>
+#include <GL/glew.h>
 #include <cstdint>
 
 namespace GL
