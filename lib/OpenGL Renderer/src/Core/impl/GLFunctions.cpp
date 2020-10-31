@@ -1,4 +1,34 @@
 #include <Core/GLFunctions.h>
+#include <DLogger/Logger.h>
+
+namespace detail
+{
+    void GLAPIENTRY
+    MessageCallback(GLenum source,
+                    GLenum type,
+                    GLuint id,
+                    GLenum severity,
+                    GLsizei length,
+                    const GLchar* message,
+                    const void* userParam)
+    {
+        switch(severity)
+        {
+            case GL_DEBUG_SEVERITY_LOW:
+            case GL_DEBUG_SEVERITY_MEDIUM:
+            {
+                LOGGER::WARNING(std::string(message) + "\n");
+            }
+            break;
+            case GL_DEBUG_SEVERITY_HIGH:
+            {
+                LOGGER::ERROR(std::string(message) + "\n");
+            }
+            break;
+            default: break;
+        }
+    }
+}
 
 void 
 GL::enableDebugOutput()
