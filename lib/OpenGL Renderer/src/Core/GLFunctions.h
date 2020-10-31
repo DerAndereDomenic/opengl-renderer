@@ -6,6 +6,11 @@
 
 namespace GL
 {
+	/**
+	*	\brief Enables the debug output for OpenGL function calls 
+	*/
+	void enableDebugOutput();
+
     /**
 	*	\brief Clears the currently binded FrameBuffer
 	*	\param[in] r = 0.0f The red channel

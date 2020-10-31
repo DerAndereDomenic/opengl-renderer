@@ -1,5 +1,10 @@
 #include <Core/GLFunctions.h>
 
+void 
+GL::enableDebugOutput()
+{
+
+}
 
 void 
 GL::clear(const GLclampf& r, const GLclampf& g, const GLclampf& b, const GLclampf& a)
