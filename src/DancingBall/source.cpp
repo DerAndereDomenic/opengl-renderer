@@ -57,7 +57,6 @@ int main()
 	glm::mat4 projection = glm::perspective(glm::radians(90.0f), static_cast<float>(width) / static_cast<float>(height), 0.01f, 100.0f);
 
 	ShaderManager::instance()->addShader("Normal");
-	ShaderManager::instance()->addShader("Shadow");
 	
 	Scene scene = generateScene();
 	Light light = Light::createObject(glm::vec3(10, 10, 10), true, 2000, 2000, 0.1f, 500.0f);
