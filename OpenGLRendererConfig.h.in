@@ -6,9 +6,6 @@
 #define OpenGLRenderer_VERSION_MAJOR @OpenGLRenderer_VERSION_MAJOR@
 #define OpenGLRenderer_VERSION_MINOR @OpenGLRenderer_VERSION_MINOR@
 
-#@WIN32_DEFINE@ WIN32
-#@UNIX_DEFINE@ UNIX
-
 const std::string SHADER_SOURCE_PATH = @SHADER_SOURCE_PATH@;
 const std::string RESOURCE_PATH = @RESOURCE_PATH@;
 

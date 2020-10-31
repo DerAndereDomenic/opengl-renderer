@@ -48,9 +48,6 @@ if(WIN32)
 	else()
 		message(ONLY MSVC SUPPORTED)
 	endif()
-
-	set(WIN32_DEFINE define)
-	set(UNIX_DEFINE undef)
 elseif(UNIX)
 	find_package(GLEW REQUIRED)
 
@@ -80,9 +77,6 @@ elseif(UNIX)
 
 	link_libraries(${PNG_LIBRARY})
 	link_libraries(-lz)
-
-	set(WIN32_DEFINE undef)
-	set(UNIX_DEFINE define)
 else()
 	message(NOT SUPPORTED)
 endif()
