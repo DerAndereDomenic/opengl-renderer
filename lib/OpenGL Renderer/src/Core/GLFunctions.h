@@ -4,7 +4,7 @@
 #include <glew.h>
 #include <cstdint>
 
-namespace 
+namespace GL
 {
     /**
 	*	\brief Clears the window
