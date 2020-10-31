@@ -9,6 +9,12 @@ GL::clear(const GLclampf& r = 0, const GLclampf& g = 0, const GLclampf& b = 0, c
 }
 
 void 
+GL::setViewport(const uint32_t& x, const uint32_t& y, const uint32_t& width, const uint32_t& height)
+{
+    glViewport(x, y, width, height);
+}
+
+void 
 GL::setViewport(const uint32_t& width, const uint32_t& height)
 {
     glViewport(0, 0, width, height);
