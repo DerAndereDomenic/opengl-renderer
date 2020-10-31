@@ -2,7 +2,7 @@
 
 
 void 
-GL::clear(const GLclampf& r = 0, const GLclampf& g = 0, const GLclampf& b = 0, const GLclampf& a = 1)
+GL::clear(const GLclampf& r, const GLclampf& g, const GLclampf& b, const GLclampf& a)
 {
     glClearColor(r, g, b, a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
