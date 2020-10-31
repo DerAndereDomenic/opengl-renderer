@@ -3,7 +3,8 @@
 void 
 GL::enableDebugOutput()
 {
-
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(detail::MessageCallback, 0);
 }
 
 void 
