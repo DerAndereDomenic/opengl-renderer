@@ -17,6 +17,10 @@ VRRenderer::createObject()
     }
 
     result._vr_pointer->GetRecommendedRenderTargetSize(&result._width, &result._height);
+
+    result._leftEyeTexture = Texture::createObject(result._width, result._height, (void*)nullptr);
+    result._rightEyeTexture = Texture::createObject(result._width, result._height, (void*)nullptr);
+
     LOGGER::INFO("Initialized VR with recommended Render target size: " + std::to_string(result._width) + ", " + std::to_string(result._height) + "\n");
 
     return result;
