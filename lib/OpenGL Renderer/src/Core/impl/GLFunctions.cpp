@@ -17,6 +17,7 @@ namespace detail
             case GL_DEBUG_SEVERITY_LOW:
             case GL_DEBUG_SEVERITY_MEDIUM:
             {
+                if (id == 131218) return; //Some NVIDIA stuff going wrong -> disable this warning
                 LOGGER::WARNING(std::string(message) + "\n");
             }
             break;
