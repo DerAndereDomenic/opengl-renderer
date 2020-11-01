@@ -10,9 +10,11 @@ uniform mat4 V;
 uniform mat4 P;
 
 out vec3 frag_normal;
+out vec3 frag_albedo;
 
 void main()
 {
 	gl_Position = P*V*M*vec4(aPosition, 1);
 	frag_normal = normalize(vec3(M*vec4(aNormal, 0)));
+	frag_albedo = vec3(aColor);
 }

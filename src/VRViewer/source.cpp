@@ -20,7 +20,7 @@ int main()
 
 	ShaderManager::instance()->addShader("BasicVR");
 
-	Mesh cube = MeshHelper::cubeMesh(glm::vec4(1));
+	Mesh cube = MeshHelper::cubeMesh(glm::vec4(1,0,0,1));
 	cube.create();
 
 	glm::mat4 model = glm::translate(glm::vec3(0, 1.5, 0)) * glm::scale(glm::vec3(0.1, 0.1, 0.1));
