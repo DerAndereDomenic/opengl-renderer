@@ -32,6 +32,7 @@ int main()
 
 	while (running && dummy_window.isOpen())
 	{
+		model = glm::rotate(0.01f, glm::vec3(0, 1, 0)) * model;
 		renderer.getRenderTargetLeft().bind();
 		GL::clear();
 		ShaderManager::instance()->getShader("BasicVR").bind();
