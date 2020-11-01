@@ -30,6 +30,12 @@ class VRRenderer
          *  \brief Handles vr events 
          */
         void spinOnce();
+
+        /**
+        *   \brief Get the FrameBuffer used by this renderer
+        *   \return The FrameBuffer (Render target)
+        */
+        inline FrameBuffer getRenderTarget() { return _renderTarget; }
     private:
         /**
          *  \brief Handles the event given by the vr context
@@ -40,7 +46,7 @@ class VRRenderer
         vr::IVRSystem* _vr_pointer = NULL;      /**<< The VR context */
         uint32_t _width = 0;                    /**<< Recommended Render target width */
         uint32_t _height = 0;                   /**<< Recommended Render target height */
-        FrameBuffer _renderTarget = {};           /**<< The texture for the left eye */
+        FrameBuffer _renderTarget = {};         /**<< The render target containing the textures */
 };
 
 #endif
