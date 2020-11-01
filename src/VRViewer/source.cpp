@@ -23,6 +23,9 @@ int main()
 	Mesh cube = MeshHelper::cubeMesh(glm::vec4(1,0,0,1));
 	cube.create();
 
+	Mesh floor = MeshHelper::cuboidMesh(glm::vec4(0, 1, 0, 1), 10, 0.1, 10);
+	floor.create();
+
 	glm::mat4 model = glm::translate(glm::vec3(0, 1.5, 0)) * glm::scale(glm::vec3(0.1, 0.1, 0.1));
 
 	bool running = true;
@@ -34,12 +37,16 @@ int main()
 		ShaderManager::instance()->getShader("BasicVR").bind();
 		ShaderManager::instance()->getShader("BasicVR").setMVP(model, renderer.view(), renderer.leftProjection());
 		cube.render();
+		ShaderManager::instance()->getShader("BasicVR").setMVP(glm::mat4(1), renderer.view(), renderer.leftProjection());
+		floor.render();
 
 		renderer.getRenderTargetRight().bind();
 		GL::clear();
 		ShaderManager::instance()->getShader("BasicVR").bind();
 		ShaderManager::instance()->getShader("BasicVR").setMVP(model, renderer.view(), renderer.rightProjection());
 		cube.render();
+		ShaderManager::instance()->getShader("BasicVR").setMVP(glm::mat4(1), renderer.view(), renderer.rightProjection());
+		floor.render();
 
 		renderer.uploadToHMD();
 		
@@ -59,6 +66,7 @@ int main()
 	VRRenderer::destroyObject(renderer);
 	KeyManager::instance()->destroy();
 	Mesh::destroyObject(cube);
+	Mesh::destroyObject(floor);
 	ShaderManager::destroyObject(*ShaderManager::instance());
 
 	LOGGER::end();
