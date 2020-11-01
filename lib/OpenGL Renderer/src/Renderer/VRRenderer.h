@@ -24,7 +24,10 @@ class VRRenderer
          */ 
         static void destroyObject(VRRenderer& object);
 
-        void render();
+        /**
+        *   \brief Uploads the internal framebuffer to the VR headset
+        */
+        void uploadToHMD();
 
         /**
          *  \brief Handles vr events 

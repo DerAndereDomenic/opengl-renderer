@@ -30,7 +30,7 @@ int main()
 		ShaderManager::instance()->getShader("BasicVR").bind();
 		quad.render();
 
-		renderer.render();
+		renderer.uploadToHMD();
 		
 		FrameBuffer::bindDefault();
 

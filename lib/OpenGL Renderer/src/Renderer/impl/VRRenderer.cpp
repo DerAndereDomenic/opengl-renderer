@@ -52,7 +52,7 @@ VRRenderer::destroyObject(VRRenderer& object)
 }
 
 void
-VRRenderer::render()
+VRRenderer::uploadToHMD()
 {
     vr::TrackedDevicePose_t trackedDevicePose[vr::k_unMaxTrackedDeviceCount];
     vr::VRCompositor()->WaitGetPoses(trackedDevicePose, vr::k_unMaxTrackedDeviceCount, nullptr, 0);
