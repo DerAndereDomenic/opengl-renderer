@@ -43,7 +43,7 @@ class VRRenderer
         *   \brief Get the FrameBuffer for the left eye
         *   \return The FrameBuffer (Render target)
         */
-        inline FrameBuffer getRenderTargetLeft() { return _renderTargetRight; }
+        inline FrameBuffer getRenderTargetLeft() { return _renderTargetLeft; }
 
         /**
         *   \brief Get the FrameBuffer for the right eye

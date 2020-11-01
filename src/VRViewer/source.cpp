@@ -32,6 +32,7 @@ int main()
 		ShaderManager::instance()->getShader("BasicVR").setMVP(glm::mat4(1), renderer.trackDevicePose(), renderer.projection(vr::Eye_Left));
 		cube.render();
 
+		renderer.getRenderTargetRight().bind();
 		GL::clear();
 		ShaderManager::instance()->getShader("BasicVR").bind();
 		ShaderManager::instance()->getShader("BasicVR").setMVP(glm::mat4(1), renderer.trackDevicePose(), renderer.projection(vr::Eye_Right));

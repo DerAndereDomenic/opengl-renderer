@@ -60,8 +60,8 @@ VRRenderer::uploadToHMD()
     vr::TrackedDevicePose_t trackedDevicePose[vr::k_unMaxTrackedDeviceCount];
     vr::VRCompositor()->WaitGetPoses(trackedDevicePose, vr::k_unMaxTrackedDeviceCount, nullptr, 0);
 
-    vr::Texture_t leftEyeTexture = { (void*)_renderTargetLeft.getTexture(0).getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
-    vr::Texture_t rightEyeTexture = { (void*)_renderTargetRight.getTexture(1).getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
+    vr::Texture_t leftEyeTexture = { (void*)_renderTargetLeft.getTexture().getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
+    vr::Texture_t rightEyeTexture = { (void*)_renderTargetRight.getTexture().getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
 
     vr::VRCompositor()->Submit(vr::Eye_Left, &leftEyeTexture);
     vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
