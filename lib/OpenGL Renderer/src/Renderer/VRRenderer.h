@@ -3,6 +3,7 @@
 
 #include <openvr.h>
 #include <OpenGLObjects/FrameBuffer.h>
+#include <glm/glm.hpp>
 
 class VRRenderer
 {
@@ -34,7 +35,7 @@ class VRRenderer
          */
         void spinOnce();
 
-        void trackDevicePose();
+        glm::mat4 trackDevicePose();
 
         /**
         *   \brief Get the FrameBuffer used by this renderer

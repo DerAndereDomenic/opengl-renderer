@@ -66,25 +66,25 @@ VRRenderer::uploadToHMD()
 
     vr::VRCompositor()->PostPresentHandoff();
 }
-int b = 0;
-void 
+
+glm::mat4 
 VRRenderer::trackDevicePose()
 {
     vr::TrackedDevicePose_t trackedDevicePose;
     _vr_pointer->GetDeviceToAbsoluteTrackingPose(vr::TrackingUniverseStanding, 0, &trackedDevicePose, 1);
-    if (trackedDevicePose.bPoseIsValid && b%100 == 0)
+    glm::mat4 result = glm::mat4(1);
+    if (trackedDevicePose.bPoseIsValid)
     {
         for (int i = 0; i < 3; ++i)
         {
             for (int j = 0; j < 4; ++j)
             {
-                std::cout << std::to_string(trackedDevicePose.mDeviceToAbsoluteTracking.m[i][j]) <<  " ";
+                result[i][j] = trackedDevicePose.mDeviceToAbsoluteTracking.m[i][j];
             }
-            std::cout << std::endl;
         }
-        std::cout << "------" << std::endl;
     }
-    ++b;
+
+    return glm::inverse(result);
 }
 
 void 
