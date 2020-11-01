@@ -2,7 +2,7 @@
 #define __OPENGLRENDERER_RENDERER_VRRENDERER_H
 
 #include <openvr.h>
-#include <OpenGLObjects/Texture.h>
+#include <OpenGLObjects/FrameBuffer.h>
 
 class VRRenderer
 {
@@ -40,8 +40,8 @@ class VRRenderer
         vr::IVRSystem* _vr_pointer = NULL;      /**<< The VR context */
         uint32_t _width = 0;                    /**<< Recommended Render target width */
         uint32_t _height = 0;                   /**<< Recommended Render target height */
-        Texture _leftEyeTexture = {};           /**<< The texture for the left eye */
-        Texture _rightEyeTexture = {};          /**<< The texture for the right eye */
+        FrameBuffer _leftEyeTarget = {};           /**<< The texture for the left eye */
+        FrameBuffer _rightEyeTarget = {};          /**<< The texture for the right eye */
 };
 
 #endif
