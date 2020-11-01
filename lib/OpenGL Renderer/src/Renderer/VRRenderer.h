@@ -38,6 +38,18 @@ class VRRenderer
         glm::mat4 trackDevicePose();
 
         /**
+        *   \brief Get the left eye projection matrix
+        *   \return The left eye projection matrix
+        */
+        inline glm::mat4 leftProjection() { return _leftProjection; }
+
+        /**
+        *   \brief Get the right eye projection matrix
+        *   \return The right eye projection matrix
+        */
+        inline glm::mat4 rightProjection() { return _rightProjection; }
+
+        /**
         *   \brief Get the FrameBuffer for the left eye
         *   \return The FrameBuffer (Render target)
         */
