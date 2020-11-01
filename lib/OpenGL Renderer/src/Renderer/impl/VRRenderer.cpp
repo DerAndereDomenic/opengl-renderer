@@ -20,14 +20,14 @@ VRRenderer::createObject()
     result._vr_pointer->GetRecommendedRenderTargetSize(&result._width, &result._height);
 
     result._leftEyeTarget = FrameBuffer::createObject(result._width, result._height);
-    result._leftEyeTarget.attachColor();
+    result._leftEyeTarget.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
     result._leftEyeTarget.attachRenderBuffer();
     result._leftEyeTarget.verify();
 
     FrameBuffer::bindDefault();
 
     result._rightEyeTarget = FrameBuffer::createObject(result._width, result._height);
-    result._rightEyeTarget.attachColor();
+    result._rightEyeTarget.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
     result._rightEyeTarget.attachRenderBuffer();
     result._rightEyeTarget.verify();
 
@@ -63,6 +63,8 @@ VRRenderer::render()
     GL::clear(0, 1, 0);
 
     FrameBuffer::bindDefault();
+
+    GL::clear(0, 0, 1);
 
     vr::TrackedDevicePose_t trackedDevicePose[vr::k_unMaxTrackedDeviceCount];
     vr::VRCompositor()->WaitGetPoses(trackedDevicePose, vr::k_unMaxTrackedDeviceCount, nullptr, 0);
