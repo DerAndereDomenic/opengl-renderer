@@ -24,6 +24,8 @@ class VRRenderer
          */ 
         static void destroyObject(VRRenderer& object);
 
+        void render();
+
         /**
          *  \brief Handles vr events 
          */

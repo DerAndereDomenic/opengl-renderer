@@ -41,6 +41,21 @@ VRRenderer::destroyObject(VRRenderer& object)
     Texture::destroyObject(object._rightEyeTexture);
 }
 
+void
+VRRenderer::render()
+{
+    vr::TrackedDevicePose_t trackedDevicePose[vr::k_unMaxTrackedDeviceCount];
+    vr::VRCompositor()->WaitGetPoses(trackedDevicePose, vr::k_unMaxTrackedDeviceCount, nullptr, 0);
+
+    vr::Texture_t leftEyeTexture = { (void*)_leftEyeTexture.getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
+    vr::Texture_t rightEyeTexture = { (void*)_rightEyeTexture.getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
+
+    vr::VRCompositor()->Submit(vr::Eye_Left, &leftEyeTexture);
+    vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
+
+    vr::VRCompositor()->PostPresentHandoff();
+}
+
 void 
 VRRenderer::handleEvents(const vr::VREvent_t& event)
 {
