@@ -34,6 +34,8 @@ class VRRenderer
          */
         void spinOnce();
 
+        void trackDevicePose();
+
         /**
         *   \brief Get the FrameBuffer used by this renderer
         *   \return The FrameBuffer (Render target)

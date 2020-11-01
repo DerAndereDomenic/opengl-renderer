@@ -2,6 +2,7 @@
 #include <Renderer/VRRenderer.h>
 #include <DLogger/Logger.h>
 #include <string>
+#include <iostream>
 
 VRRenderer 
 VRRenderer::createObject()
@@ -64,6 +65,26 @@ VRRenderer::uploadToHMD()
     vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
 
     vr::VRCompositor()->PostPresentHandoff();
+}
+int b = 0;
+void 
+VRRenderer::trackDevicePose()
+{
+    vr::TrackedDevicePose_t trackedDevicePose;
+    _vr_pointer->GetDeviceToAbsoluteTrackingPose(vr::TrackingUniverseStanding, 0, &trackedDevicePose, 1);
+    if (trackedDevicePose.bPoseIsValid && b%100 == 0)
+    {
+        for (int i = 0; i < 3; ++i)
+        {
+            for (int j = 0; j < 4; ++j)
+            {
+                std::cout << std::to_string(trackedDevicePose.mDeviceToAbsoluteTracking.m[i][j]) <<  " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << "------" << std::endl;
+    }
+    ++b;
 }
 
 void 
