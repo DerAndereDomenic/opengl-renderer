@@ -35,6 +35,8 @@ class VRRenderer
         void handleEvents(const vr::VREvent_t& event);
 
         vr::IVRSystem* _vr_pointer = NULL;      /**<< The VR context */
+        uint32_t _width = 0;                     /**<< Recommended Render target width */
+        uint32_t _height = 0;                    /**<< Recommended Render target height */
 };
 
 #endif

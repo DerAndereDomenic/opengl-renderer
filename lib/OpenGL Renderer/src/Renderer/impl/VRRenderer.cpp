@@ -16,6 +16,9 @@ VRRenderer::createObject()
         exit(EXIT_FAILURE);
     }
 
+    result._vr_pointer->GetRecommendedRenderTargetSize(&result._width, &result._height);
+    LOGGER::INFO("Initialized VR with recommended Render target size: " + std::to_string(result._width) + ", " + std::to_string(result._height) + "\n");
+
     return result;
 }
 
@@ -27,6 +30,8 @@ VRRenderer::destroyObject(VRRenderer& object)
         vr::VR_Shutdown();
         object._vr_pointer = NULL;
     }
+    object._width = 0;
+    object._height = 0;
 }
 
 void 
@@ -34,8 +39,8 @@ VRRenderer::handleEvents(const vr::VREvent_t& event)
 {
     switch(event.eventType)
     {
-        default:
-            LOGGER::DEBUG("Event (OpenVR) Event: " + std::to_string(event.eventType) + "\n");
+        //default:
+            //LOGGER::DEBUG("Event (OpenVR) Event: " + std::to_string(event.eventType) + "\n");
     }
 }
 
