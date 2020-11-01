@@ -5,6 +5,12 @@
 #include <OpenGLObjects/FrameBuffer.h>
 #include <glm/glm.hpp>
 
+enum class Eye
+{
+    LEFT = 0,
+    RIGHT = 1
+};
+
 class VRRenderer
 {
     public:
@@ -37,9 +43,10 @@ class VRRenderer
 
         /**
         *   \brief Get the view matrix
+        *   \param[in] eye The eye
         *   \return The view matrix of the HMD
         */
-        glm::mat4 view(vr::EVREye eye);
+        glm::mat4 view(const Eye& eye);
 
         /**
         *   \brief Get the left eye projection matrix

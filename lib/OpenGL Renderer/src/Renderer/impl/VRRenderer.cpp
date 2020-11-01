@@ -73,11 +73,11 @@ VRRenderer::uploadToHMD()
 }
 
 glm::mat4 
-VRRenderer::view(vr::EVREye eye)
+VRRenderer::view(const Eye& eye)
 {
     vr::TrackedDevicePose_t trackedDevicePose;
     _vr_pointer->GetDeviceToAbsoluteTrackingPose(vr::TrackingUniverseStanding, 0, &trackedDevicePose, 1);
-    vr::HmdMatrix34_t e = _vr_pointer->GetEyeToHeadTransform(eye);
+    vr::HmdMatrix34_t e = _vr_pointer->GetEyeToHeadTransform((vr::EVREye)eye);
     glm::mat4 result = glm::mat4(1);
     glm::mat4 eye2head = glm::mat4(1);
     if (trackedDevicePose.bPoseIsValid)
