@@ -28,6 +28,8 @@ VRRenderer::createObject()
     const GLenum buffers[]{ GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
     glDrawBuffers(2, buffers);
 
+    GL::setViewport(result._width, result._height);
+
     FrameBuffer::bindDefault();
 
     LOGGER::INFO("Initialized VR with recommended Render target size: " + std::to_string(result._width) + ", " + std::to_string(result._height) + "\n");
@@ -52,9 +54,6 @@ VRRenderer::destroyObject(VRRenderer& object)
 void
 VRRenderer::render()
 {
-    _renderTarget.bind();
-    GL::clear(1, 0, 0);
-
     vr::TrackedDevicePose_t trackedDevicePose[vr::k_unMaxTrackedDeviceCount];
     vr::VRCompositor()->WaitGetPoses(trackedDevicePose, vr::k_unMaxTrackedDeviceCount, nullptr, 0);
 
