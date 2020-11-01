@@ -40,10 +40,16 @@ class VRRenderer
         glm::mat4 projection();
 
         /**
-        *   \brief Get the FrameBuffer used by this renderer
+        *   \brief Get the FrameBuffer for the left eye
         *   \return The FrameBuffer (Render target)
         */
-        inline FrameBuffer getRenderTarget() { return _renderTarget; }
+        inline FrameBuffer getRenderTargetLeft() { return _renderTargetRight; }
+
+        /**
+        *   \brief Get the FrameBuffer for the right eye
+        *   \return The FrameBuffer (Render target)
+        */
+        inline FrameBuffer getRenderTargetRight() { return _renderTargetRight; }
 
         /**
         *   \brief Get the width
@@ -66,7 +72,8 @@ class VRRenderer
         vr::IVRSystem* _vr_pointer = NULL;      /**<< The VR context */
         uint32_t _width = 0;                    /**<< Recommended Render target width */
         uint32_t _height = 0;                   /**<< Recommended Render target height */
-        FrameBuffer _renderTarget = {};         /**<< The render target containing the textures */
+        FrameBuffer _renderTargetLeft = {};     /**<< The render target for the left eye */
+        FrameBuffer _renderTargetRight = {};    /**<< The render target for the right eye */
 };
 
 #endif
