@@ -18,8 +18,8 @@ int main()
 
 	ShaderManager::instance()->addShader("BasicVR");
 
-	Mesh quad = MeshHelper::quadMesh(2.0f);
-	quad.create();
+	Mesh cube = MeshHelper::cubeMesh(glm::vec4(1));
+	cube.create();
 
 	bool running = true;
 
@@ -28,7 +28,7 @@ int main()
 		renderer.getRenderTarget().bind();
 		GL::clear();
 		ShaderManager::instance()->getShader("BasicVR").bind();
-		quad.render();
+		cube.render();
 
 		renderer.uploadToHMD();
 		
@@ -36,6 +36,8 @@ int main()
 
 		renderer.spinOnce();
 		dummy_window.spinOnce();
+
+		renderer.trackDevicePose();
 
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
 		{
@@ -47,7 +49,7 @@ int main()
 	RenderWindow::destroyObject(dummy_window);
 	VRRenderer::destroyObject(renderer);
 	KeyManager::instance()->destroy();
-	Mesh::destroyObject(quad);
+	Mesh::destroyObject(cube);
 	ShaderManager::destroyObject(*ShaderManager::instance());
 
 	LOGGER::end();
