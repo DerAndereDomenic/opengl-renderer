@@ -40,8 +40,7 @@ class VRRenderer
         vr::IVRSystem* _vr_pointer = NULL;      /**<< The VR context */
         uint32_t _width = 0;                    /**<< Recommended Render target width */
         uint32_t _height = 0;                   /**<< Recommended Render target height */
-        FrameBuffer _leftEyeTarget = {};           /**<< The texture for the left eye */
-        FrameBuffer _rightEyeTarget = {};          /**<< The texture for the right eye */
+        FrameBuffer _renderTarget = {};           /**<< The texture for the left eye */
 };
 
 #endif

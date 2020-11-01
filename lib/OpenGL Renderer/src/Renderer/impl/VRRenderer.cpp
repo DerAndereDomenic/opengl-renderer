@@ -19,17 +19,11 @@ VRRenderer::createObject()
 
     result._vr_pointer->GetRecommendedRenderTargetSize(&result._width, &result._height);
 
-    result._leftEyeTarget = FrameBuffer::createObject(result._width, result._height);
-    result._leftEyeTarget.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
-    result._leftEyeTarget.attachRenderBuffer();
-    result._leftEyeTarget.verify();
-
-    FrameBuffer::bindDefault();
-
-    result._rightEyeTarget = FrameBuffer::createObject(result._width, result._height);
-    result._rightEyeTarget.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
-    result._rightEyeTarget.attachRenderBuffer();
-    result._rightEyeTarget.verify();
+    result._renderTarget = FrameBuffer::createObject(result._width, result._height);
+    result._renderTarget.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
+    result._renderTarget.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
+    result._renderTarget.attachRenderBuffer();
+    result._renderTarget.verify();
 
     FrameBuffer::bindDefault();
 
@@ -49,28 +43,23 @@ VRRenderer::destroyObject(VRRenderer& object)
     object._width = 0;
     object._height = 0;
 
-    FrameBuffer::destroyObject(object._leftEyeTarget);
-    FrameBuffer::destroyObject(object._rightEyeTarget);
+    FrameBuffer::destroyObject(object._renderTarget);
 }
 
 void
 VRRenderer::render()
 {
-    _leftEyeTarget.bind();
+    _renderTarget.bind();
+    glDrawBuffer(GL_COLOR_ATTACHMENT0);
     GL::clear(1, 0, 0);
-
-    _rightEyeTarget.bind();
-    GL::clear(0, 1, 0);
-
-    FrameBuffer::bindDefault();
-
+    glDrawBuffer(GL_COLOR_ATTACHMENT1);
     GL::clear(0, 0, 1);
 
     vr::TrackedDevicePose_t trackedDevicePose[vr::k_unMaxTrackedDeviceCount];
     vr::VRCompositor()->WaitGetPoses(trackedDevicePose, vr::k_unMaxTrackedDeviceCount, nullptr, 0);
 
-    vr::Texture_t leftEyeTexture = { (void*)_leftEyeTarget.getTexture().getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
-    vr::Texture_t rightEyeTexture = { (void*)_rightEyeTarget.getTexture().getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
+    vr::Texture_t leftEyeTexture = { (void*)_renderTarget.getTexture(0).getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
+    vr::Texture_t rightEyeTexture = { (void*)_renderTarget.getTexture(1).getID(), vr::TextureType_OpenGL, vr::ColorSpace_Linear };
 
     vr::VRCompositor()->Submit(vr::Eye_Left, &leftEyeTexture);
     vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
