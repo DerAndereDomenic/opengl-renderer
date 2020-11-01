@@ -73,11 +73,13 @@ VRRenderer::uploadToHMD()
 }
 
 glm::mat4 
-VRRenderer::view()
+VRRenderer::view(vr::EVREye eye)
 {
     vr::TrackedDevicePose_t trackedDevicePose;
     _vr_pointer->GetDeviceToAbsoluteTrackingPose(vr::TrackingUniverseStanding, 0, &trackedDevicePose, 1);
+    vr::HmdMatrix34_t e = _vr_pointer->GetEyeToHeadTransform(eye);
     glm::mat4 result = glm::mat4(1);
+    glm::mat4 eye2head = glm::mat4(1);
     if (trackedDevicePose.bPoseIsValid)
     {
         for (int i = 0; i < 3; ++i)
@@ -85,11 +87,12 @@ VRRenderer::view()
             for (int j = 0; j < 4; ++j)
             {
                 result[j][i] = trackedDevicePose.mDeviceToAbsoluteTracking.m[i][j];
+                eye2head[j][i] = e.m[i][j];
             }
         }
     }
 
-    return glm::inverse(result);
+    return glm::inverse(eye2head)*glm::inverse(result);
 }
 
 glm::mat4

@@ -39,7 +39,7 @@ class VRRenderer
         *   \brief Get the view matrix
         *   \return The view matrix of the HMD
         */
-        glm::mat4 view();
+        glm::mat4 view(vr::EVREye eye);
 
         /**
         *   \brief Get the left eye projection matrix
