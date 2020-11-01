@@ -36,6 +36,9 @@ VRRenderer::destroyObject(VRRenderer& object)
     }
     object._width = 0;
     object._height = 0;
+
+    Texture::destroyObject(object._leftEyeTexture);
+    Texture::destroyObject(object._rightEyeTexture);
 }
 
 void 
