@@ -34,6 +34,9 @@ VRRenderer::createObject()
 
     FrameBuffer::bindDefault();
 
+    result._leftProjection = result.projection(vr::Eye_Left);
+    result._rightProjection = result.projection(vr::Eye_Right);
+
     LOGGER::INFO("Initialized VR with recommended Render target size: " + std::to_string(result._width) + ", " + std::to_string(result._height) + "\n");
 
     return result;
@@ -81,16 +84,16 @@ VRRenderer::trackDevicePose()
         {
             for (int j = 0; j < 4; ++j)
             {
-                result[i][j] = trackedDevicePose.mDeviceToAbsoluteTracking.m[i][j];
+                result[j][i] = trackedDevicePose.mDeviceToAbsoluteTracking.m[i][j];
             }
         }
     }
 
-    return glm::inverse(glm::transpose(result));
+    return glm::inverse(result);
 }
 
 glm::mat4
-VRRenderer::projection(vr::EVREye eye)
+VRRenderer::projection(const vr::EVREye& eye)
 {
     vr::HmdMatrix44_t projection = _vr_pointer->GetProjectionMatrix(eye, 0.1f, 10.0f);
     glm::mat4 result = glm::mat4(1);

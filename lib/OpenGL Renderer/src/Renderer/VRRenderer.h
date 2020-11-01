@@ -37,8 +37,6 @@ class VRRenderer
 
         glm::mat4 trackDevicePose();
 
-        glm::mat4 projection(vr::EVREye eye);
-
         /**
         *   \brief Get the FrameBuffer for the left eye
         *   \return The FrameBuffer (Render target)
@@ -69,7 +67,17 @@ class VRRenderer
          */
         void handleEvents(const vr::VREvent_t& event);
 
+        /**
+        *   \brief Get the projection matrix of the specified eye
+        *   \param[in] eye The eye
+        *   \return The projection matrix
+        */
+        glm::mat4 projection(const vr::EVREye& eye);
+
         vr::IVRSystem* _vr_pointer = NULL;      /**<< The VR context */
+        glm::mat4 _leftProjection;              /**<< The projection matrix of the left eye */
+        glm::mat4 _rightProjection;             /**<< The projection matrix of the right eye */
+
         uint32_t _width = 0;                    /**<< Recommended Render target width */
         uint32_t _height = 0;                   /**<< Recommended Render target height */
         FrameBuffer _renderTargetLeft = {};     /**<< The render target for the left eye */
