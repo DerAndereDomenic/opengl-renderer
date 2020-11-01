@@ -3,6 +3,7 @@
 #include <DLogger/Logger.h>
 #include <IO/KeyManager.h>
 #include <Core/GLFunctions.h>
+#include <Shader/ShaderManager.h>
 
 int main()
 {
@@ -13,6 +14,8 @@ int main()
 	VRRenderer renderer = VRRenderer::createObject();
 	KeyManager::instance()->setup(dummy_window);
 	GL::enableDebugOutput();
+
+	ShaderManager::instance()->addShader("BasicVR");
 
 	bool running = true;
 
