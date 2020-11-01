@@ -309,7 +309,6 @@ int main(void)
 		camera.processInput(window.DELTA_TIME());
 
 		GL::setViewport(shadow_width, shadow_height);
-
 		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 		scene.updateShadowMaps();
 

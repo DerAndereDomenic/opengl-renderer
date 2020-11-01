@@ -9,6 +9,8 @@
 #include <IO/ObjLoader.h>
 #include <DataStructure/Scene.h>
 #include <glm/gtx/transform.hpp>
+#include <DLogger/Logger.h>
+#include <Core/GLFunctions.h>
 
 Scene generateScene()
 {
@@ -46,11 +48,15 @@ Scene generateScene()
 
 int main()
 {
+	LOGGER::setProject("Dancing Ball", "1.0");
+	LOGGER::start();
+
 	unsigned int width = 1280, height = 720;
 
 	RenderWindow window = RenderWindow::createObject(width, height, "Dancing Ball");
 	KeyManager::instance()->setup(window);
 
+	GL::enableDebugOutput();
 
 	glm::vec3 camera_pos = 2.0f*glm::vec3(0, 1, 5);
 	glm::mat4 view = glm::lookAt(camera_pos, glm::vec3(0,0,0), glm::vec3(0, 1, 0));
@@ -145,6 +151,8 @@ int main()
 	RenderWindow::destroyObject(window);
 	KeyManager::instance()->destroy();
 	Scene::destroyObject(scene);
+
+	LOGGER::end();
 
 	return 0;
 }
