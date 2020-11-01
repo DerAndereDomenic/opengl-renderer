@@ -84,7 +84,23 @@ VRRenderer::trackDevicePose()
         }
     }
 
-    return glm::inverse(result);
+    return glm::inverse(glm::transpose(result));
+}
+
+glm::mat4
+VRRenderer::projection()
+{
+    vr::HmdMatrix44_t projection = _vr_pointer->GetProjectionMatrix(vr::Eye_Left, 0.1f, 10.0f);
+    glm::mat4 result = glm::mat4(1);
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            result[i][j] = projection.m[j][i];
+        }
+    }
+
+    return result;
 }
 
 void 

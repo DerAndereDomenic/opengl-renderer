@@ -37,6 +37,8 @@ class VRRenderer
 
         glm::mat4 trackDevicePose();
 
+        glm::mat4 projection();
+
         /**
         *   \brief Get the FrameBuffer used by this renderer
         *   \return The FrameBuffer (Render target)
