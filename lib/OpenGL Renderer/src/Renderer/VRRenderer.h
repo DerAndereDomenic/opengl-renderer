@@ -42,6 +42,18 @@ class VRRenderer
         *   \return The FrameBuffer (Render target)
         */
         inline FrameBuffer getRenderTarget() { return _renderTarget; }
+
+        /**
+        *   \brief Get the width
+        *   \return The width
+        */
+        inline uint32_t getWidth() const { return _width; }
+
+        /**
+        *   \brief Get the height
+        *   \return The height
+        */
+        inline uint32_t getHeight() const { return _height; }
     private:
         /**
          *  \brief Handles the event given by the vr context
