@@ -5,6 +5,7 @@
 #include <Core/GLFunctions.h>
 #include <Shader/ShaderManager.h>
 #include <DataStructure/MeshHelper.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 int main()
 {
@@ -25,9 +26,15 @@ int main()
 
 	while (running && dummy_window.isOpen())
 	{
-		renderer.getRenderTarget().bind();
+		renderer.getRenderTargetLeft().bind();
 		GL::clear();
 		ShaderManager::instance()->getShader("BasicVR").bind();
+		ShaderManager::instance()->getShader("BasicVR").setMVP(glm::mat4(1), renderer.trackDevicePose(), renderer.projection(vr::Eye_Left));
+		cube.render();
+
+		GL::clear();
+		ShaderManager::instance()->getShader("BasicVR").bind();
+		ShaderManager::instance()->getShader("BasicVR").setMVP(glm::mat4(1), renderer.trackDevicePose(), renderer.projection(vr::Eye_Right));
 		cube.render();
 
 		renderer.uploadToHMD();
@@ -36,8 +43,6 @@ int main()
 
 		renderer.spinOnce();
 		dummy_window.spinOnce();
-
-		renderer.trackDevicePose();
 
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
 		{
