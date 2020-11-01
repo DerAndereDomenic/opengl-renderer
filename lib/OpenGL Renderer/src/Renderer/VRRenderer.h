@@ -37,7 +37,7 @@ class VRRenderer
 
         glm::mat4 trackDevicePose();
 
-        glm::mat4 projection();
+        glm::mat4 projection(vr::EVREye eye);
 
         /**
         *   \brief Get the FrameBuffer for the left eye

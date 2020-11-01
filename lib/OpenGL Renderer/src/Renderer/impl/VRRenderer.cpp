@@ -22,12 +22,10 @@ VRRenderer::createObject()
 
     result._renderTargetLeft = FrameBuffer::createObject(result._width, result._height);
     result._renderTargetLeft.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
-    result._renderTargetLeft.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
     result._renderTargetLeft.attachRenderBuffer();
     result._renderTargetLeft.verify();
 
     result._renderTargetRight = FrameBuffer::createObject(result._width, result._height);
-    result._renderTargetRight.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
     result._renderTargetRight.attachColor(Texture::createObject(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
     result._renderTargetRight.attachRenderBuffer();
     result._renderTargetRight.verify();
@@ -92,9 +90,9 @@ VRRenderer::trackDevicePose()
 }
 
 glm::mat4
-VRRenderer::projection()
+VRRenderer::projection(vr::EVREye eye)
 {
-    vr::HmdMatrix44_t projection = _vr_pointer->GetProjectionMatrix(vr::Eye_Left, 0.1f, 10.0f);
+    vr::HmdMatrix44_t projection = _vr_pointer->GetProjectionMatrix(eye, 0.1f, 10.0f);
     glm::mat4 result = glm::mat4(1);
     for (int i = 0; i < 4; ++i)
     {
