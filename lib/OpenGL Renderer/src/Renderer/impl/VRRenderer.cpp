@@ -73,7 +73,7 @@ VRRenderer::uploadToHMD()
 }
 
 glm::mat4 
-VRRenderer::trackDevicePose()
+VRRenderer::view()
 {
     vr::TrackedDevicePose_t trackedDevicePose;
     _vr_pointer->GetDeviceToAbsoluteTrackingPose(vr::TrackingUniverseStanding, 0, &trackedDevicePose, 1);

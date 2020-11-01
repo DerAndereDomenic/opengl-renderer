@@ -35,7 +35,11 @@ class VRRenderer
          */
         void spinOnce();
 
-        glm::mat4 trackDevicePose();
+        /**
+        *   \brief Get the view matrix
+        *   \return The view matrix of the HMD
+        */
+        glm::mat4 view();
 
         /**
         *   \brief Get the left eye projection matrix
