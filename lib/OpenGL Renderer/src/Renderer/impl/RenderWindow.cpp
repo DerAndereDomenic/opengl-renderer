@@ -77,6 +77,8 @@ RenderWindow::spinOnce()
 	double currentTime = glfwGetTime();
 	_deltaTime = currentTime - _lastTime;
 	_lastTime = currentTime;
+
+	_camera.processInput(_deltaTime);
 }
 
 bool 
