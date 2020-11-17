@@ -24,6 +24,7 @@
 #include <GUI/DebugControl.h>
 #include <GUI/ExposureControl.h>
 #include <GUI/WindowClose.h>
+#include <GUI/ModeControl.h>
 
 #include <iomanip>
 #include <sstream>
@@ -58,11 +59,13 @@ int main(void)
 	WindowClose close_callback(&window);
 	DebugControl debug_callback;
 	ExposureControl exposure_callback;
+	ModeControl mode_callback(&window);
 
 	window.registerCallback(GLFW_KEY_ESCAPE, &close_callback);
 	window.registerCallback(GLFW_KEY_H, &debug_callback);
 	window.registerCallback(GLFW_KEY_KP_ADD, &exposure_callback);
 	window.registerCallback(GLFW_KEY_KP_SUBTRACT, &exposure_callback);
+	window.registerCallback(GLFW_KEY_LEFT_ALT, &mode_callback);
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
