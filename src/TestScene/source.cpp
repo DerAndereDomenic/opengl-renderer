@@ -13,7 +13,6 @@
 #include <DataStructure/Skybox.h>
 #include <DataStructure/Scene.h>
 #include <Shader/ShaderManager.h>
-
 #include <IO/KeyManager.h>
 #include <IO/ObjLoader.h>
 #include <Renderer/RenderWindow.h>
@@ -22,6 +21,9 @@
 #include <Renderer/TerrainCreater.h>
 #include <Renderer/TextRenderer.h>
 #include <Renderer/ParticleRenderer.h>
+#include <GUI/DebugControl.h>
+#include <GUI/ExposureControl.h>
+#include <GUI/WindowClose.h>
 
 #include <iomanip>
 #include <sstream>
@@ -44,6 +46,19 @@ int main(void)
 
 	Camera camera = Camera::createObject(static_cast<float>(width)/static_cast<float>(height), near, far);
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window", &camera);
+
+	//---------------------------------------------------------------------------------//
+	//                              CALLBACKS                                          //
+	//---------------------------------------------------------------------------------//
+	WindowClose close_callback(&window);
+	DebugControl debug_callback;
+	ExposureControl exposure_callback;
+
+	window.registerCallback(GLFW_KEY_ESCAPE, &close_callback);
+	window.registerCallback(GLFW_KEY_H, &debug_callback);
+	window.registerCallback(GLFW_KEY_KP_ADD, &exposure_callback);
+	window.registerCallback(GLFW_KEY_KP_SUBTRACT, &exposure_callback);
+
 	GL::enableDebugOutput();
 	KeyManager::instance()->setup(window);
 
@@ -397,7 +412,7 @@ int main(void)
 
 		++frameID;
 
-		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
+		/*if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
 		{
 			window.close();
 		}
@@ -420,7 +435,7 @@ int main(void)
 				exposure -= 0.01f;
 				std::cout << exposure << std::endl;
 			}
-		}
+		}*/
 	}
 
 	ShaderManager::destroyObject(*ShaderManager::instance());
