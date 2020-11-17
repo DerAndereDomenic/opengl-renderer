@@ -85,6 +85,14 @@ RenderWindow::spinOnce()
 		glfwGetCursorPos(_window, &xpos, &ypos);
 		_camera->processInput(_deltaTime, xpos, ypos);
 	}
+
+	for (typename std::unordered_multimap<uint32_t, KeyPressFunction*>::const_iterator it = _callbacks.begin(); it != _callbacks.end(); ++it)
+	{
+		if (glfwGetKey(_window, it->first) == GLFW_PRESS)
+		{
+			it->second->onPress(it->first);
+		}
+	}
 }
 
 bool 
