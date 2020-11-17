@@ -2,13 +2,14 @@
 #include <DLogger/Logger.h>
 
 RenderWindow 
-RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title)
+RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title, const Camera& camera)
 {
 	RenderWindow result;
 
 	result._width = width;
 	result._height = height;
 	result._aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
+	result._camera = camera;
 
 	if (!glfwInit())
 	{

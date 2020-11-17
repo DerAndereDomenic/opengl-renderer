@@ -11,6 +11,8 @@
 
 #include <cstdint>
 
+#include <Renderer/Camera.h>
+
 /**
 *	\brief A class to model a render window
 */
@@ -27,9 +29,10 @@ public:
 	*	\param[in] width The width of the window
 	*	\param[in] height The height of the window
 	*	\param[in] title The title of the window
+	*	\param[in] camera A camera
 	*	\return The given window
 	*/
-	static RenderWindow createObject(const uint32_t& width, const uint32_t& height, const std::string& title);
+	static RenderWindow createObject(const uint32_t& width, const uint32_t& height, const std::string& title, const Camera& camera);
 
 	/**
 	*	\brief Destroys the given window
@@ -101,6 +104,7 @@ private:
 	bool _isOpen = false;			/**<< Wether the window is open*/
 	double _deltaTime = 0;			/**<< The delta time between two frames*/
 	double _lastTime = 0;			/**<< The time stamp of the last frame*/
+	Camera _camera = {};			/**<< The camera */
 };
 
 
