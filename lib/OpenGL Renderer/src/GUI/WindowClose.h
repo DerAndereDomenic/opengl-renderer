@@ -1,7 +1,7 @@
 #ifndef __OPENGLRENDERER_GUI_WINDOWCLOSE_H
 #define __OPENGLRENDERER_GUI_WINDOWCLOSE_H
 
-#include <Renderer/RenderWindow.h>
+class RenderWindow;
 #include <GUI/KeyPressFunction.h>
 
 class WindowClose : public KeyPressFunction
