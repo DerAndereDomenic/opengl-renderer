@@ -85,7 +85,7 @@ RenderWindow::spinOnce()
 	_deltaTime = currentTime - _lastTime;
 	_lastTime = currentTime;
 
-	if (_camera != nullptr)
+	if (_camera != nullptr && _mode == ViewerMode::VIEWER)
 	{
 		double xpos, ypos;
 		glfwGetCursorPos(_window, &xpos, &ypos);
