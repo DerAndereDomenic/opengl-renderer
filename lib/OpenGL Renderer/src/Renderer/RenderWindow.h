@@ -32,7 +32,7 @@ public:
 	*	\param[in] camera A camera
 	*	\return The given window
 	*/
-	static RenderWindow createObject(const uint32_t& width, const uint32_t& height, const std::string& title, const Camera& camera);
+	static RenderWindow createObject(const uint32_t& width, const uint32_t& height, const std::string& title, const Camera& camera = Camera());
 
 	/**
 	*	\brief Destroys the given window
