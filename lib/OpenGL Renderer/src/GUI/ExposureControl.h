@@ -18,7 +18,7 @@ class ExposureControl : public KeyPressFunction
 		*	\brief Get the current exposure level
 		*	\return The exposure
 		*/
-		float getExposure();
+		inline float getExposure() { return _exposure };
 	private:
 		float _exposure;	/**<< The exposure*/
 };
