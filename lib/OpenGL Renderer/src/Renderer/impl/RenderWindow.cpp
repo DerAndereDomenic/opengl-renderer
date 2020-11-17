@@ -2,7 +2,7 @@
 #include <DLogger/Logger.h>
 
 RenderWindow 
-RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title, const Camera& camera)
+RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title, Camera* camera)
 {
 	RenderWindow result;
 
@@ -78,9 +78,12 @@ RenderWindow::spinOnce()
 	_deltaTime = currentTime - _lastTime;
 	_lastTime = currentTime;
 
-	double xpos, ypos;
-	glfwGetCursorPos(_window, &xpos, &ypos);
-	_camera.processInput(_deltaTime, xpos, ypos);
+	if (_camera != nullptr)
+	{
+		double xpos, ypos;
+		glfwGetCursorPos(_window, &xpos, &ypos);
+		_camera->processInput(_deltaTime, xpos, ypos);
+	}
 }
 
 bool 

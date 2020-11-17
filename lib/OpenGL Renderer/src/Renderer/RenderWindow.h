@@ -32,7 +32,7 @@ public:
 	*	\param[in] camera A camera
 	*	\return The given window
 	*/
-	static RenderWindow createObject(const uint32_t& width, const uint32_t& height, const std::string& title, const Camera& camera = Camera());
+	static RenderWindow createObject(const uint32_t& width, const uint32_t& height, const std::string& title, Camera* camera = nullptr);
 
 	/**
 	*	\brief Destroys the given window
@@ -104,7 +104,7 @@ private:
 	bool _isOpen = false;			/**<< Wether the window is open*/
 	double _deltaTime = 0;			/**<< The delta time between two frames*/
 	double _lastTime = 0;			/**<< The time stamp of the last frame*/
-	Camera _camera = {};			/**<< The camera */
+	Camera* _camera = nullptr;		/**<< The camera */
 };
 
 
