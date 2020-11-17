@@ -42,10 +42,10 @@ int main(void)
 	float near = 0.1f;
 	float far = 500.0f;
 
-	RenderWindow window = RenderWindow::createObject(width, height, "Render Window");
+	Camera camera = Camera::createObject(static_cast<float>(width)/static_cast<float>(height), near, far);
+	RenderWindow window = RenderWindow::createObject(width, height, "Render Window", camera);
 	GL::enableDebugOutput();
 	KeyManager::instance()->setup(window);
-	Camera camera = Camera::createObject(window, near, far);
 
 	std::stringstream stream;
 	bool debug = false;
@@ -305,8 +305,6 @@ int main(void)
 	while (window.isOpen())
 	{
 		currentTime = glfwGetTime();
-
-		camera.processInput(window.DELTA_TIME());
 
 		GL::setViewport(shadow_width, shadow_height);
 		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
