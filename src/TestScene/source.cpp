@@ -299,7 +299,6 @@ int main(void)
 	float exposure = 1.0f;
 	double endFrame;
 
-	float w = 0;
 	LOGGER::DEBUG("Finished rendering setup!\n");
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -407,8 +406,6 @@ int main(void)
 		{
 			exposure += 0.01f;
 			std::cout << exposure << std::endl;
-			w += 0.01f;
-			if (w > 1) w = 1;
 		}
 
 		if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL) && KeyManager::instance()->isKeyDown(GLFW_KEY_D))
@@ -422,8 +419,6 @@ int main(void)
 			{
 				exposure -= 0.01f;
 				std::cout << exposure << std::endl;
-				w -= 0.01f;
-				if (w < 0) w = 0;
 			}
 		}
 	}
