@@ -20,7 +20,7 @@ class ExposureControl : public KeyPressFunction
 		*/
 		inline float getExposure() { return _exposure; }
 	private:
-		float _exposure;	/**<< The exposure*/
+		float _exposure = 1.0f;	/**<< The exposure*/
 };
 
 #endif
