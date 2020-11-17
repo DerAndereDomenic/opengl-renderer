@@ -71,6 +71,13 @@ public:
 	void resetViewport();
 
 	/**
+	*	\brief Register a key press callback
+	*	\param[in] key The key to register the callback on
+	*	\param[in] callback The callback to register
+	*/
+	void registerCallback(const uint32_t& key, KeyPressFunction* callback);
+
+	/**
 	*	\brief Get the underlying GLFW window
 	*	\return The GLFWwindow*
 	*/
