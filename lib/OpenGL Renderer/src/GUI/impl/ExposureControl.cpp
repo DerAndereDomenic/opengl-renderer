@@ -9,7 +9,7 @@ ExposureControl::onPress(const uint32_t& key)
 		_exposure += 0.01f;
 	}
 	
-	if (GLFW_KEY_KP_SUBTRACT)
+	if (key == GLFW_KEY_KP_SUBTRACT)
 	{
 		if (_exposure > 0.01f)
 		{
