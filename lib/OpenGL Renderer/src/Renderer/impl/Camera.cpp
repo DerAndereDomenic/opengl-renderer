@@ -4,13 +4,12 @@
 #include <IO/KeyManager.h>
 
 Camera
-Camera::createObject(const RenderWindow& window, const float& near, const float& far)
+Camera::createObject(const float& aspect_ratio, const float& near, const float& far)
 {
 	Camera result;
 	result._near = near;
 	result._far = far;
-	result._window = window;
-	result._projection = glm::perspective(glm::radians(90.0f), window.getAspectRatio(), near, far);
+	result._projection = glm::perspective(glm::radians(90.0f), aspect_ratio, near, far);
 	result._view = glm::lookAt(result._cameraPos, result._cameraPos + result._cameraFront, result._cameraUp);
 	return result;
 }
@@ -50,7 +49,7 @@ Camera::processInput(const float& deltaTime)
 {
 
 	double xpos, ypos;
-	glfwGetCursorPos(_window.getWindow(), &xpos, &ypos);
+	//glfwGetCursorPos(_window.getWindow(), &xpos, &ypos);
 
 	processMouse(xpos, ypos);
 
@@ -70,10 +69,10 @@ Camera::processInput(const float& deltaTime)
 	if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL))
 		_cameraPos -= cameraSpeed * _cameraUp;
 
-	if (_window.updateSize())
-	{
-		_projection = glm::perspective(glm::radians(90.0f), _window.getAspectRatio(), _near, _far);
-	}
+	//if (_window.updateSize())
+	//{
+	//	_projection = glm::perspective(glm::radians(90.0f), _window.getAspectRatio(), _near, _far);
+	//}
 }
 
 void 

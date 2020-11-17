@@ -1,7 +1,6 @@
 #ifndef __OPENGLRENDERER_RENDERER_CAMERA_H
 #define __OPENGLRENDERER_RENDERER_CAMERA_H
 
-#include <Renderer/RenderWindow.h>
 #include <glm/glm.hpp>
 
 /**
@@ -17,12 +16,12 @@ public:
 
 	/**
 	*	\brief Create a camera object
-	*	\param[in] window The camera the window should be bound to
+	*	\param[in] aspect_ratio The aspect ratio of the window
 	*	\param[in] near The near plane
 	*	\param[in] far The far plane
 	*	\return The camera object
 	*/
-	static Camera createObject(const RenderWindow& window, const float& near, const float& far);
+	static Camera createObject(const float& aspect_ratio, const float& near, const float& far);
 
 	/**
 	*	\brief Create a camera object
@@ -96,7 +95,6 @@ private:
 	float _near = 0.0f;										/**<< The near plane*/
 	float _far = 0.0f;										/**<< The far plane*/
 
-	RenderWindow _window = {};								/**<< The window the camera is operating at*/
 	glm::mat4 _view = glm::mat4(1);							/**<< The view matrix*/
 	glm::mat4 _projection = glm::mat4(1);					/**<< The projection matrix*/
 	glm::vec3 _cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);		/**<< The initial camera position*/
