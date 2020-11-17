@@ -17,6 +17,15 @@
 #include <Renderer/Camera.h>
 
 /**
+*	\brief The mode of the window
+*/
+enum class ViewerMode
+{
+	VIEWER = 0,		/**<< Standard first person camera*/
+	EDIT = 1		/**<< Free cursor */
+};
+
+/**
 *	\brief A class to model a render window
 */
 class RenderWindow
