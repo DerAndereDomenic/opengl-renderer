@@ -47,6 +47,11 @@ int main(void)
 	Camera camera = Camera::createObject(static_cast<float>(width)/static_cast<float>(height), near, far);
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window", &camera);
 
+	GL::enableDebugOutput();
+	KeyManager::instance()->setup(window);
+
+	std::stringstream stream;
+
 	//---------------------------------------------------------------------------------//
 	//                              CALLBACKS                                          //
 	//---------------------------------------------------------------------------------//
@@ -58,12 +63,6 @@ int main(void)
 	window.registerCallback(GLFW_KEY_H, &debug_callback);
 	window.registerCallback(GLFW_KEY_KP_ADD, &exposure_callback);
 	window.registerCallback(GLFW_KEY_KP_SUBTRACT, &exposure_callback);
-
-	GL::enableDebugOutput();
-	KeyManager::instance()->setup(window);
-
-	std::stringstream stream;
-	bool debug = false;
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
@@ -311,7 +310,6 @@ int main(void)
 
 	double currentTime;
 
-	float exposure = 1.0f;
 	double endFrame;
 
 	LOGGER::DEBUG("Finished rendering setup!\n");
@@ -356,7 +354,7 @@ int main(void)
 		
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
-		if (debug)
+		if (debug_callback.getDebug())
 		{
 			ShaderManager::instance()->getShader("DisplayNormal").bind();
 			ShaderManager::instance()->getShader("DisplayNormal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
@@ -385,7 +383,7 @@ int main(void)
 		fbo.unbind();
 		GL::clear();
 		ShaderManager::instance()->getShader("Post").bind();
-		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure);
+		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure_callback.getExposure());
 		fbo.getTexture(0).bind(0);
 		//lights[0].shadow_map.getTexture().bind();
 		quad.render();
@@ -411,31 +409,6 @@ int main(void)
 		window.spinOnce();
 
 		++frameID;
-
-		/*if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
-		{
-			window.close();
-		}
-
-		if (KeyManager::instance()->isKeyDown(GLFW_KEY_KP_ADD))
-		{
-			exposure += 0.01f;
-			std::cout << exposure << std::endl;
-		}
-
-		if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL) && KeyManager::instance()->isKeyDown(GLFW_KEY_D))
-		{
-			debug = !debug;
-		}
-
-		if (KeyManager::instance()->isKeyDown(GLFW_KEY_KP_SUBTRACT))
-		{
-			if (exposure > 0.01f)
-			{
-				exposure -= 0.01f;
-				std::cout << exposure << std::endl;
-			}
-		}*/
 	}
 
 	ShaderManager::destroyObject(*ShaderManager::instance());
