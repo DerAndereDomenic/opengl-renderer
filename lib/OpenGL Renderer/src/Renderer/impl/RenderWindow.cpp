@@ -78,7 +78,9 @@ RenderWindow::spinOnce()
 	_deltaTime = currentTime - _lastTime;
 	_lastTime = currentTime;
 
-	_camera.processInput(_deltaTime);
+	double xpos, ypos;
+	glfwGetCursorPos(_window, &xpos, &ypos);
+	_camera.processInput(_deltaTime, xpos, ypos);
 }
 
 bool 
