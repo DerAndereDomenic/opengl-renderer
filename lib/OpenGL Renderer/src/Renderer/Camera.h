@@ -44,7 +44,7 @@ public:
 	*	\brief Processes the input of button presses, mouse movement and window resize
 	*	\param[in] deltaTime The time between two frames
 	*/
-	void processInput(const float& deltaTime);
+	void processInput(const float& deltaTime, const double& xpos, const double& ypos);
 
 	/**
 	*	\brief Change view direction based on pitch and yaw

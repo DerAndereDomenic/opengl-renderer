@@ -45,11 +45,8 @@ Camera::destroyObject(Camera& camera)
 }
 
 void
-Camera::processInput(const float& deltaTime)
+Camera::processInput(const float& deltaTime, const double& xpos, const double& ypos)
 {
-
-	double xpos, ypos;
-	//glfwGetCursorPos(_window.getWindow(), &xpos, &ypos);
 
 	processMouse(xpos, ypos);
 
