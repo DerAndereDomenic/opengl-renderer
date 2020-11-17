@@ -12,7 +12,7 @@ class ExposureControl : public KeyPressFunction
 		ExposureControl() = default;
 
 		//Override
-		virtual void onPress(const uint32_t& key);
+		void onPress(const uint32_t& key);
 
 		/**
 		*	\brief Get the current exposure level

@@ -8,7 +8,7 @@ WindowClose::WindowClose(RenderWindow* window)
 }
 
 void 
-WindowClose::onPress(const int32_t& key)
+WindowClose::onPress(const uint32_t& key)
 {
 	_window->close();
 }

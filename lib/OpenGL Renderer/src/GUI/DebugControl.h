@@ -12,7 +12,7 @@ class DebugControl : public KeyPressFunction
 		DebugControl() = default;
 
 		//Override
-		virtual void onPress(const uint32_t& key);
+		void onPress(const uint32_t& key);
 
 		/**
 		*	\brief Get the debug mode
