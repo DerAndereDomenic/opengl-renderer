@@ -17,7 +17,7 @@ class ModeControl : public KeyPressFunction
 		void onPress(const uint32_t& key);
 
 	private:
-		RenderWindow* window = nullptr;		/**<< The window */
+		RenderWindow* _window = nullptr;		/**<< The window */
 };
 
 #endif
