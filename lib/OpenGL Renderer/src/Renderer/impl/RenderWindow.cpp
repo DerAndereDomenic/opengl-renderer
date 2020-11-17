@@ -48,6 +48,7 @@ RenderWindow::destroyObject(RenderWindow& window)
 	window._height = 0;
 	window._aspect_ratio = 0.0f;
 	window._isOpen = false;
+	window._callbacks.clear();
 	if (window._window != nullptr)
 	{
 		window.close();
