@@ -18,6 +18,8 @@ class ModeControl : public KeyPressFunction
 
 	private:
 		RenderWindow* _window = nullptr;		/**<< The window */
+		double _lastX = 0.0f;					/**<< The last x position of the cursor*/
+		double _lastY = 0.0f;					/**<< The last y position of the cursor*/
 };
 
 #endif
