@@ -5,6 +5,13 @@
 #include <Renderer/TextRenderer.h>
 #include <string>
 
+enum class ButtonMode
+{
+	IDLE = 0,
+	HOVER = 1,
+	CLICK = 2
+};
+
 class Button
 {
 	public:
