@@ -19,7 +19,18 @@ Button::setText(const std::string& text)
 void 
 Button::render(TextRenderer& renderer, const ButtonMode& mode)
 {
-	renderer.render(_text, _posX, _posY, 1, glm::vec3(1));
+	if (mode == ButtonMode::IDLE)
+	{
+		renderer.render(_text, _posX, _posY, 1, glm::vec3(0.25));
+	}
+	else if(mode == ButtonMode::HOVER)
+	{
+		renderer.render(_text, _posX, _posY, 1, glm::vec3(0.5));
+	}
+	else if (mode == ButtonMode::CLICK)
+	{
+		renderer.render(_text, _posX, _posY, 1, glm::vec3(1));
+	}
 }
 
 bool 
