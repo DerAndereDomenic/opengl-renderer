@@ -17,7 +17,7 @@ Button::setText(const std::string& text)
 }
 
 void 
-Button::render(TextRenderer& renderer)
+Button::render(TextRenderer& renderer, const ButtonMode& mode)
 {
 	renderer.render(_text, _posX, _posY, 1, glm::vec3(1));
 }

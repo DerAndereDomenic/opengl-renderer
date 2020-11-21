@@ -21,7 +21,7 @@ class Button
 
 		void setText(const std::string& text);
 
-		void render(TextRenderer& renderer);
+		void render(TextRenderer& renderer, const ButtonMode& mode = ButtonMode::IDLE);
 
 		bool inside(const uint32_t& x, const uint32_t& y);
 	private:
