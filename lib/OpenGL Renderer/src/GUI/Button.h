@@ -15,6 +15,8 @@ class Button
 		void setText(const std::string& text);
 
 		void render(TextRenderer& renderer);
+
+		bool inside(const uint32_t& x, const uint32_t& y);
 	private:
 		uint32_t _posX = 0;
 		uint32_t _posY = 0;

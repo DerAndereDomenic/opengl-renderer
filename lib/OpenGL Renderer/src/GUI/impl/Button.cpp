@@ -21,3 +21,12 @@ Button::render(TextRenderer& renderer)
 {
 	renderer.render(_text, _posX, _posY, 1, glm::vec3(1));
 }
+
+bool 
+Button::inside(const uint32_t& x, const uint32_t& y)
+{
+	const uint32_t cx = x - _posX;
+	const uint32_t cy = y - _posY;
+
+	return cx <= _width && cy <= _height;
+}
