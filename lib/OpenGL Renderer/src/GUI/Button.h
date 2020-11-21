@@ -14,7 +14,7 @@ class Button
 
 		void setText(const std::string& text);
 
-		void render(const TextRenderer& renderer);
+		void render(TextRenderer& renderer);
 	private:
 		uint32_t _posX = 0;
 		uint32_t _posY = 0;
