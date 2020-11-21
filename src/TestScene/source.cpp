@@ -25,6 +25,7 @@
 #include <GUI/ExposureControl.h>
 #include <GUI/WindowClose.h>
 #include <GUI/ModeControl.h>
+#include <GUI/Button.h>
 
 #include <iomanip>
 #include <sstream>
@@ -315,6 +316,9 @@ int main(void)
 
 	double endFrame;
 
+	Button button(100, 100, 100, 100);
+	button.setText("Test Button!");
+
 	LOGGER::DEBUG("Finished rendering setup!\n");
 	/* Loop until the user closes the window */
 	while (window.isOpen())
@@ -408,6 +412,15 @@ int main(void)
 		stream << "Render time: " << std::fixed << std::setprecision(5) << (endFrame - currentTime) << "ms FPS: " << std::fixed << std::setprecision(1) << 1.0f / (endFrame - currentTime) << "; Display FPS: " << std::fixed << std::setprecision(1) << 1.0f/window.DELTA_TIME();
 		textRenderer.render(stream.str(), 16, 16, 1, glm::vec3(0, 1, 0));
 		stream.str("");
+
+		double x, y;
+		glfwGetCursorPos(window.getWindow(), &x, &y);
+		y = height - y;
+		ButtonMode mode = ButtonMode::IDLE;
+		if (button.inside(x, y))mode = ButtonMode::HOVER;
+		if (button.inside(x, y) && KeyManager::instance()->leftClicked())mode = ButtonMode::CLICK;
+
+		button.render(textRenderer, mode);
 
 		window.spinOnce();
 
