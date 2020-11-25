@@ -24,6 +24,8 @@ class Button
 		void render(TextRenderer& renderer, const ButtonMode& mode = ButtonMode::IDLE);
 
 		bool inside(const uint32_t& x, const uint32_t& y);
+
+		inline std::string getText() const { return _text; }
 	private:
 		uint32_t _posX = 0;
 		uint32_t _posY = 0;
@@ -32,6 +34,12 @@ class Button
 		uint32_t _height = 0;
 
 		std::string _text = std::string();
+};
+
+struct ButtonHash
+{
+	std::size_t
+	operator()(const Button& button) const;
 };
 
 #endif

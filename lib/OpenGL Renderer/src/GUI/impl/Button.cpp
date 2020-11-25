@@ -41,3 +41,10 @@ Button::inside(const uint32_t& x, const uint32_t& y)
 
 	return cx <= _width && cy <= _height;
 }
+
+std::size_t
+ButtonHash::operator()(const Button& button) const
+{
+	std::hash<std::string> hasher;
+	return hasher(button.getText());
+}
