@@ -104,8 +104,6 @@ RenderWindow::registerButtonCallback(const Button& button, KeyPressFunction* cal
 void 
 RenderWindow::spinOnce()
 {
-	glfwSwapBuffers(_window);
-	glfwPollEvents();
 	double currentTime = glfwGetTime();
 	_deltaTime = currentTime - _lastTime;
 	_lastTime = currentTime;
@@ -116,6 +114,11 @@ RenderWindow::spinOnce()
 	if (_camera != nullptr && _mode == ViewerMode::VIEWER)
 	{
 		_camera->processInput(_deltaTime, xpos, ypos);
+	}
+
+	for (typename std::unordered_multimap<Button, KeyPressFunction*, ButtonHash>::const_iterator it = _button_callbacks.begin(); it != _button_callbacks.end(); ++it)
+	{
+		it->first.render(_textRenderer, it->first.getButtonMode());
 	}
 
 	for (typename std::unordered_multimap<uint32_t, KeyPressFunction*>::const_iterator it = _key_callbacks.begin(); it != _key_callbacks.end(); ++it)
@@ -131,6 +134,9 @@ RenderWindow::spinOnce()
 			active->second = false;
 		}
 	}
+
+	glfwSwapBuffers(_window);
+	glfwPollEvents();
 }
 
 bool 

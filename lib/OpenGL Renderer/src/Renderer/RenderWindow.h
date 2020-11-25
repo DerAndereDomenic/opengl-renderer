@@ -125,6 +125,10 @@ public:
 	*/
 	inline double DELTA_TIME() const { return _deltaTime; }
 
+	/**
+	*	\brief Get the default Text Renderer
+	*	\return The Text Renderer
+	*/
 	inline TextRenderer getTextRenderer() { return _textRenderer; }
 
 	/**
