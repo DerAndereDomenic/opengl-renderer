@@ -96,9 +96,15 @@ RenderWindow::spinOnce()
 
 	for (typename std::unordered_multimap<uint32_t, KeyPressFunction*>::const_iterator it = _callbacks.begin(); it != _callbacks.end(); ++it)
 	{
-		if (glfwGetKey(_window, it->first) == GLFW_PRESS)
+		typename std::unordered_map<uint32_t, bool>::iterator active = _active_keys.find(it->first);	//Lazy evaluation, iterator always exists because it was added when registering the callback
+		if (!active->second && glfwGetKey(_window, it->first) == GLFW_PRESS)
 		{
 			it->second->onPress(it->first);
+			active->second = true;
+		}
+		else if (active->second && glfwGetKey(_window, it->first) == GLFW_RELEASE)
+		{
+			active->second = false;
 		}
 	}
 }
