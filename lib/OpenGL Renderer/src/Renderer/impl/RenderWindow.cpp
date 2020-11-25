@@ -1,5 +1,6 @@
 #include <Renderer/RenderWindow.h>
 #include <DLogger/Logger.h>
+#include <Core/Platform.h>
 
 RenderWindow 
 RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title, Camera* camera)
@@ -39,6 +40,18 @@ RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const 
 	result._isOpen = true;
 
 	result._active_keys.insert(std::make_pair(GLFW_MOUSE_BUTTON_LEFT, false));
+
+	result._textRenderer = TextRenderer::createObject(width, height);
+
+#ifdef __OPENGLRENDERER_WINDOWS
+
+	result._textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 16);
+
+#elif __OPENGLRENDERER_UNIX
+
+	result._textRenderer.loadFont("/usr/share/fonts/truetype/hack/Hack-Regular.ttf", 16);
+
+#endif
 
 	return result;
 }

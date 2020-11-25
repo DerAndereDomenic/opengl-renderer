@@ -10,6 +10,7 @@
 
 #include <OpenGLObjects/VertexArray.h>
 #include <Shader/Shader.h>
+#include <Renderer/TextRenderer.h>
 #include <GUI/KeyPressFunction.h>
 #include <GUI/Button.h>
 
@@ -124,6 +125,8 @@ public:
 	*/
 	inline double DELTA_TIME() const { return _deltaTime; }
 
+	inline TextRenderer getTextRenderer() { return _textRenderer; }
+
 	/**
 	*	\brief Set the mode of the viewer
 	*	\param[in] mode The new mode
@@ -148,6 +151,7 @@ private:
 	std::unordered_multimap<Button, KeyPressFunction*, ButtonHash> _button_callbacks = {};	/**<< The button callbacks*/
 	std::unordered_multimap<uint32_t, bool> _active_keys = {};								/**<< List of active keys*/
 	ViewerMode _mode = ViewerMode::VIEWER;													/**<< The mode of the viewer*/
+	TextRenderer _textRenderer = {};														/**<< The default text renderer*/
 };
 
 
