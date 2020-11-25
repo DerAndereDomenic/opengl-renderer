@@ -48,7 +48,7 @@ RenderWindow::destroyObject(RenderWindow& window)
 	window._height = 0;
 	window._aspect_ratio = 0.0f;
 	window._isOpen = false;
-	window._callbacks.clear();
+	window._key_callbacks.clear();
 	window._button_callbacks.clear();
 	window._active_keys.clear();
 	if (window._window != nullptr)
@@ -75,7 +75,7 @@ RenderWindow::resetViewport()
 void 
 RenderWindow::registerCallback(const uint32_t& key, KeyPressFunction* callback)
 {
-	_callbacks.insert(std::make_pair(key, callback));
+	_key_callbacks.insert(std::make_pair(key, callback));
 	_active_keys.insert(std::make_pair(key, false));
 }
 
@@ -95,7 +95,7 @@ RenderWindow::spinOnce()
 		_camera->processInput(_deltaTime, xpos, ypos);
 	}
 
-	for (typename std::unordered_multimap<uint32_t, KeyPressFunction*>::const_iterator it = _callbacks.begin(); it != _callbacks.end(); ++it)
+	for (typename std::unordered_multimap<uint32_t, KeyPressFunction*>::const_iterator it = _key_callbacks.begin(); it != _key_callbacks.end(); ++it)
 	{
 		typename std::unordered_map<uint32_t, bool>::iterator active = _active_keys.find(it->first);	//Lazy evaluation, iterator always exists because it was added when registering the callback
 		if (!active->second && glfwGetKey(_window, it->first) == GLFW_PRESS)
