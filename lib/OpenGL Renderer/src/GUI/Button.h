@@ -21,7 +21,7 @@ class Button
 
 		void setText(const std::string& text);
 
-		void render(TextRenderer& renderer, const ButtonMode& mode = ButtonMode::IDLE);
+		void render(TextRenderer& renderer, const ButtonMode& mode = ButtonMode::IDLE) const;
 
 		bool inside(const uint32_t& x, const uint32_t& y);
 
@@ -31,7 +31,7 @@ class Button
 
 		inline uint32_t getID() const { return _id; }
 
-		inline ButtonMode getButtonMode() { return _mode; }
+		inline ButtonMode getButtonMode() const { return _mode; }
 
 		inline void setButtonMode(const ButtonMode& mode) { _mode = mode; }
 	private:
