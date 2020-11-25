@@ -137,6 +137,7 @@ private:
 	double _lastTime = 0;														/**<< The time stamp of the last frame*/
 	Camera* _camera = nullptr;													/**<< The camera */
 	std::unordered_multimap<uint32_t, KeyPressFunction*> _callbacks = {};		/**<< The key callbacks*/
+	std::unordered_multimap<uint32_t, bool> _active_keys = {};					/**<< List of active keys*/
 	ViewerMode _mode = ViewerMode::VIEWER;										/**<< The mode of the viewer*/
 };
 
