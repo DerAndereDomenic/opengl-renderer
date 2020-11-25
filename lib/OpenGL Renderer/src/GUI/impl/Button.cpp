@@ -1,11 +1,16 @@
 #include <GUI/Button.h>
 
+namespace detail
+{
+	uint32_t global_button_id = 0;
+}
 
 Button::Button(const uint32_t& x, const uint32_t& y, const uint32_t& width, const uint32_t& height)
 	:_posX(x),
 	 _posY(y),
 	 _width(width),
-	 _height(height)
+	 _height(height),
+	 _id(detail::global_button_id++)
 {
 
 }

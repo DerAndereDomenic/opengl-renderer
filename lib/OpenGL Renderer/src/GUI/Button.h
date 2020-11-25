@@ -26,7 +26,11 @@ class Button
 		bool inside(const uint32_t& x, const uint32_t& y);
 
 		inline std::string getText() const { return _text; }
+
+		inline uint32_t getID() const { return _id; }
 	private:
+		uint32_t _id;
+
 		uint32_t _posX = 0;
 		uint32_t _posY = 0;
 
