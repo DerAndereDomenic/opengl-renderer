@@ -28,6 +28,8 @@ class Button
 		inline std::string getText() const { return _text; }
 
 		inline uint32_t getID() const { return _id; }
+
+		bool operator==(const Button& button) const;
 	private:
 		uint32_t _id;
 

@@ -47,6 +47,12 @@ Button::inside(const uint32_t& x, const uint32_t& y)
 	return cx <= _width && cy <= _height;
 }
 
+bool 
+Button::operator==(const Button& button) const
+{
+	return button.getID() == _id;
+}
+
 std::size_t
 ButtonHash::operator()(const Button& button) const
 {
