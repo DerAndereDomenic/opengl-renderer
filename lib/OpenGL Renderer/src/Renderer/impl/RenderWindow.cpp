@@ -88,10 +88,11 @@ RenderWindow::spinOnce()
 	_deltaTime = currentTime - _lastTime;
 	_lastTime = currentTime;
 
+	double xpos, ypos;
+	glfwGetCursorPos(_window, &xpos, &ypos);
+
 	if (_camera != nullptr && _mode == ViewerMode::VIEWER)
 	{
-		double xpos, ypos;
-		glfwGetCursorPos(_window, &xpos, &ypos);
 		_camera->processInput(_deltaTime, xpos, ypos);
 	}
 
