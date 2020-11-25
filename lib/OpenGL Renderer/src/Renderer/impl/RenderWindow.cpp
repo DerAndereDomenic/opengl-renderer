@@ -119,7 +119,23 @@ RenderWindow::spinOnce()
 		{
 			if (it->first.inside(xpos, _height - ypos))
 			{
+				typename std::unordered_map<uint32_t, bool>::iterator active = _active_keys.find(GLFW_MOUSE_BUTTON_LEFT);
+
 				mode = ButtonMode::HOVER;
+				if (!active->second && glfwGetMouseButton(_window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+				{
+					it->second->onPress(0);
+					active->second = true;
+				}
+				else if (active->second && glfwGetMouseButton(_window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
+				{
+					active->second = false;
+				}
+
+				if(active->second)
+				{
+					mode = ButtonMode::CLICK;
+				}
 			}
 		}
 
