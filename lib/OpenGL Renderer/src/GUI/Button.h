@@ -23,7 +23,7 @@ class Button
 
 		void render(TextRenderer& renderer, const ButtonMode& mode = ButtonMode::IDLE) const;
 
-		bool inside(const uint32_t& x, const uint32_t& y);
+		bool inside(const uint32_t& x, const uint32_t& y) const;
 
 		bool operator==(const Button& button) const;
 

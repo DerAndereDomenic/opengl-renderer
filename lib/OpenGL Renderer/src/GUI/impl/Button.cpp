@@ -39,7 +39,7 @@ Button::render(TextRenderer& renderer, const ButtonMode& mode) const
 }
 
 bool 
-Button::inside(const uint32_t& x, const uint32_t& y)
+Button::inside(const uint32_t& x, const uint32_t& y) const
 {
 	const uint32_t cx = x - _posX;
 	const uint32_t cy = y - _posY;
