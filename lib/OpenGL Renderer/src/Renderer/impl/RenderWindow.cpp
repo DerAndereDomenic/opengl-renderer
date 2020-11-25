@@ -75,6 +75,7 @@ void
 RenderWindow::registerCallback(const uint32_t& key, KeyPressFunction* callback)
 {
 	_callbacks.insert(std::make_pair(key, callback));
+	_active_keys.insert(std::make_pair(key, false));
 }
 
 void 
