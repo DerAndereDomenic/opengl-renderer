@@ -25,11 +25,15 @@ class Button
 
 		bool inside(const uint32_t& x, const uint32_t& y);
 
+		bool operator==(const Button& button) const;
+
 		inline std::string getText() const { return _text; }
 
 		inline uint32_t getID() const { return _id; }
 
-		bool operator==(const Button& button) const;
+		inline ButtonMode getButtonMode() { return _mode; }
+
+		inline void setButtonMode(const ButtonMode& mode) { _mode = mode; }
 	private:
 		uint32_t _id;
 
@@ -40,6 +44,8 @@ class Button
 		uint32_t _height = 0;
 
 		std::string _text = std::string();
+
+		ButtonMode _mode = ButtonMode::IDLE;
 };
 
 struct ButtonHash
