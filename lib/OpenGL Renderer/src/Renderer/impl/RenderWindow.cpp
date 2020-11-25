@@ -66,6 +66,7 @@ RenderWindow::destroyObject(RenderWindow& window)
 	window._key_callbacks.clear();
 	window._button_callbacks.clear();
 	window._active_keys.clear();
+	TextRenderer::destroyObject(window._textRenderer);
 	if (window._window != nullptr)
 	{
 		window.close();

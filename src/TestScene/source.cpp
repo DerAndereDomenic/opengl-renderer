@@ -414,7 +414,6 @@ int main(void)
 	Scene::destroyObject(scene);
 	FrameBuffer::destroyObject(fbo);
 	KeyManager::destroy();
-	TextRenderer::destroyObject(textRenderer);
 	ParticleRenderer::destroyObject(particleRenderer);
 	Texture::destroyObject(vol_tex);
 
