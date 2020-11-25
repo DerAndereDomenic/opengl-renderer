@@ -129,18 +129,18 @@ public:
 	*/
 	inline ViewerMode getMode() { return _mode; }
 private:
-	GLFWwindow* _window = nullptr;												/**<< The underlying GLFWwindow*/
-	uint32_t _width = 0;														/**<< The width*/
-	uint32_t _height = 0;														/**<< The height*/
-	float _aspect_ratio = 1.0f;													/**<< The apsect ratio*/
-	bool _isOpen = false;														/**<< Wether the window is open*/
-	double _deltaTime = 0;														/**<< The delta time between two frames*/
-	double _lastTime = 0;														/**<< The time stamp of the last frame*/
-	Camera* _camera = nullptr;													/**<< The camera */
-	std::unordered_multimap<uint32_t, KeyPressFunction*> _key_callbacks = {};	/**<< The key callbacks*/
-	std::unordered_multimap<Button, KeyPressFunction*> _button_callbacks = {};	/**<< The button callbacks*/
-	std::unordered_multimap<uint32_t, bool> _active_keys = {};					/**<< List of active keys*/
-	ViewerMode _mode = ViewerMode::VIEWER;										/**<< The mode of the viewer*/
+	GLFWwindow* _window = nullptr;															/**<< The underlying GLFWwindow*/
+	uint32_t _width = 0;																	/**<< The width*/
+	uint32_t _height = 0;																	/**<< The height*/
+	float _aspect_ratio = 1.0f;																/**<< The apsect ratio*/
+	bool _isOpen = false;																	/**<< Wether the window is open*/
+	double _deltaTime = 0;																	/**<< The delta time between two frames*/
+	double _lastTime = 0;																	/**<< The time stamp of the last frame*/
+	Camera* _camera = nullptr;																/**<< The camera */
+	std::unordered_multimap<uint32_t, KeyPressFunction*> _key_callbacks = {};				/**<< The key callbacks*/
+	std::unordered_multimap<Button, KeyPressFunction*, ButtonHash> _button_callbacks = {};	/**<< The button callbacks*/
+	std::unordered_multimap<uint32_t, bool> _active_keys = {};								/**<< List of active keys*/
+	ViewerMode _mode = ViewerMode::VIEWER;													/**<< The mode of the viewer*/
 };
 
 
