@@ -65,6 +65,9 @@ int main(void)
 	Button debugButton(0, window.getHeight() - 16, 100, 16);
 	Button closeButton(116, window.getHeight() - 16, 100, 16);
 
+	debugButton.setText("Debug");
+	closeButton.setText("Close");
+
 	window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 	window.registerKeyCallback(GLFW_KEY_H, &debug_callback);
 	window.registerKeyCallback(GLFW_KEY_KP_ADD, &exposure_callback);
