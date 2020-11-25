@@ -75,7 +75,7 @@ RenderWindow::resetViewport()
 }
 
 void 
-RenderWindow::registerCallback(const uint32_t& key, KeyPressFunction* callback)
+RenderWindow::registerKeyCallback(const uint32_t& key, KeyPressFunction* callback)
 {
 	_key_callbacks.insert(std::make_pair(key, callback));
 	_active_keys.insert(std::make_pair(key, false));

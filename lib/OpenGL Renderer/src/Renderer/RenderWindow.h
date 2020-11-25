@@ -85,7 +85,7 @@ public:
 	*	\param[in] key The key to register the callback on
 	*	\param[in] callback The callback to register
 	*/
-	void registerCallback(const uint32_t& key, KeyPressFunction* callback);
+	void registerKeyCallback(const uint32_t& key, KeyPressFunction* callback);
 
 	/**
 	*	\brief Get the underlying GLFW window
