@@ -257,17 +257,7 @@ int main(void)
 	ShaderManager::instance()->addShader("DisplayNormal", true);
 	ShaderManager::instance()->addComputeShader("BasicCompute");
 
-	TextRenderer textRenderer = TextRenderer::createObject(window.getWidth(), window.getHeight());
-
-#ifdef __OPENGLRENDERER_WINDOWS
-
-	textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 16);
-
-#elif __OPENGLRENDERER_UNIX
-
-	textRenderer.loadFont("/usr/share/fonts/truetype/hack/Hack-Regular.ttf", 16);
-
-#endif
+	TextRenderer textRenderer = window.getTextRenderer();
 
 	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
 
