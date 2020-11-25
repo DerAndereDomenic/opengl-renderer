@@ -88,6 +88,13 @@ public:
 	void registerKeyCallback(const uint32_t& key, KeyPressFunction* callback);
 
 	/**
+	*	\brief Register a button callback
+	*	\param[in] The button to register
+	*	\param[in] The function of the button to implement
+	*/
+	void registerButtonCallback(const Button& button, KeyPressFunction* callback);
+
+	/**
 	*	\brief Get the underlying GLFW window
 	*	\return The GLFWwindow*
 	*/

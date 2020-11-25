@@ -82,6 +82,12 @@ RenderWindow::registerKeyCallback(const uint32_t& key, KeyPressFunction* callbac
 }
 
 void 
+RenderWindow::registerButtonCallback(const Button& button, KeyPressFunction* callback)
+{
+	_button_callbacks.insert(std::make_pair(button, callback));
+}
+
+void 
 RenderWindow::spinOnce()
 {
 	glfwSwapBuffers(_window);
