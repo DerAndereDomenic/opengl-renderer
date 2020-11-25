@@ -38,6 +38,8 @@ RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const 
 
 	result._isOpen = true;
 
+	result._active_keys.insert(std::make_pair(GLFW_MOUSE_BUTTON_LEFT, false));
+
 	return result;
 }
 
