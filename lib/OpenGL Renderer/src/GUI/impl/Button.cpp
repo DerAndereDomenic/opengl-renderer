@@ -50,6 +50,6 @@ Button::inside(const uint32_t& x, const uint32_t& y)
 std::size_t
 ButtonHash::operator()(const Button& button) const
 {
-	std::hash<std::string> hasher;
-	return hasher(button.getText());
+	std::hash<uint32_t> hasher;
+	return hasher(button.getID());
 }
