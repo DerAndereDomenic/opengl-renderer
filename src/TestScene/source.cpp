@@ -55,18 +55,24 @@ int main(void)
 	std::stringstream stream;
 
 	//---------------------------------------------------------------------------------//
-	//                              CALLBACKS                                          //
+	//                              CALLBACKS   /    UI                                //
 	//---------------------------------------------------------------------------------//
 	WindowClose close_callback(&window);
 	DebugControl debug_callback;
 	ExposureControl exposure_callback;
 	ModeControl mode_callback(&window);
 
+	Button debugButton(0, window.getHeight() - 16, 100, 16);
+	Button closeButton(116, window.getHeight() - 16, 100, 16);
+
 	window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 	window.registerKeyCallback(GLFW_KEY_H, &debug_callback);
 	window.registerKeyCallback(GLFW_KEY_KP_ADD, &exposure_callback);
 	window.registerKeyCallback(GLFW_KEY_KP_SUBTRACT, &exposure_callback);
 	window.registerKeyCallback(GLFW_KEY_LEFT_ALT, &mode_callback);
+	
+	window.registerButtonCallback(debugButton, &debug_callback);
+	window.registerButtonCallback(closeButton, &close_callback);
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //
