@@ -265,6 +265,7 @@ int main(void)
 	ShaderManager::instance()->addShader("Volume");
 	ShaderManager::instance()->addShader("DisplayNormal", true);
 	ShaderManager::instance()->addShader("DisplayVertices", true);
+	ShaderManager::instance()->addShader("DisplayEdges", true);
 	ShaderManager::instance()->addComputeShader("BasicCompute");
 
 	TextRenderer textRenderer = window.getTextRenderer();
@@ -371,6 +372,13 @@ int main(void)
 			ShaderManager::instance()->getShader("DisplayVertices").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 
 			scene.render(ShaderManager::instance()->getShader("DisplayVertices"));
+
+			glLineWidth(5);
+
+			ShaderManager::instance()->getShader("DisplayEdges").bind();
+			ShaderManager::instance()->getShader("DisplayEdges").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+
+			scene.render(ShaderManager::instance()->getShader("DisplayEdges"));
 		}
 
 		//Render light
