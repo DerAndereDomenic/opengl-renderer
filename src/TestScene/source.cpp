@@ -177,10 +177,25 @@ int main(void)
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
 
+	names.push_back("Mobius");
+
+	Mesh mobius_mesh = ObjLoader::loadObj(RESOURCE_PATH + "mobius.obj")[0];
+	meshes.push_back(mobius_mesh);
+
+	Material mat_mobius = Material::createObject("materialmap", MaterialType::PHONG);
+	mat_mobius.ambient = glm::vec3(0.05f, 0.05f, 0.1f);
+	mat_mobius.diffuse = glm::vec3(0.7f, 0.7f, 1.0f);
+	mat_mobius.specular = glm::vec3(0.7f, 0.7f, 1.0f);
+	mat_mobius.shininess = 0.4f * 512.0f;
+
+	materials.push_back(mat_mobius);
+
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(5, 2, 5)));
+
 	names.push_back("terrain");
 	Mesh terrain_mesh = ObjLoader::loadObj(RESOURCE_PATH + "plane.obj")[0];
 
-	Material mat_terrain = Material::createObject("materialmap", MaterialType::PHONG);
+	Material mat_terrain = Material::createObject("materialmap", MaterialType::GGX);
 	mat_terrain.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	mat_terrain.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	mat_terrain.specular = glm::vec3(1.0f, 1.0f, 1.0f);
