@@ -165,7 +165,7 @@ RenderWindow::spinOnce()
 }
 
 void 
-RenderWindow::updateSize(const uint32_t width, const uint32_t height)
+RenderWindow::updateSize(const uint32_t& width, const uint32_t& height)
 {
 	if (width != _width || height != _height)
 	{

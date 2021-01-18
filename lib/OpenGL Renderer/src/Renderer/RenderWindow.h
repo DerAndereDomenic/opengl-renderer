@@ -69,7 +69,7 @@ public:
 	*	\param[in] width The new width
 	*	\param[in] height The new height
 	*/
-	void updateSize(const uint32_t width, const uint32_t height);
+	void updateSize(const uint32_t& width, const uint32_t& height);
 
 	/**
 	*	\brief Checks if the window is open
