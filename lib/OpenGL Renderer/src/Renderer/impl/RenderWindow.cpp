@@ -164,28 +164,19 @@ RenderWindow::spinOnce()
 	glfwPollEvents();
 }
 
-bool 
-RenderWindow::updateSize()
+void 
+RenderWindow::updateSize(const uint32_t width, const uint32_t height)
 {
-	int32_t width_new;
-	int32_t height_new;
-
-	glfwGetFramebufferSize(_window, &width_new, &height_new);
-
-	if (&width_new != NULL && &height_new != NULL)
+	if (width != _width || height != _height)
 	{
-		if (width_new != _width || height_new != _height)
-		{
-			_width = width_new;
-			_height = height_new;
-			_aspect_ratio = static_cast<float>(_width) / static_cast<float>(_height);
+		_width = width;
+		_height = height;
+		_aspect_ratio = static_cast<float>(_width) / static_cast<float>(_height);
 
-			resetViewport();
+		glfwSetWindowSize(_window, width, height);
 
-			return true;
-		}
+		resetViewport();
 	}
-	return false;
 }
 
 bool 

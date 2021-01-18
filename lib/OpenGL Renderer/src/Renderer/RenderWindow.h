@@ -66,9 +66,10 @@ public:
 
 	/**
 	*	\brief Updates the size of the window if resized
-	*	\return If the window was resized
+	*	\param[in] width The new width
+	*	\param[in] height The new height
 	*/
-	bool updateSize();
+	void updateSize(const uint32_t width, const uint32_t height);
 
 	/**
 	*	\brief Checks if the window is open
