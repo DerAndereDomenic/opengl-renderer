@@ -13,14 +13,17 @@ int main()
 	LOGGER::setProject("VR Viewer", "1.0");
 	LOGGER::start();
 
-	RenderWindow dummy_window = RenderWindow::createObject(100, 100, "VR Renderer");
+	RenderWindow dummy_window = RenderWindow::createObject(822, 980, "VR Renderer");
 	VRRenderer renderer = VRRenderer::createObject();
-	dummy_window.updateSize(renderer.getWidth(), renderer.getHeight());
 
 	KeyManager::instance()->setup(dummy_window);
 	GL::enableDebugOutput();
 
 	ShaderManager::instance()->addShader("BasicVR");
+	ShaderManager::instance()->addShader("Post");
+
+	Mesh screen_quad = MeshHelper::quadMesh(2);
+	screen_quad.create();
 
 	Mesh cube = MeshHelper::cubeMesh(glm::vec4(1,0,0,1));
 	cube.create();
@@ -35,6 +38,7 @@ int main()
 	while (running && dummy_window.isOpen())
 	{
 		model = glm::rotate(0.01f, glm::vec3(0, 1, 0)) * model;
+
 		renderer.getRenderTargetLeft().bind();
 		GL::clear();
 		ShaderManager::instance()->getShader("BasicVR").bind();
@@ -52,8 +56,15 @@ int main()
 		floor.render();
 
 		renderer.uploadToHMD();
-		
+
 		FrameBuffer::bindDefault();
+
+		GL::clear();
+		ShaderManager::instance()->getShader("Post").bind();
+		ShaderManager::instance()->getShader("Post").setFloat("exposure", 1.0f);
+		ShaderManager::instance()->getShader("Post").setInt("screenTexture", 0);
+		renderer.getRenderTargetLeft().getTexture().bind();
+		screen_quad.render();
 
 		renderer.spinOnce();
 		dummy_window.spinOnce();
@@ -70,6 +81,7 @@ int main()
 	KeyManager::instance()->destroy();
 	Mesh::destroyObject(cube);
 	Mesh::destroyObject(floor);
+	Mesh::destroyObject(screen_quad);
 	ShaderManager::destroyObject(*ShaderManager::instance());
 
 	LOGGER::end();
