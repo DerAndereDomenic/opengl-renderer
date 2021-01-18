@@ -13,14 +13,13 @@ int main()
 	LOGGER::setProject("VR Viewer", "1.0");
 	LOGGER::start();
 
-	RenderWindow dummy_window = RenderWindow::createObject(822, 980, "VR Renderer");
+	RenderWindow dummy_window = RenderWindow::createObject(2*822, 980, "VR Renderer");//Hard coded for Rift
 	VRRenderer renderer = VRRenderer::createObject();
 
 	KeyManager::instance()->setup(dummy_window);
 	GL::enableDebugOutput();
 
 	ShaderManager::instance()->addShader("BasicVR");
-	ShaderManager::instance()->addShader("Post");
 	ShaderManager::instance()->addShader("VRScreen");
 
 	Mesh screen_quad = MeshHelper::quadMesh(2);
@@ -61,10 +60,11 @@ int main()
 		FrameBuffer::bindDefault();
 
 		GL::clear();
-		ShaderManager::instance()->getShader("Post").bind();
-		ShaderManager::instance()->getShader("Post").setFloat("exposure", 1.0f);
-		ShaderManager::instance()->getShader("Post").setInt("screenTexture", 0);
-		renderer.getRenderTargetLeft().getTexture().bind();
+		ShaderManager::instance()->getShader("VRScreen").bind();
+		ShaderManager::instance()->getShader("VRScreen").setInt("leftEye", 0);
+		ShaderManager::instance()->getShader("VRScreen").setInt("rightEye", 1);
+		renderer.getRenderTargetLeft().getTexture().bind(0);
+		renderer.getRenderTargetRight().getTexture().bind(1);
 		screen_quad.render();
 
 		renderer.spinOnce();
