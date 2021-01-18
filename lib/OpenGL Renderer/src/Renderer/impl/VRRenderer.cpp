@@ -91,7 +91,6 @@ VRRenderer::view(const Eye& eye)
             }
         }
     }
-
     return glm::inverse(eye2head)*glm::inverse(result);
 }
 
@@ -105,6 +104,25 @@ glm::mat4
 VRRenderer::rightView()
 {
     return view(Eye::RIGHT);
+}
+
+glm::vec3 
+VRRenderer::position(const Eye& eye)
+{
+    glm::mat4 V = view(eye);
+    return -V[3];
+}
+
+glm::vec3 
+VRRenderer::positionLeft()
+{
+    return position(Eye::LEFT);
+}
+
+glm::vec3 
+VRRenderer::positionRight()
+{
+    return position(Eye::RIGHT);
 }
 
 glm::mat4
