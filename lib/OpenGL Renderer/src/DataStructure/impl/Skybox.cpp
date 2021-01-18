@@ -37,3 +37,16 @@ Skybox::render(Camera camera)
 	_cube.render();
 	GL::enableDepthWriting();
 }
+
+void
+Skybox::render(const glm::mat4& view, const glm::mat4& projection)
+{
+	GL::disableDepthWriting();
+	ShaderManager::instance()->getShader("Skybox").bind();
+	_cubemap.bind(0);
+	ShaderManager::instance()->getShader("Skybox").setMVP(glm::mat4(1),
+		glm::mat4(glm::mat3(view)),
+		projection);
+	_cube.render();
+	GL::enableDepthWriting();
+}

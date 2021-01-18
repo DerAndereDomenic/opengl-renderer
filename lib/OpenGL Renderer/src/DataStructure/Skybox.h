@@ -31,6 +31,13 @@ public:
 	*/
 	void render(Camera camera);
 
+	/**
+	*	\brief Renders the skybox to the given camera
+	*	\param[in] view The view matrix
+	*	\param[in] projection The projection matrix
+	*/
+	void render(const glm::mat4& view, const glm::mat4& projection);
+
 private:
 	Mesh _cube; /**<< A generic cube Mesh to render the skybox*/
 	Texture _cubemap; /**<< The texture of the skybox*/

@@ -58,6 +58,14 @@ class ParticleRenderer
 		*	\note: This function disables depth writing for the draw call. The system should be rendered last in the scene
 		*/
 		void render(const Camera& camera);
+
+		/**
+		*	\brief Renders the particle system
+		*	\param[in] view The view matrix
+		*	\param[in] projection The projection matrix
+		*	\note: This function disables depth writing for the draw call. The system should be rendered last in the scene
+		*/
+		void render(const glm::mat4& view, const glm::mat4& projection);
 	private:
 		Texture _texture;					/**<< The texture of a single particle*/
 		std::vector<Particle> _particles;	/**<< The particles managed by this system*/
