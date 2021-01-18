@@ -49,6 +49,20 @@ class VRRenderer
         glm::mat4 view(const Eye& eye);
 
         /**
+        *   \brief Get the view matrix of the left eye
+        *   \return The left eyes view matrix
+        *   \note equivalent to view(Eye::LEFT)
+        */
+        glm::mat4 leftView();
+
+        /**
+        *   \brief Get the view matrix of the right eye
+        *   \return The right eyes view matrix
+        *   \note equivalent to view(Eye::RIGHT)
+        */
+        glm::mat4 rightView();
+
+        /**
         *   \brief Get the left eye projection matrix
         *   \return The left eye projection matrix
         */

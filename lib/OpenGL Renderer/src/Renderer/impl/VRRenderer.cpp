@@ -95,6 +95,18 @@ VRRenderer::view(const Eye& eye)
     return glm::inverse(eye2head)*glm::inverse(result);
 }
 
+glm::mat4 
+VRRenderer::leftView()
+{
+    return view(Eye::LEFT);
+}
+
+glm::mat4 
+VRRenderer::rightView()
+{
+    return view(Eye::RIGHT);
+}
+
 glm::mat4
 VRRenderer::projection(const vr::EVREye& eye)
 {

@@ -42,9 +42,9 @@ int main()
 		renderer.getRenderTargetLeft().bind();
 		GL::clear();
 		ShaderManager::instance()->getShader("BasicVR").bind();
-		ShaderManager::instance()->getShader("BasicVR").setMVP(model, renderer.view(Eye::LEFT), renderer.leftProjection());
+		ShaderManager::instance()->getShader("BasicVR").setMVP(model, renderer.leftView(), renderer.leftProjection());
 		cube.render();
-		ShaderManager::instance()->getShader("BasicVR").setMVP(glm::mat4(1), renderer.view(Eye::LEFT), renderer.leftProjection());
+		ShaderManager::instance()->getShader("BasicVR").setMVP(glm::mat4(1), renderer.rightView(), renderer.leftProjection());
 		floor.render();
 
 		renderer.getRenderTargetRight().bind();
