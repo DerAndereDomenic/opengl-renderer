@@ -21,6 +21,7 @@ int main()
 
 	ShaderManager::instance()->addShader("BasicVR");
 	ShaderManager::instance()->addShader("Post");
+	ShaderManager::instance()->addShader("VRScreen");
 
 	Mesh screen_quad = MeshHelper::quadMesh(2);
 	screen_quad.create();
