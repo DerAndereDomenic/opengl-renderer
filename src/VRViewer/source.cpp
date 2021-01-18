@@ -15,6 +15,8 @@ int main()
 
 	RenderWindow dummy_window = RenderWindow::createObject(100, 100, "VR Renderer");
 	VRRenderer renderer = VRRenderer::createObject();
+	dummy_window.updateSize(renderer.getWidth(), renderer.getHeight());
+
 	KeyManager::instance()->setup(dummy_window);
 	GL::enableDebugOutput();
 
