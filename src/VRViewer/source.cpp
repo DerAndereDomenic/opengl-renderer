@@ -25,7 +25,7 @@ int main(void)
 	LOGGER::setProject("VR Viewer", "1.0");
 	LOGGER::start();
 
-	const float scale = 0.5f;
+	const float scale = 0.2f;
 	glm::mat4 scaling_matrix = glm::scale(glm::mat4(1), glm::vec3(scale));
 
 	uint32_t width = 1280;
@@ -170,24 +170,24 @@ int main(void)
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(scaling_matrix, glm::vec3(20, 0, 0)));
 
 	Light l1 = Light::createObject(glm::vec3(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20, 0, 0, 1))*scale, true, shadow_width, shadow_height, near, far);
-	l1.ambient = glm::vec3(0.1f*scale);
-	l1.diffuse = glm::vec3(500.0f*scale);
-	l1.specular = glm::vec3(500.0f*scale);
+	l1.ambient = glm::vec3(0.1f*scale*scale);
+	l1.diffuse = glm::vec3(500.0f*scale * scale);
+	l1.specular = glm::vec3(500.0f*scale * scale);
 
 	Light l2 = Light::createObject(glm::vec3(0.0f, 0.2f, 0)*scale);
 	l2.ambient = glm::vec3(0);
-	l2.diffuse = glm::vec3(1.0f, 0.0f, 0.0f)*scale;
-	l2.specular = glm::vec3(1.0f, 0.0f, 0.0f)*scale;
+	l2.diffuse = glm::vec3(1.0f, 0.0f, 0.0f)*scale * scale;
+	l2.specular = glm::vec3(1.0f, 0.0f, 0.0f)*scale * scale;
 
 	Light l3 = Light::createObject(glm::vec3(-3, 0.2f, 2)*scale);
 	l3.ambient = glm::vec3(0);
-	l3.diffuse = glm::vec3(0.0f, 1.0f, 0.0f)*scale;
-	l3.specular = glm::vec3(0.0f, 1.0f, 0.0f)*scale;
+	l3.diffuse = glm::vec3(0.0f, 1.0f, 0.0f)*scale * scale;
+	l3.specular = glm::vec3(0.0f, 1.0f, 0.0f)*scale * scale;
 
 	Light l4 = Light::createObject(glm::vec3(0, 20, 20)*scale, true, shadow_width, shadow_height, near, far);
-	l4.ambient = glm::vec3(0.1f*scale);
-	l4.diffuse = glm::vec3(500.0f*scale);
-	l4.specular = glm::vec3(500.0f*scale);
+	l4.ambient = glm::vec3(0.1f*scale * scale);
+	l4.diffuse = glm::vec3(500.0f*scale * scale);
+	l4.specular = glm::vec3(500.0f*scale * scale);
 
 	Texture particleTexture = Texture::createObject(RESOURCE_PATH + "smoke.png");
 
