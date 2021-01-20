@@ -109,8 +109,11 @@ VRRenderer::rightView()
 glm::vec3 
 VRRenderer::position(const Eye& eye)
 {
-    glm::mat4 V = view(eye);
-    return -V[3];
+    //glm::mat4 V = view(eye);
+    //return -V[3];
+    vr::TrackedDevicePose_t trackedDevicePose;
+    _vr_pointer->GetDeviceToAbsoluteTrackingPose(vr::TrackingUniverseStanding, 0, &trackedDevicePose, 1);
+    return glm::vec3(trackedDevicePose.mDeviceToAbsoluteTracking.m[0][3], trackedDevicePose.mDeviceToAbsoluteTracking.m[1][3], trackedDevicePose.mDeviceToAbsoluteTracking.m[2][3]);
 }
 
 glm::vec3 
