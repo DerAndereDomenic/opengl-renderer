@@ -325,8 +325,10 @@ int main(void)
 		renderer.getRenderTargetRight().getTexture().bind(1);
 		screen_quad.render();
 
-		window.spinOnce();
 		renderer.uploadToHMD();
+
+		window.spinOnce();
+		renderer.spinOnce();
 
 		++frameID;
 	}
