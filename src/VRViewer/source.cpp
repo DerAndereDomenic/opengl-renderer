@@ -25,6 +25,8 @@ int main(void)
 	LOGGER::setProject("VR Viewer", "1.0");
 	LOGGER::start();
 
+	const float scale = 0.5f;
+	glm::mat4 scaling_matrix = glm::scale(glm::mat4(1), glm::vec3(scale));
 
 	uint32_t width = 1280;
 	uint32_t height = 720;
@@ -62,7 +64,7 @@ int main(void)
 	mat_crate.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_crate);
 
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(1, 0.5, 0)));
+	models.push_back(glm::translate(scaling_matrix, glm::vec3(1, 0.5, 0)));
 
 	names.push_back("Table");
 
@@ -77,7 +79,7 @@ int main(void)
 	mat_table.useTextures = true;
 	materials.push_back(mat_table);
 
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(-3, 0, 2)));
+	models.push_back(glm::translate(scaling_matrix, glm::vec3(-3, 0, 2)));
 
 	names.push_back("Wall");
 
@@ -92,7 +94,7 @@ int main(void)
 	mat_brick.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_brick);
 
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 5.0f, -5.0f)));
+	models.push_back(glm::translate(scaling_matrix, glm::vec3(0, 5.0f, -5.0f)));
 
 	names.push_back("Plane");
 
@@ -107,7 +109,7 @@ int main(void)
 	mat_fabric.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_fabric);
 
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, -0.1, 0)));
+	models.push_back(glm::translate(scaling_matrix, glm::vec3(0, -0.1, 0)));
 
 	names.push_back("suzanne");
 
@@ -121,7 +123,7 @@ int main(void)
 	mat_suzanne.shininess = 0.4f * 16.0f;
 	materials.push_back(mat_suzanne);
 
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
+	models.push_back(glm::translate(scaling_matrix, glm::vec3(0, 7, 0)));
 
 	Mesh sphere = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
 	sphere.create();
@@ -139,7 +141,7 @@ int main(void)
 
 	materials.push_back(mat_brdf);
 
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 2, 6)));
+	models.push_back(glm::translate(scaling_matrix, glm::vec3(0, 2, 6)));
 
 	names.push_back("Mobius");
 
@@ -154,7 +156,7 @@ int main(void)
 
 	materials.push_back(mat_mobius);
 
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(5, 2, 5)));
+	models.push_back(glm::translate(scaling_matrix, glm::vec3(5, 2, 5)));
 
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
@@ -165,27 +167,27 @@ int main(void)
 	mat_lamp.specular = glm::vec3(1, 1, 1);
 	mat_lamp.shininess = 128.0f * 0.4f;
 
-	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
+	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(scaling_matrix, glm::vec3(20, 0, 0)));
 
-	Light l1 = Light::createObject(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20, 0, 0, 1), true, shadow_width, shadow_height, near, far);
-	l1.ambient = glm::vec3(0.1f);
-	l1.diffuse = glm::vec3(500.0f);
-	l1.specular = glm::vec3(500.0f);
+	Light l1 = Light::createObject(glm::vec3(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20, 0, 0, 1))*scale, true, shadow_width, shadow_height, near, far);
+	l1.ambient = glm::vec3(0.1f*scale);
+	l1.diffuse = glm::vec3(500.0f*scale);
+	l1.specular = glm::vec3(500.0f*scale);
 
-	Light l2 = Light::createObject(glm::vec3(0.0f, 0.2f, 0));
+	Light l2 = Light::createObject(glm::vec3(0.0f, 0.2f, 0)*scale);
 	l2.ambient = glm::vec3(0);
-	l2.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
-	l2.specular = glm::vec3(1.0f, 0.0f, 0.0f);
+	l2.diffuse = glm::vec3(1.0f, 0.0f, 0.0f)*scale;
+	l2.specular = glm::vec3(1.0f, 0.0f, 0.0f)*scale;
 
-	Light l3 = Light::createObject(glm::vec3(-3, 0.2f, 2));
+	Light l3 = Light::createObject(glm::vec3(-3, 0.2f, 2)*scale);
 	l3.ambient = glm::vec3(0);
-	l3.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
-	l3.specular = glm::vec3(0.0f, 1.0f, 0.0f);
+	l3.diffuse = glm::vec3(0.0f, 1.0f, 0.0f)*scale;
+	l3.specular = glm::vec3(0.0f, 1.0f, 0.0f)*scale;
 
-	Light l4 = Light::createObject(glm::vec3(0, 20, 20), true, shadow_width, shadow_height, near, far);
-	l4.ambient = glm::vec3(0.1f);
-	l4.diffuse = glm::vec3(500.0f);
-	l4.specular = glm::vec3(500.0f);
+	Light l4 = Light::createObject(glm::vec3(0, 20, 20)*scale, true, shadow_width, shadow_height, near, far);
+	l4.ambient = glm::vec3(0.1f*scale);
+	l4.diffuse = glm::vec3(500.0f*scale);
+	l4.specular = glm::vec3(500.0f*scale);
 
 	Texture particleTexture = Texture::createObject(RESOURCE_PATH + "smoke.png");
 
@@ -222,12 +224,12 @@ int main(void)
 	ShaderManager::instance()->addShader("Reflection");
 	ShaderManager::instance()->addShader("VRScreen");
 
-	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
+	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0)*scale, 10000, 2, particleTexture);
 
-	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
+	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0)*scale);
 
 	scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
-	obj_light.setModel(glm::translate(glm::mat4(1), l1.position));
+	obj_light.setModel(glm::translate(scaling_matrix, l1.position));
 
 	Skybox sky = Skybox::createObject(skybox);
 
@@ -266,7 +268,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Reflection").setInt("cubemap", 0);
 		ShaderManager::instance()->getShader("Reflection").setVec3("camera_position", renderer.positionLeft());
 		map.getCubeMap().bind();
-		ShaderManager::instance()->getShader("Reflection").setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), renderer.leftView(), renderer.leftProjection());
+		ShaderManager::instance()->getShader("Reflection").setMVP(glm::translate(scaling_matrix, glm::vec3(0, 5, 0)), renderer.leftView(), renderer.leftProjection());
 		sphere.render();
 
 		//Light
@@ -296,7 +298,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Reflection").setInt("cubemap", 0);
 		ShaderManager::instance()->getShader("Reflection").setVec3("camera_position", renderer.positionRight());
 		map.getCubeMap().bind();
-		ShaderManager::instance()->getShader("Reflection").setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), renderer.rightView(), renderer.rightProjection());
+		ShaderManager::instance()->getShader("Reflection").setMVP(glm::translate(scaling_matrix, glm::vec3(0, 5, 0)), renderer.rightView(), renderer.rightProjection());
 		sphere.render();
 
 		//Light
