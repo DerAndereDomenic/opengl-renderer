@@ -63,25 +63,10 @@ class VRRenderer
         glm::mat4 rightView();
 
         /**
-        *   \brief Get the position of the given eye
-        *   \param[in] eye The eye to consider
-        *   \return The position of the eye
+        *   \brief Get the position of the HMD
+        *   \return The HMD position
         */
-        glm::vec3 position(const Eye& eye);
-
-        /**
-        *   \brief Get the position of the left eye
-        *   \return The left eyes position
-        *   \note: equivalent to position(Eye::LEFT)
-        */
-        glm::vec3 positionLeft();
-
-        /**
-        *   \brief Get the position of the right eye
-        *   \return The right eyes position
-        *   \note: equivalent to position(Eye::RIGHT)
-        */
-        glm::vec3 positionRight();
+        glm::vec3 position();
 
         /**
         *   \brief Get the left eye projection matrix

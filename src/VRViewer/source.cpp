@@ -266,14 +266,14 @@ int main(void)
 
 		ShaderManager::instance()->getShader("Reflection").bind();
 		ShaderManager::instance()->getShader("Reflection").setInt("cubemap", 0);
-		ShaderManager::instance()->getShader("Reflection").setVec3("camera_position", renderer.positionLeft());
+		ShaderManager::instance()->getShader("Reflection").setVec3("camera_position", renderer.position());
 		map.getCubeMap().bind();
 		ShaderManager::instance()->getShader("Reflection").setMVP(glm::translate(scaling_matrix, glm::vec3(0, 5, 0)), renderer.leftView(), renderer.leftProjection());
 		sphere.render();
 
 		//Light
 		ShaderManager::instance()->getShader("Normal").bind();
-		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", renderer.positionRight());
+		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", renderer.position());
 		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), renderer.leftView(), renderer.leftProjection());
 
 		scene.render(ShaderManager::instance()->getShader("Normal"));
@@ -296,14 +296,14 @@ int main(void)
 
 		ShaderManager::instance()->getShader("Reflection").bind();
 		ShaderManager::instance()->getShader("Reflection").setInt("cubemap", 0);
-		ShaderManager::instance()->getShader("Reflection").setVec3("camera_position", renderer.positionRight());
+		ShaderManager::instance()->getShader("Reflection").setVec3("camera_position", renderer.position());
 		map.getCubeMap().bind();
 		ShaderManager::instance()->getShader("Reflection").setMVP(glm::translate(scaling_matrix, glm::vec3(0, 5, 0)), renderer.rightView(), renderer.rightProjection());
 		sphere.render();
 
 		//Light
 		ShaderManager::instance()->getShader("Normal").bind();
-		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", renderer.positionRight());
+		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", renderer.position());
 		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), renderer.rightView(), renderer.rightProjection());
 
 		scene.render(ShaderManager::instance()->getShader("Normal"));
