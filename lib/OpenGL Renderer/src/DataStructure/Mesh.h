@@ -58,7 +58,7 @@ public:
 	*	\param[in] faces An index set of faces
 	*	\param[in] uvw The uvw coordinates responsible for the vertices
 	*/
-	void addFaces(const uint32_t& num_faces, const glm::vec3* positions, const glm::vec3* faces, const glm::vec3* uvw);
+	void addFaces(const uint32_t& num_faces, const glm::vec3* positions, const glm::ivec3* faces, const glm::vec3* uvw);
 
 	/**
 	*	\brief Adds a vertex to the mesh

@@ -85,6 +85,30 @@ Mesh::addTriangle(const uint32_t& vertex1, const uint32_t& vertex2, const uint32
 	_indices.push_back(vertex3);
 }
 
+void
+Mesh::addFaces(const uint32_t& num_faces, const glm::vec3* positions, const glm::ivec3* faces, const glm::vec3* uvw)
+{
+	for (uint32_t i = 0; i < num_faces; ++i)
+	{
+		glm::vec3 point1 = positions[faces[i].x];
+		glm::vec3 point2 = positions[faces[i].y];
+		glm::vec3 point3 = positions[faces[i].z];
+
+		glm::vec3 uvw1 = uvw[faces[i].x];
+		glm::vec3 uvw2 = uvw[faces[i].y];
+		glm::vec3 uvw3 = uvw[faces[i].z];
+
+		glm::vec3 normal = glm::normalize(glm::cross(point2 - point1, point3 - point1));
+
+		//TODO: Make color changable
+		uint32_t idx1 = this->addVertex(point1, glm::vec4(1), uvw1, normal);
+		uint32_t idx2 = this->addVertex(point2, glm::vec4(1), uvw2, normal);
+		uint32_t idx3 = this->addVertex(point3, glm::vec4(1), uvw3, normal);
+
+		this->addTriangle(idx1, idx2, idx3);
+	}
+}
+
 void 
 Mesh::calculateTangent(const uint32_t& index1, const uint32_t& index2, const uint32_t& index3)
 {
