@@ -51,6 +51,16 @@ public:
 	void render();
 
 	/**
+	*	\brief Add several faces at once.
+	*	Vertex normals will be calculated by the given points in a face.
+	*	\param[in] num_faces The number of faces to add
+	*	\param[in] positions The positions of the vertices
+	*	\param[in] faces An index set of faces
+	*	\param[in] uvw The uvw coordinates responsible for the vertices
+	*/
+	void addFaces(const uint32_t& num_faces, const glm::vec3* positions, const glm::vec3* faces, const glm::vec3* uvw);
+
+	/**
 	*	\brief Adds a vertex to the mesh
 	*	\param[in] position The position of the vertex
 	*	\param[in] color The color of the vertex
