@@ -10,7 +10,9 @@ if [ ! -d "$DLOGGER_DIR" ]; then
 	echo "Cloning DLogger...";
 	cd lib
 	git clone --depth 1 https://gitlab.com/DerAndereDomenic/dlogger.git 
-	cd ..
+	cd dlogger
+	rm -r -f .git
+	cd ../..
 fi
 
 cd "$BUILD_DIR"
