@@ -6,3 +6,4 @@ build/
 *.sln
 *.vcxproj.*
 *.vcxproj
+lib/dlogger/*
