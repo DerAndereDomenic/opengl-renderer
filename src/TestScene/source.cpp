@@ -18,7 +18,6 @@
 #include <Renderer/RenderWindow.h>
 #include <Renderer/Camera.h>
 #include <DataStructure/EnvironmentMap.h>
-#include <Renderer/TerrainCreater.h>
 #include <Renderer/TextRenderer.h>
 #include <Renderer/ParticleRenderer.h>
 #include <GUI/DebugControl.h>
@@ -191,22 +190,6 @@ int main(void)
 	materials.push_back(mat_mobius);
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(5, 2, 5)));
-
-	names.push_back("terrain");
-	Mesh terrain_mesh = ObjLoader::loadObj(RESOURCE_PATH + "plane.obj")[0];
-
-	Material mat_terrain = Material::createObject("materialmap", MaterialType::GGX);
-	mat_terrain.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-	mat_terrain.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-	mat_terrain.specular = glm::vec3(1.0f, 1.0f, 1.0f);
-	mat_terrain.texture_height = Terrain::createTerrain(512, 512, 5);
-	mat_terrain.texture_diffuse = mat_terrain.texture_height;
-	mat_terrain.useTextures = true;
-	mat_terrain.shininess = 0.4f * 512.0f;
-
-	meshes.push_back(terrain_mesh);
-	materials.push_back(mat_terrain);
-	models.push_back(glm::translate(glm::mat4(1), glm::vec3(-20, 0, 0)));
 
 	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light.create();
