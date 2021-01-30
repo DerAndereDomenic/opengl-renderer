@@ -53,4 +53,6 @@ Material::bind(Shader shader)
 		shader.setFloat(_name + ".shininess", shininess);
 	}
 	shader.setInt(_name + ".type", _type);
+	shader.setFloat(_name + ".roughness", roughness);
+	shader.setFloat(_name + ".refractive_index", refractive_index);
 }
