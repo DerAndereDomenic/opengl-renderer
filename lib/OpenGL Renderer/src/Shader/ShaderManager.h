@@ -32,6 +32,14 @@ class ShaderManager
 		addShader(const std::string& name, const bool geometry = false);
 
 		/**
+		*	\brief Removes the shader from the manager (destroys the shader object)
+		*	\param[in] name The name of the shader
+		*	\note: The underlying shader object is destroyed. Binding the shader via references is no longer possible.
+		*/
+		void
+		removeShader(const std::string& name);
+
+		/**
 		* 	\brief Adds a compute shader to the manager
 		*	\param[in] name The name of the shader (Has to be like the filename)
 		*/ 

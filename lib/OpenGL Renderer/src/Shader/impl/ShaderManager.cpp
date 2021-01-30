@@ -1,4 +1,5 @@
 #include <Shader/ShaderManager.h>
+#include <DLogger/Logger.h>
 
 ShaderManager* ShaderManager::_instance = 0;
 
@@ -42,6 +43,19 @@ ShaderManager::addShader(const std::string& name, const bool geometry)
 		shader = Shader::createObject(vertexPath.c_str(), fragmentPath.c_str());
 	}
 	_shader.insert(std::pair<std::string, Shader>(name, shader));
+}
+
+void
+ShaderManager::removeShader(const std::string& name)
+{
+	auto& it = _shader.find(name);
+	if (it == _shader.end())
+	{
+		LOGGER::ERROR("Shader with name: " + name + " does not exist. Rejecting...\n");
+		return;
+	}
+	Shader::destroyObject(it->second);
+	_shader.erase(it);
 }
 
 void 
