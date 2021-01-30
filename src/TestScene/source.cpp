@@ -264,7 +264,6 @@ int main(void)
 	ShaderManager::instance()->addShader("DisplayNormal", true);
 	ShaderManager::instance()->addShader("DisplayVertices", true);
 	ShaderManager::instance()->addShader("DisplayEdges", true);
-	ShaderManager::instance()->addComputeShader("BasicCompute");
 
 	TextRenderer textRenderer = window.getTextRenderer();
 
