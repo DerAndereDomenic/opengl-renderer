@@ -171,6 +171,7 @@ int main(void)
 	mat_brdf.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	mat_brdf.specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	mat_brdf.shininess = 0.4f * 512.0f;
+	mat_brdf.roughness = 0.4f;
 
 	materials.push_back(mat_brdf);
 
