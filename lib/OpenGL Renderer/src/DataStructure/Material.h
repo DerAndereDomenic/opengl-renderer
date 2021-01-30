@@ -56,7 +56,7 @@ public:
 
 	float shininess = 0;						/**<< The shininess of the material*/
 	float roughness = 0;						/**<< The roughness of the material (GGX)*/
-	float refractive_index = 0;					/**<< The refractive index*/
+	float refractive_index = 1;					/**<< The refractive index*/
 private:
 	std::string _name;
 };
