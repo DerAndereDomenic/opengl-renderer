@@ -42,6 +42,8 @@ struct MaterialMap
 	int type;
 
 	float shininess;
+	float roughness;
+	float refractive_index;
 };
 
 uniform MaterialMap materialmap;
