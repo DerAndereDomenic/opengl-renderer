@@ -48,15 +48,16 @@ struct MaterialMap
 
 uniform MaterialMap materialmap;
 
-/**
-*	This is an intern struct to simplify light calculation
-*/
+///
+///	This is an intern struct to simplify light calculation
+///
 struct Material
 {
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
 	float shininess;
+	float roughness;
 };
 
 
@@ -111,10 +112,9 @@ vec3 brdf_ggx(Light plight, vec3 lightDir, Material material, vec3 normal, int p
 	{
 		return material.ambient;
 	}
-	float roughness = 0.4;
-	float ndf = D_GGX(NdotH, roughness);
+	float ndf = D_GGX(NdotH, material.roughness);
 
-	float vis = V_SmithJohnGGX(NdotL, NdotV, roughness);
+	float vis = V_SmithJohnGGX(NdotL, NdotV, material.roughness);
 
 	float shadow = plight.cast_shadow == 1 ? shadowCalculation(frag_position_light_space[pass], plight.shadow_map) : 0;
 
@@ -150,15 +150,15 @@ void main(){
 		object_material.ambient = vec3(texture(materialmap.diffuse_map, frag_tex));
 		object_material.diffuse = vec3(texture(materialmap.diffuse_map, frag_tex));
 		object_material.specular = vec3(texture(materialmap.specular_map, frag_tex));
-		object_material.shininess = materialmap.shininess;
 	}
 	else
 	{
 		object_material.ambient = materialmap.ambient;
 		object_material.diffuse = materialmap.diffuse;
 		object_material.specular = materialmap.specular;
-		object_material.shininess = materialmap.shininess;
 	}
+	object_material.shininess = materialmap.shininess;
+	object_material.roughness = materialmap.roughness;
 
 
 	vec3 normal = texture(materialmap.normal_map, frag_tex).rgb;
