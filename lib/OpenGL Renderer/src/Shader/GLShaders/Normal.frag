@@ -8,13 +8,17 @@
 #define PI 3.14159
 layout(location = 0) out vec4 FragColor;
 
+//
+//	VERTEX IN
+//
 in vec3 frag_position;
 in vec2 frag_tex;
 in mat3 frag_TBN;
 in vec4 frag_position_light_space[LIGHTS];
 
-uniform vec3 viewPos;
-
+//
+//	STRUCTURES
+//
 struct Light
 {
 	vec3 position;
@@ -24,8 +28,6 @@ struct Light
 	sampler2D shadow_map;
 	int cast_shadow;
 };
-
-uniform Light lights_frag[LIGHTS];
 
 struct MaterialMap
 {
@@ -46,11 +48,7 @@ struct MaterialMap
 	float refractive_index;
 };
 
-uniform MaterialMap materialmap;
-
-///
-///	This is an intern struct to simplify light calculation
-///
+//	This is an intern struct to simplify light calculation
 struct Material
 {
 	vec3 ambient;
@@ -60,7 +58,16 @@ struct Material
 	float roughness;
 };
 
+//
+//	UNIFORMS
+//
+uniform vec3 viewPos;
+uniform Light lights_frag[LIGHTS];
+uniform MaterialMap materialmap;
 
+//
+//	LIGHTING FUNCTIONS
+//
 float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 {
 	float bias = 0.0001;//3125;

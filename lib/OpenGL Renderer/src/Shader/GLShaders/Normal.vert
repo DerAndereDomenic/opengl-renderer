@@ -6,15 +6,17 @@ layout (location = 2) in vec3 tex;
 layout (location = 3) in vec3 normal;
 layout (location = 4) in vec3 tangent;
 
+//
+//	VERTEX OUT
+//
 out vec3 frag_position;
 out vec2 frag_tex;
 out mat3 frag_TBN;
 out vec4 frag_position_light_space[LIGHTS];
 
-uniform mat4 M;
-uniform mat4 V;
-uniform mat4 P;
-
+//
+//	STRUCTURES
+//
 struct MaterialMap
 {
 	bool useTextures;
@@ -34,13 +36,18 @@ struct MaterialMap
 	float refractive_index;
 };
 
-uniform MaterialMap materialmap;
-
 struct Light
 {
 	mat4 lightSpaceMatrix;
 };
 
+//
+//	UNIFORMS
+//
+uniform mat4 M;
+uniform mat4 V;
+uniform mat4 P;
+uniform MaterialMap materialmap;
 uniform Light lights_vert[LIGHTS];
 
 void main()
