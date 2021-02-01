@@ -106,10 +106,8 @@ float V_SmithJohnGGX(float NdotL, float NdotV, float roughness)
 	return 0.5/(lambdaL+lambdaV);
 }
 
-vec3 brdf_ggx(Light plight, vec3 lightDir, Material material, vec3 normal, int pass)
+vec3 brdf_ggx(Light plight, vec3 lightDir, vec3 viewDir, Material material, vec3 normal, int pass)
 {
-	vec3 viewDir = normalize(viewPos - frag_position); 
-
 	vec3 H = normalize(lightDir + viewDir);
 	float NdotH = max(0,dot(normal, H));
 	float LdotH = max(0,dot(lightDir, H));
@@ -137,10 +135,9 @@ vec3 brdf_lambert(Light plight, vec3 lightDir, Material material, vec3 normal, i
 	return (1-shadow)*material.diffuse/PI;
 }
 
-vec3 brdf_phong(Light plight, vec3 lightDir, Material material, vec3 normal, int pass)
+vec3 brdf_phong(Light plight, vec3 lightDir, vec3 viewDir, Material material, vec3 normal, int pass)
 {
 	//Calculate directions
-	vec3 viewDir = normalize(viewPos - frag_position);
 	vec3 halfwayDir = normalize(lightDir+viewDir);
 
 	float shadow = plight.cast_shadow == 1 ? shadowCalculation(frag_position_light_space[pass], plight.shadow_map) : 0;
@@ -181,6 +178,7 @@ void main(){
 	}
 	
 	vec3 result = vec3(0);
+	vec3 viewDir = normalize(viewPos - frag_position);
 	for(int i = 0; i < LIGHTS; ++i)
 	{
 		vec3 lightDir = normalize(lights_frag[i].position - frag_position);
@@ -192,11 +190,11 @@ void main(){
 				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r)*NdotL;
 				break;
 			case PHONG:
-				result += brdf_phong(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular/(r*r)*NdotL;
+				result += brdf_phong(lights_frag[i], lightDir, viewDir, object_material, norm, i)*lights_frag[i].specular/(r*r)*NdotL;
 				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r)*NdotL;
 				break;
 			case GGX:
-				result += brdf_ggx(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].specular/(r*r)*NdotL;
+				result += brdf_ggx(lights_frag[i], lightDir, viewDir, object_material, norm, i)*lights_frag[i].specular/(r*r)*NdotL;
 				break;
 		}
 		result += object_material.ambient*lights_frag[i].ambient;
