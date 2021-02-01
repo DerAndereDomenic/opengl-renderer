@@ -38,6 +38,11 @@ public:
 	*/
 	void render(const glm::mat4& view, const glm::mat4& projection);
 
+	/**
+	*	\brief Get the cubemap texture.
+	*	\return The underlying cubemap texture
+	*/
+	inline Texture getCubemap() { return _cubemap; }
 private:
 	Mesh _cube; /**<< A generic cube Mesh to render the skybox*/
 	Texture _cubemap; /**<< The texture of the skybox*/
