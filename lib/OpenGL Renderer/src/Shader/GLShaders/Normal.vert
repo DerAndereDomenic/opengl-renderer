@@ -49,11 +49,14 @@ uniform mat4 V;
 uniform mat4 P;
 uniform MaterialMap materialmap;
 uniform Light lights_vert[LIGHTS];
+uniform vec4 plane;
 
 void main()
 {
 	frag_position = vec3(M*vec4(position,1));
 	frag_tex = tex.xy;
+
+	gl_ClipDistance[0] = dot(vec3(plane), frag_position) -plane.w;
 
 	//Calculate TBN Matrix
 	vec3 T = normalize(vec3(M*vec4(tangent, 0)));
