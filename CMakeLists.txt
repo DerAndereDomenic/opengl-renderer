@@ -8,6 +8,7 @@ project(OpenGLRenderer LANGUAGES CXX VERSION 1.0)
 option(BUILD_TESTSCENE "Build the test scene for this renderer" ON)
 option(BUILD_DANCINGBALL "Build the dancing ball animation" ON)
 option(BUILD_VR_VIEWER "Build a VR test viewer" ON)
+option(BUILD_WATERSCENE "Build a test scene displaying water rendering" ON)
 set(SHADER_SOURCE_PATH "\"${CMAKE_SOURCE_DIR}/lib/OpenGL Renderer/src/Shader/GLShaders/\"")
 set(RESOURCE_PATH "\"${CMAKE_SOURCE_DIR}/res/\"")
 

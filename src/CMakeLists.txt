@@ -9,3 +9,7 @@ endif()
 if(BUILD_VR_VIEWER)
 	add_subdirectory(VRViewer)
 endif()
+
+if(BUILD_WATERSCENE)
+	add_subdirectory(WaterScene)
+endif()
