@@ -1,6 +1,7 @@
 #include <Renderer/RenderWindow.h>
 #include <DLogger/Logger.h>
 #include <Core/Platform.h>
+#include <IO/KeyManager.h>
 
 RenderWindow 
 RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title, Camera* camera)
