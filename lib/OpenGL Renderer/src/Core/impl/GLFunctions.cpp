@@ -68,3 +68,15 @@ GL::disableDepthWriting()
 {
     glDepthMask(GL_FALSE);
 }
+
+void 
+GL::enableClipping(const uint32_t& plane)
+{
+    glEnable(GL_CLIP_DISTANCE0 + plane);
+}
+
+void 
+GL::disableClipping(const uint32_t& plane)
+{
+    glDisable(GL_CLIP_DISTANCE1 + plane);
+}

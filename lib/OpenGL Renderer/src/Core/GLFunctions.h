@@ -45,6 +45,18 @@ namespace GL
 	*	\brief Disables depth testing
 	*/
 	void disableDepthWriting();
+
+	/**
+	*	\brief Enables clipping planes
+	*	\param[in] plane The clipping plane to enable
+	*/
+	void enableClipping(const uint32_t& plane);
+
+	/**
+	*	\brief Disables clippling planes
+	*	\param[in] plane The clipping plane to disable
+	*/
+	void disableClipping(const uint32_t& plane);
 }
 
 #endif
