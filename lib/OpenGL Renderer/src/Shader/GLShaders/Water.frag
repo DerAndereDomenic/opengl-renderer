@@ -17,5 +17,5 @@ void main()
 	vec4 reflection_color = texture(reflection, reflection_coords);
 	vec4 refraction_color = texture(refraction, refraction_coords);
 
-	FragColor = mix(reflection_color, refraction_color, 0.5);
+	FragColor = mix(reflection_color, refraction_color, normalize(viewDir).y);
 }
