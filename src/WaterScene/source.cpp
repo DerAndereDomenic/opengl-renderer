@@ -45,6 +45,18 @@ int main()
 
 	scene.addLight(&light);
 
+	FrameBuffer reflection = FrameBuffer::createObject(width, height);
+	reflection.attachColor();
+	reflection.attachRenderBuffer();
+	reflection.verify();
+
+	FrameBuffer refraction = FrameBuffer::createObject(width, height);
+	refraction.attachColor();
+	refraction.attachRenderBuffer();
+	refraction.verify();
+
+	FrameBuffer::bindDefault();
+
 	while (window.isOpen())
 	{
 		GL::clear();
@@ -61,6 +73,8 @@ int main()
 	RenderWindow::destroyObject(window);
 	Camera::destroyObject(camera);
 	Scene::destroyObject(scene);
+	FrameBuffer::destroyObject(reflection);
+	FrameBuffer::destroyObject(refraction);
 
 	return 0;
 }
