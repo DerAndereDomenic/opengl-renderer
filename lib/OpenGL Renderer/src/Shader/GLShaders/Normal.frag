@@ -15,6 +15,7 @@ in vec3 frag_position;
 in vec2 frag_tex;
 in mat3 frag_TBN;
 in vec4 frag_position_light_space[LIGHTS];
+in vec3 frag_viewDir;
 
 //
 //	STRUCTURES
@@ -61,7 +62,6 @@ struct Material
 //
 //	UNIFORMS
 //
-uniform vec3 viewPos;
 uniform Light lights_frag[LIGHTS];
 uniform MaterialMap materialmap;
 
@@ -178,7 +178,7 @@ void main(){
 	}
 	
 	vec3 result = vec3(0);
-	vec3 viewDir = normalize(viewPos - frag_position);
+	vec3 viewDir = normalize(frag_viewDir);
 	for(int i = 0; i < LIGHTS; ++i)
 	{
 		vec3 lightDir = normalize(lights_frag[i].position - frag_position);

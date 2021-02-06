@@ -13,6 +13,7 @@ out vec3 frag_position;
 out vec2 frag_tex;
 out mat3 frag_TBN;
 out vec4 frag_position_light_space[LIGHTS];
+out vec3 frag_viewDir;
 
 //
 //	STRUCTURES
@@ -50,11 +51,14 @@ uniform mat4 P;
 uniform MaterialMap materialmap;
 uniform Light lights_vert[LIGHTS];
 uniform vec4 plane;
+uniform vec3 viewPos;
 
 void main()
 {
 	frag_position = vec3(M*vec4(position,1));
 	frag_tex = tex.xy;
+	frag_viewDir = viewPos - frag_position;
+
 
 	gl_ClipDistance[0] = dot(vec3(plane), frag_position) -plane.w;
 
