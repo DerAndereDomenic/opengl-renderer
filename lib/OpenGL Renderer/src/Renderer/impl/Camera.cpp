@@ -89,6 +89,13 @@ Camera::updateDirection(const float& pitch, const float& yaw)
 }
 
 void
+Camera::teleport(const glm::vec3& position)
+{
+	_cameraPos = position; 
+	_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
+}
+
+void
 Camera::processMouse(const float& xpos, const float& ypos)
 {
 	if (_firstMouse)

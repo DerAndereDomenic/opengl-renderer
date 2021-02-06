@@ -87,8 +87,8 @@ public:
 	*	\brief Teleports the camera to the given position
 	*	\param[in] position The position to be teleported to
 	*/
-	inline void teleport(const glm::vec3& position) { _cameraPos = position; _view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
-	}
+	void teleport(const glm::vec3& position);
+
 private:
 	/**
 	*	\brief Processes the mouse movement
