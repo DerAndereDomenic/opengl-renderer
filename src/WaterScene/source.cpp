@@ -32,7 +32,7 @@ int main()
 
 	Mesh water = MeshHelper::quadMesh(6);
 	water.create();
-	glm::mat4 rotate = glm::translate(glm::vec3(0,water_height,0)) * glm::rotate(3.14159f / 2.0f, glm::vec3(1, 0, 0));
+	glm::mat4 rotate = glm::translate(glm::vec3(0,water_height,0)) * glm::rotate(-3.14159f / 2.0f, glm::vec3(1, 0, 0));
 
 	std::vector<std::string> names;
 	std::vector<Mesh> meshes;
@@ -49,6 +49,19 @@ int main()
 	terrain.useTextures = false;
 	material.push_back(terrain);
 	models.push_back(glm::mat4(1));
+
+	names.push_back("Box");
+	Mesh box_mesh = MeshHelper::cuboidMesh(glm::vec4(1), 1, 10, 1);
+	meshes.push_back(box_mesh);
+	Material box_material = Material::createObject("materialmap");
+	box_material.ambient = glm::vec3(0.1, 0, 0);
+	box_material.diffuse = glm::vec3(1, 0, 0);
+	box_material.specular = glm::vec3(1, 0, 0);
+	box_material.shininess = 0.4f * 128.0f;
+	box_material.useTextures = false;
+	material.push_back(box_material);
+	models.push_back(glm::translate(glm::vec3(-4,7,-4)));
+	
 
 	Scene scene = Scene::createObject(names, meshes, material, models);
 
