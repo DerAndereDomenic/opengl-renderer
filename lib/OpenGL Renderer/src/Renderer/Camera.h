@@ -2,6 +2,7 @@
 #define __OPENGLRENDERER_RENDERER_CAMERA_H
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 /**
 *	\brief A class to model a camera
@@ -80,13 +81,14 @@ public:
 	/**
 	*	\brief Inverts the pitch
 	*/
-	inline void invertPitch() { _pitch = -_pitch; }
+	inline void invertPitch() { updateDirection(-_pitch, _yaw); }
 
 	/**
 	*	\brief Teleports the camera to the given position
 	*	\param[in] position The position to be teleported to
 	*/
-	inline void teleport(const glm::vec3& position) { _cameraPos = position; }
+	inline void teleport(const glm::vec3& position) { _cameraPos = position; _view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
+	}
 private:
 	/**
 	*	\brief Processes the mouse movement

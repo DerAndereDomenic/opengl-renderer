@@ -5,10 +5,10 @@ layout (location = 2) in vec3 tex;
 
 uniform mat4 M,V,P;
 
-out vec2 tex_coords;
+out vec4 frag_clip;
 
 void main()
 {
-	gl_Position = P*V*M*vec4(aPosition,1);
-	tex_coords = tex.xy;
+	frag_clip = P*V*M*vec4(aPosition,1);
+	gl_Position = frag_clip;
 }
