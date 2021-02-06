@@ -2,7 +2,7 @@
 
 layout (location = 0) in vec3 aPosition;
 
-uniform vec4 M,V,P;
+uniform mat4 M,V,P;
 
 void main()
 {
