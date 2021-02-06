@@ -5,9 +5,13 @@
 #include <Core/GLFunctions.h>
 #include <DataStructure/Scene.h>
 #include <GUI/WindowClose.h>
+#include <DLogger/Logger.h>
 
 int main()
 {
+	LOGGER::setProject("WaterScene", "1.0");
+	LOGGER::start();
+
 	uint32_t width = 1280, height = 720;
 
 	Camera camera = Camera::createObject( width / height, 0.01f, 500);
@@ -76,6 +80,8 @@ int main()
 	Scene::destroyObject(scene);
 	FrameBuffer::destroyObject(reflection);
 	FrameBuffer::destroyObject(refraction);
+
+	LOGGER::end();
 
 	return 0;
 }
