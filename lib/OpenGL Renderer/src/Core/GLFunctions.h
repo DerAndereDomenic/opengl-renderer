@@ -55,6 +55,7 @@ namespace GL
 	/**
 	*	\brief Disables clippling planes
 	*	\param[in] plane The clipping plane to disable
+	*	\note It seems like some driver do not support this. Hotfix: move plane far away
 	*/
 	void disableClipping(const uint32_t& plane);
 }
