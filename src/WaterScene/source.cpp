@@ -19,6 +19,7 @@ int main()
 	window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 
 	ShaderManager::instance()->addShader("Normal");
+	ShaderManager::instance()->addShader("Water");
 
 	std::vector<std::string> names;
 	std::vector<Mesh> meshes;
