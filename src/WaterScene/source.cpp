@@ -76,10 +76,11 @@ int main()
 		GL::clear();
 
 		refraction.bind();
+		GL::clear();
 		ShaderManager::instance()->getShader("Normal").bind();
 		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal").setVec4("plane", glm::vec4(0, 1, 0, water_height));
+		ShaderManager::instance()->getShader("Normal").setVec4("plane", glm::vec4(0, -1, 0, -water_height));
 
 		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 		scene.render(ShaderManager::instance()->getShader("Normal"));
@@ -90,10 +91,11 @@ int main()
 		camera.teleport(position - glm::vec3(0, 2*water_height, 0));
 
 		reflection.bind();
+		GL::clear();
 		ShaderManager::instance()->getShader("Normal").bind();
 		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal").setVec4("plane", glm::vec4(0, -1, 0, -water_height));
+		ShaderManager::instance()->getShader("Normal").setVec4("plane", glm::vec4(0, 1, 0, water_height));
 
 		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 		scene.render(ShaderManager::instance()->getShader("Normal"));
@@ -113,6 +115,11 @@ int main()
 
 		ShaderManager::instance()->getShader("Water").bind();
 		ShaderManager::instance()->getShader("Water").setMVP(rotate, camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Water").setInt("reflection", 0);
+		ShaderManager::instance()->getShader("Water").setInt("refraction", 1);
+
+		reflection.getTexture().bind(0);
+		refraction.getTexture().bind(1);
 
 		water.render();
 
