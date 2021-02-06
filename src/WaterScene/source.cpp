@@ -4,6 +4,7 @@
 #include <IO/ObjLoader.h>
 #include <Core/GLFunctions.h>
 #include <DataStructure/Scene.h>
+#include <GUI/WindowClose.h>
 
 int main()
 {
@@ -12,6 +13,10 @@ int main()
 	Camera camera = Camera::createObject( width / height, 0.01f, 500);
 	RenderWindow window = RenderWindow::createObject(width, height, "WaterScene", &camera);
 	KeyManager::instance()->setup(window);
+
+	WindowClose close_callback(&window);
+
+	window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 
 	ShaderManager::instance()->addShader("Normal");
 
@@ -34,7 +39,7 @@ int main()
 	Scene scene = Scene::createObject(names, meshes, material, models);
 
 	Light light = Light::createObject(glm::vec3(10, 30, 10), false);
-	light.ambient = glm::vec3(0.1f);
+	light.ambient = glm::vec3(1.0f);
 	light.diffuse = glm::vec3(700.0f);
 	light.specular = glm::vec3(700.0f);
 
