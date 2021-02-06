@@ -71,6 +71,8 @@ int main()
 
 	FrameBuffer::bindDefault();
 	GL::enableClipping(0);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	while (window.isOpen())
 	{
 		GL::clear();
@@ -88,7 +90,7 @@ int main()
 		//Change camera
 		camera.invertPitch();
 		glm::vec3 position = camera.getPosition();
-		camera.teleport(position - glm::vec3(0, 2*water_height, 0));
+		camera.teleport(position - glm::vec3(0, 2*(position.y - water_height), 0));
 
 		reflection.bind();
 		GL::clear();
