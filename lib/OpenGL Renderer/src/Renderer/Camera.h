@@ -81,6 +81,12 @@ public:
 	*	\brief Inverts the pitch
 	*/
 	inline void invertPitch() { _pitch = -_pitch; }
+
+	/**
+	*	\brief Teleports the camera to the given position
+	*	\param[in] position The position to be teleported to
+	*/
+	inline void teleport(const glm::vec3& position) { _cameraPos = position; }
 private:
 	/**
 	*	\brief Processes the mouse movement
