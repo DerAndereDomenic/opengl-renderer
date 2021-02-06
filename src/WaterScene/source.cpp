@@ -84,8 +84,6 @@ int main()
 
 	FrameBuffer::bindDefault();
 	GL::enableClipping(0);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
 	while (window.isOpen())
 	{
 		GL::clear();
