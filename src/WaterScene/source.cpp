@@ -124,6 +124,7 @@ int main()
 
 		ShaderManager::instance()->getShader("Water").bind();
 		ShaderManager::instance()->getShader("Water").setMVP(rotate, camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Water").setVec3("viewPos", camera.getPosition());
 		ShaderManager::instance()->getShader("Water").setInt("reflection", 0);
 		ShaderManager::instance()->getShader("Water").setInt("refraction", 1);
 

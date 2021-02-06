@@ -3,6 +3,7 @@
 layout (location=0) out vec4 FragColor;
 
 in vec4 frag_clip;
+in vec3 viewDir;
 
 uniform sampler2D reflection;
 uniform sampler2D refraction;
