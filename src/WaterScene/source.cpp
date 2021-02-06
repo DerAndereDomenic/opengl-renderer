@@ -6,6 +6,8 @@
 #include <DataStructure/Scene.h>
 #include <GUI/WindowClose.h>
 #include <DLogger/Logger.h>
+#include <DataStructure/MeshHelper.h>
+#include <glm/gtx/transform.hpp>
 
 int main()
 {
@@ -13,10 +15,13 @@ int main()
 	LOGGER::start();
 
 	uint32_t width = 1280, height = 720;
+	float water_height = 4;
 
 	Camera camera = Camera::createObject( width / height, 0.01f, 500);
 	RenderWindow window = RenderWindow::createObject(width, height, "WaterScene", &camera);
 	KeyManager::instance()->setup(window);
+
+	GL::enableDebugOutput();
 
 	WindowClose close_callback(&window);
 
@@ -24,6 +29,10 @@ int main()
 
 	ShaderManager::instance()->addShader("Normal");
 	ShaderManager::instance()->addShader("Water");
+
+	Mesh water = MeshHelper::quadMesh(6);
+	water.create();
+	glm::mat4 rotate = glm::translate(glm::vec3(0,water_height,0)) * glm::rotate(3.14159f / 2.0f, glm::vec3(1, 0, 0));
 
 	std::vector<std::string> names;
 	std::vector<Mesh> meshes;
@@ -72,6 +81,11 @@ int main()
 		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
+		ShaderManager::instance()->getShader("Water").bind();
+		ShaderManager::instance()->getShader("Water").setMVP(rotate, camera.getView(), camera.getProjection());
+
+		water.render();
+
 		window.spinOnce();
 	}
 
@@ -80,6 +94,8 @@ int main()
 	Scene::destroyObject(scene);
 	FrameBuffer::destroyObject(reflection);
 	FrameBuffer::destroyObject(refraction);
+	ShaderManager::destroyObject(*ShaderManager::instance());
+	Mesh::destroyObject(water);
 
 	LOGGER::end();
 
