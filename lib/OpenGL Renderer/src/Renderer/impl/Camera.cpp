@@ -47,9 +47,6 @@ Camera::destroyObject(Camera& camera)
 void
 Camera::processInput(const float& deltaTime, const double& xpos, const double& ypos)
 {
-
-	processMouse(xpos, ypos);
-
 	float cameraSpeed = 4.0f*deltaTime;
 	if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_SHIFT))
 		cameraSpeed *= 8.0f;
@@ -66,6 +63,8 @@ Camera::processInput(const float& deltaTime, const double& xpos, const double& y
 	if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL))
 		_cameraPos -= cameraSpeed * _cameraUp;
 
+
+	processMouse(xpos, ypos);
 	//if (_window.updateSize())
 	//{
 	//	_projection = glm::perspective(glm::radians(90.0f), _window.getAspectRatio(), _near, _far);
