@@ -76,6 +76,11 @@ public:
 	*	\return The front facing vector
 	*/
 	inline glm::vec3 getFront() const { return _cameraFront; }
+
+	/**
+	*	\brief Inverts the pitch
+	*/
+	inline void invertPitch() { _pitch = -_pitch; }
 private:
 	/**
 	*	\brief Processes the mouse movement
