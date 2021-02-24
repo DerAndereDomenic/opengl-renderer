@@ -11,6 +11,7 @@ option(BUILD_VR_VIEWER "Build a VR test viewer" OFF)
 option(BUILD_WATERSCENE "Build a test scene displaying water rendering" ON)
 set(SHADER_SOURCE_PATH "\"${CMAKE_SOURCE_DIR}/lib/OpenGL Renderer/src/Shader/GLShaders/\"")
 set(RESOURCE_PATH "\"${CMAKE_SOURCE_DIR}/res/\"")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 #==================================================================#
 #							LIBRARIES							   #
