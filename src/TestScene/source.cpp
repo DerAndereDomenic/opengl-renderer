@@ -49,7 +49,6 @@ int main(void)
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window", &camera);
 
 	GL::enableDebugOutput();
-	KeyManager::instance()->setup(window);
 
 	std::stringstream stream;
 

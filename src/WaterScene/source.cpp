@@ -19,7 +19,6 @@ int main()
 
 	Camera camera = Camera::createObject( width / height, 0.01f, 500);
 	RenderWindow window = RenderWindow::createObject(width, height, "WaterScene", &camera);
-	KeyManager::instance()->setup(window);
 
 	GL::enableDebugOutput();
 

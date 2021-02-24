@@ -45,6 +45,8 @@ RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const 
 
 	result._textRenderer = TextRenderer::createObject(width, height);
 	result._textRenderer.loadFont((RESOURCE_PATH + "Hack-Regular.ttf").c_str(), 16);
+    
+    KeyManager::instance()->setup(result);
 
 	return result;
 }
@@ -133,6 +135,11 @@ RenderWindow::spinOnce()
 		}
 
 		it->first.render(_textRenderer, mode);
+        
+        if(_window == nullptr)
+        {
+            return;
+        }
 	}
 
 	for (typename std::unordered_multimap<uint32_t, KeyPressFunction*>::const_iterator it = _key_callbacks.begin(); it != _key_callbacks.end(); ++it)
@@ -147,12 +154,12 @@ RenderWindow::spinOnce()
 		{
 			active->second = false;
 		}
+		
+        if(_window == nullptr)
+        {
+            return;
+        }
 	}
-
-	if(_window == nullptr)
-    {
-        return;
-    }
 
 	double currentTime = glfwGetTime();
 	_deltaTime = currentTime - _lastTime;

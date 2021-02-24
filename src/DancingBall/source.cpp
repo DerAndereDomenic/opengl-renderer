@@ -54,7 +54,6 @@ int main()
 	unsigned int width = 1280, height = 720;
 
 	RenderWindow window = RenderWindow::createObject(width, height, "Dancing Ball");
-	KeyManager::instance()->setup(window);
 
 	GL::enableDebugOutput();
 
