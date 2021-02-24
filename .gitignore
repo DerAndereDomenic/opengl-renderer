@@ -3,7 +3,8 @@ Debug/
 OpenGL Renderer/Debug/
 Dependencies/opencv
 build/
+bin/
 *.sln
 *.vcxproj.*
 *.vcxproj
-lib/dlogger/*
+lib/DLogger/*
