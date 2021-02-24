@@ -48,7 +48,7 @@ ShaderManager::addShader(const std::string& name, const bool geometry)
 void
 ShaderManager::removeShader(const std::string& name)
 {
-	auto& it = _shader.find(name);
+	auto it = _shader.find(name);
 	if (it == _shader.end())
 	{
 		LOGGER::ERROR("Shader with name: " + name + " does not exist. Rejecting...\n");
