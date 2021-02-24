@@ -149,6 +149,10 @@ RenderWindow::spinOnce()
 		}
 	}
 
+	if(_window == nullptr)
+    {
+        return;
+    }
 
 	double currentTime = glfwGetTime();
 	_deltaTime = currentTime - _lastTime;
