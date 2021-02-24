@@ -13,6 +13,7 @@ if [ ! -d "$DLOGGER_DIR" ]; then
 	cd dlogger
 	rm -r -f .git
 	cd ../..
+	mv lib/dlogger "${DLOGGER_DIR}"
 fi
 
 cd "$BUILD_DIR"
