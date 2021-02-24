@@ -1,3 +1,4 @@
+#include <OpenGLRendererConfig.h>
 #include <Renderer/RenderWindow.h>
 #include <DLogger/Logger.h>
 #include <Core/Platform.h>
@@ -43,16 +44,7 @@ RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const 
 	result._active_keys.insert(std::make_pair(GLFW_MOUSE_BUTTON_LEFT, false));
 
 	result._textRenderer = TextRenderer::createObject(width, height);
-
-#ifdef __OPENGLRENDERER_WINDOWS
-
-	result._textRenderer.loadFont("C:/Windows/Fonts/consola.ttf", 16);
-
-#elif __OPENGLRENDERER_UNIX
-
-	result._textRenderer.loadFont("/usr/share/fonts/truetype/hack/Hack-Regular.ttf", 16);
-
-#endif
+	result._textRenderer.loadFont((RESOURCE_PATH + "Hack-Regular.ttf").c_str(), 16);
 
 	return result;
 }
