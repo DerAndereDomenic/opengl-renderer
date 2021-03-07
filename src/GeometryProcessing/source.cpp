@@ -24,6 +24,7 @@ int main()
 	window.registerKeyCallback(GLFW_KEY_LEFT_ALT, &mode_callback);
 
     ShaderManager::instance()->addShader("basic");
+    ShaderManager::instance()->addShader("Curve", true);
 
     float vertices[28] = 
     {
@@ -49,6 +50,8 @@ int main()
     IndexBuffer ibo = IndexBuffer::createObject(indices, 6);
     vao.setIndexBuffer(ibo);
 
+    
+
     while(window.isOpen())
     {
         GL::clear();
@@ -58,11 +61,17 @@ int main()
         ShaderManager::instance()->getShader("basic").setMVP();
         vao.render();
 
+        ShaderManager::instance()->getShader("Curve").bind();
+        vao.renderInstanced(1, 100);
+
         window.spinOnce();
     }
 
     RenderWindow::destroyObject(window);
     ShaderManager::destroyObject(*ShaderManager::instance());
+    VertexArray::destroyObject(vao);
+    IndexBuffer::destroyObject(ibo);
+    VertexBuffer::destroyObject(vbo);
 
     LOGGER::end();
     return 0;
