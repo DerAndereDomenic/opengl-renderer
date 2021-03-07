@@ -6,6 +6,8 @@
 #include <Renderer/RenderWindow.h>
 #include <GUI/WindowClose.h>
 #include <GUI/ModeControl.h>
+#include <Shader/ShaderManager.h>
+#include <DataStructure/MeshHelper.h>
 
 int main()
 {
@@ -21,14 +23,27 @@ int main()
 	window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 	window.registerKeyCallback(GLFW_KEY_LEFT_ALT, &mode_callback);
 
+    ShaderManager::instance()->addShader("basic");
+
+    Mesh quad = MeshHelper::quadMesh(2.0f);
+    quad.create();
+
     while(window.isOpen())
     {
         GL::clear();
+
+        ShaderManager::instance()->getShader("basic").bind();
+        ShaderManager::instance()->getShader("basic").setInt("u_set", 1);
+        ShaderManager::instance()->getShader("basic").setMVP();
+        quad.render();
 
         window.spinOnce();
     }
 
     RenderWindow::destroyObject(window);
+    ShaderManager::destroyObject(*ShaderManager::instance());
+    Mesh::destroyObject(quad);
+
     LOGGER::end();
     return 0;
 }
