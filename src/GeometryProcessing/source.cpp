@@ -7,7 +7,7 @@
 #include <GUI/WindowClose.h>
 #include <GUI/ModeControl.h>
 #include <Shader/ShaderManager.h>
-#include <DataStructure/MeshHelper.h>
+#include <OpenGLObjects/VertexArray.h>
 
 int main()
 {
@@ -25,8 +25,28 @@ int main()
 
     ShaderManager::instance()->addShader("basic");
 
-    Mesh quad = MeshHelper::quadMesh(2.0f);
-    quad.create();
+    float vertices[12] = 
+    {
+        -0.5,-0.5,0,
+        0.5,-0.5,0,
+        0.5,0.5,0,
+        -0.5,0.5,0
+    };
+
+    uint32_t indices[6] = 
+    {
+        0,1,2,0,2,3
+    };
+
+    VertexBuffer vbo = VertexBuffer::createObject(vertices, 12);
+    VertexBufferLayout layout;
+    layout.add(GL_FLOAT, 3);
+
+    VertexArray vao = VertexArray::createObject(GL_POINTS);
+    vao.addBuffer(vbo, layout);
+
+    IndexBuffer ibo = IndexBuffer::createObject(indices, 6);
+    vao.setIndexBuffer(ibo);
 
     while(window.isOpen())
     {
@@ -35,14 +55,14 @@ int main()
         ShaderManager::instance()->getShader("basic").bind();
         ShaderManager::instance()->getShader("basic").setInt("u_set", 1);
         ShaderManager::instance()->getShader("basic").setMVP();
-        quad.render();
+        ShaderManager::instance()->getShader("basic").setVec4("u_color", glm::vec4(1,0,0,1));
+        vao.render();
 
         window.spinOnce();
     }
 
     RenderWindow::destroyObject(window);
     ShaderManager::destroyObject(*ShaderManager::instance());
-    Mesh::destroyObject(quad);
 
     LOGGER::end();
     return 0;
