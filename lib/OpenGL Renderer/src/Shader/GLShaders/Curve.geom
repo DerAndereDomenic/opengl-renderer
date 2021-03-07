@@ -1,7 +1,7 @@
 #version 330 core
 
 layout (points) in;
-layout (points, max_vertices=1) out;
+layout (line_strip, max_vertices=2) out;
 
 in VS_OUT 
 {
@@ -22,6 +22,8 @@ vec3 bezier(float u)
 void main()
 {
     gl_Position = vec4(bezier(gs_in[0].instance/100.0),1);
+    EmitVertex();
+    gl_Position = vec4(bezier((gs_in[0].instance+1)/100.0),1);
     EmitVertex();
     EndPrimitive();
 }
