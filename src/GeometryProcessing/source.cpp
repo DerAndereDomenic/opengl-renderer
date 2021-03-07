@@ -25,12 +25,12 @@ int main()
 
     ShaderManager::instance()->addShader("basic");
 
-    float vertices[12] = 
+    float vertices[28] = 
     {
-        -0.5,-0.5,0,
-        0.5,-0.5,0,
-        0.5,0.5,0,
-        -0.5,0.5,0
+        -0.5,-0.5,0,0,1,0,1,
+        0.5,-0.5,0,0,1,0,1,
+        0.5,0.5,0,0,1,0,1,
+        -0.5,0.5,0,0,1,0,1
     };
 
     uint32_t indices[6] = 
@@ -38,9 +38,10 @@ int main()
         0,1,2,0,2,3
     };
 
-    VertexBuffer vbo = VertexBuffer::createObject(vertices, 12);
+    VertexBuffer vbo = VertexBuffer::createObject(vertices, 28);
     VertexBufferLayout layout;
     layout.add(GL_FLOAT, 3);
+    layout.add(GL_FLOAT, 4);
 
     VertexArray vao = VertexArray::createObject(GL_POINTS);
     vao.addBuffer(vbo, layout);
@@ -55,7 +56,6 @@ int main()
         ShaderManager::instance()->getShader("basic").bind();
         ShaderManager::instance()->getShader("basic").setInt("u_set", 1);
         ShaderManager::instance()->getShader("basic").setMVP();
-        ShaderManager::instance()->getShader("basic").setVec4("u_color", glm::vec4(1,0,0,1));
         vao.render();
 
         window.spinOnce();
