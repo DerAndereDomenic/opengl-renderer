@@ -35,12 +35,25 @@ vec3 bezier(float u)
 }
 
 uniform int discretization;
+uniform int render_bezier;
 
 void main()
 {
-    gl_Position = vec4(lagrange(gs_in[0].instance/float(discretization)),1);
-    EmitVertex();
-    gl_Position = vec4(lagrange((gs_in[0].instance+1)/float(discretization)),1);
-    EmitVertex();
-    EndPrimitive();
+    if(render_bezier == 1)
+    {
+        gl_Position = vec4(bezier(gs_in[0].instance/float(discretization)),1);
+        EmitVertex();
+        gl_Position = vec4(bezier((gs_in[0].instance+1)/float(discretization)),1);
+        EmitVertex();
+        EndPrimitive();
+    }
+    else
+    {
+        gl_Position = vec4(lagrange(gs_in[0].instance/float(discretization)),1);
+        EmitVertex();
+        gl_Position = vec4(lagrange((gs_in[0].instance+1)/float(discretization)),1);
+        EmitVertex();
+        EndPrimitive();
+    }
+    
 }

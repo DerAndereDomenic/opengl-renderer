@@ -67,6 +67,12 @@ int main()
         ShaderManager::instance()->getShader("Curve").setVec3("points[2]", glm::vec3(vertices[0+14],vertices[1+14],vertices[2+14]));
         ShaderManager::instance()->getShader("Curve").setVec3("points[3]", glm::vec3(vertices[0+21],vertices[1+21],vertices[2+21]));
         ShaderManager::instance()->getShader("Curve").setInt("discretization", discretization);
+        ShaderManager::instance()->getShader("Curve").setInt("render_bezier", 1);
+        ShaderManager::instance()->getShader("Curve").setVec3("color", glm::vec3(1,0,0));
+        vao.renderInstanced(1, discretization);
+
+        ShaderManager::instance()->getShader("Curve").setInt("render_bezier", 0);
+        ShaderManager::instance()->getShader("Curve").setVec3("color", glm::vec3(0,0,1));
         vao.renderInstanced(1, discretization);
 
         window.spinOnce();
