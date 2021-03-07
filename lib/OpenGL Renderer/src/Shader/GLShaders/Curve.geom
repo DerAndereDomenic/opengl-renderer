@@ -19,11 +19,13 @@ vec3 bezier(float u)
     return B0*gs_in[0].points[0]+B1*gs_in[0].points[1]+B2*gs_in[0].points[2]+B3*gs_in[0].points[3];
 }
 
+uniform int discretization;
+
 void main()
 {
-    gl_Position = vec4(bezier(gs_in[0].instance/100.0),1);
+    gl_Position = vec4(bezier(gs_in[0].instance/float(discretization)),1);
     EmitVertex();
-    gl_Position = vec4(bezier((gs_in[0].instance+1)/100.0),1);
+    gl_Position = vec4(bezier((gs_in[0].instance+1)/float(discretization)),1);
     EmitVertex();
     EndPrimitive();
 }
