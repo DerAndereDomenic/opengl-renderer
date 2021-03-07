@@ -13,3 +13,7 @@ endif()
 if(BUILD_WATERSCENE)
 	add_subdirectory(WaterScene)
 endif()
+
+if(BUILD_GEOMETRYPROCESSING)
+    add_subdirectory(GeometryProcessing)
+endif()
