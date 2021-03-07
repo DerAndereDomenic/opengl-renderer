@@ -62,6 +62,10 @@ int main()
         vao.render();
 
         ShaderManager::instance()->getShader("Curve").bind();
+        ShaderManager::instance()->getShader("Curve").setVec3("points[0]", glm::vec3(vertices[0],vertices[1],vertices[2]));
+        ShaderManager::instance()->getShader("Curve").setVec3("points[1]", glm::vec3(vertices[0+7],vertices[1+7],vertices[2+7]));
+        ShaderManager::instance()->getShader("Curve").setVec3("points[2]", glm::vec3(vertices[0+14],vertices[1+14],vertices[2+14]));
+        ShaderManager::instance()->getShader("Curve").setVec3("points[3]", glm::vec3(vertices[0+21],vertices[1+21],vertices[2+21]));
         vao.renderInstanced(1, 100);
 
         window.spinOnce();
