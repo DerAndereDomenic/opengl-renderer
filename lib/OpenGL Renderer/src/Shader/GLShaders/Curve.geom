@@ -6,6 +6,7 @@ layout (points, max_vertices=1) out;
 in VS_OUT 
 {
 	int instance;
+    vec3 points[4];
 }gs_in[];
 
 void main()
