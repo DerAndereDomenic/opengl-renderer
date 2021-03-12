@@ -6,6 +6,8 @@
 #include <Renderer/RenderWindow.h>
 #include <GUI/WindowClose.h>
 #include <GUI/ModeControl.h>
+#include <GUI/Button.h>
+#include <GUI/MovingButton.h>
 #include <Shader/ShaderManager.h>
 #include <OpenGLObjects/VertexArray.h>
 
@@ -45,6 +47,18 @@ int main()
     {
         0,1,2,0,2,3
     };
+
+    glm::vec2 screen_space = to_screen_space(vertices[0], vertices[1], width,height); 
+    Button button1(screen_space.x, screen_space.y, 10, 10);
+
+    screen_space = to_screen_space(vertices[7], vertices[8], width,height); 
+    Button button2(screen_space.x, screen_space.y, 10, 10);
+
+    screen_space = to_screen_space(vertices[14], vertices[15], width,height); 
+    Button button3(screen_space.x, screen_space.y, 10, 10);
+
+    screen_space = to_screen_space(vertices[21], vertices[22], width,height); 
+    Button button4(screen_space.x, screen_space.y, 10, 10);
 
     VertexBuffer vbo = VertexBuffer::createObject(vertices, 28);
     VertexBufferLayout layout;
