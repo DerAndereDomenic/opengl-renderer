@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <Renderer/TextRenderer.h>
 #include <string>
+#include <glm/glm.hpp>
 
 /**
 *	\brief A enum to model button modes
@@ -85,6 +86,12 @@ class Button
 		*	\return The id
 		*/
 		inline uint32_t getID() const { return _id; }
+
+		/**
+		*	\brief Get the position of the button
+		*	\return A vector containing the position 
+		*/ 
+		inline glm::vec2 getPosition() {return glm::vec2(_posX, _posY);}
 	private:
 		uint32_t _id;							/**<< The button ID */
 
