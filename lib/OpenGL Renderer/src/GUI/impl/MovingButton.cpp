@@ -1,7 +1,8 @@
 #include <GUI/MovingButton.h>
 
-MovingButton::MovingButton(Button* button)
-    :_button(button)
+MovingButton::MovingButton(RenderWindow* window, Button* button)
+    :_window(window),
+    _button(button)
 {
 
 }

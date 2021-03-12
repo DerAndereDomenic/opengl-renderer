@@ -65,10 +65,10 @@ int main()
     Button button4(screen_space.x, screen_space.y, 10, 10);
     LOGGER::INFO(std::to_string(screen_space.x) + ", " + std::to_string(screen_space.y) + "\n");
 
-    MovingButton butt1(&button1);
-    MovingButton butt2(&button2);
-    MovingButton butt3(&button3);
-    MovingButton butt4(&button4);
+    MovingButton butt1(&window, &button1);
+    MovingButton butt2(&window, &button2);
+    MovingButton butt3(&window, &button3);
+    MovingButton butt4(&window, &button4);
 
     window.registerButtonCallback(button1, &butt1);
     window.registerButtonCallback(button2, &butt2);
