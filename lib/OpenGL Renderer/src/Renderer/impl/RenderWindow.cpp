@@ -117,10 +117,18 @@ RenderWindow::spinOnce()
 				typename std::unordered_map<uint32_t, bool>::iterator active = _active_keys.find(GLFW_MOUSE_BUTTON_LEFT);
 
 				mode = ButtonMode::HOVER;
-				if (!active->second && glfwGetMouseButton(_window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+				if (glfwGetMouseButton(_window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 				{
-					it->second->onPress(0);
-					active->second = true;
+					if(!active->second)
+					{
+						it->second->onPress(0);
+						active->second = true;
+					}
+					else
+					{
+						it->second->onHold(0);
+						active->second = true;
+					}
 				}
 				else if (active->second && glfwGetMouseButton(_window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
 				{
@@ -146,10 +154,19 @@ RenderWindow::spinOnce()
 	for (typename std::unordered_multimap<uint32_t, KeyPressFunction*>::const_iterator it = _key_callbacks.begin(); it != _key_callbacks.end(); ++it)
 	{
 		typename std::unordered_map<uint32_t, bool>::iterator active = _active_keys.find(it->first);	//Lazy evaluation, iterator always exists because it was added when registering the callback
-		if (!active->second && glfwGetKey(_window, it->first) == GLFW_PRESS)
+		if (glfwGetKey(_window, it->first) == GLFW_PRESS)
 		{
-			it->second->onPress(it->first);
-			active->second = true;
+			if(!active->second)
+			{
+				it->second->onPress(it->first);
+				active->second = true;
+			}
+			else
+			{
+				it->second->onHold(it->first);
+				active->second = true;
+			}
+			
 		}
 		else if (active->second && glfwGetKey(_window, it->first) == GLFW_RELEASE)
 		{
