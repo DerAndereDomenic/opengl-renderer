@@ -14,9 +14,16 @@
 glm::vec2 to_screen_space(const float& x, const float& y, const float& width, const float& height)
 {
     double x_screen = (x+1)*(width/2);
-    double y_screen = -(y+1)*(height/2) + height;
+    double y_screen = (y+1)*(height/2);
     LOGGER::DEBUG(std::to_string(x) + ", " + std::to_string(y)+ "\n");
     return glm::vec2(x_screen, y_screen);
+}
+
+glm::vec2 to_ndc_space(const float& x, const float& y, const float& width, const float& height)
+{
+    double x_ndc = x/(width/2)-1;
+    double y_ndc = y/(height/2)-1;
+    return glm::vec2(x_ndc, y_ndc);
 }
 
 int main()
@@ -90,6 +97,8 @@ int main()
 
     uint32_t discretization = 100;
 
+    glm::vec2 button_pos;
+
     while(window.isOpen())
     {
         GL::clear();
@@ -114,6 +123,32 @@ int main()
         vao.renderInstanced(1, discretization);
 
         window.spinOnce();
+
+        button_pos = button1.getPosition();
+        button_pos = to_ndc_space(button_pos.x, button_pos.y, width, height);
+        
+        vertices[0] = button_pos.x;
+        vertices[1] = button_pos.y;
+
+        button_pos = button2.getPosition();
+        button_pos = to_ndc_space(button_pos.x, button_pos.y, width, height);
+        
+        vertices[7] = button_pos.x;
+        vertices[8] = button_pos.y;
+
+        button_pos = button3.getPosition();
+        button_pos = to_ndc_space(button_pos.x, button_pos.y, width, height);
+        
+        vertices[14] = button_pos.x;
+        vertices[15] = button_pos.y;
+
+        button_pos = button4.getPosition();
+        button_pos = to_ndc_space(button_pos.x, button_pos.y, width, height);
+        
+        vertices[21] = button_pos.x;
+        vertices[22] = button_pos.y;
+
+        vbo.changeData(vertices, 28);
     }
 
     RenderWindow::destroyObject(window);
