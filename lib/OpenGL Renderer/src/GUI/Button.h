@@ -43,6 +43,14 @@ class Button
 		void setText(const std::string& text);
 
 		/**
+		*	\brief Set the position of the button
+		*	\param[in] x The x coordinate
+		*	\param[in] y The y coordinate 
+		*/ 
+		inline void 
+		setPosition(const uint32_t& x, const uint32_t& y) {_posX = x; _posY = y;}
+
+		/**
 		*	\brief Render the button
 		*	\param[in] renderer The Text Renderer for rendering the button text
 		*	\param[in] mode The button mode
