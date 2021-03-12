@@ -8,6 +8,7 @@
 #include <GUI/ModeControl.h>
 #include <GUI/Button.h>
 #include <GUI/MovingButton.h>
+#include <GUI/ExposureControl.h>
 #include <Shader/ShaderManager.h>
 #include <OpenGLObjects/VertexArray.h>
 
@@ -56,6 +57,11 @@ int main()
         0,1,2,0,2,3
     };
 
+    ExposureControl exposureControl;
+
+    window.registerKeyCallback(GLFW_KEY_KP_ADD, &exposureControl);
+    window.registerKeyCallback(GLFW_KEY_KP_SUBTRACT, &exposureControl);
+
     glm::vec2 screen_space = to_screen_space(vertices[0], vertices[1], width,height); 
     Button button1(screen_space.x, screen_space.y, 10, 10);
     LOGGER::INFO(std::to_string(screen_space.x) + ", " + std::to_string(screen_space.y) + "\n");
@@ -95,13 +101,15 @@ int main()
     IndexBuffer ibo = IndexBuffer::createObject(indices, 6);
     vao.setIndexBuffer(ibo);
 
-    uint32_t discretization = 100;
+    uint32_t discretization = 10;
 
     glm::vec2 button_pos;
 
     while(window.isOpen())
     {
         GL::clear();
+
+        discretization = exposureControl.getExposure()*10;
 
         ShaderManager::instance()->getShader("basic").bind();
         ShaderManager::instance()->getShader("basic").setInt("u_set", 1);
