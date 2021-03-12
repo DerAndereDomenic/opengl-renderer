@@ -26,3 +26,9 @@ ModeControl::onPress(const uint32_t& key)
 		glfwSetCursorPos(_window->getWindow(), _lastX, _lastY);
 	}
 }
+
+void
+ModeControl::onRelease(const uint32_t& key)
+{
+	
+}

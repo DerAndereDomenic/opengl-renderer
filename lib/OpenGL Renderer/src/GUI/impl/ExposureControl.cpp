@@ -18,3 +18,9 @@ ExposureControl::onPress(const uint32_t& key)
 	}
 	
 }
+
+void
+ExposureControl::onRelease(const uint32_t& key)
+{
+	
+}
