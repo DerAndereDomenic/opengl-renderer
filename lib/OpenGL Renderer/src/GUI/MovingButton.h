@@ -19,14 +19,8 @@ class MovingButton : public KeyPressFunction
 
 		//Override
 		void onHold(const uint32_t& key);
-
-		/**
-		*	\brief Get the debug mode
-		*	\return Wether debug is enabled or not
-		*/
-		inline bool getDebug() { return _debug; }
 	private:
-		bool _debug = false;	/**<< The debug level*/
+		
 };
 
 #endif
