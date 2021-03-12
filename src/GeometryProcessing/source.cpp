@@ -11,10 +11,11 @@
 #include <Shader/ShaderManager.h>
 #include <OpenGLObjects/VertexArray.h>
 
-glm::vec2 to_screen_space(const uint32_t& x, const uint32_t& y, const uint32_t& width, const uint32_t& height)
+glm::vec2 to_screen_space(const float& x, const float& y, const float& width, const float& height)
 {
     double x_screen = (x+1)*(width/2);
     double y_screen = -(y+1)*(height/2) + height;
+    LOGGER::DEBUG(std::to_string(x) + ", " + std::to_string(y)+ "\n");
     return glm::vec2(x_screen, y_screen);
 }
 
@@ -50,15 +51,29 @@ int main()
 
     glm::vec2 screen_space = to_screen_space(vertices[0], vertices[1], width,height); 
     Button button1(screen_space.x, screen_space.y, 10, 10);
+    LOGGER::INFO(std::to_string(screen_space.x) + ", " + std::to_string(screen_space.y) + "\n");
 
     screen_space = to_screen_space(vertices[7], vertices[8], width,height); 
     Button button2(screen_space.x, screen_space.y, 10, 10);
+    LOGGER::INFO(std::to_string(screen_space.x) + ", " + std::to_string(screen_space.y) + "\n");
 
     screen_space = to_screen_space(vertices[14], vertices[15], width,height); 
     Button button3(screen_space.x, screen_space.y, 10, 10);
+    LOGGER::INFO(std::to_string(screen_space.x) + ", " + std::to_string(screen_space.y) + "\n");
 
     screen_space = to_screen_space(vertices[21], vertices[22], width,height); 
     Button button4(screen_space.x, screen_space.y, 10, 10);
+    LOGGER::INFO(std::to_string(screen_space.x) + ", " + std::to_string(screen_space.y) + "\n");
+
+    MovingButton butt1(&button1);
+    MovingButton butt2(&button2);
+    MovingButton butt3(&button3);
+    MovingButton butt4(&button4);
+
+    window.registerButtonCallback(button1, &butt1);
+    window.registerButtonCallback(button2, &butt2);
+    window.registerButtonCallback(button3, &butt3);
+    window.registerButtonCallback(button4, &butt4);
 
     VertexBuffer vbo = VertexBuffer::createObject(vertices, 28);
     VertexBufferLayout layout;
