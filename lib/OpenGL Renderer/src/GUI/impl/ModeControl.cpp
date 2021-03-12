@@ -30,5 +30,11 @@ ModeControl::onPress(const uint32_t& key)
 void
 ModeControl::onRelease(const uint32_t& key)
 {
+
+}
+
+void
+ModeControl::onHold(const uint32_t& key)
+{
 	
 }

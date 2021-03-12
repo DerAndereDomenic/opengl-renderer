@@ -17,6 +17,9 @@ class DebugControl : public KeyPressFunction
 		//Override
 		void onRelease(const uint32_t& key);
 
+		//Override
+		void onHold(const uint32_t& key);
+
 		/**
 		*	\brief Get the debug mode
 		*	\return Wether debug is enabled or not

@@ -18,6 +18,9 @@ class WindowClose : public KeyPressFunction
 
 		//Override
 		void onRelease(const uint32_t& key);
+
+		//Override
+		void onHold(const uint32_t& key);
 	private:
 		RenderWindow* _window = nullptr;	/**<< The window to close*/
 };

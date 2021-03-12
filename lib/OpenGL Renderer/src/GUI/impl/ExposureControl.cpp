@@ -24,3 +24,9 @@ ExposureControl::onRelease(const uint32_t& key)
 {
 	
 }
+
+void
+ExposureControl::onHold(const uint32_t& key)
+{
+	
+}

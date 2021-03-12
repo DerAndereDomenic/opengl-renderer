@@ -17,6 +17,12 @@ class KeyPressFunction
 		*	\param[in] key The released key (default = 0) 
 		*/
 		virtual void onRelease(const uint32_t& key = 0) = 0;
+
+		/**
+		*	\brief The function called when a key is held
+		*	\param[in] key The held key (default = 0)
+		*/
+		virtual void onHold(const uint32_t& key = 0) = 0;
 };
 
 #endif

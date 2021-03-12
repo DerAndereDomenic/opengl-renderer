@@ -11,3 +11,9 @@ DebugControl::onRelease(const uint32_t& key)
 {
 	
 }
+
+void
+DebugControl::onHold(const uint32_t& key)
+{
+	
+}

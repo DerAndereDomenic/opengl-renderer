@@ -16,5 +16,11 @@ WindowClose::onPress(const uint32_t& key)
 void
 WindowClose::onRelease(const uint32_t& key)
 {
+
+}
+
+void
+WindowClose::onHold(const uint32_t& key)
+{
 	
 }

@@ -19,6 +19,9 @@ class ModeControl : public KeyPressFunction
 		//Override
 		void onRelease(const uint32_t& key);
 
+		//Override
+		void onHold(const uint32_t& key);
+
 	private:
 		RenderWindow* _window = nullptr;		/**<< The window */
 		double _lastX = 0.0f;					/**<< The last x position of the cursor*/
