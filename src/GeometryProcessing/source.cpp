@@ -70,10 +70,12 @@ int main()
     MovingButton butt3(&window, &button3);
     MovingButton butt4(&window, &button4);
 
-    window.registerButtonCallback(button1, &butt1);
-    window.registerButtonCallback(button2, &butt2);
-    window.registerButtonCallback(button3, &butt3);
-    window.registerButtonCallback(button4, &butt4);
+    button1.setText("1");
+
+    window.registerButtonCallback(&button1, &butt1);
+    window.registerButtonCallback(&button2, &butt2);
+    window.registerButtonCallback(&button3, &butt3);
+    window.registerButtonCallback(&button4, &butt4);
 
     VertexBuffer vbo = VertexBuffer::createObject(vertices, 28);
     VertexBufferLayout layout;

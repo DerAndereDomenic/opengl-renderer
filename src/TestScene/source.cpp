@@ -72,8 +72,8 @@ int main(void)
 	window.registerKeyCallback(GLFW_KEY_KP_SUBTRACT, &exposure_callback);
 	window.registerKeyCallback(GLFW_KEY_LEFT_ALT, &mode_callback);
 	
-	window.registerButtonCallback(debugButton, &debug_callback);
-	window.registerButtonCallback(closeButton, &close_callback);
+	window.registerButtonCallback(&debugButton, &debug_callback);
+	window.registerButtonCallback(&closeButton, &close_callback);
 
 	//---------------------------------------------------------------------------------//
 	//                              SCENE SETUP                                        //

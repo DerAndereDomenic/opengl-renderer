@@ -108,7 +108,7 @@ struct ButtonHash
 	*	\return The hash value
 	*/
 	std::size_t
-	operator()(const Button& button) const;
+	operator()(Button* button) const;
 };
 
 #endif

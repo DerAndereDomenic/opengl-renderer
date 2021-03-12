@@ -94,7 +94,7 @@ public:
 	*	\param[in] The button to register
 	*	\param[in] The function of the button to implement
 	*/
-	void registerButtonCallback(const Button& button, KeyPressFunction* callback);
+	void registerButtonCallback(Button* button, KeyPressFunction* callback);
 
 	/**
 	*	\brief Get the underlying GLFW window
@@ -153,7 +153,7 @@ private:
 	double _lastTime = 0;																	/**<< The time stamp of the last frame*/
 	Camera* _camera = nullptr;																/**<< The camera */
 	std::unordered_multimap<uint32_t, KeyPressFunction*> _key_callbacks = {};				/**<< The key callbacks*/
-	std::unordered_multimap<Button, KeyPressFunction*, ButtonHash> _button_callbacks = {};	/**<< The button callbacks*/
+	std::unordered_multimap<Button*, KeyPressFunction*, ButtonHash> _button_callbacks = {};	/**<< The button callbacks*/
 	std::unordered_multimap<uint32_t, bool> _active_keys = {};								/**<< List of active keys*/
 	ViewerMode _mode = ViewerMode::VIEWER;													/**<< The mode of the viewer*/
 	TextRenderer _textRenderer = {};														/**<< The default text renderer*/

@@ -91,7 +91,7 @@ RenderWindow::registerKeyCallback(const uint32_t& key, KeyPressFunction* callbac
 }
 
 void 
-RenderWindow::registerButtonCallback(const Button& button, KeyPressFunction* callback)
+RenderWindow::registerButtonCallback(Button* button, KeyPressFunction* callback)
 {
 	_button_callbacks.insert(std::make_pair(button, callback));
 }
@@ -107,12 +107,12 @@ RenderWindow::spinOnce()
 		_camera->processInput(_deltaTime, xpos, ypos);
 	}
 
-	for (typename std::unordered_multimap<Button, KeyPressFunction*, ButtonHash>::iterator it = _button_callbacks.begin(); it != _button_callbacks.end(); ++it)
+	for (typename std::unordered_multimap<Button*, KeyPressFunction*, ButtonHash>::iterator it = _button_callbacks.begin(); it != _button_callbacks.end(); ++it)
 	{
 		ButtonMode mode = ButtonMode::IDLE;
 		if (_mode == ViewerMode::EDIT)
 		{
-			if (it->first.inside(xpos, _height - ypos))
+			if (it->first->inside(xpos, _height - ypos))
 			{
 				typename std::unordered_map<uint32_t, bool>::iterator active = _active_keys.find(GLFW_MOUSE_BUTTON_LEFT);
 
@@ -143,7 +143,7 @@ RenderWindow::spinOnce()
 			}
 		}
 
-		it->first.render(_textRenderer, mode);
+		it->first->render(_textRenderer, mode);
         
         if(_window == nullptr)
         {

@@ -54,8 +54,8 @@ Button::operator==(const Button& button) const
 }
 
 std::size_t
-ButtonHash::operator()(const Button& button) const
+ButtonHash::operator()(Button* button) const
 {
 	std::hash<uint32_t> hasher;
-	return hasher(button.getID());
+	return hasher(button->getID());
 }
