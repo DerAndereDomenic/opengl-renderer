@@ -2,14 +2,16 @@
 #define __OPENGLRENDERER_GUI_MOVINGBUTTON_H
 
 #include <GUI/KeyPressFunction.h>
+#include <GUI/Button.h>
 
 class MovingButton : public KeyPressFunction
 {
 	public:
 		/**
-		*	\brief Default constructor
+		*	\brief Constructor
+        *   \param[in] button A pointer to the button
 		*/
-		MovingButton() = default;
+		MovingButton(Button* button);
 
 		//Override
 		void onPress(const uint32_t& key);
@@ -20,7 +22,7 @@ class MovingButton : public KeyPressFunction
 		//Override
 		void onHold(const uint32_t& key);
 	private:
-		
+		Button* _button;
 };
 
 #endif

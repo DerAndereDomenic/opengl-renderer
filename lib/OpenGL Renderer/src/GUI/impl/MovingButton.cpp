@@ -1,5 +1,11 @@
 #include <GUI/MovingButton.h>
 
+MovingButton::MovingButton(Button* button)
+    :_button(button)
+{
+
+}
+
 void 
 MovingButton::onPress(const uint32_t& key)
 {
