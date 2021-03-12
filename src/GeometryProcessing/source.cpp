@@ -9,6 +9,13 @@
 #include <Shader/ShaderManager.h>
 #include <OpenGLObjects/VertexArray.h>
 
+glm::vec2 to_screen_space(const uint32_t& x, const uint32_t& y, const uint32_t& width, const uint32_t& height)
+{
+    double x_screen = (x+1)*(width/2);
+    double y_screen = -(y+1)*(height/2) + height;
+    return glm::vec2(x_screen, y_screen);
+}
+
 int main()
 {
     LOGGER::setProject("Geometry Processing", std::to_string(OpenGLRenderer_VERSION_MAJOR) + "." + std::to_string(OpenGLRenderer_VERSION_MINOR));
