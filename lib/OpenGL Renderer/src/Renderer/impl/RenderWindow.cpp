@@ -124,6 +124,7 @@ RenderWindow::spinOnce()
 				}
 				else if (active->second && glfwGetMouseButton(_window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
 				{
+					it->second->onRelease(0);
 					active->second = false;
 				}
 
@@ -152,6 +153,7 @@ RenderWindow::spinOnce()
 		}
 		else if (active->second && glfwGetKey(_window, it->first) == GLFW_RELEASE)
 		{
+			it->second->onRelease(it->first);
 			active->second = false;
 		}
 		
