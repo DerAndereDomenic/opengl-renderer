@@ -12,6 +12,7 @@
 #include <Shader/ShaderManager.h>
 #include <OpenGLObjects/VertexArray.h>
 #include <DataStructure/Mesh.h>
+#include <IO/ObjLoader.h>
 
 /*glm::vec2 to_screen_space(const float& x, const float& y, const float& width, const float& height)
 {
@@ -172,23 +173,26 @@ int main()
 
 int main()
 {
-    const uint32_t width = 1280, height = 720;
+    LOGGER::setProject("Geometry Processing", std::to_string(OpenGLRenderer_VERSION_MAJOR) + "." + std::to_string(OpenGLRenderer_VERSION_MINOR));
+    LOGGER::start();
 
+    const uint32_t width = 1280, height = 720;
     RenderWindow window = RenderWindow::createObject(width, height, "Laplace");
     WindowClose close_callback(&window);
+
+    GL::enableDebugOutput();
 
     window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 
     Mesh mesh = Mesh::createObject();
-    glm::vec3 vertices[7] =
+    glm::vec3 vertices[6] =
     {
-        glm::vec3(2.0f, 2.0f, 0.0f)/6.0f,
-        glm::vec3(6.0f, 0.0f, 0.0f)/6.0f,
-        glm::vec3(6.0f, 4.0f, 0.0f)/6.0f,
-        glm::vec3(2.5f, 4.0f, 0.0f)/6.0f,
-        glm::vec3(0.0f, 3.0f, 0.0f)/6.0f,
-        glm::vec3(1.0f, 2.0f, 0.0f)/6.0f,
-        glm::vec3(0.0f, 1.0f, 0.0f)/6.0f
+        glm::vec3(0.0f, 0.0f, 0.0f)/5.0f,
+        glm::vec3(4.0f, -2.0f, 0.0f)/5.0f,
+        glm::vec3(4.0f, 2.0f, 0.0f)/5.0f,
+        glm::vec3(0.5f, 2.0f, 0.0f)/5.0f,
+        glm::vec3(-2.0f, 1.0f, 0.0f)/5.0f,
+        glm::vec3(-2.0f, -1.0f, 0.0f)/5.0f,
     };
 
     const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
@@ -196,8 +200,7 @@ int main()
     const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
     const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
     const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id5 = mesh.addVertex(vertices[5], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id6 = mesh.addVertex(vertices[6], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id6 = mesh.addVertex(vertices[5], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
 
     const uint32_t indices[15] =
     {
@@ -210,14 +213,25 @@ int main()
     }
     mesh.create();
 
+    Shader basic = Shader::createObject(SHADER_SOURCE_PATH + "basic.vert", SHADER_SOURCE_PATH + "basic.frag");
+    
     while (window.isOpen())
     {
         GL::clear();
+
+        basic.bind();
+        basic.setMVP();
+        basic.setInt("u_set", 1);
+        mesh.render();
 
         window.spinOnce();
     }
 
     RenderWindow::destroyObject(window);
+    Mesh::destroyObject(mesh);
+    Shader::destroyObject(basic);
+
+    LOGGER::end();
 
     return 0;
 }
