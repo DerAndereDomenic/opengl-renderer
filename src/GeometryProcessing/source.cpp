@@ -13,6 +13,7 @@
 #include <OpenGLObjects/VertexArray.h>
 #include <DataStructure/Mesh.h>
 #include <IO/ObjLoader.h>
+#include <algorithm>
 
 /*glm::vec2 to_screen_space(const float& x, const float& y, const float& width, const float& height)
 {
@@ -176,6 +177,11 @@ float f(const glm::vec3 v)
     return v.x * v.x + v.y * v.y * v.y;
 }
 
+float laplacef(const glm::vec3 v)
+{
+    return 2.0f + 6.0f * v.y;
+}
+
 int main()
 {
     LOGGER::setProject("Geometry Processing", std::to_string(OpenGLRenderer_VERSION_MAJOR) + "." + std::to_string(OpenGLRenderer_VERSION_MINOR));
@@ -200,12 +206,44 @@ int main()
         glm::vec3(-2.0f, -1.0f, 0.0f)/5.0f,
     };
 
-    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(glm::vec3(f(vertices[0])),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(glm::vec3(f(vertices[1])),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(glm::vec3(f(vertices[2])),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(glm::vec3(f(vertices[3])),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(glm::vec3(f(vertices[4])),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id6 = mesh.addVertex(vertices[5], glm::vec4(glm::vec3(f(vertices[5])),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    float f_values[6] =
+    {
+        f(glm::vec3(vertices[0])),
+        f(glm::vec3(vertices[1])),
+        f(glm::vec3(vertices[2])),
+        f(glm::vec3(vertices[3])),
+        f(glm::vec3(vertices[4])),
+        f(glm::vec3(vertices[5])),
+    };
+
+    float max_f = *std::max_element(f_values, f_values + 5);
+    for (uint32_t i = 0; i < 6; ++i)
+    {
+        f_values[i] /= max_f;
+    }
+
+    float laplacef_values[6] =
+    {
+        laplacef(glm::vec3(vertices[0])),
+        laplacef(glm::vec3(vertices[1])),
+        laplacef(glm::vec3(vertices[2])),
+        laplacef(glm::vec3(vertices[3])),
+        laplacef(glm::vec3(vertices[4])),
+        laplacef(glm::vec3(vertices[5])),
+    };
+
+    float max_laplacef = *std::max_element(laplacef_values, laplacef_values + 5);
+    for (uint32_t i = 0; i < 6; ++i)
+    {
+        laplacef_values[i] /= max_laplacef;
+    }
+
+    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(glm::vec3(laplacef_values[0]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(glm::vec3(laplacef_values[1]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(glm::vec3(laplacef_values[2]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(glm::vec3(laplacef_values[3]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(glm::vec3(laplacef_values[4]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id6 = mesh.addVertex(vertices[5], glm::vec4(glm::vec3(laplacef_values[5]),1), glm::vec3(0), glm::vec3(0, 0, 1));
 
     const uint32_t indices[15] =
     {
