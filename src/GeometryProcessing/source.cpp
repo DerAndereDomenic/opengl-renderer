@@ -171,6 +171,11 @@ int main()
     return 0;
 }*/
 
+float f(const glm::vec3 v)
+{
+    return v.x * v.x + v.y * v.y * v.y;
+}
+
 int main()
 {
     LOGGER::setProject("Geometry Processing", std::to_string(OpenGLRenderer_VERSION_MAJOR) + "." + std::to_string(OpenGLRenderer_VERSION_MINOR));
@@ -195,12 +200,12 @@ int main()
         glm::vec3(-2.0f, -1.0f, 0.0f)/5.0f,
     };
 
-    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id6 = mesh.addVertex(vertices[5], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(f(vertices[0])), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(f(vertices[1])), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(f(vertices[2])), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(f(vertices[3])), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(f(vertices[4])), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id6 = mesh.addVertex(vertices[5], glm::vec4(f(vertices[5])), glm::vec3(0), glm::vec3(0, 0, 1));
 
     const uint32_t indices[15] =
     {
