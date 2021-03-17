@@ -200,12 +200,12 @@ int main()
         glm::vec3(-2.0f, -1.0f, 0.0f)/5.0f,
     };
 
-    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(f(vertices[0])), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(f(vertices[1])), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(f(vertices[2])), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(f(vertices[3])), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(f(vertices[4])), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id6 = mesh.addVertex(vertices[5], glm::vec4(f(vertices[5])), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(glm::vec3(f(vertices[0])),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(glm::vec3(f(vertices[1])),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(glm::vec3(f(vertices[2])),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(glm::vec3(f(vertices[3])),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(glm::vec3(f(vertices[4])),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id6 = mesh.addVertex(vertices[5], glm::vec4(glm::vec3(f(vertices[5])),1), glm::vec3(0), glm::vec3(0, 0, 1));
 
     const uint32_t indices[15] =
     {
@@ -222,7 +222,7 @@ int main()
     
     while (window.isOpen())
     {
-        GL::clear();
+        GL::clear(0.8,0.5,0.1);
 
         basic.bind();
         basic.setMVP();
