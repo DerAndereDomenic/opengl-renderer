@@ -12,7 +12,7 @@
 #include <Shader/ShaderManager.h>
 #include <OpenGLObjects/VertexArray.h>
 
-glm::vec2 to_screen_space(const float& x, const float& y, const float& width, const float& height)
+/*glm::vec2 to_screen_space(const float& x, const float& y, const float& width, const float& height)
 {
     double x_screen = (x+1)*(width/2);
     double y_screen = (y+1)*(height/2);
@@ -166,5 +166,11 @@ int main()
     VertexBuffer::destroyObject(vbo);
 
     LOGGER::end();
+    return 0;
+}*/
+
+int main()
+{
+
     return 0;
 }
