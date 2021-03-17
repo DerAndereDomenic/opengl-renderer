@@ -11,6 +11,7 @@
 #include <GUI/ExposureControl.h>
 #include <Shader/ShaderManager.h>
 #include <OpenGLObjects/VertexArray.h>
+#include <DataStructure/Mesh.h>
 
 /*glm::vec2 to_screen_space(const float& x, const float& y, const float& width, const float& height)
 {
@@ -171,6 +172,52 @@ int main()
 
 int main()
 {
+    const uint32_t width = 1280, height = 720;
+
+    RenderWindow window = RenderWindow::createObject(width, height, "Laplace");
+    WindowClose close_callback(&window);
+
+    window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
+
+    Mesh mesh = Mesh::createObject();
+    glm::vec3 vertices[7] =
+    {
+        glm::vec3(2.0f, 2.0f, 0.0f)/6.0f,
+        glm::vec3(6.0f, 0.0f, 0.0f)/6.0f,
+        glm::vec3(6.0f, 4.0f, 0.0f)/6.0f,
+        glm::vec3(2.5f, 4.0f, 0.0f)/6.0f,
+        glm::vec3(0.0f, 3.0f, 0.0f)/6.0f,
+        glm::vec3(1.0f, 2.0f, 0.0f)/6.0f,
+        glm::vec3(0.0f, 1.0f, 0.0f)/6.0f
+    };
+
+    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id5 = mesh.addVertex(vertices[5], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id6 = mesh.addVertex(vertices[6], glm::vec4(1), glm::vec3(0), glm::vec3(0, 0, 1));
+
+    const uint32_t indices[15] =
+    {
+        id0, id1, id2, id0, id2, id3, id0, id3, id4, id0, id4, id6, id0, id6, id1
+    };
+
+    for (uint32_t i = 0; i < 5; ++i)
+    {
+        mesh.addTriangle(indices[3 * i], indices[3 * i + 1], indices[3 * i + 2]);
+    }
+    mesh.create();
+
+    while (window.isOpen())
+    {
+        GL::clear();
+
+        window.spinOnce();
+    }
+
+    RenderWindow::destroyObject(window);
 
     return 0;
 }
