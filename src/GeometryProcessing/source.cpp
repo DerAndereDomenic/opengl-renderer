@@ -179,7 +179,55 @@ float f(const glm::vec3 v)
 
 float laplacef(const glm::vec3 v)
 {
-    return 2.0f + 6.0f * v.y;
+    return 2.0f + 6.0f*v.y;
+}
+
+//HARD CODED
+void build_graphlaplace(float** L, const uint32_t* indices)
+{
+    float diagonals[6] = {0,};
+    for (uint32_t f = 0; f < 5; ++f)
+    {
+        L[indices[3 * f]][indices[3 * f + 1]] = -1.0f;
+        L[indices[3 * f + 1]][indices[3 * f]] = -1.0f;
+                                              
+        L[indices[3 * f]][indices[3 * f + 2]] = -1.0f;
+        L[indices[3 * f + 2]][indices[3 * f]] = -1.0f;
+
+        L[indices[3 * f + 2]][indices[3 * f + 1]] = -1.0f;
+        L[indices[3 * f + 1]][indices[3 * f + 2]] = -1.0f;
+    }
+
+    for (uint32_t i = 0; i < 6; ++i)
+    {
+        float sum = 0;
+        for (uint32_t j = 0; j < 6; ++j)
+        {
+            sum += L[i][j];
+        }
+        L[i][i] = -sum;
+    }
+
+    for (int i = 0; i < 6; ++i)
+    {
+        for (int j = 0; j < 6; ++j)
+        {
+            std::cout << L[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+//HARD CODED
+void graphlaplacef(float** L, const float* f, float* graphlapacef_values)
+{
+    for (uint32_t i = 0; i < 6; ++i)
+    {
+        for (uint32_t j = 0; j < 6; ++j)
+        {
+            graphlapacef_values[i] += L[i][j] * f[j];
+        }
+    }
 }
 
 int main()
@@ -216,11 +264,11 @@ int main()
         f(glm::vec3(vertices[5])),
     };
 
-    float max_f = *std::max_element(f_values, f_values + 5);
+    /*float max_f = *std::max_element(f_values, f_values + 5);
     for (uint32_t i = 0; i < 6; ++i)
     {
         f_values[i] /= max_f;
-    }
+    }*/
 
     float laplacef_values[6] =
     {
@@ -232,22 +280,53 @@ int main()
         laplacef(glm::vec3(vertices[5])),
     };
 
-    float max_laplacef = *std::max_element(laplacef_values, laplacef_values + 5);
     for (uint32_t i = 0; i < 6; ++i)
     {
-        laplacef_values[i] /= max_laplacef;
+        std::cout << laplacef_values[i] << std::endl;
     }
 
-    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(glm::vec3(laplacef_values[0]),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(glm::vec3(laplacef_values[1]),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(glm::vec3(laplacef_values[2]),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(glm::vec3(laplacef_values[3]),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(glm::vec3(laplacef_values[4]),1), glm::vec3(0), glm::vec3(0, 0, 1));
-    const uint32_t id6 = mesh.addVertex(vertices[5], glm::vec4(glm::vec3(laplacef_values[5]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    float max_laplacef = *std::max_element(laplacef_values, laplacef_values + 5);
+    float min_laplacef = *std::min_element(laplacef_values, laplacef_values + 5);
+    for (uint32_t i = 0; i < 6; ++i)
+    {
+        laplacef_values[i] = (laplacef_values[i] + std::fabs(min_laplacef)) / (max_laplacef + std::fabs(min_laplacef));
+    }
+
+    uint32_t faces[15] = { 0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 5, 0, 5, 1 };
+    float** L = new float* [6];
+    for (uint32_t i = 0; i < 6; ++i)
+    {
+        L[i] = new float[6];
+    }
+    for (uint32_t i = 0; i < 6; ++i)
+    {
+        for (uint32_t j = 0; j < 6; ++j)
+        {
+            L[i][j] = 0.0f;
+        }
+    }
+    build_graphlaplace(L, faces);
+
+    float graphlaplacef_values[6] = { 0, };
+    graphlaplacef(L, f_values, graphlaplacef_values);
+
+    float max_graphlaplacef = *std::max_element(graphlaplacef_values, graphlaplacef_values + 5);
+    float min_graphlaplacef = *std::min_element(graphlaplacef_values, graphlaplacef_values + 5);
+    for (uint32_t i = 0; i < 6; ++i)
+    {
+        graphlaplacef_values[i] = (graphlaplacef_values[i] + std::fabs(min_graphlaplacef)) / (max_graphlaplacef+ std::fabs(min_graphlaplacef));
+    }
+
+    const uint32_t id0 = mesh.addVertex(vertices[0], glm::vec4(glm::vec3(graphlaplacef_values[0]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id1 = mesh.addVertex(vertices[1], glm::vec4(glm::vec3(graphlaplacef_values[1]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id2 = mesh.addVertex(vertices[2], glm::vec4(glm::vec3(graphlaplacef_values[2]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id3 = mesh.addVertex(vertices[3], glm::vec4(glm::vec3(graphlaplacef_values[3]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id4 = mesh.addVertex(vertices[4], glm::vec4(glm::vec3(graphlaplacef_values[4]),1), glm::vec3(0), glm::vec3(0, 0, 1));
+    const uint32_t id5 = mesh.addVertex(vertices[5], glm::vec4(glm::vec3(graphlaplacef_values[5]),1), glm::vec3(0), glm::vec3(0, 0, 1));
 
     const uint32_t indices[15] =
     {
-        id0, id1, id2, id0, id2, id3, id0, id3, id4, id0, id4, id6, id0, id6, id1
+        id0, id1, id2, id0, id2, id3, id0, id3, id4, id0, id4, id5, id0, id5, id1
     };
 
     for (uint32_t i = 0; i < 5; ++i)
