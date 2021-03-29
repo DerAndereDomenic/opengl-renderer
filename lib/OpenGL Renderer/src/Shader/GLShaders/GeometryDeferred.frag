@@ -1,7 +1,7 @@
 #version 330 core
 
-layout (location=0) out vec3 gPosition;
-layout (location=1) out vec3 gNormal;
+layout (location=0) out vec4 gPosition;
+layout (location=1) out vec4 gNormal;
 layout (location=2) out vec4 gAlbedoSpec;
 
 in vec3 frag_pos;
@@ -13,8 +13,8 @@ uniform sampler2D texture_specular;
 
 void main()
 {
-    gPosition = frag_pos;
-    gNormal = normalize(frag_normal);
+    gPosition = vec4(frag_pos,1);
+    gNormal = vec4(normalize(frag_normal),1);
     gAlbedoSpec.rgb = texture(texture_diffuse, frag_tex).rgb;
     gAlbedoSpec.a = texture(texture_specular, frag_tex).r;
 }
