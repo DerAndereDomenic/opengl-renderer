@@ -19,5 +19,5 @@ void main()
 
     frag_pos = world_pos;
     frag_tex = aTex.xy;
-    frag_normal = M*aNormal;
+    frag_normal = vec3(M*vec4(aNormal,0));
 }
