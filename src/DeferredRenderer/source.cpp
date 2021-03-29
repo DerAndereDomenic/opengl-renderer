@@ -21,7 +21,6 @@ int main()
     window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 
     GL::enableDebugOutput();
-    //GL::updateDrawBuffers(3);
 
     Mesh crate = MeshHelper::cubeMesh(glm::vec4(1));
     crate.create();
@@ -32,6 +31,7 @@ int main()
     ShaderManager::instance()->addShader("basic");
 
     GBuffer gbuffer = GBuffer::createObject(width, height);
+    GL::updateDrawBuffers(3);
 
     Mesh quad = MeshHelper::quadMesh(2);
     quad.create();
