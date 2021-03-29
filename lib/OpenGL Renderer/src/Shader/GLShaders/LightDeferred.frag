@@ -1,6 +1,6 @@
 #version 330 core
 
-out vec4 FragColor
+out vec4 FragColor;
 
 in vec2 frag_tex;
 
@@ -16,7 +16,7 @@ void main()
 {
     vec3 fragPos = texture(gPosition, frag_tex).rgb;
     vec3 normal = texture(gNormal, frag_tex).rgb;
-    vec4 albedoSpec = texture(gAlbedoSpec);
+    vec4 albedoSpec = texture(gAlbedoSpec, frag_tex);
     vec3 albedo = albedoSpec.rgb;
     float specular = albedoSpec.a;
 
@@ -25,7 +25,7 @@ void main()
 
     vec3 lightDir = normalize(lightPos - fragPos);
     vec3 lighting = ambient;
-    lighting += max(dot(normal, lightDir), 0) * Albedo;
+    lighting += max(dot(normal, lightDir), 0) * albedo;
 
     FragColor = vec4(lighting, 1);
 }
