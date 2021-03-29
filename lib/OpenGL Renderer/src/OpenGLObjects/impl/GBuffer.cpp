@@ -28,11 +28,13 @@ GBuffer::destroyObject(GBuffer& object)
 void 
 GBuffer::bind()
 {
-
+    _fbo.bind();
 }
 
 void 
 GBuffer::bindTextures()
 {
-
+    _positionTexture.bind(0);
+    _normalTexture.bind(1);
+    _albedoSpecTexture.bind(2);
 }
