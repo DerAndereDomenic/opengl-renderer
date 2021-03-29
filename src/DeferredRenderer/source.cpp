@@ -3,6 +3,9 @@
 #include <Renderer/RenderWindow.h>
 #include <Core/GLFunctions.h>
 #include <GUI/WindowClose.h>
+#include <DataStructure/MeshHelper.h>
+#include <OpenGLRendererConfig.h>
+#include <Shader/ShaderManager.h>
 
 int main()
 {
@@ -18,9 +21,20 @@ int main()
 
     GL::enableDebugOutput();
 
+    Mesh crate = MeshHelper::cubeMesh(glm::vec4(1));
+    crate.create();
+    Texture diffuse_texture = Texture::createObject(RESOURCE_PATH + "crate_diffuse.png");
+    Texture specuar_texture = Texture::createObject(RESOURCE_PATH + "crate_specular.png");
+
+    ShaderManager::instance()->addShader("basic");
+
     while(window.isOpen())
     {
         GL::clear();
+
+        ShaderManager::instance()->getShader("basic").bind();
+        ShaderManager::instance()->getShader("basic").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+        crate.render();
 
         window.spinOnce();
     }
