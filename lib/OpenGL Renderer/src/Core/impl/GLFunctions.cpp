@@ -80,3 +80,18 @@ GL::disableClipping(const uint32_t& plane)
 {
     glDisable(GL_CLIP_DISTANCE1 + plane);
 }
+
+void
+GL::updateDrawBuffers(const uint32_t& number_attachements)
+{
+    uint32_t* attachement = new uint32_t[number_attachements];
+
+    for(uint32_t i = 0; i < number_attachements; ++i)
+    {
+        attachement[i] = GL_COLOR_ATTACHMENT0 + i;
+    }
+
+    glDrawBuffers(number_attachements, attachement);
+
+    delete[] attachement;
+}

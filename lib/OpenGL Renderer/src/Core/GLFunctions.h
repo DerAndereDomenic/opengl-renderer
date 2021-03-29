@@ -58,6 +58,12 @@ namespace GL
 	*	\note It seems like some driver do not support this. Hotfix: move plane far away
 	*/
 	void disableClipping(const uint32_t& plane);
+
+	/**
+	*	\brief Specify the number of color attachements for rendering
+	*	\param[in] number_attachements The number of color attachements 
+	*/
+	void updateDrawBuffers(const uint32_t& number_attachements);
 }
 
 #endif
