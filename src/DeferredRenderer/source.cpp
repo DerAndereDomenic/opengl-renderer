@@ -29,11 +29,17 @@ int main()
     Texture specuar_texture = Texture::createObject(RESOURCE_PATH + "crate_specular.png");
 
     ShaderManager::instance()->addShader("GeometryDeferred");
+    ShaderManager::instance()->addShader("basic");
+
+    GBuffer gbuffer = GBuffer::createObject(width, height);
+
+    Mesh quad = MeshHelper::quadMesh(2);
+    quad.create();
 
     while(window.isOpen())
     {
+        gbuffer.bind();
         GL::clear();
-
         ShaderManager::instance()->getShader("GeometryDeferred").bind();
         ShaderManager::instance()->getShader("GeometryDeferred").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
         ShaderManager::instance()->getShader("GeometryDeferred").setInt("texture_diffuse", 0);
@@ -41,12 +47,21 @@ int main()
         diffuse_texture.bind(0);
         specuar_texture.bind(1);
         crate.render();
+        FrameBuffer::bindDefault();
+
+        GL::clear();
+        ShaderManager::instance()->getShader("basic").bind();
+        ShaderManager::instance()->getShader("basic").setMVP();
+        gbuffer.bindTextures();
+        quad.render();
 
         window.spinOnce();
     }
 
     RenderWindow::destroyObject(window);
     Camera::destroyObject(camera);
+    GBuffer::destroyObject(gbuffer);
+    ShaderManager::destroyObject(*ShaderManager::instance());
 
     LOGGER::end();
 
