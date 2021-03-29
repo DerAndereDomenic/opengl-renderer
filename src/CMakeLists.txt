@@ -17,3 +17,7 @@ endif()
 if(BUILD_GEOMETRYPROCESSING)
     add_subdirectory(GeometryProcessing)
 endif()
+
+if(BUILD_DEFERREDRENDERER)
+	add_subdirectory(DeferredRenderer)
+endif()
