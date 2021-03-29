@@ -22,7 +22,7 @@ GBuffer::createObject(const uint32_t& width, const uint32_t& height)
 void 
 GBuffer::destroyObject(GBuffer& object)
 {
-
+    FrameBuffer::destroyObject(object._fbo);
 }
 
 void 
