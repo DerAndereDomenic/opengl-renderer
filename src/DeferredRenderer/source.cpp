@@ -28,13 +28,16 @@ int main()
     Texture specuar_texture = Texture::createObject(RESOURCE_PATH + "crate_specular.png");
 
     ShaderManager::instance()->addShader("GeometryDeferred");
-    ShaderManager::instance()->addShader("basic");
+    ShaderManager::instance()->addShader("LightDeferred");
 
     GBuffer gbuffer = GBuffer::createObject(width, height);
     GL::updateDrawBuffers(3);
 
     Mesh quad = MeshHelper::quadMesh(2);
     quad.create();
+
+    //Disable blending when using deferred rendering
+    glDisable(GL_BLEND);
 
     while(window.isOpen())
     {
@@ -50,8 +53,11 @@ int main()
         FrameBuffer::bindDefault();
 
         GL::clear();
-        ShaderManager::instance()->getShader("basic").bind();
-        ShaderManager::instance()->getShader("basic").setMVP();
+        ShaderManager::instance()->getShader("LightDeferred").bind();
+        ShaderManager::instance()->getShader("LightDeferred").setVec3("viewPos", camera.getPosition());
+        ShaderManager::instance()->getShader("LightDeferred").setInt("gPosition", 0);
+        ShaderManager::instance()->getShader("LightDeferred").setInt("gNormal", 1);
+        ShaderManager::instance()->getShader("LightDeferred").setInt("gAlbedoSpec", 2);
         gbuffer.bindTextures();
         quad.render();
 
