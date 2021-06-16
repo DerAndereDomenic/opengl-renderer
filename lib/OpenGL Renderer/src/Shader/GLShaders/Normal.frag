@@ -101,8 +101,8 @@ float D_GGX(const float NdotH, const float roughness)
 float V_SmithJohnGGX(float NdotL, float NdotV, float roughness)
 {
 	float a2 = roughness * roughness;
-	float lambdaV = NdotL*(NdotV*NdotV*(1-a2)+a2);
-	float lambdaL = NdotV*(NdotL*NdotL*(1-a2)+a2);
+	float lambdaV = NdotL*sqrt(NdotV*NdotV*(1-a2)+a2);
+	float lambdaL = NdotV*sqrt(NdotL*NdotL*(1-a2)+a2);
 	return 0.5/(lambdaL+lambdaV);
 }
 
