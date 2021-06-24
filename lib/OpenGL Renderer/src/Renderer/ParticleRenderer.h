@@ -70,7 +70,7 @@ class ParticleRenderer
 	private:
 		Texture _texture;									/**<< The texture of a single particle*/
 		std::vector<Particle> _particles;					/**<< The particles managed by this system*/
-		VertexArray _vao;									/**<< The internal vao of the particle system*/
+		std::shared_ptr<VertexArray> _vao;					/**<< The internal vao of the particle system*/
 		std::shared_ptr<VertexBuffer> _instanceArray;		/**<< The data needed for each particle*/
 		glm::vec3 _position;								/**<< The position of the emitter in world space*/
 		float _timeAlive = 0.0f;							/**<< The maximum time a particle can stay alive*/

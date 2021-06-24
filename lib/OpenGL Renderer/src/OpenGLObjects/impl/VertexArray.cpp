@@ -1,18 +1,14 @@
 #include <OpenGLObjects/VertexArray.h>
-
-VertexArray 
-VertexArray::createObject(const Geometry& geometry)
+ 
+VertexArray::VertexArray(const Geometry& geometry)
 {
-	VertexArray result;
-	glGenVertexArrays(1, &result._ID);
-	result._geometry = geometry;
-	return result;
+	glGenVertexArrays(1, &_ID);
+	_geometry = geometry;
 }
 
-void 
-VertexArray::destroyObject(VertexArray &vao)
+VertexArray::~VertexArray()
 {
-	glDeleteVertexArrays(1, &vao._ID);
+	glDeleteVertexArrays(1, &_ID);
 }
 
 void 

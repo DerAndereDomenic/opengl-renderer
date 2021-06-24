@@ -41,8 +41,8 @@ ParticleRenderer::createObject(const glm::vec3& position, const uint32_t& num_pa
 	VertexBufferLayout layout;
 	layout.add(GL_FLOAT, 3);
 	layout.add(GL_FLOAT, 1);
-	result._vao = VertexArray::createObject(GL_POINTS);
-	result._vao.addInstanceBuffer(result._instanceArray, layout);
+	result._vao = std::make_shared<VertexArray>(GL_POINTS);
+	result._vao->addInstanceBuffer(result._instanceArray, layout);
 
 	ShaderManager::instance()->addShader("Particle", true);
 
@@ -54,8 +54,6 @@ ParticleRenderer::destroyObject(ParticleRenderer& object)
 {
 	Texture::destroyObject(object._texture);
 	object._particles.clear();
-	VertexArray::destroyObject(object._vao);
-	//VertexBuffer::destroyObject(object._instanceArray);
 	delete[] object._attributes;
 }
 
@@ -86,7 +84,7 @@ ParticleRenderer::render(const Camera& camera)
 	ShaderManager::instance()->getShader("Particle").bind();
 	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 	_texture.bind();
-	_vao.renderInstanced(1, _particles.size());
+	_vao->renderInstanced(1, _particles.size());
 	GL::enableDepthWriting();
 }
 
@@ -97,6 +95,6 @@ ParticleRenderer::render(const glm::mat4& view, const glm::mat4& projection)
 	ShaderManager::instance()->getShader("Particle").bind();
 	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), view, projection);
 	_texture.bind();
-	_vao.renderInstanced(1, _particles.size());
+	_vao->renderInstanced(1, _particles.size());
 	GL::enableDepthWriting();
 }

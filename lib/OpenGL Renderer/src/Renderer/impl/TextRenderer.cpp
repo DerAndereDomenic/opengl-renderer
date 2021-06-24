@@ -30,8 +30,8 @@ TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
 	};
 
 	result._vbo = std::make_shared<VertexBuffer>(vertices, 6 * 4);
-	result._vao = VertexArray::createObject();
-	result._vao.addBuffer(result._vbo, layout);
+	result._vao = std::make_shared<VertexArray>();
+	result._vao->addBuffer(result._vbo, layout);
 
 	result._projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
 
@@ -51,8 +51,6 @@ TextRenderer::destroyObject(TextRenderer& object)
 	object._characters.clear();
 	FT_Done_Face(object._face);
 	FT_Done_FreeType(object._ft);
-	//VertexBuffer::destroyObject(object._vbo);
-	VertexArray::destroyObject(object._vao);
 }
 
 void 
@@ -83,7 +81,7 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 
 		text_shader.setMat4("model", model);
 		ch.texture.bind();
-		_vao.render();
+		_vao->render();
 
 		x += (ch.advance >> 6) * scale;
 	}

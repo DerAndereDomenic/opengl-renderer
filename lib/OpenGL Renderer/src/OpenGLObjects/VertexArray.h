@@ -15,22 +15,15 @@ class VertexArray
 {
 public:
 	/**
-	*	\brief Creates an empty Vertex Array
-	*/
-	VertexArray() = default;
-
-	/**
 	*	\brief Creates a Vertex Array
 	*	\param[in] geometry The type of geometry that should be rendered (default = GL_TRIANGLES)
-	*	\return The Vertex Array Object
 	*/
-	static VertexArray createObject(const Geometry& geometry = GL_TRIANGLES);
+	VertexArray(const Geometry& geometry = GL_TRIANGLES);
 
 	/**
 	*	\brief Destroys a Vertex Array object
-	*	\param[in] vao The Vertex Array object to be destroyed
 	*/
-	static void destroyObject(VertexArray &vao);
+	~VertexArray();
 
 	/**
 	*	\brief Bind die Vertex Array object

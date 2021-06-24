@@ -25,7 +25,7 @@ Things I want to address in a refactoring stage: <br>
 * [ ] - Rework the destroy/create process of Objects
     * [ ] - VRRenderer
     * [x] - VertexBuffer
-    * [ ] - VertexArray
+    * [x] - VertexArray
     * [ ] - Texture
     * [ ] - TextRenderer
     * [ ] - Skybox
