@@ -30,7 +30,7 @@ public:
 	*	\brief Renders the skybox to the given camera
 	*	\param[in] camera The camera class
 	*/
-	void render(Camera camera);
+	void render(std::shared_ptr<Camera> camera);
 
 	/**
 	*	\brief Renders the skybox to the given camera

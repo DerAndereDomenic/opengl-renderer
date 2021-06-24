@@ -40,6 +40,6 @@ Things I want to address in a refactoring stage: <br>
     * [x] - GBuffer
     * [x] - FrameBuffer
     * [x] - EnvironmentMap
-    * [ ] - Camera
+    * [x] - Camera
 * [ ] - Update scene representation
 * [ ] - Remove KeyHandler class

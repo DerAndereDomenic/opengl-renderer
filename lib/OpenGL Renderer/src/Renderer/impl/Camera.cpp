@@ -3,45 +3,38 @@
 #include <iostream>
 #include <IO/KeyManager.h>
 
-Camera
-Camera::createObject(const float& aspect_ratio, const float& near, const float& far)
+Camera::Camera(const float& aspect_ratio, const float& near, const float& far)
 {
-	Camera result;
-	result._near = near;
-	result._far = far;
-	result._projection = glm::perspective(glm::radians(90.0f), aspect_ratio, near, far);
-	result._view = glm::lookAt(result._cameraPos, result._cameraPos + result._cameraFront, result._cameraUp);
-	return result;
+	_near = near;
+	_far = far;
+	_projection = glm::perspective(glm::radians(90.0f), aspect_ratio, near, far);
+	_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
 }
 
-Camera
-Camera::createObject(const glm::vec3& position, const float& fov, const float& aspect_ratio, const float& near, const float& far)
+Camera::Camera(const glm::vec3& position, const float& fov, const float& aspect_ratio, const float& near, const float& far)
 {
-	Camera result;
-	result._near = near;
-	result._far = far;
-	result._cameraPos = position;
-	result._cameraUp = -result._cameraUp;
-	result._projection = glm::perspective(glm::radians(fov), aspect_ratio, near, far);
-	result._view = glm::lookAt(result._cameraPos, result._cameraPos + result._cameraFront, result._cameraUp);
-	return result;
+	_near = near;
+	_far = far;
+	_cameraPos = position;
+	_cameraUp = -_cameraUp;
+	_projection = glm::perspective(glm::radians(fov), aspect_ratio, near, far);
+	_view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
 }
 
-void
-Camera::destroyObject(Camera& camera)
+Camera::~Camera()
 {
-	camera._firstMouse = true; 
-	camera._lastX; 
-	camera._lastY; 
-	camera._yaw = -90.0f; 
-	camera._pitch = 0.0f; 
+	_firstMouse = true; 
+	_lastX; 
+	_lastY; 
+	_yaw = -90.0f; 
+	_pitch = 0.0f; 
 
-	camera._cameraPos = glm::vec3(8.0f, 66.0f, 8.0f); 
-	camera._cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); 
-	camera._cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); 
+	_cameraPos = glm::vec3(8.0f, 66.0f, 8.0f); 
+	_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); 
+	_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); 
 
-	camera._near = 0.0f;
-	camera._far = 0.0f;
+	_near = 0.0f;
+	_far = 0.0f;
 }
 
 void

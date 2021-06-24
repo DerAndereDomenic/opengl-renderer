@@ -30,11 +30,6 @@ public:
 	EnvironmentMap(glm::vec3 position);
 
 	/**
-	*	\brief Destroys the environment map
-	*/
-	~EnvironmentMap();
-
-	/**
 	*	\brief Renders the given scene onto the cube map
 	*	\param[in] scene The scene to be rendered
 	*	\param[in] shader The shader used to render the scene
@@ -50,7 +45,7 @@ public:
 private:
 	std::shared_ptr<Texture> _cube_map = {};				/**<< The texture cube map*/
 	std::shared_ptr<FrameBuffer> _environment_map = {};		/**<< The framebuffer used to render to the cubemap*/
-	Camera _camera = {};									/**<< The camera of the environment map used to the scene*/
+	std::shared_ptr<Camera> _camera = {};					/**<< The camera of the environment map used to the scene*/
 	ViewAngle angles[6] =
 	{
 		{0,0},

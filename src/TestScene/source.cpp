@@ -45,7 +45,7 @@ int main(void)
 	float near = 0.1f;
 	float far = 500.0f;
 
-	Camera camera = Camera::createObject(static_cast<float>(width)/static_cast<float>(height), near, far);
+	Camera camera = Camera(static_cast<float>(width)/static_cast<float>(height), near, far);
 	RenderWindow window = RenderWindow::createObject(width, height, "Render Window", &camera);
 
 	GL::enableDebugOutput();
@@ -340,7 +340,7 @@ int main(void)
 		//Skybox
 		//Use vertex data of the light block
 
-		sky.render(camera);
+		sky.render(std::make_shared<Camera>(camera));
 
 		ShaderManager::instance()->getShader("Reflection")->bind();
 		ShaderManager::instance()->getShader("Reflection")->setInt("cubemap", 0);
@@ -430,7 +430,6 @@ int main(void)
 	ShaderManager::destroyObject(*ShaderManager::instance());
 	Skybox::destroyObject(sky);
 	RenderWindow::destroyObject(window);
-	Camera::destroyObject(camera);
 	Mesh::destroyObject(quad);
 	RenderObject::destroyObject(obj_light);
 	Scene::destroyObject(scene);

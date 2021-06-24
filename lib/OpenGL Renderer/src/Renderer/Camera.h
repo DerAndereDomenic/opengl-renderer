@@ -20,9 +20,8 @@ public:
 	*	\param[in] aspect_ratio The aspect ratio of the window
 	*	\param[in] near The near plane
 	*	\param[in] far The far plane
-	*	\return The camera object
 	*/
-	static Camera createObject(const float& aspect_ratio, const float& near, const float& far);
+	Camera(const float& aspect_ratio, const float& near, const float& far);
 
 	/**
 	*	\brief Create a camera object
@@ -31,15 +30,13 @@ public:
 	*	\param[in] aspect_ratio The apsect ratio of the screen
 	*	\param[in] near The near plane
 	*	\param[in] far The far plane
-	*	\return The camera object
 	*/
-	static Camera createObject(const glm::vec3& position, const float& fov, const float& aspect_ratio, const float& near, const float& far);
+	Camera(const glm::vec3& position, const float& fov, const float& aspect_ratio, const float& near, const float& far);
 
 	/**
 	*	\brief Destroys the given camera
-	*	\param[in] camera The camera to be destroyed
 	*/
-	static void destroyObject(Camera& camera);
+	~Camera();
 
 	/**
 	*	\brief Processes the input of button presses, mouse movement and window resize
