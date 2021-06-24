@@ -39,7 +39,7 @@ Things I want to address in a refactoring stage: <br>
     * [x] - IndexBuffer
     * [x] - GBuffer
     * [x] - FrameBuffer
-    * [ ] - EnvironmentMap
+    * [x] - EnvironmentMap
     * [ ] - Camera
 * [ ] - Update scene representation
 * [ ] - Remove KeyHandler class

@@ -1,21 +1,18 @@
 #include <DataStructure/EnvironmentMap.h>
 
-EnvironmentMap 
-EnvironmentMap::createObject(glm::vec3 position)
+EnvironmentMap::EnvironmentMap(glm::vec3 position)
 {
 	EnvironmentMap result;
-	result._camera = Camera::createObject(position, 90.0f, 1.0f, 0.1f, 100.0f);
-	result._cube_map = Texture::createTexture(1024, 1024, (void*)NULL, CUBEMAP);
-	result._environment_map = std::make_shared<FrameBuffer>(1024, 1024);
-	result._environment_map->attachRenderBuffer();
-	result._environment_map->unbind();
-	return result;
+	_camera = Camera::createObject(position, 90.0f, 1.0f, 0.1f, 100.0f);
+	_cube_map = Texture::createTexture(1024, 1024, (void*)NULL, CUBEMAP);
+	_environment_map = std::make_shared<FrameBuffer>(1024, 1024);
+	_environment_map->attachRenderBuffer();
+	_environment_map->unbind();
 }
 
-void 
-EnvironmentMap::destroyObject(EnvironmentMap& object)
+EnvironmentMap::~EnvironmentMap()
 {
-	Camera::destroyObject(object._camera);
+	Camera::destroyObject(_camera);
 }
 
 void 

@@ -275,7 +275,7 @@ int main(void)
 	fbo->verify();
 	fbo->unbind();
 
-	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
+	EnvironmentMap map = EnvironmentMap(glm::vec3(0, 5, 0));
 
 	scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 	obj_light.setModel(glm::translate(glm::mat4(1), l1.position));

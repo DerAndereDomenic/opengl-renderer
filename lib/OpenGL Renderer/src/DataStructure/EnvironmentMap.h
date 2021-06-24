@@ -26,15 +26,13 @@ public:
 	/**
 	*	\brief Create an environment map at the given position
 	*	\param[in] position The position of the environment map
-	*	\return The environment map
 	*/
-	static EnvironmentMap createObject(glm::vec3 position);
+	EnvironmentMap(glm::vec3 position);
 
 	/**
 	*	\brief Destroys the environment map
-	*	\param[in] object The environment map
 	*/
-	static void destroyObject(EnvironmentMap& object);
+	~EnvironmentMap();
 
 	/**
 	*	\brief Renders the given scene onto the cube map
