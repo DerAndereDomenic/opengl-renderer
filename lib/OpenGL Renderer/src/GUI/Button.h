@@ -5,6 +5,7 @@
 #include <Renderer/TextRenderer.h>
 #include <string>
 #include <glm/glm.hpp>
+#include <memory>
 
 /**
 *	\brief A enum to model button modes
@@ -56,7 +57,7 @@ class Button
 		*	\param[in] renderer The Text Renderer for rendering the button text
 		*	\param[in] mode The button mode
 		*/
-		void render(TextRenderer& renderer, const ButtonMode& mode = ButtonMode::IDLE) const;
+		void render(std::shared_ptr<TextRenderer> renderer, const ButtonMode& mode = ButtonMode::IDLE) const;
 
 		/**
 		*	\brief Check if the position is inside the button

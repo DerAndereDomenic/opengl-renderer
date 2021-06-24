@@ -130,7 +130,7 @@ public:
 	*	\brief Get the default Text Renderer
 	*	\return The Text Renderer
 	*/
-	inline TextRenderer getTextRenderer() { return _textRenderer; }
+	inline std::shared_ptr<TextRenderer> getTextRenderer() { return _textRenderer; }
 
 	/**
 	*	\brief Set the mode of the viewer
@@ -156,7 +156,7 @@ private:
 	std::unordered_multimap<Button*, KeyPressFunction*, ButtonHash> _button_callbacks = {};	/**<< The button callbacks*/
 	std::unordered_multimap<uint32_t, bool> _active_keys = {};								/**<< List of active keys*/
 	ViewerMode _mode = ViewerMode::VIEWER;													/**<< The mode of the viewer*/
-	TextRenderer _textRenderer = {};														/**<< The default text renderer*/
+	std::shared_ptr<TextRenderer> _textRenderer = {};										/**<< The default text renderer*/
 };
 
 

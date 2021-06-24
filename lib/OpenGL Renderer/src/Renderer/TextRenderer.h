@@ -30,17 +30,15 @@ class TextRenderer
 		*	\brief Create a TextRenderer Object
 		*	\param[in] width The width of the window
 		*	\param[in] height The height of the window
-		*	\return The TextRenderer Object
 		*	\note At this point the FT library and all vertex buffers are initialized
 		*/
-		static TextRenderer createObject(const uint32_t& width, const uint32_t& height);
+		TextRenderer(const uint32_t& width, const uint32_t& height);
 
 		/**
 		*	\brief Destroys the TextRenderer
-		*	\param[in] object The object to be destroyed
 		*	\note: This unloads the FT library if not already done by loadFont
 		*/
-		static void destroyObject(TextRenderer& object);
+		~TextRenderer();
 
 		/**
 		*	\brief Loads the given font into an internal format where the textures for the glyphs are created

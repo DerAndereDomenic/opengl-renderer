@@ -265,7 +265,7 @@ int main(void)
 	ShaderManager::instance()->addShader("DisplayVertices", true);
 	ShaderManager::instance()->addShader("DisplayEdges", true);
 
-	TextRenderer textRenderer = window.getTextRenderer();
+	std::shared_ptr<TextRenderer> textRenderer = window.getTextRenderer();
 
 	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
 
@@ -405,21 +405,21 @@ int main(void)
 		quad.render();
 		
 		stream << "X: " << std::fixed << std::setprecision(2) << camera.getPosition().x;
-		textRenderer.render(stream.str(), window.getWidth()-100, window.getHeight()-16, 1, glm::vec3(1, 1, 1));
+		textRenderer->render(stream.str(), window.getWidth()-100, window.getHeight()-16, 1, glm::vec3(1, 1, 1));
 		stream.str("");
 
 		stream << "Y: " << std::fixed << std::setprecision(2) << camera.getPosition().y;
-		textRenderer.render(stream.str(), window.getWidth() - 100, window.getHeight() - 32, 1, glm::vec3(1, 1, 1));
+		textRenderer->render(stream.str(), window.getWidth() - 100, window.getHeight() - 32, 1, glm::vec3(1, 1, 1));
 		stream.str("");
 
 		stream << "Z: " << std::fixed << std::setprecision(2) << camera.getPosition().z;
-		textRenderer.render(stream.str(), window.getWidth() - 100, window.getHeight() - 48, 1, glm::vec3(1, 1, 1));
+		textRenderer->render(stream.str(), window.getWidth() - 100, window.getHeight() - 48, 1, glm::vec3(1, 1, 1));
 		stream.str("");
 
 		endFrame = glfwGetTime();
 
 		stream << "Render time: " << std::fixed << std::setprecision(5) << (endFrame - currentTime) << "ms FPS: " << std::fixed << std::setprecision(1) << 1.0f / (endFrame - currentTime) << "; Display FPS: " << std::fixed << std::setprecision(1) << 1.0f/window.DELTA_TIME();
-		textRenderer.render(stream.str(), 16, 16, 1, glm::vec3(0, 1, 0));
+		textRenderer->render(stream.str(), 16, 16, 1, glm::vec3(0, 1, 0));
 		stream.str("");
 
 		window.spinOnce();

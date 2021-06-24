@@ -43,8 +43,8 @@ RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const 
 
 	result._active_keys.insert(std::make_pair(GLFW_MOUSE_BUTTON_LEFT, false));
 
-	result._textRenderer = TextRenderer::createObject(width, height);
-	result._textRenderer.loadFont((RESOURCE_PATH + "Hack-Regular.ttf").c_str(), 16);
+	result._textRenderer = std::make_shared<TextRenderer>(width, height);
+	result._textRenderer->loadFont((RESOURCE_PATH + "Hack-Regular.ttf").c_str(), 16);
     
     KeyManager::instance()->setup(result);
 
@@ -61,7 +61,6 @@ RenderWindow::destroyObject(RenderWindow& window)
 	window._key_callbacks.clear();
 	window._button_callbacks.clear();
 	window._active_keys.clear();
-	TextRenderer::destroyObject(window._textRenderer);
 	if (window._window != nullptr)
 	{
 		window.close();

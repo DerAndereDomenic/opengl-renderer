@@ -4,12 +4,9 @@
 #include <Shader/ShaderManager.h>
 #include <DLogger/Logger.h>
 
-TextRenderer 
-TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
+TextRenderer::TextRenderer(const uint32_t& width, const uint32_t& height)
 {
-	TextRenderer result;
-
-	if (FT_Init_FreeType(&result._ft))
+	if (FT_Init_FreeType(&_ft))
 	{
 		LOGGER::ERROR("ERROR::TEXTRENDERER::FREETYPE: Could not initialize FreeType Library\n");
 	}
@@ -29,27 +26,20 @@ TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
 		1.0f, 1.0f, 1.0f, 0.0f
 	};
 
-	result._vbo = std::make_shared<VertexBuffer>(vertices, 6 * 4);
-	result._vao = std::make_shared<VertexArray>();
-	result._vao->addBuffer(result._vbo, layout);
+	_vbo = std::make_shared<VertexBuffer>(vertices, 6 * 4);
+	_vao = std::make_shared<VertexArray>();
+	_vao->addBuffer(_vbo, layout);
 
-	result._projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
+	_projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
 
 	ShaderManager::instance()->addShader("Text");
-
-	return result;
 }
 
-void 
-TextRenderer::destroyObject(TextRenderer& object)
+TextRenderer::~TextRenderer()
 {
-	for (uint32_t i = 0; i < object._characters.size(); ++i)
-	{
-		Character character = object._characters[i];
-	}
-	object._characters.clear();
-	FT_Done_Face(object._face);
-	FT_Done_FreeType(object._ft);
+	_characters.clear();
+	FT_Done_Face(_face);
+	FT_Done_FreeType(_ft);
 }
 
 void 
