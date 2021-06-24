@@ -4,6 +4,7 @@
 #include <openvr.h>
 #include <OpenGLObjects/FrameBuffer.h>
 #include <glm/glm.hpp>
+#include <memory>
 
 enum class Eye
 {
@@ -84,13 +85,13 @@ class VRRenderer
         *   \brief Get the FrameBuffer for the left eye
         *   \return The FrameBuffer (Render target)
         */
-        inline FrameBuffer getRenderTargetLeft() { return _renderTargetLeft; }
+        inline std::shared_ptr<FrameBuffer> getRenderTargetLeft() { return _renderTargetLeft; }
 
         /**
         *   \brief Get the FrameBuffer for the right eye
         *   \return The FrameBuffer (Render target)
         */
-        inline FrameBuffer getRenderTargetRight() { return _renderTargetRight; }
+        inline std::shared_ptr<FrameBuffer> getRenderTargetRight() { return _renderTargetRight; }
 
         /**
         *   \brief Get the width
@@ -123,8 +124,8 @@ class VRRenderer
 
         uint32_t _width = 0;                    /**<< Recommended Render target width */
         uint32_t _height = 0;                   /**<< Recommended Render target height */
-        FrameBuffer _renderTargetLeft = {};     /**<< The render target for the left eye */
-        FrameBuffer _renderTargetRight = {};    /**<< The render target for the right eye */
+        std::shared_ptr<FrameBuffer> _renderTargetLeft = {};     /**<< The render target for the left eye */
+        std::shared_ptr<FrameBuffer> _renderTargetRight = {};    /**<< The render target for the right eye */
 };
 
 #endif

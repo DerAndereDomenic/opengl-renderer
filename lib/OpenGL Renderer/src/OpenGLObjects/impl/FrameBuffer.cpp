@@ -3,32 +3,26 @@
 #include <iostream>
 #include <DLogger/Logger.h>
 
-FrameBuffer 
-FrameBuffer::createObject(const uint32_t& width, const uint32_t& height)
+FrameBuffer::FrameBuffer(const uint32_t& width, const uint32_t& height)
 {
-	FrameBuffer result;
-	result._width = width;
-	result._height = height;
+	_width = width;
+	_height = height;
 
-
-	glGenFramebuffers(1, &result._ID);
-	glBindFramebuffer(GL_FRAMEBUFFER, result._ID);
-
-	return result;
+	glGenFramebuffers(1, &_ID);
+	glBindFramebuffer(GL_FRAMEBUFFER, _ID);
 }
 
-void 
-FrameBuffer::destroyObject(FrameBuffer& object)
+FrameBuffer::~FrameBuffer()
 {
-	object._width = 0;
-	object._height = 0;
-	glDeleteFramebuffers(1, &object._ID);
-	for (uint32_t i = 0; i < object._render_textures.size(); ++i) 
+	_width = 0;
+	_height = 0;
+	glDeleteFramebuffers(1, &_ID);
+	for (uint32_t i = 0; i < _render_textures.size(); ++i) 
 	{
-		Texture::destroyObject(object._render_textures[i]);
+		Texture::destroyObject(_render_textures[i]);
 	}
-	object._render_textures.clear();
-	RenderBuffer::destroyObject(object._depth_stencil);
+	_render_textures.clear();
+	RenderBuffer::destroyObject(_depth_stencil);
 }
 
 void

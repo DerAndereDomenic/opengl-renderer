@@ -2,6 +2,7 @@
 #define __OPENGLRENDERER_OPENGL_OBJECTS_GBUFFER_H
 
 #include <OpenGLObjects/FrameBuffer.h>
+#include <memory>
 
 /**
 *   \brief A class to model a GBuffer 
@@ -45,7 +46,7 @@ class GBuffer
         *   \brief Get the underlying fbo
         *   \return The fbo 
         */
-        inline FrameBuffer getFBO() {return _fbo;}
+        inline std::shared_ptr<FrameBuffer> getFBO() {return _fbo;}
 
         /**
         *   \brief Get the underlying position buffer
@@ -65,10 +66,10 @@ class GBuffer
         */
         inline Texture getAlbedoSpecularBuffer() {return _albedoSpecTexture;}
     private:
-        FrameBuffer _fbo;           /**<< The Framebuffer */
-        Texture _positionTexture;   /**<< The position buffer */
-        Texture _normalTexture;     /**<< The normal buffer */
-        Texture _albedoSpecTexture; /**<< The color buffer */
+        std::shared_ptr<FrameBuffer> _fbo;          /**<< The Framebuffer */
+        Texture _positionTexture;                   /**<< The position buffer */
+        Texture _normalTexture;                     /**<< The normal buffer */
+        Texture _albedoSpecTexture;                 /**<< The color buffer */
 };
 
 #endif

@@ -20,15 +20,13 @@ public:
 	*	\brief Create a frame buffer object
 	*	\param[in] width The width of the buffer
 	*	\param[in] height The height of the buffer
-	*	\return The render buffer object
 	*/
-	static FrameBuffer createObject(const uint32_t& width, const uint32_t& height);
+	FrameBuffer(const uint32_t& width, const uint32_t& height);
 
 	/**
 	*	\brief Destroy the render buffer object
-	*	\param[in] object The object to be destroyed
 	*/
-	static void destroyObject(FrameBuffer& object);
+	~FrameBuffer();
 
 	/**
 	*	\brief Attaches a color texture to the Framebuffer

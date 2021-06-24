@@ -269,11 +269,11 @@ int main(void)
 
 	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
 
-	FrameBuffer fbo = FrameBuffer::createObject(window.getWidth(), window.getHeight());
-	fbo.attachHDR();
-	fbo.attachRenderBuffer();
-	fbo.verify();
-	fbo.unbind();
+	std::shared_ptr<FrameBuffer> fbo = std::make_shared<FrameBuffer>(window.getWidth(), window.getHeight());
+	fbo->attachHDR();
+	fbo->attachRenderBuffer();
+	fbo->verify();
+	fbo->unbind();
 
 	EnvironmentMap map = EnvironmentMap::createObject(glm::vec3(0, 5, 0));
 
@@ -334,9 +334,9 @@ int main(void)
 		}
 
 		window.resetViewport();
-		fbo.bind();
+		fbo->bind();
 
-		fbo.clear();
+		fbo->clear();
 		//Skybox
 		//Use vertex data of the light block
 
@@ -396,11 +396,11 @@ int main(void)
 
 
 		//Render to quad
-		fbo.unbind();
+		fbo->unbind();
 		GL::clear();
 		ShaderManager::instance()->getShader("Post").bind();
 		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure_callback.getExposure());
-		fbo.getTexture(0).bind(0);
+		fbo->getTexture(0).bind(0);
 		//lights[0].shadow_map.getTexture().bind();
 		quad.render();
 		
@@ -434,7 +434,6 @@ int main(void)
 	Mesh::destroyObject(quad);
 	RenderObject::destroyObject(obj_light);
 	Scene::destroyObject(scene);
-	FrameBuffer::destroyObject(fbo);
 	KeyManager::destroy();
 	ParticleRenderer::destroyObject(particleRenderer);
 	Texture::destroyObject(vol_tex);

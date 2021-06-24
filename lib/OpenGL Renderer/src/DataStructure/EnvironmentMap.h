@@ -7,6 +7,7 @@
 #include <OpenGLObjects/Texture.h>
 #include <OpenGLObjects/FrameBuffer.h>
 #include <Renderer/Camera.h>
+#include <memory>
 
 struct ViewAngle
 {
@@ -49,9 +50,9 @@ public:
 	inline Texture getCubeMap() {return _cube_map;}
 
 private:
-	Texture _cube_map = {}; /**<< The texture cube map*/
-	FrameBuffer _environment_map = {}; /**<< The framebuffer used to render to the cubemap*/
-	Camera _camera = {}; /**<< The camera of the environment map used to the scene*/
+	Texture _cube_map = {};									/**<< The texture cube map*/
+	std::shared_ptr<FrameBuffer> _environment_map = {};		/**<< The framebuffer used to render to the cubemap*/
+	Camera _camera = {};									/**<< The camera of the environment map used to the scene*/
 	ViewAngle angles[6] =
 	{
 		{0,0},
@@ -61,7 +62,7 @@ private:
 		{0,90},
 		{0,-90}
 
-	}; /**<< An array to easily store pitch and yaw angles*/
+	};														/**<< An array to easily store pitch and yaw angles*/
 };
 
 #endif

@@ -6,9 +6,9 @@ EnvironmentMap::createObject(glm::vec3 position)
 	EnvironmentMap result;
 	result._camera = Camera::createObject(position, 90.0f, 1.0f, 0.1f, 100.0f);
 	result._cube_map = Texture::createObject(1024, 1024, (void*)NULL, CUBEMAP);
-	result._environment_map = FrameBuffer::createObject(1024, 1024);
-	result._environment_map.attachRenderBuffer();
-	result._environment_map.unbind();
+	result._environment_map = std::make_shared<FrameBuffer>(1024, 1024);
+	result._environment_map->attachRenderBuffer();
+	result._environment_map->unbind();
 	return result;
 }
 
@@ -17,13 +17,12 @@ EnvironmentMap::destroyObject(EnvironmentMap& object)
 {
 	Camera::destroyObject(object._camera);
 	Texture::destroyObject(object._cube_map);
-	FrameBuffer::destroyObject(object._environment_map);
 }
 
 void 
 EnvironmentMap::render(Scene scene, Skybox skybox, Shader shader)
 {
-	_environment_map.bind();
+	_environment_map->bind();
 	glViewport(0, 0, 1024, 1024);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	for (uint32_t i = 0; i < 6; ++i)
@@ -36,5 +35,5 @@ EnvironmentMap::render(Scene scene, Skybox skybox, Shader shader)
 		shader.setMVP(glm::mat4(1), _camera.getView(), _camera.getProjection());
 		scene.render(shader);
 	}
-	_environment_map.unbind();
+	_environment_map->unbind();
 }

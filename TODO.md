@@ -38,7 +38,7 @@ Things I want to address in a refactoring stage: <br>
     * [ ] - Mesh
     * [x] - IndexBuffer
     * [ ] - GBuffer
-    * [ ] - FrameBuffer
+    * [x] - FrameBuffer
     * [ ] - EnvironmentMap
     * [ ] - Camera
 * [ ] - Update scene representation

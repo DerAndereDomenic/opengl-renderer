@@ -56,7 +56,7 @@ Scene::render(Shader shader)
 	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
 		if (!_lights[i]->castShadows) continue;
-		_lights[i]->shadow_map.getTexture().bind(4 + i);
+		_lights[i]->shadow_map->getTexture().bind(4 + i);
 	}
 
 	for (auto it = _objects.begin(); it != _objects.end(); ++it)
@@ -94,8 +94,8 @@ Scene::updateShadowMaps()
 			light->lightSpace = glm::mat4(1);
 			continue;
 		}
-		light->shadow_map.bind();
-		light->shadow_map.clear();
+		light->shadow_map->bind();
+		light->shadow_map->clear();
 		light->lightView = glm::lookAt(light->position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		light->lightSpace = light->lightProjection * light->lightView;
 
