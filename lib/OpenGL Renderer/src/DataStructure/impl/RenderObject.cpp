@@ -2,7 +2,7 @@
 
 
 RenderObject 
-RenderObject::createObject(Mesh mesh, Material material, glm::mat4 model)
+RenderObject::createObject(std::shared_ptr<Mesh> mesh, Material material, glm::mat4 model)
 {
 	RenderObject result;
 	result._mesh = mesh;
@@ -15,7 +15,6 @@ RenderObject::createObject(Mesh mesh, Material material, glm::mat4 model)
 void 
 RenderObject::destroyObject(RenderObject& object)
 {
-	Mesh::destroyObject(object._mesh);
 	Material::destroyObject(object._material);
 	object._model = glm::mat4(1);
 }
@@ -25,7 +24,7 @@ RenderObject::render(std::shared_ptr<Shader> shader)
 {
 	_material.bind(shader);
 	shader->setMat4("M", _model);
-	_mesh.render();
+	_mesh->render();
 }
 
 void 

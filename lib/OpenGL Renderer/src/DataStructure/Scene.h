@@ -31,7 +31,7 @@ public:
 	*		   So (names[i], meshes[i], materials[i], models[i]) defines one object
 	*/
 	static Scene createObject(std::vector<std::string> names,
-							  std::vector<Mesh> meshes,
+							  std::vector<std::shared_ptr<Mesh>> meshes,
 							  std::vector<Material> materials,
 							  std::vector<glm::mat4> models);
 

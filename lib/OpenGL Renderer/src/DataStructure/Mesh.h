@@ -21,23 +21,17 @@
 class Mesh
 {
 public:
-	/**
-	*	\brief Create an empty mesh
-	*/
-	Mesh() = default;
 
 	/**
 	*	\brief Create a mesh
 	*	\param[in] calcTangent If a tangent should be calculated and added to the vertices (default = false)
-	*	\return The mesh
 	*/
-	static Mesh createObject(const bool& calcTangent = false);
+	Mesh(const bool& calcTangent = false);
 
 	/**
 	*	\brief Destroy the mesh
-	*	\param[in] The mesh to be destroyed
 	*/
-	static void destroyObject(Mesh& mesh);
+	~Mesh();
 
 	/**
 	*	\brief After adding vertex information with 'addVertex' this method

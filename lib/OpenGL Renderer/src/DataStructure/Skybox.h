@@ -45,7 +45,7 @@ public:
 	*/
 	inline std::shared_ptr<Texture> getCubemap() { return _cubemap; }
 private:
-	Mesh _cube;							/**<< A generic cube Mesh to render the skybox*/
+	std::shared_ptr<Mesh> _cube;							/**<< A generic cube Mesh to render the skybox*/
 	std::shared_ptr<Texture> _cubemap;	/**<< The texture of the skybox*/
 };
 

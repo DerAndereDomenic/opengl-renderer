@@ -9,7 +9,7 @@ Skybox::createObject(std::shared_ptr<Texture> cubemap)
 	Skybox result;
 	result._cubemap = cubemap;
 	result._cube = MeshHelper::cubeMesh(glm::vec4(1));
-	result._cube.create();
+	result._cube->create();
 
 	ShaderManager::instance()->addShader("Skybox");
 	ShaderManager::instance()->getShader("Skybox")->bind();
@@ -21,7 +21,7 @@ Skybox::createObject(std::shared_ptr<Texture> cubemap)
 void 
 Skybox::destroyObject(Skybox& skybox)
 {
-	Mesh::destroyObject(skybox._cube);
+
 }
 
 void
@@ -33,7 +33,7 @@ Skybox::render(std::shared_ptr<Camera> camera)
 	ShaderManager::instance()->getShader("Skybox")->setMVP(glm::mat4(1),
 		glm::mat4(glm::mat3(camera->getView())),
 		camera->getProjection());
-	_cube.render();
+	_cube->render();
 	GL::enableDepthWriting();
 }
 
@@ -46,6 +46,6 @@ Skybox::render(const glm::mat4& view, const glm::mat4& projection)
 	ShaderManager::instance()->getShader("Skybox")->setMVP(glm::mat4(1),
 		glm::mat4(glm::mat3(view)),
 		projection);
-	_cube.render();
+	_cube->render();
 	GL::enableDepthWriting();
 }

@@ -2,6 +2,7 @@
 #define __OPENGLRENDERER_IO_OBJLOADER_H
 
 #include <DataStructure/Mesh.h>
+#include <memory>
 
 namespace ObjLoader 
 {
@@ -13,7 +14,7 @@ namespace ObjLoader
 	*	\return The mesh extracted from the file
 	*	\note: Mesh still has to be created
 	*/
-	std::vector<Mesh> loadObj(const std::string& path, const bool calcTangent = false);
+	std::vector<std::shared_ptr<Mesh>> loadObj(const std::string& path, const bool calcTangent = false);
 }
 
 #endif

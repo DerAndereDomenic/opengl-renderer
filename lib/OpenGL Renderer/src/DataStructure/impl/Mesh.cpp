@@ -1,27 +1,21 @@
 #include <DataStructure/Mesh.h>
 
-Mesh
-Mesh::createObject(const bool& calcTangent)
+Mesh::Mesh(const bool& calcTangent)
 {
-	Mesh result;
-
-	result._layout.add(GL_FLOAT, 3);	//Position
-	result._layout.add(GL_FLOAT, 4);	//Color
-	result._layout.add(GL_FLOAT, 3);	//Texture coordinates
-	result._layout.add(GL_FLOAT, 3);	//Normal
-	result._layout.add(GL_FLOAT, 3);	//Tangent
-	result._vertex_count = 0;
-	result._calcTangent = calcTangent;
-
-	return result;
+	_layout.add(GL_FLOAT, 3);	//Position
+	_layout.add(GL_FLOAT, 4);	//Color
+	_layout.add(GL_FLOAT, 3);	//Texture coordinates
+	_layout.add(GL_FLOAT, 3);	//Normal
+	_layout.add(GL_FLOAT, 3);	//Tangent
+	_vertex_count = 0;
+	_calcTangent = calcTangent;
 }
-
-void 
-Mesh::destroyObject(Mesh& mesh)
+ 
+Mesh::~Mesh()
 {
-	mesh._vertex_count = 0;
-	mesh._indices.clear();
-	mesh._vertices.clear();
+	_vertex_count = 0;
+	_indices.clear();
+	_vertices.clear();
 }
 
 void 

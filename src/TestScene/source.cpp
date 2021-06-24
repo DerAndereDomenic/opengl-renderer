@@ -80,13 +80,13 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	LOGGER::DEBUG("Started scene setup!\n");
 	std::vector<std::string> names;
-	std::vector<Mesh> meshes;
+	std::vector<std::shared_ptr<Mesh>> meshes;
 	std::vector<Material> materials;
 	std::vector<glm::mat4> models;
 
 	names.push_back("Crate");
 
-	Mesh crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
+	std::shared_ptr<Mesh> crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
 	meshes.push_back(crate);
 
 	Material mat_crate = Material::createObject("materialmap");
@@ -100,7 +100,7 @@ int main(void)
 
 	names.push_back("Table");
 
-	Mesh table = ObjLoader::loadObj(RESOURCE_PATH + "table/simple-table.obj", true)[0];
+	std::shared_ptr<Mesh> table = ObjLoader::loadObj(RESOURCE_PATH + "table/simple-table.obj", true)[0];
 	meshes.push_back(table);
 
 	Material mat_table = Material::createObject("materialmap");
@@ -115,7 +115,7 @@ int main(void)
 
 	names.push_back("Wall");
 
-	Mesh wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
+	std::shared_ptr<Mesh> wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
 	meshes.push_back(wall);
 
 	Material mat_brick = Material::createObject("materialmap");
@@ -130,7 +130,7 @@ int main(void)
 
 	names.push_back("Plane");
 
-	Mesh mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
+	std::shared_ptr<Mesh> mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
 	meshes.push_back(mesh);
 
 	Material mat_fabric = Material::createObject("materialmap");
@@ -145,7 +145,7 @@ int main(void)
 
 	names.push_back("suzanne");
 
-	Mesh suzanne = ObjLoader::loadObj(RESOURCE_PATH + "suzanne_blender.obj")[0];
+	std::shared_ptr<Mesh> suzanne = ObjLoader::loadObj(RESOURCE_PATH + "suzanne_blender.obj")[0];
 	meshes.push_back(suzanne);
 
 	Material mat_suzanne = Material::createObject("materialmap");
@@ -157,12 +157,12 @@ int main(void)
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 
-	Mesh sphere = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
-	sphere.create();
+	std::shared_ptr<Mesh> sphere = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
+	sphere->create();
 
 	names.push_back("BRDF Sphere");
 
-	Mesh sphere_brdf = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
+	std::shared_ptr<Mesh> sphere_brdf = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
 	meshes.push_back(sphere_brdf);
 
 	Material mat_brdf = Material::createObject("materialmap", MaterialType::GGX);
@@ -178,7 +178,7 @@ int main(void)
 
 	names.push_back("Mobius");
 
-	Mesh mobius_mesh = ObjLoader::loadObj(RESOURCE_PATH + "mobius.obj")[0];
+	std::shared_ptr<Mesh> mobius_mesh = ObjLoader::loadObj(RESOURCE_PATH + "mobius.obj")[0];
 	meshes.push_back(mobius_mesh);
 
 	Material mat_mobius = Material::createObject("materialmap", MaterialType::PHONG);
@@ -191,8 +191,8 @@ int main(void)
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(5, 2, 5)));
 
-	Mesh light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
-	light.create();
+	std::shared_ptr<Mesh> light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
+	light->create();
 
 	Material mat_lamp = Material::createObject("materialmap");
 	mat_lamp.ambient = glm::vec3(10, 10, 10);
@@ -236,9 +236,9 @@ int main(void)
 
 	std::shared_ptr<Texture> skybox = std::make_shared<Texture>(RESOURCE_PATH + "skybox/", faces);
 
-	Mesh quad = MeshHelper::quadMesh(2.0f);
+	std::shared_ptr<Mesh> quad = MeshHelper::quadMesh(2.0f);
 
-	quad.create();
+	quad->create();
 
 	Scene scene = Scene::createObject(names, meshes, materials, models);
 	names.clear();
@@ -347,7 +347,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Reflection")->setVec3("camera_position", camera.getPosition());
 		map.getCubeMap()->bind();
 		ShaderManager::instance()->getShader("Reflection")->setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
-		sphere.render();
+		sphere->render();
 		
 		//Light
 		ShaderManager::instance()->getShader("Normal")->bind();
@@ -387,7 +387,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Volume")->setVec3("lightPos", l1.position);
 		ShaderManager::instance()->getShader("Volume")->setVec3("viewPos", camera.getPosition());
 		vol_tex->bind();
-		light.render();
+		light->render();
 		
 
 
@@ -402,7 +402,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Post")->setFloat("exposure", exposure_callback.getExposure());
 		fbo->getTexture(0)->bind(0);
 		//lights[0].shadow_map.getTexture().bind();
-		quad.render();
+		quad->render();
 		
 		stream << "X: " << std::fixed << std::setprecision(2) << camera.getPosition().x;
 		textRenderer->render(stream.str(), window.getWidth()-100, window.getHeight()-16, 1, glm::vec3(1, 1, 1));
@@ -430,7 +430,6 @@ int main(void)
 	ShaderManager::destroyObject(*ShaderManager::instance());
 	Skybox::destroyObject(sky);
 	RenderWindow::destroyObject(window);
-	Mesh::destroyObject(quad);
 	RenderObject::destroyObject(obj_light);
 	Scene::destroyObject(scene);
 	KeyManager::destroy();

@@ -21,7 +21,7 @@ public:
 	*	\param[in] model The model matrix
 	*	\return The RenderObject
 	*/
-	static RenderObject createObject(Mesh mesh, Material material, glm::mat4 model);
+	static RenderObject createObject(std::shared_ptr<Mesh> mesh, Material material, glm::mat4 model);
 	
 	/**
 	*	\brief Destroy the given RenderObject
@@ -47,7 +47,7 @@ public:
 	inline Material& getMaterial() { return _material; }
 	
 private:
-	Mesh _mesh; /**<< The mesh of the object*/
+	std::shared_ptr<Mesh> _mesh; /**<< The mesh of the object*/
 	Material _material; /**<< The material of the object*/
 	glm::mat4 _model = glm::mat4(1); /**<< The model of the object*/
 };

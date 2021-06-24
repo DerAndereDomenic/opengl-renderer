@@ -5,7 +5,7 @@
 
 Scene 
 Scene::createObject(std::vector<std::string> names,
-					std::vector<Mesh> meshes,
+					std::vector<std::shared_ptr<Mesh>> meshes,
 					std::vector<Material> materials,
 					std::vector<glm::mat4> models)
 {
@@ -24,7 +24,7 @@ Scene::createObject(std::vector<std::string> names,
 	Scene result;
 	for (uint32_t i = 0; i < size_names; ++i)
 	{
-		meshes[i].create();
+		meshes[i]->create();
 		result._objects.insert(std::make_pair(names[i], RenderObject::createObject(meshes[i], materials[i], models[i])));
 	}
 

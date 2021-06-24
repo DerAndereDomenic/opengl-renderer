@@ -2,6 +2,7 @@
 #define __OPENGLRENDERER_DATASTRUCTURE_MESH_HELPER
 
 #include <DataStructure/Mesh.h>
+#include <memory>
 
 /**
 *	\brief A namespace to hold mesh utility functions
@@ -15,7 +16,7 @@ namespace MeshHelper
 	*	\return The cube mesh
 	*	\note: The mesh still has to be created
 	*/
-	Mesh cubeMesh(glm::vec4 color, const bool calcTangent = false);
+	std::shared_ptr<Mesh> cubeMesh(glm::vec4 color, const bool calcTangent = false);
 
 	/**
 	*	\brief Creates a lenXxlenYxlenZ cuboid at (0,0,0)
@@ -27,7 +28,7 @@ namespace MeshHelper
 	*	\return The cuboid mesh
 	*	\note: The mesh still has to be created
 	*/
-	Mesh cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ, const bool calcTangent = false);
+	std::shared_ptr<Mesh> cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ, const bool calcTangent = false);
 
 	/**
 	*	\brief Creates a quad at (0,0,0) with sidelength size
@@ -36,7 +37,7 @@ namespace MeshHelper
 	*	\return The quad mesh
 	*	\note: The mesh still has to be created
 	*/
-	Mesh quadMesh(float size, const bool calcTangent = false);
+	std::shared_ptr<Mesh> quadMesh(float size, const bool calcTangent = false);
 }
 
 #endif
