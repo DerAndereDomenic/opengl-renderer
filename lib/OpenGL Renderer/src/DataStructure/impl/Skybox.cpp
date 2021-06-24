@@ -4,7 +4,7 @@
 #include <Core/GLFunctions.h>
 
 Skybox 
-Skybox::createObject(Texture cubemap)
+Skybox::createObject(std::shared_ptr<Texture> cubemap)
 {
 	Skybox result;
 	result._cubemap = cubemap;
@@ -21,7 +21,6 @@ Skybox::createObject(Texture cubemap)
 void 
 Skybox::destroyObject(Skybox& skybox)
 {
-	Texture::destroyObject(skybox._cubemap);
 	Mesh::destroyObject(skybox._cube);
 }
 
@@ -30,7 +29,7 @@ Skybox::render(Camera camera)
 {
 	GL::disableDepthWriting();
 	ShaderManager::instance()->getShader("Skybox").bind();
-	_cubemap.bind(0);
+	_cubemap->bind(0);
 	ShaderManager::instance()->getShader("Skybox").setMVP(glm::mat4(1),
 		glm::mat4(glm::mat3(camera.getView())),
 		camera.getProjection());
@@ -43,7 +42,7 @@ Skybox::render(const glm::mat4& view, const glm::mat4& projection)
 {
 	GL::disableDepthWriting();
 	ShaderManager::instance()->getShader("Skybox").bind();
-	_cubemap.bind(0);
+	_cubemap->bind(0);
 	ShaderManager::instance()->getShader("Skybox").setMVP(glm::mat4(1),
 		glm::mat4(glm::mat3(view)),
 		projection);

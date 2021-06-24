@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <vector>
 #include <string>
+#include <memory>
 
 enum Channels
 {
@@ -29,9 +30,8 @@ public:
 	/**
 	*	\brief Creates a Texture and fills it with data from file_path
 	*	\param[in] file_path Path to the texture data
-	*	\return The Texture object
 	*/
-	static Texture createObject(const std::string& file_path);
+	Texture(const std::string& file_path);
 
 	/**
 	*	\brief Creates a Cubemap texture
@@ -40,7 +40,7 @@ public:
 	*	\return The Cubemap object
 	*	\note The order should be: right, left, top, bottom, front, back
 	*/
-	static Texture createObject(const std::string&, const std::vector<std::string>& faces);
+	Texture(const std::string&, const std::vector<std::string>& faces);
 
 	/**
 	*	\brief Create an empty Texture
@@ -55,13 +55,14 @@ public:
 	*	\return The Texture object
 	*/
 	template<typename T>
-	static Texture createObject(const uint32_t& width,
-								const uint32_t& height,
-								const T* data = NULL,
-								const uint32_t& target = TEXTURE,
-								const uint32_t& internal_format = RGB,
-								const uint32_t& format = RGB,
-								const uint32_t& type = GL_UNSIGNED_BYTE);
+	static std::shared_ptr<Texture>
+	createTexture(const uint32_t& width,
+				  const uint32_t& height,
+				  const T* data = NULL,
+				  const uint32_t& target = TEXTURE,
+				  const uint32_t& internal_format = RGB,
+				  const uint32_t& format = RGB,
+				  const uint32_t& type = GL_UNSIGNED_BYTE);
 
 	/**
 	*	\brief Create an empty 3D Texture
@@ -76,19 +77,19 @@ public:
 	*	\return The Texture object
 	*/
 	template<typename T>
-	static Texture createObject(const uint32_t& width,
-								const uint32_t& height,
-								const uint32_t& depth,
-								const T* data = NULL,
-								const uint32_t& internal_format = RGB,
-								const uint32_t& format = RGB,
-								const uint32_t& type = GL_UNSIGNED_BYTE);
+	static std::shared_ptr<Texture>
+	createTexture(const uint32_t& width,
+				  const uint32_t& height,
+				  const uint32_t& depth,
+				  const T* data = NULL,
+				  const uint32_t& internal_format = RGB,
+				  const uint32_t& format = RGB,
+				  const uint32_t& type = GL_UNSIGNED_BYTE);
 
 	/**
 	*	\brief Destroys the Texture object
-	*	\param[in] texture The texture to be destroyed;
 	*/
-	static void destroyObject(Texture& texture);
+	~Texture();
 
 	/**
 	*	\brief Binds the texture to the given texture index

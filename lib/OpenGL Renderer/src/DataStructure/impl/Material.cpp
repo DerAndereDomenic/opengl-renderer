@@ -16,10 +16,6 @@ Material::destroyObject(Material& object)
 	if (object.useTextures)
 	{
 		object.useTextures = false;
-		Texture::destroyObject(object.texture_diffuse);
-		Texture::destroyObject(object.texture_specular);
-		Texture::destroyObject(object.texture_normal);
-		Texture::destroyObject(object.texture_height);
 	}
 	object.ambient = glm::vec3(0, 0, 0);
 	object.diffuse = glm::vec3(0, 0, 0);
@@ -35,15 +31,18 @@ Material::bind(Shader shader)
 	if (useTextures)
 	{
 		shader.setInt(_name + ".diffuse_map", 0);
+		texture_diffuse->bind(0);
+		
 		shader.setInt(_name + ".specular_map", 1);
+		texture_specular->bind(1);
+		
 		shader.setInt(_name + ".normal_map", 2);
-		shader.setInt(_name + ".height_map", 3);
-		shader.setFloat(_name + ".shininess", shininess);
+		texture_normal->bind(2);
 
-		texture_diffuse.bind(0);
-		texture_specular.bind(1);
-		texture_normal.bind(2);
-		texture_height.bind(3);
+		shader.setInt(_name + ".height_map", 3);
+		texture_height->bind(3);
+
+		shader.setFloat(_name + ".shininess", shininess);
 	}
 	else
 	{

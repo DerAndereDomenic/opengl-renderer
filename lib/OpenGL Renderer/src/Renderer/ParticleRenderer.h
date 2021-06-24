@@ -39,7 +39,7 @@ class ParticleRenderer
 		*	\param[in] texture The texture of an particle
 		*	\return The Particle emitter
 		*/
-		static ParticleRenderer createObject(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const Texture& texture);
+		static ParticleRenderer createObject(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const std::shared_ptr<Texture> texture);
 
 		/**
 		*	\brief Destroys the object
@@ -68,7 +68,7 @@ class ParticleRenderer
 		*/
 		void render(const glm::mat4& view, const glm::mat4& projection);
 	private:
-		Texture _texture;									/**<< The texture of a single particle*/
+		std::shared_ptr<Texture> _texture;					/**<< The texture of a single particle*/
 		std::vector<Particle> _particles;					/**<< The particles managed by this system*/
 		std::shared_ptr<VertexArray> _vao;					/**<< The internal vao of the particle system*/
 		std::shared_ptr<VertexBuffer> _instanceArray;		/**<< The data needed for each particle*/

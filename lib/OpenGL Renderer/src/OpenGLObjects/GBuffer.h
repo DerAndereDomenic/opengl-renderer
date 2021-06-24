@@ -45,24 +45,24 @@ class GBuffer
         *   \brief Get the underlying position buffer
         *   \return The position buffer 
         */
-        inline Texture getPositionBuffer() {return _positionTexture;}
+        inline  std::shared_ptr<Texture> getPositionBuffer() {return _positionTexture;}
 
         /**
         *   \brief Get the underlying normal buffer
         *   \return The normal buffer 
         */
-        inline Texture getNormalBuffer() {return _normalTexture;}
+        inline  std::shared_ptr<Texture> getNormalBuffer() {return _normalTexture;}
 
         /**
         *   \brief Get the underlying color buffer
         *   \return The color buffer 
         */
-        inline Texture getAlbedoSpecularBuffer() {return _albedoSpecTexture;}
+        inline  std::shared_ptr<Texture> getAlbedoSpecularBuffer() {return _albedoSpecTexture;}
     private:
-        std::shared_ptr<FrameBuffer> _fbo;          /**<< The Framebuffer */
-        Texture _positionTexture;                   /**<< The position buffer */
-        Texture _normalTexture;                     /**<< The normal buffer */
-        Texture _albedoSpecTexture;                 /**<< The color buffer */
+        std::shared_ptr<FrameBuffer> _fbo;                          /**<< The Framebuffer */
+        std::shared_ptr<Texture> _positionTexture;                   /**<< The position buffer */
+        std::shared_ptr<Texture> _normalTexture;                     /**<< The normal buffer */
+        std::shared_ptr<Texture> _albedoSpecTexture;                 /**<< The color buffer */
 };
 
 #endif

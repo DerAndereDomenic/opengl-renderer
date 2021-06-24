@@ -5,6 +5,7 @@
 #include <OpenGLObjects/Texture.h>
 #include <Shader/Shader.h>
 #include <Renderer/Camera.h>
+#include <memory>
 
 class Skybox
 {
@@ -18,7 +19,7 @@ public:
 	*	\brief Create a skybox with the given texture
 	*	\return A skybox
 	*/
-	static Skybox createObject(Texture cubemap);
+	static Skybox createObject(std::shared_ptr<Texture> cubemap);
 
 	/**
 	*	\brief Destroys the skybox and it's texture
@@ -42,10 +43,10 @@ public:
 	*	\brief Get the cubemap texture.
 	*	\return The underlying cubemap texture
 	*/
-	inline Texture getCubemap() { return _cubemap; }
+	inline std::shared_ptr<Texture> getCubemap() { return _cubemap; }
 private:
-	Mesh _cube; /**<< A generic cube Mesh to render the skybox*/
-	Texture _cubemap; /**<< The texture of the skybox*/
+	Mesh _cube;							/**<< A generic cube Mesh to render the skybox*/
+	std::shared_ptr<Texture> _cubemap;	/**<< The texture of the skybox*/
 };
 
 #endif

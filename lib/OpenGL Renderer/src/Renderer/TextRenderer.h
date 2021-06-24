@@ -12,10 +12,10 @@
 
 struct Character
 {
-	Texture texture;		/**<< The texture of the glyph*/
-	glm::ivec2 size;		/**<< Size of the glyph*/
-	glm::ivec2 bearing;		/**<< Offset from baseline to left/top of the glyph*/
-	uint32_t advance;	/**<< Offset to advance to next glyth*/
+	std::shared_ptr<Texture> texture;		/**<< The texture of the glyph*/
+	glm::ivec2 size;						/**<< Size of the glyph*/
+	glm::ivec2 bearing;						/**<< Offset from baseline to left/top of the glyph*/
+	uint32_t advance;						/**<< Offset to advance to next glyth*/
 };
 
 class TextRenderer

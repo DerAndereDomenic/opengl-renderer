@@ -2,18 +2,18 @@
 #define __OPENGLRENDERER_OPENGL_OBJECTS_IMPL_TEXTUREDETAIL_H
 
 template<typename T>
-Texture
-Texture::createObject(const uint32_t& width,
-					  const uint32_t& height,
-					  const T* data,
-					  const uint32_t& target,
-					  const uint32_t& internal_format,
-					  const uint32_t& format,
-					  const uint32_t& type)
+std::shared_ptr<Texture>
+Texture::createTexture(const uint32_t& width,
+					   const uint32_t& height,
+					   const T* data,
+					   const uint32_t& target,
+					   const uint32_t& internal_format,
+					   const uint32_t& format,
+					   const uint32_t& type)
 {
-	Texture result;
-	glGenTextures(1, &result._ID);
-	glBindTexture(target, result._ID);
+	std::shared_ptr<Texture> result = std::make_shared<Texture>();
+	glGenTextures(1, &(result->_ID));
+	glBindTexture(target, result->_ID);
 	if (target == TEXTURE)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, format, type, data);
@@ -32,26 +32,26 @@ Texture::createObject(const uint32_t& width,
 	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	result._target = target;
-	result._width = width;
-	result._height = height;
+	result->_target = target;
+	result->_width = width;
+	result->_height = height;
 
 	return result;
 }
 
 template<typename T>
-Texture
-Texture::createObject(const uint32_t& width,
-					  const uint32_t& height,
-					  const uint32_t& depth,
-					  const T* data,
-					  const uint32_t& internal_format,
-					  const uint32_t& format,
-					  const uint32_t& type)
+std::shared_ptr<Texture>
+Texture::createTexture(const uint32_t& width,
+					   const uint32_t& height,
+					   const uint32_t& depth,
+					   const T* data,
+					   const uint32_t& internal_format,
+					   const uint32_t& format,
+					   const uint32_t& type)
 {
-	Texture result;
-	glGenTextures(1, &result._ID);
-	glBindTexture(GL_TEXTURE_3D, result._ID);
+	std::shared_ptr<Texture> result = std::make_shared<Texture>();
+	glGenTextures(1, &(result->_ID));
+	glBindTexture(GL_TEXTURE_3D, result->_ID);
 
 	glTexImage3D(GL_TEXTURE_3D, 0, internal_format, width, height, depth, 0, format, type, data);
 
@@ -61,11 +61,11 @@ Texture::createObject(const uint32_t& width,
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	result._target = GL_TEXTURE_3D;
-
-	result._width = width;
-	result._height = height;
-	result._depth = depth;
+	result->_target = GL_TEXTURE_3D;
+		  
+	result->_width = width;
+	result->_height = height;
+	result->_depth = depth;
 
 	return result;
 }

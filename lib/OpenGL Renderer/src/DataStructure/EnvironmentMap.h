@@ -47,10 +47,10 @@ public:
 	*	\brief Get the cubemap texture
 	*	\return The cube map
 	*/
-	inline Texture getCubeMap() {return _cube_map;}
+	inline std::shared_ptr<Texture> getCubeMap() {return _cube_map;}
 
 private:
-	Texture _cube_map = {};									/**<< The texture cube map*/
+	std::shared_ptr<Texture> _cube_map = {};				/**<< The texture cube map*/
 	std::shared_ptr<FrameBuffer> _environment_map = {};		/**<< The framebuffer used to render to the cubemap*/
 	Camera _camera = {};									/**<< The camera of the environment map used to the scene*/
 	ViewAngle angles[6] =

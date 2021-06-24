@@ -5,12 +5,10 @@
 #include <iostream>
 #include <DLogger/Logger.h>
 
-Texture 
-Texture::createObject(const std::string& file_path)
+Texture::Texture(const std::string& file_path)
 {
-	Texture result;
-	glGenTextures(1, &result._ID);
-	glBindTexture(GL_TEXTURE_2D, result._ID);
+	glGenTextures(1, &_ID);
+	glBindTexture(GL_TEXTURE_2D, _ID);
 
 	int32_t width;
 	int32_t height;
@@ -48,19 +46,15 @@ Texture::createObject(const std::string& file_path)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	result._target = TEXTURE;
-	result._width = width;
-	result._height = height;
-
-	return result;
+	_target = TEXTURE;
+	_width = width;
+	_height = height;
 }
 
-Texture 
-Texture::createObject(const std::string& file_path, const std::vector<std::string>& faces)
+Texture::Texture(const std::string& file_path, const std::vector<std::string>& faces)
 {
-	Texture result;
-	glGenTextures(1, &result._ID);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, result._ID);
+	glGenTextures(1, &_ID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, _ID);
 
 	int32_t width, height, nr_channels;
 	for (uint32_t i = 0; i < faces.size(); ++i)
@@ -99,18 +93,15 @@ Texture::createObject(const std::string& file_path, const std::vector<std::strin
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	result._target = CUBEMAP;
-	result._width = width;
-	result._height = height;
-
-	return result;
+	_target = CUBEMAP;
+	_width = width;
+	_height = height;
 }
-
-void 
-Texture::destroyObject(Texture& texture)
+ 
+Texture::~Texture()
 {
-	glDeleteTextures(1, &texture._ID);
-	texture._ID = 0;
+	glDeleteTextures(1, &_ID);
+	_ID = 0;
 }
 
 void 

@@ -4,6 +4,7 @@
 #include <OpenGLObjects/RenderBuffer.h>
 #include <OpenGLObjects/Texture.h>
 #include <vector>
+#include <memory>
 
 /**
 *	\brief A class to model a frame buffer object
@@ -37,7 +38,7 @@ public:
 	*	\brief Attaches a color texture to the Framebuffer
 	*	\param[in] color_buffer The texture that should be added
 	*/
-	void attachColor(const Texture& color_buffer);
+	void attachColor(const std::shared_ptr<Texture> color_buffer);
 
 	/**
 	*	\brief Attaches a hdr texture (floating point texture) to the Framebuffer
@@ -95,14 +96,14 @@ public:
 	*	\param[in] index The index of the color attachment
 	*	\return The Texture for the Color attachment
 	*/
-	inline Texture getTexture(const uint32_t& index = 0) { return _render_textures[index]; }
+	inline std::shared_ptr<Texture> getTexture(const uint32_t& index = 0) { return _render_textures[index]; }
 private:
-	uint32_t _ID = 0;							/**<< The internal OpenGL handle for the fbo*/
-	std::vector<Texture> _render_textures = {}; /**<< The Color textures of this fbo*/
-	RenderBuffer _depth_stencil = {};			/**<< The depth and stencil buffer of this fbo*/
+	uint32_t _ID = 0;												/**<< The internal OpenGL handle for the fbo*/
+	std::vector<std::shared_ptr<Texture>> _render_textures = {};	/**<< The Color textures of this fbo*/
+	RenderBuffer _depth_stencil = {};								/**<< The depth and stencil buffer of this fbo*/
 
-	uint32_t _width = 0;						/**<< The width of the Framebuffer*/
-	uint32_t _height = 0;						/**<< The height of the Framebuffer*/
+	uint32_t _width = 0;											/**<< The width of the Framebuffer*/
+	uint32_t _height = 0;											/**<< The height of the Framebuffer*/
 };
 
 #endif

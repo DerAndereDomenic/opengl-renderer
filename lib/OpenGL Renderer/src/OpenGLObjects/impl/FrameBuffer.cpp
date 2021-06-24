@@ -17,10 +17,6 @@ FrameBuffer::~FrameBuffer()
 	_width = 0;
 	_height = 0;
 	glDeleteFramebuffers(1, &_ID);
-	for (uint32_t i = 0; i < _render_textures.size(); ++i) 
-	{
-		Texture::destroyObject(_render_textures[i]);
-	}
 	_render_textures.clear();
 	RenderBuffer::destroyObject(_depth_stencil);
 }
@@ -29,16 +25,16 @@ void
 FrameBuffer::attachColor()
 {
 	bind();
-	Texture texture = Texture::createObject<void>(_width, _height);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, texture.getID(), 0);
+	std::shared_ptr<Texture> texture = Texture::createTexture<void>(_width, _height);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, texture->getID(), 0);
 	_render_textures.push_back(texture);
 }
 
 void
-FrameBuffer::attachColor(const Texture& color_buffer)
+FrameBuffer::attachColor(const std::shared_ptr<Texture> color_buffer)
 {
 	bind();
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, color_buffer.getID(), 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, color_buffer->getID(), 0);
 	_render_textures.push_back(color_buffer);
 }
 
@@ -46,8 +42,8 @@ void
 FrameBuffer::attachHDR()
 {
 	bind();
-	Texture texture = Texture::createObject(_width, _height, (void*)NULL, TEXTURE, GL_RGBA16F, RGBA, GL_FLOAT);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, texture.getID(), 0);
+	std::shared_ptr<Texture> texture = Texture::createTexture(_width, _height, (void*)NULL, TEXTURE, GL_RGBA16F, RGBA, GL_FLOAT);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, texture->getID(), 0);
 	_render_textures.push_back(texture);
 }
 
@@ -63,8 +59,8 @@ void
 FrameBuffer::attachDepthMap()
 {
 	bind();
-	Texture texture = Texture::createObject(_width, _height, (void*)NULL, TEXTURE, DEPTH, DEPTH, GL_FLOAT);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture.getID(), 0);
+	std::shared_ptr<Texture> texture = Texture::createTexture(_width, _height, (void*)NULL, TEXTURE, DEPTH, DEPTH, GL_FLOAT);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture->getID(), 0);
 	_render_textures.push_back(texture);
 }
 

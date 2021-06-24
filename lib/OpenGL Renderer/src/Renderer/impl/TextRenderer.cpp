@@ -46,7 +46,6 @@ TextRenderer::destroyObject(TextRenderer& object)
 	for (uint32_t i = 0; i < object._characters.size(); ++i)
 	{
 		Character character = object._characters[i];
-		Texture::destroyObject(character.texture);
 	}
 	object._characters.clear();
 	FT_Done_Face(object._face);
@@ -80,7 +79,7 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 		glm::mat4 model = glm::scale(glm::translate(glm::mat4(1), glm::vec3(xpos, ypos, 0)), glm::vec3(w, h, 10));
 
 		text_shader.setMat4("model", model);
-		ch.texture.bind();
+		ch.texture->bind();
 		_vao->render();
 
 		x += (ch.advance >> 6) * scale;
@@ -110,7 +109,7 @@ TextRenderer::loadCharacter(const uint8_t& c)
 	}
 
 	Character character;
-	character.texture = Texture::createObject(_face->glyph->bitmap.width,
+	character.texture = Texture::createTexture(_face->glyph->bitmap.width,
 											  _face->glyph->bitmap.rows,
 											  _face->glyph->bitmap.buffer,
 											  TEXTURE,

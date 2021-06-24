@@ -18,7 +18,7 @@ Particle::Particle(const glm::vec3& position, const float& time_alive)
 }
 
 ParticleRenderer 
-ParticleRenderer::createObject(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const Texture& texture)
+ParticleRenderer::createObject(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const std::shared_ptr<Texture> texture)
 {
 	ParticleRenderer result;
 
@@ -52,7 +52,6 @@ ParticleRenderer::createObject(const glm::vec3& position, const uint32_t& num_pa
 void 
 ParticleRenderer::destroyObject(ParticleRenderer& object)
 {
-	Texture::destroyObject(object._texture);
 	object._particles.clear();
 	delete[] object._attributes;
 }
@@ -83,7 +82,7 @@ ParticleRenderer::render(const Camera& camera)
 	GL::disableDepthWriting();
 	ShaderManager::instance()->getShader("Particle").bind();
 	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-	_texture.bind();
+	_texture->bind();
 	_vao->renderInstanced(1, _particles.size());
 	GL::enableDepthWriting();
 }
@@ -94,7 +93,7 @@ ParticleRenderer::render(const glm::mat4& view, const glm::mat4& projection)
 	GL::disableDepthWriting();
 	ShaderManager::instance()->getShader("Particle").bind();
 	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), view, projection);
-	_texture.bind();
+	_texture->bind();
 	_vao->renderInstanced(1, _particles.size());
 	GL::enableDepthWriting();
 }

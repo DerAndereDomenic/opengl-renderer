@@ -90,8 +90,8 @@ int main(void)
 	meshes.push_back(crate);
 
 	Material mat_crate = Material::createObject("materialmap");
-	mat_crate.texture_diffuse = Texture::createObject(RESOURCE_PATH + "crate_diffuse.png");
-	mat_crate.texture_specular = Texture::createObject(RESOURCE_PATH + "crate_specular.png");
+	mat_crate.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "crate_diffuse.png");
+	mat_crate.texture_specular = std::make_shared<Texture>(RESOURCE_PATH + "crate_specular.png");
 	mat_crate.useTextures = true;
 	mat_crate.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_crate);
@@ -104,9 +104,9 @@ int main(void)
 	meshes.push_back(table);
 
 	Material mat_table = Material::createObject("materialmap");
-	mat_table.texture_diffuse = Texture::createObject(RESOURCE_PATH + "table/table_diffuse.png");
-	mat_table.texture_specular = Texture::createObject(RESOURCE_PATH + "table/table_specular.png");
-	mat_table.texture_normal = Texture::createObject(RESOURCE_PATH + "table/table_normal.png");
+	mat_table.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "table/table_diffuse.png");
+	mat_table.texture_specular = std::make_shared<Texture>(RESOURCE_PATH + "table/table_specular.png");
+	mat_table.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "table/table_normal.png");
 	mat_table.shininess = 128.0f * 0.4f;
 	mat_table.useTextures = true;
 	materials.push_back(mat_table);
@@ -119,9 +119,9 @@ int main(void)
 	meshes.push_back(wall);
 
 	Material mat_brick = Material::createObject("materialmap");
-	mat_brick.texture_diffuse = Texture::createObject(RESOURCE_PATH + "brickwall.png");
+	mat_brick.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "brickwall.png");
 	mat_brick.texture_specular = mat_brick.texture_diffuse;
-	mat_brick.texture_normal = Texture::createObject(RESOURCE_PATH + "brickwall_normal.png");
+	mat_brick.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "brickwall_normal.png");
 	mat_brick.useTextures = true;
 	mat_brick.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_brick);
@@ -134,9 +134,9 @@ int main(void)
 	meshes.push_back(mesh);
 
 	Material mat_fabric = Material::createObject("materialmap");
-	mat_fabric.texture_diffuse = Texture::createObject(RESOURCE_PATH + "fabric.png");
+	mat_fabric.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "fabric.png");
 	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
-	mat_fabric.texture_normal = Texture::createObject(RESOURCE_PATH + "fabric_normal.png");
+	mat_fabric.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "fabric_normal.png");
 	mat_fabric.useTextures = true;
 	mat_fabric.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_fabric);
@@ -222,7 +222,7 @@ int main(void)
 	l4.diffuse = glm::vec3(500.0f);
 	l4.specular = glm::vec3(500.0f);
 
-	Texture particleTexture = Texture::createObject(RESOURCE_PATH + "smoke.png");
+	std::shared_ptr<Texture> particleTexture = std::make_shared<Texture>(RESOURCE_PATH + "smoke.png");
 
 	std::vector<std::string> faces =
 	{
@@ -234,7 +234,7 @@ int main(void)
 		"back.jpg"
 	};
 
-	Texture skybox = Texture::createObject(RESOURCE_PATH + "skybox/", faces);
+	std::shared_ptr<Texture> skybox = std::make_shared<Texture>(RESOURCE_PATH + "skybox/", faces);
 
 	Mesh quad = MeshHelper::quadMesh(2.0f);
 
@@ -304,7 +304,7 @@ int main(void)
 			vol_data[i] = 0.01f;
 		}
 	}
-	Texture vol_tex = Texture::createObject(res, res, res, vol_data, GL_RED, GL_RED, GL_FLOAT);
+	std::shared_ptr<Texture> vol_tex = Texture::createTexture(res, res, res, vol_data, GL_RED, GL_RED, GL_FLOAT);
 
 	delete[] vol_data;
 
@@ -345,7 +345,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Reflection").bind();
 		ShaderManager::instance()->getShader("Reflection").setInt("cubemap", 0);
 		ShaderManager::instance()->getShader("Reflection").setVec3("camera_position", camera.getPosition());
-		map.getCubeMap().bind();
+		map.getCubeMap()->bind();
 		ShaderManager::instance()->getShader("Reflection").setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
 		sphere.render();
 		
@@ -386,7 +386,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Volume").setMVP(glm::translate(glm::mat4(1), glm::vec3(20, 0, -20)), camera.getView(), camera.getProjection());
 		ShaderManager::instance()->getShader("Volume").setVec3("lightPos", l1.position);
 		ShaderManager::instance()->getShader("Volume").setVec3("viewPos", camera.getPosition());
-		vol_tex.bind();
+		vol_tex->bind();
 		light.render();
 		
 
@@ -400,7 +400,7 @@ int main(void)
 		GL::clear();
 		ShaderManager::instance()->getShader("Post").bind();
 		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure_callback.getExposure());
-		fbo->getTexture(0).bind(0);
+		fbo->getTexture(0)->bind(0);
 		//lights[0].shadow_map.getTexture().bind();
 		quad.render();
 		
@@ -436,7 +436,6 @@ int main(void)
 	Scene::destroyObject(scene);
 	KeyManager::destroy();
 	ParticleRenderer::destroyObject(particleRenderer);
-	Texture::destroyObject(vol_tex);
 
 	LOGGER::end();
 

@@ -26,7 +26,7 @@ Things I want to address in a refactoring stage: <br>
     * [ ] - VRRenderer
     * [x] - VertexBuffer
     * [x] - VertexArray
-    * [ ] - Texture
+    * [x] - Texture
     * [ ] - TextRenderer
     * [ ] - Skybox
     * [ ] - Shader
