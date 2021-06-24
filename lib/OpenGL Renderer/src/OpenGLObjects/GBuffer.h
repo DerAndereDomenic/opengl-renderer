@@ -19,15 +19,8 @@ class GBuffer
         *   \brief Creates a GBuffer object
         *   \param[in] width The width
         *   \param[in] height The height
-        *   \return The completed GBuffer 
         */
-        static GBuffer createObject(const uint32_t& width, const uint32_t& height);
-
-        /**
-        *   \brief Destroy the GBuffer
-        *   \param[in] object The object to be destroyed 
-        */
-        static void destroyObject(GBuffer& object);
+        GBuffer(const uint32_t& width, const uint32_t& height);
 
         /**
         *   \brief Bind the underlying Framebuffer 
