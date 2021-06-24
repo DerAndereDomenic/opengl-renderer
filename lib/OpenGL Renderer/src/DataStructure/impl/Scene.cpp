@@ -2,12 +2,11 @@
 #include <Shader/ShaderManager.h>
 #include <glm/gtx/transform.hpp>
 #include <DLogger/Logger.h>
-
-Scene 
-Scene::createObject(std::vector<std::string> names,
-					std::vector<std::shared_ptr<Mesh>> meshes,
-					std::vector<Material> materials,
-					std::vector<glm::mat4> models)
+ 
+Scene::Scene(std::vector<std::string> names,
+			 std::vector<std::shared_ptr<Mesh>> meshes,
+			 std::vector<Material> materials,
+			 std::vector<glm::mat4> models)
 {
 	uint32_t size_names = names.size();
 	uint32_t size_meshes = meshes.size();
@@ -18,36 +17,32 @@ Scene::createObject(std::vector<std::string> names,
 	{
 		LOGGER::ERROR("ERROR::SCENE: The sizes of the given buffers is not equal: ("
 			+ std::to_string(size_names) + ", " + std::to_string(size_meshes) + ", " + std::to_string(size_materials) + ", " + std::to_string(size_models) + ")\n");
-		return Scene();
+		return;
 	}
 
-	Scene result;
 	for (uint32_t i = 0; i < size_names; ++i)
 	{
 		meshes[i]->create();
-		result._objects.insert(std::make_pair(names[i], RenderObject::createObject(meshes[i], materials[i], models[i])));
+		_objects.insert(std::make_pair(names[i], RenderObject::createObject(meshes[i], materials[i], models[i])));
 	}
 
 	ShaderManager::instance()->addShader("Shadow");
-
-	return result;
 }
-
-void 
-Scene::destroyObject(Scene& scene)
+ 
+Scene::~Scene()
 {
-	for (auto it = scene._objects.begin(); it != scene._objects.end(); ++it) 
+	for (auto it = _objects.begin(); it != _objects.end(); ++it) 
 	{
 		RenderObject::destroyObject(it->second);
 	}
 
-	for (uint32_t i = 0; i < scene._lights.size(); ++i)
+	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
-		Light::destroyObject(*scene._lights[i]);
+		Light::destroyObject(*_lights[i]);
 	}
 
-	scene._objects.clear();
-	scene._lights.clear();
+	_objects.clear();
+	_lights.clear();
 }
 
 void 

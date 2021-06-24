@@ -240,7 +240,7 @@ int main(void)
 
 	quad->create();
 
-	Scene scene = Scene::createObject(names, meshes, materials, models);
+	Scene scene = Scene(names, meshes, materials, models);
 	names.clear();
 	meshes.clear();
 	materials.clear();
@@ -430,7 +430,6 @@ int main(void)
 	ShaderManager::destroyObject(*ShaderManager::instance());
 	RenderWindow::destroyObject(window);
 	RenderObject::destroyObject(obj_light);
-	Scene::destroyObject(scene);
 	KeyManager::destroy();
 
 	LOGGER::end();

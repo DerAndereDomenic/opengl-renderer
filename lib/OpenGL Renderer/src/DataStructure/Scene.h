@@ -26,19 +26,18 @@ public:
 	*	\param[in] meshes The vector with all the meshes from the scene
 	*	\param[in] materials The material from the corresponding object
 	*	\param[in] models The model matrix of the objects
-	*	\return The scene with initialized with the given data
 	*	\note: The indices have to coincide in all vectors with the given object
 	*		   So (names[i], meshes[i], materials[i], models[i]) defines one object
 	*/
-	static Scene createObject(std::vector<std::string> names,
-							  std::vector<std::shared_ptr<Mesh>> meshes,
-							  std::vector<Material> materials,
-							  std::vector<glm::mat4> models);
+	Scene(std::vector<std::string> names,
+		  std::vector<std::shared_ptr<Mesh>> meshes,
+		  std::vector<Material> materials,
+		  std::vector<glm::mat4> models);
 
 	/**
 	*	\brief Destroys the scene by clearing all buffers and destroying all internal objects like meshes
 	*/
-	static void destroyObject(Scene& scene);
+	~Scene();
 
 	/**
 	*	\brief Renders the scene with the given shader

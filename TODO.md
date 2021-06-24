@@ -30,9 +30,10 @@ Things I want to address in a refactoring stage: <br>
     * [x] - TextRenderer
     * [x] - Skybox
     * [x] - Shader
-    * [ ] - Scene
+    * [x] - Scene
     * [ ] - RenderWindow
     * [ ] - RenderObject
+    * [ ] - Light
     * [x] - RenderBuffer
     * [x] - ParticleRenderer
     * [x] - Mesh
