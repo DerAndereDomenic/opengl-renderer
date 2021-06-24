@@ -3,55 +3,49 @@
 #include <DLogger/Logger.h>
 #include <string>
 #include <iostream>
-
-VRRenderer 
-VRRenderer::createObject()
+ 
+VRRenderer::VRRenderer()
 {
-    VRRenderer result;
-
     vr::EVRInitError error = vr::VRInitError_None;
-    result._vr_pointer = vr::VR_Init(&error, vr::VRApplication_Scene);
+    _vr_pointer = vr::VR_Init(&error, vr::VRApplication_Scene);
     if(error != vr::VRInitError_None)
     {
-        result._vr_pointer = NULL;
+        _vr_pointer = NULL;
         LOGGER::ERROR("Unable to init VR runtime: " + std::string(vr::VR_GetVRInitErrorAsEnglishDescription(error)) + "\n");
         exit(EXIT_FAILURE);
     }
 
-    result._vr_pointer->GetRecommendedRenderTargetSize(&result._width, &result._height);
+    _vr_pointer->GetRecommendedRenderTargetSize(&_width, &_height);
 
-    result._renderTargetLeft = std::make_shared<FrameBuffer>(result._width, result._height);
-    result._renderTargetLeft->attachColor(Texture::createTexture(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
-    result._renderTargetLeft->attachRenderBuffer();
-    result._renderTargetLeft->verify();
+    _renderTargetLeft = std::make_shared<FrameBuffer>(_width, _height);
+    _renderTargetLeft->attachColor(Texture::createTexture(_width, _height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
+    _renderTargetLeft->attachRenderBuffer();
+    _renderTargetLeft->verify();
 
-    result._renderTargetRight = std::make_shared<FrameBuffer>(result._width, result._height);
-    result._renderTargetRight->attachColor(Texture::createTexture(result._width, result._height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
-    result._renderTargetRight->attachRenderBuffer();
-    result._renderTargetRight->verify();
+    _renderTargetRight = std::make_shared<FrameBuffer>(_width, _height);
+    _renderTargetRight->attachColor(Texture::createTexture(_width, _height, (void*)NULL, TEXTURE, GL_RGBA8, GL_RGBA));
+    _renderTargetRight->attachRenderBuffer();
+    _renderTargetRight->verify();
 
-    GL::setViewport(result._width, result._height);
+    GL::setViewport(_width, _height);
 
     FrameBuffer::bindDefault();
 
-    result._leftProjection = result.projection(vr::Eye_Left);
-    result._rightProjection = result.projection(vr::Eye_Right);
+    _leftProjection = projection(vr::Eye_Left);
+    _rightProjection = projection(vr::Eye_Right);
 
-    LOGGER::INFO("Initialized VR with recommended Render target size: " + std::to_string(result._width) + ", " + std::to_string(result._height) + "\n");
-
-    return result;
+    LOGGER::INFO("Initialized VR with recommended Render target size: " + std::to_string(_width) + ", " + std::to_string(_height) + "\n");
 }
-
-void 
-VRRenderer::destroyObject(VRRenderer& object)
+ 
+VRRenderer::~VRRenderer()
 {
-    if(object._vr_pointer != NULL)
+    if(_vr_pointer != NULL)
     {
         vr::VR_Shutdown();
-        object._vr_pointer = NULL;
+        _vr_pointer = NULL;
     }
-    object._width = 0;
-    object._height = 0;
+    _width = 0;
+    _height = 0;
 }
 
 void

@@ -23,7 +23,7 @@ Things I want to address in a refactoring stage: <br>
     * [ ] - EnvironmentMap
     * [ ] - Camera
 * [ ] - Rework the destroy/create process of Objects
-    * [ ] - VRRenderer
+    * [x] - VRRenderer
     * [x] - VertexBuffer
     * [x] - VertexArray
     * [x] - Texture

@@ -16,21 +16,14 @@ class VRRenderer
 {
     public:
         /**
-         *  \brief Default constructor 
-         */
-        VRRenderer() = default;
-
-        /**
          *  \brief Creates the VR invironment and returns the renderer
-         *  \return The VR renderer
          */
-        static VRRenderer createObject();
+         VRRenderer();
 
         /**
          *  \brief Destroys the renderer and closes the VR context
-         *  \param[in] object The object to be destroyed
          */ 
-        static void destroyObject(VRRenderer& object);
+        ~VRRenderer();
 
         /**
         *   \brief Uploads the internal framebuffer to the VR headset
