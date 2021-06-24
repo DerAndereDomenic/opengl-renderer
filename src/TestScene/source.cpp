@@ -284,7 +284,7 @@ int main(void)
 	ShaderManager::instance()->getShader("Post")->setInt("screenTexture", 0);
 	ShaderManager::instance()->getShader("Post")->setInt("lightTexture", 1);
 
-	Skybox sky = Skybox::createObject(skybox);
+	Skybox sky = Skybox(skybox);
 
 	uint32_t res = 512;
 	float halfres = static_cast<float>(res) / 2.0f;
@@ -428,7 +428,6 @@ int main(void)
 	}
 
 	ShaderManager::destroyObject(*ShaderManager::instance());
-	Skybox::destroyObject(sky);
 	RenderWindow::destroyObject(window);
 	RenderObject::destroyObject(obj_light);
 	Scene::destroyObject(scene);

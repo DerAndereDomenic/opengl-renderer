@@ -17,14 +17,8 @@ public:
 
 	/**
 	*	\brief Create a skybox with the given texture
-	*	\return A skybox
 	*/
-	static Skybox createObject(std::shared_ptr<Texture> cubemap);
-
-	/**
-	*	\brief Destroys the skybox and it's texture
-	*/
-	static void destroyObject(Skybox& skybox);
+	Skybox(std::shared_ptr<Texture> cubemap);
 
 	/**
 	*	\brief Renders the skybox to the given camera

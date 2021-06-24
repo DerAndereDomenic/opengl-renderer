@@ -3,25 +3,15 @@
 #include <Shader/ShaderManager.h>
 #include <Core/GLFunctions.h>
 
-Skybox 
-Skybox::createObject(std::shared_ptr<Texture> cubemap)
+ Skybox::Skybox(std::shared_ptr<Texture> cubemap)
 {
-	Skybox result;
-	result._cubemap = cubemap;
-	result._cube = MeshHelper::cubeMesh(glm::vec4(1));
-	result._cube->create();
+	_cubemap = cubemap;
+	_cube = MeshHelper::cubeMesh(glm::vec4(1));
+	_cube->create();
 
 	ShaderManager::instance()->addShader("Skybox");
 	ShaderManager::instance()->getShader("Skybox")->bind();
 	ShaderManager::instance()->getShader("Skybox")->setInt("skybox", 0);
-
-	return result;
-}
-
-void 
-Skybox::destroyObject(Skybox& skybox)
-{
-
 }
 
 void
