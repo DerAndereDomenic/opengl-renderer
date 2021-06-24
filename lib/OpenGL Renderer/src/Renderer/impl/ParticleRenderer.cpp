@@ -16,44 +16,38 @@ Particle::Particle(const glm::vec3& position, const float& time_alive)
 	velocity = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX) * glm::vec3(x, y, z);
 	timeAlive = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)*time_alive;
 }
-
-ParticleRenderer 
-ParticleRenderer::createObject(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const std::shared_ptr<Texture> texture)
+ 
+ParticleRenderer::ParticleRenderer(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const std::shared_ptr<Texture> texture)
 {
-	ParticleRenderer result;
+	_texture = texture;
+	_position = position;
+	_timeAlive = time_alive;
 
-	result._texture = texture;
-	result._position = position;
-	result._timeAlive = time_alive;
-
-	result._attributes = new float[4 * num_particles];
+	_attributes = new float[4 * num_particles];
 	std::srand(std::time(nullptr));
 	for (uint32_t i = 0; i < num_particles; ++i)
 	{
-		result._particles.push_back(Particle(position, time_alive));
-		result._attributes[4 * i] = position.x;
-		result._attributes[4 * i + 1] = position.y;
-		result._attributes[4 * i + 2] = position.z;
-		result._attributes[4 * i + 3] = result._particles[i].timeAlive;
+		_particles.push_back(Particle(position, time_alive));
+		_attributes[4 * i] = position.x;
+		_attributes[4 * i + 1] = position.y;
+		_attributes[4 * i + 2] = position.z;
+		_attributes[4 * i + 3] = _particles[i].timeAlive;
 	}
 
-	result._instanceArray = std::make_shared<VertexBuffer>(result._attributes, num_particles * 4, GL_DYNAMIC_DRAW);
+	_instanceArray = std::make_shared<VertexBuffer>(_attributes, num_particles * 4, GL_DYNAMIC_DRAW);
 	VertexBufferLayout layout;
 	layout.add(GL_FLOAT, 3);
 	layout.add(GL_FLOAT, 1);
-	result._vao = std::make_shared<VertexArray>(GL_POINTS);
-	result._vao->addInstanceBuffer(result._instanceArray, layout);
+	_vao = std::make_shared<VertexArray>(GL_POINTS);
+	_vao->addInstanceBuffer(_instanceArray, layout);
 
 	ShaderManager::instance()->addShader("Particle", true);
-
-	return result;
 }
-
-void 
-ParticleRenderer::destroyObject(ParticleRenderer& object)
+ 
+ParticleRenderer::~ParticleRenderer()
 {
-	object._particles.clear();
-	delete[] object._attributes;
+	_particles.clear();
+	delete[] _attributes;
 }
 
 void 

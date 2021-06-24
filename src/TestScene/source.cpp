@@ -267,7 +267,7 @@ int main(void)
 
 	std::shared_ptr<TextRenderer> textRenderer = window.getTextRenderer();
 
-	ParticleRenderer particleRenderer = ParticleRenderer::createObject(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
+	ParticleRenderer particleRenderer = ParticleRenderer(glm::vec3(-1, 0, 0), 10000, 2, particleTexture);
 
 	std::shared_ptr<FrameBuffer> fbo = std::make_shared<FrameBuffer>(window.getWidth(), window.getHeight());
 	fbo->attachHDR();
@@ -433,7 +433,6 @@ int main(void)
 	RenderObject::destroyObject(obj_light);
 	Scene::destroyObject(scene);
 	KeyManager::destroy();
-	ParticleRenderer::destroyObject(particleRenderer);
 
 	LOGGER::end();
 
