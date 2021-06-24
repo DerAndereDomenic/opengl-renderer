@@ -68,10 +68,10 @@ public:
 	*	\param[in] name The name of the object given when creating the scene
 	*	\return The corresponding object;
 	*/
-	RenderObject& getObject(std::string name);
+	std::shared_ptr<RenderObject> getObject(std::string name);
 
 private:
-	std::unordered_map<std::string, RenderObject> _objects = {}; /**<< Hash Map to maintain the objects in this scene*/
+	std::unordered_map<std::string, std::shared_ptr<RenderObject>> _objects = {}; /**<< Hash Map to maintain the objects in this scene*/
 	std::vector<Light*> _lights = {};
 };
 

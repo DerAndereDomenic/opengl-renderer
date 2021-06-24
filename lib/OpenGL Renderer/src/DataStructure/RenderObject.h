@@ -19,15 +19,13 @@ public:
 	*	\param[in] mesh The Mesh of the object
 	*	\param[in] material The material of the object
 	*	\param[in] model The model matrix
-	*	\return The RenderObject
 	*/
-	static RenderObject createObject(std::shared_ptr<Mesh> mesh, Material material, glm::mat4 model);
+	RenderObject(std::shared_ptr<Mesh> mesh, Material material, glm::mat4 model);
 	
 	/**
 	*	\brief Destroy the given RenderObject
-	*	\param[in] object The RenderObject to be destroyed
 	*/
-	static void destroyObject(RenderObject& object);
+	~RenderObject();
 
 	/**
 	*	\brief Renders the object

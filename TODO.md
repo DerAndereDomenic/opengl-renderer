@@ -32,7 +32,8 @@ Things I want to address in a refactoring stage: <br>
     * [x] - Shader
     * [x] - Scene
     * [ ] - RenderWindow
-    * [ ] - RenderObject
+    * [x] - RenderObject
+    * [ ] - Material
     * [x] - Light
     * [x] - RenderBuffer
     * [x] - ParticleRenderer

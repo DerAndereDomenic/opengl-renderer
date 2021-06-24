@@ -1,22 +1,17 @@
 #include "DataStructure/RenderObject.h"
 
-
-RenderObject 
-RenderObject::createObject(std::shared_ptr<Mesh> mesh, Material material, glm::mat4 model)
+ 
+RenderObject::RenderObject(std::shared_ptr<Mesh> mesh, Material material, glm::mat4 model)
 {
-	RenderObject result;
-	result._mesh = mesh;
-	result._material = material;
-	result._model = model;
-
-	return result;
+	_mesh = mesh;
+	_material = material;
+	_model = model;
 }
-
-void 
-RenderObject::destroyObject(RenderObject& object)
+ 
+RenderObject::~RenderObject()
 {
-	Material::destroyObject(object._material);
-	object._model = glm::mat4(1);
+	Material::destroyObject(_material);
+	_model = glm::mat4(1);
 }
 
 void 

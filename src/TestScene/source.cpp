@@ -200,7 +200,7 @@ int main(void)
 	mat_lamp.specular = glm::vec3(1, 1, 1);
 	mat_lamp.shininess = 128.0f * 0.4f;
 
-	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
+	RenderObject obj_light = RenderObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
 
 	Light l1 = Light(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20,0,0,1), true, shadow_width, shadow_height, near, far);
 	l1.ambient = glm::vec3(0.1f);
@@ -429,7 +429,6 @@ int main(void)
 
 	ShaderManager::destroyObject(*ShaderManager::instance());
 	RenderWindow::destroyObject(window);
-	RenderObject::destroyObject(obj_light);
 	KeyManager::destroy();
 
 	LOGGER::end();

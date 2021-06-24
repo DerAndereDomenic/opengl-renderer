@@ -23,7 +23,7 @@ Scene::Scene(std::vector<std::string> names,
 	for (uint32_t i = 0; i < size_names; ++i)
 	{
 		meshes[i]->create();
-		_objects.insert(std::make_pair(names[i], RenderObject::createObject(meshes[i], materials[i], models[i])));
+		_objects.insert(std::make_pair(names[i], std::make_shared<RenderObject>(meshes[i], materials[i], models[i])));
 	}
 
 	ShaderManager::instance()->addShader("Shadow");
@@ -31,11 +31,6 @@ Scene::Scene(std::vector<std::string> names,
  
 Scene::~Scene()
 {
-	for (auto it = _objects.begin(); it != _objects.end(); ++it) 
-	{
-		RenderObject::destroyObject(it->second);
-	}
-
 	_objects.clear();
 	_lights.clear();
 }
@@ -51,7 +46,7 @@ Scene::render(std::shared_ptr<Shader> shader)
 
 	for (auto it = _objects.begin(); it != _objects.end(); ++it)
 	{
-		it->second.render(shader);
+		it->second->render(shader);
 	}
 }
 
@@ -97,7 +92,7 @@ Scene::updateShadowMaps()
 	FrameBuffer::bindDefault();
 }
 
-RenderObject&
+std::shared_ptr<RenderObject>
 Scene::getObject(std::string name)
 {
 	return _objects[name];
