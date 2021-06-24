@@ -1,25 +1,20 @@
 #include <OpenGLObjects/IndexBuffer.h>
 #include <GL/glew.h>
 
-IndexBuffer 
-IndexBuffer::createObject(const uint32_t* data, const uint32_t& count)
+ 
+IndexBuffer::IndexBuffer(const uint32_t* data, const uint32_t& count)
 {
-	IndexBuffer result;
+	_count = count;
 
-	result._count = count;
-
-	glGenBuffers(1, &result._ID);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result._ID);
+	glGenBuffers(1, &_ID);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t)*count, data, GL_STATIC_DRAW);
-
-	return result;
 }
 
-void 
-IndexBuffer::destroyObject(IndexBuffer& ibo)
+IndexBuffer::~IndexBuffer()
 {
-	glDeleteBuffers(1, &ibo._ID);
-	ibo._count = 0;
+	glDeleteBuffers(1, &_ID);
+	_count = 0;
 }
 
 void 

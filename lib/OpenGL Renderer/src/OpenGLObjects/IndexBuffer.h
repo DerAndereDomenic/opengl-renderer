@@ -18,15 +18,13 @@ public:
 	*	\brief Creates an Index Buffer
 	*	\param[in] data The data for the indices
 	*	\param[in] count The indice count
-	*	return The Index Buffer Object
 	*/
-	static IndexBuffer createObject(const uint32_t* data, const uint32_t& count);
+	IndexBuffer(const uint32_t* data, const uint32_t& count);
 
 	/**
 	*	\brief Destroys the Index Buffer object
-	*	\param[in] ibo The Index Buffer object
 	*/
-	static void destroyObject(IndexBuffer& ibo);
+	~IndexBuffer();
 
 	/**
 	*	\brief Binds the Index Buffer

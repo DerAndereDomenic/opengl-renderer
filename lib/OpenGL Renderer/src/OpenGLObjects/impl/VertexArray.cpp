@@ -33,7 +33,7 @@ void
 VertexArray::render() const
 {
 	bind();
-	_hasIBO ? glDrawElements(_geometry, _ibo.getCount(), GL_UNSIGNED_INT, (void*)0) :
+	_hasIBO ? glDrawElements(_geometry, _ibo->getCount(), GL_UNSIGNED_INT, (void*)0) :
 		glDrawArrays(_geometry, 0, _count);
 }
 
@@ -79,7 +79,7 @@ VertexArray::addInstanceBuffer(const std::shared_ptr<VertexBuffer> vbo, const Ve
 }
 
 void 
-VertexArray::setIndexBuffer(const IndexBuffer &ibo)
+VertexArray::setIndexBuffer(const std::shared_ptr<IndexBuffer> ibo)
 {
 	_ibo = ibo;
 	_hasIBO = true;

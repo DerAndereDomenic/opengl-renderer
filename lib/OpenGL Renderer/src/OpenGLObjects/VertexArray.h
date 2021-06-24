@@ -73,7 +73,7 @@ public:
 	*	\brief Add a Layout for the given Vertex Buffer object and add an Index buffer to the vao
 	*	\param[in] ibo The Index Buffer
 	*/
-	void setIndexBuffer(const IndexBuffer &ibo);
+	void setIndexBuffer(const std::shared_ptr<IndexBuffer> ibo);
 
 	/**
 	*	\brief Sets the number of elements in the underlying vertex buffer
@@ -81,12 +81,12 @@ public:
 	*/
 	void setCount(const uint32_t& count);
 private:
-	uint32_t _ID; /**<< The internal OpenGL handle for the Vertex Array*/
-	IndexBuffer _ibo; /**<< The Index buffer binded to this vao*/
-	uint32_t _count = 0; /**<< The number of elements in the underlying vbo*/
-	bool _hasIBO = false; /**<< Checks if this vao has an index buffer*/
-	uint32_t _attribCount = 0; /**<< The number of activated attributes*/
-	Geometry _geometry = GL_TRIANGLES; /**<< The geometry type that should be rendered*/
+	uint32_t _ID;							/**<< The internal OpenGL handle for the Vertex Array*/
+	std::shared_ptr<IndexBuffer> _ibo;		/**<< The Index buffer binded to this vao*/
+	uint32_t _count = 0;					/**<< The number of elements in the underlying vbo*/
+	bool _hasIBO = false;					/**<< Checks if this vao has an index buffer*/
+	uint32_t _attribCount = 0;				/**<< The number of activated attributes*/
+	Geometry _geometry = GL_TRIANGLES;		/**<< The geometry type that should be rendered*/
 };
 
 

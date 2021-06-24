@@ -19,7 +19,6 @@ Mesh::createObject(const bool& calcTangent)
 void 
 Mesh::destroyObject(Mesh& mesh)
 {
-	IndexBuffer::destroyObject(mesh._ibo);
 	mesh._vertex_count = 0;
 	mesh._indices.clear();
 	mesh._vertices.clear();
@@ -31,7 +30,7 @@ Mesh::create()
 	_vbo = std::make_shared<VertexBuffer>(_vertices.data(), _vertices.size());
 	_vao = std::make_shared<VertexArray>();
 	_vao->addBuffer(_vbo, _layout);
-	_ibo = IndexBuffer::createObject(_indices.data(), _indices.size());
+	_ibo = std::make_shared<IndexBuffer>(_indices.data(), _indices.size());
 	_vao->setIndexBuffer(_ibo);
 
 	_vertices.clear();

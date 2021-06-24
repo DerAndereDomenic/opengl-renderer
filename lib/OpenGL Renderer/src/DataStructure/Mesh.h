@@ -97,7 +97,7 @@ private:
 
 	std::shared_ptr<VertexArray> _vao;		/**<< The vertex array object of the mesh*/
 	std::shared_ptr<VertexBuffer> _vbo;		/**<< The vertex buffer object of the mesh*/
-	IndexBuffer _ibo;						/**<< The index buffer object of the mesh*/
+	std::shared_ptr<IndexBuffer> _ibo;		/**<< The index buffer object of the mesh*/
 	VertexBufferLayout _layout;				/**<< The layout of the vertex buffer object*/
 
 	bool _calcTangent = false;

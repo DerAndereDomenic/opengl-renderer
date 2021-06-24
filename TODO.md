@@ -36,7 +36,7 @@ Things I want to address in a refactoring stage: <br>
     * [ ] - RenderBuffer
     * [ ] - ParticleRenderer
     * [ ] - Mesh
-    * [ ] - IndexBuffer
+    * [x] - IndexBuffer
     * [ ] - GBuffer
     * [ ] - FrameBuffer
     * [ ] - EnvironmentMap
