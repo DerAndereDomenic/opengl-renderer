@@ -4,6 +4,7 @@
 #include "DataStructure/Material.h"
 #include "DataStructure/Mesh.h"
 #include "Shader/Shader.h"
+#include <memory>
 
 class RenderObject
 {
@@ -32,7 +33,7 @@ public:
 	*	\brief Renders the object
 	*	\param[in] shader The shader that should be used for rendering
 	*/
-	void render(Shader shader);
+	void render(std::shared_ptr<Shader> shader);
 
 	/**
 	*	\brief Update the model matrix

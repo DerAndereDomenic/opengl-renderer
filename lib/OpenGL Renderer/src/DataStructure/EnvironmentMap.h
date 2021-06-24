@@ -41,7 +41,7 @@ public:
 	*	\param[in] scene The scene to be rendered
 	*	\param[in] shader The shader used to render the scene
 	*/
-	void render(Scene scene, Skybox skybox, Shader shader);
+	void render(Scene scene, Skybox skybox, std::shared_ptr<Shader> shader);
 
 	/**
 	*	\brief Get the cubemap texture

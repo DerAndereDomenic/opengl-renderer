@@ -55,10 +55,10 @@ TextRenderer::destroyObject(TextRenderer& object)
 void 
 TextRenderer::render(const std::string& text, float x, float y, const float& scale, const glm::vec3& color)
 {
-	Shader text_shader = ShaderManager::instance()->getShader("Text");
-	text_shader.bind();
-	text_shader.setVec3("textColor", color);
-	text_shader.setMat4("projection", _projection);
+	std::shared_ptr<Shader> text_shader = ShaderManager::instance()->getShader("Text");
+	text_shader->bind();
+	text_shader->setVec3("textColor", color);
+	text_shader->setMat4("projection", _projection);
 
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); ++c)
@@ -78,7 +78,7 @@ TextRenderer::render(const std::string& text, float x, float y, const float& sca
 
 		glm::mat4 model = glm::scale(glm::translate(glm::mat4(1), glm::vec3(xpos, ypos, 0)), glm::vec3(w, h, 10));
 
-		text_shader.setMat4("model", model);
+		text_shader->setMat4("model", model);
 		ch.texture->bind();
 		_vao->render();
 

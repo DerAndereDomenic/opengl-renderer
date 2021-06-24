@@ -1,84 +1,77 @@
 #include <Shader/Shader.h>
 #include <DLogger/Logger.h>
 
-Shader
-Shader::createObject(const std::string& vertexPath, const std::string& fragmentPath)
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 {
-	Shader result;
 	//File reading
 	std::string vertex_buffer, fragment_buffer;
 
-	result.readShaderCode(vertexPath, &vertex_buffer);
+	readShaderCode(vertexPath, &vertex_buffer);
 	const char* vShaderCode = vertex_buffer.c_str();
 
-	result.readShaderCode(fragmentPath, &fragment_buffer);
+	readShaderCode(fragmentPath, &fragment_buffer);
 	const char* fShaderCode = fragment_buffer.c_str();
 
 	//Compiling
 	uint32_t vertex, fragment;
 	
-	vertex = result.compileShader(GL_VERTEX_SHADER, vShaderCode);
-	fragment = result.compileShader(GL_FRAGMENT_SHADER, fShaderCode);
+	vertex = compileShader(GL_VERTEX_SHADER, vShaderCode);
+	fragment = compileShader(GL_FRAGMENT_SHADER, fShaderCode);
 
 	//Linking
 	uint32_t shaders[] = { vertex,fragment };
-	result.linkShader(shaders, 2);
+	linkShader(shaders, 2);
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
-
-	return result;
 }
 
-Shader
-Shader::createObject(const std::string& vertexPath, const std::string& geometryPath, const std::string& fragmentPath)
+Shader::Shader(const std::string& vertexPath, const std::string& geometryPath, const std::string& fragmentPath)
 {
-	Shader result;
 	//File reading
 	std::string vertex_buffer, fragment_buffer, geometry_buffer;
 
-	result.readShaderCode(vertexPath, &vertex_buffer);
+	readShaderCode(vertexPath, &vertex_buffer);
 	const char* vShaderCode = vertex_buffer.c_str();
 
-	result.readShaderCode(fragmentPath, &fragment_buffer);
+	readShaderCode(fragmentPath, &fragment_buffer);
 	const char* fShaderCode = fragment_buffer.c_str();
 
-	result.readShaderCode(geometryPath, &geometry_buffer);
+	readShaderCode(geometryPath, &geometry_buffer);
 	const char* gShaderCode = geometry_buffer.c_str();
 
 	//Compiling
 	uint32_t vertex, geometry, fragment;
 
-	vertex = result.compileShader(GL_VERTEX_SHADER, vShaderCode);
-	geometry = result.compileShader(GL_GEOMETRY_SHADER, gShaderCode);
-	fragment = result.compileShader(GL_FRAGMENT_SHADER, fShaderCode);
+	vertex = compileShader(GL_VERTEX_SHADER, vShaderCode);
+	geometry = compileShader(GL_GEOMETRY_SHADER, gShaderCode);
+	fragment = compileShader(GL_FRAGMENT_SHADER, fShaderCode);
 
 	//Linking
 	uint32_t shaders[] = { vertex, geometry, fragment };
-	result.linkShader(shaders, 3);
+	linkShader(shaders, 3);
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
 	glDeleteShader(geometry);
 
-	return result;
 }
 
-Shader 
-Shader::createObject(const std::string& computePath)
+std::shared_ptr<Shader> 
+Shader::createComputeShader(const std::string& computePath)
 {
-	Shader result;
+	std::shared_ptr<Shader> result = std::make_shared<Shader>();
 
 	std::string compute_buffer;
 
-	result.readShaderCode(computePath, &compute_buffer);
+	result->readShaderCode(computePath, &compute_buffer);
 	const char* cShaderCode = compute_buffer.c_str();
 
 	uint32_t compute;
 
-	compute = result.compileShader(GL_COMPUTE_SHADER, cShaderCode);
+	compute = result->compileShader(GL_COMPUTE_SHADER, cShaderCode);
 
-	result.linkShader(&compute, 1);
+	result->linkShader(&compute, 1);
 
 	glDeleteShader(compute);
 	
@@ -175,10 +168,9 @@ Shader::linkShader(const uint32_t* shaders, const uint32_t& num_shaders)
 	}
 }
 
-void
-Shader::destroyObject(Shader& shader)
+Shader::~Shader()
 {
-	glDeleteProgram(shader._ID);
+	glDeleteProgram(_ID);
 }
 
 void

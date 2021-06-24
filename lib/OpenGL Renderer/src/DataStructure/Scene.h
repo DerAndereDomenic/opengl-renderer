@@ -44,7 +44,7 @@ public:
 	*	\brief Renders the scene with the given shader
 	*	\param[in] shader The shader to render the scene
 	*/
-	void render(Shader shader);
+	void render(std::shared_ptr<Shader> shader);
 
 	/**
 	*	\brief Add a light source to the scene
@@ -56,7 +56,7 @@ public:
 	*	\brief Initializes the given shader with the light sources of the scene
 	*	\param[in] shader The shader where we want to pass the light information to
 	*/
-	void passLights2Shader(Shader shader);
+	void passLights2Shader(std::shared_ptr<Shader> shader);
 
 	/**
 	*	\brief Updates the shadow maps of the light sources in the scene

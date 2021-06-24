@@ -29,7 +29,7 @@ Things I want to address in a refactoring stage: <br>
     * [x] - Texture
     * [ ] - TextRenderer
     * [ ] - Skybox
-    * [ ] - Shader
+    * [x] - Shader
     * [ ] - Scene
     * [ ] - RenderWindow
     * [ ] - RenderObject

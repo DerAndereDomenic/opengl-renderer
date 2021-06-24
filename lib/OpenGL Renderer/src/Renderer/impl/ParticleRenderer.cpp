@@ -80,8 +80,8 @@ void
 ParticleRenderer::render(const Camera& camera)
 {
 	GL::disableDepthWriting();
-	ShaderManager::instance()->getShader("Particle").bind();
-	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+	ShaderManager::instance()->getShader("Particle")->bind();
+	ShaderManager::instance()->getShader("Particle")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 	_texture->bind();
 	_vao->renderInstanced(1, _particles.size());
 	GL::enableDepthWriting();
@@ -91,8 +91,8 @@ void
 ParticleRenderer::render(const glm::mat4& view, const glm::mat4& projection)
 {
 	GL::disableDepthWriting();
-	ShaderManager::instance()->getShader("Particle").bind();
-	ShaderManager::instance()->getShader("Particle").setMVP(glm::mat4(1), view, projection);
+	ShaderManager::instance()->getShader("Particle")->bind();
+	ShaderManager::instance()->getShader("Particle")->setMVP(glm::mat4(1), view, projection);
 	_texture->bind();
 	_vao->renderInstanced(1, _particles.size());
 	GL::enableDepthWriting();

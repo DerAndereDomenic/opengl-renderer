@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 
 #include <string>
+#include <memory>
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -26,32 +27,30 @@ public:
 	*	\brief Create a Shader Object
 	*	\param[in] vertexPath Path to the Vertex Shader
 	*	\param[in] fragmentPath Path to the Fragment Shader
-	*	\return The compiled and linked Shader
 	*/
-	static Shader createObject(const std::string& vertexPath, const std::string& fragmentPath);
+	Shader(const std::string& vertexPath, const std::string& fragmentPath);
 
 	/**
 	*	\brief Create a Shader Object
 	*	\param[in] vertexPath Path to the Vertex Shader
 	*	\param[in] geometryPath Path to the Geometry Shader
 	*	\param[in] fragmentPath Path to the Fragment Shader
-	*	\return The compiled and linked Shader
 	*/
-	static Shader createObject(const std::string& vertexPath, const std::string& geometryPath, const std::string& fragmentPath);
+	Shader(const std::string& vertexPath, const std::string& geometryPath, const std::string& fragmentPath);
 
 	/**
 	*	\brief Creats a Shader object
 	*	\param[in] computePath The path to the Compute Shader
-	*	\return The compiled and linked shader
 	*	\note: This function is used to create compute shaders 
 	*/
-	static Shader createObject(const std::string& computePath);
+	static std::shared_ptr<Shader> 
+	createComputeShader(const std::string& computePath);
 
 	/**
 	*	\brief Destroys the object
 	*	\param[in] The shader object
 	*/
-	static void destroyObject(Shader& shader);
+	~Shader();
 
 	/**
 	*	\brief Bind the shader

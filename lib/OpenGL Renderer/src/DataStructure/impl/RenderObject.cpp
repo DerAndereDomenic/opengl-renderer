@@ -21,10 +21,10 @@ RenderObject::destroyObject(RenderObject& object)
 }
 
 void 
-RenderObject::render(Shader shader)
+RenderObject::render(std::shared_ptr<Shader> shader)
 {
 	_material.bind(shader);
-	shader.setMat4("M", _model);
+	shader->setMat4("M", _model);
 	_mesh.render();
 }
 

@@ -19,7 +19,7 @@ EnvironmentMap::destroyObject(EnvironmentMap& object)
 }
 
 void 
-EnvironmentMap::render(Scene scene, Skybox skybox, Shader shader)
+EnvironmentMap::render(Scene scene, Skybox skybox, std::shared_ptr<Shader> shader)
 {
 	_environment_map->bind();
 	glViewport(0, 0, 1024, 1024);
@@ -30,8 +30,8 @@ EnvironmentMap::render(Scene scene, Skybox skybox, Shader shader)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		_camera.updateDirection(angles[i].pitch, angles[i].yaw);
 		skybox.render(_camera);
-		shader.bind();
-		shader.setMVP(glm::mat4(1), _camera.getView(), _camera.getProjection());
+		shader->bind();
+		shader->setMVP(glm::mat4(1), _camera.getView(), _camera.getProjection());
 		scene.render(shader);
 	}
 	_environment_map->unbind();

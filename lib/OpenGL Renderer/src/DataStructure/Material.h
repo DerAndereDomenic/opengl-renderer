@@ -41,7 +41,7 @@ public:
 	*	\brief Binds the material (i.e. the textures)
 	*	\param[in] shader The shader the material should get binded to
 	*/
-	void bind(Shader shader);
+	void bind(std::shared_ptr<Shader> shader);
 
 	bool useTextures = false;														/**<< Toggle the use of textures*/
 	glm::vec3 ambient = glm::vec3(0, 0, 0);											/**<< The ambient part of the material*/

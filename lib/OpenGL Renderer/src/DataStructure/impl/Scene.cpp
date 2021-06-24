@@ -51,7 +51,7 @@ Scene::destroyObject(Scene& scene)
 }
 
 void 
-Scene::render(Shader shader)
+Scene::render(std::shared_ptr<Shader> shader)
 {
 	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
@@ -72,7 +72,7 @@ Scene::addLight(Light* light)
 }
 
 void
-Scene::passLights2Shader(Shader shader)
+Scene::passLights2Shader(std::shared_ptr<Shader> shader)
 {
 	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
@@ -83,8 +83,8 @@ Scene::passLights2Shader(Shader shader)
 void 
 Scene::updateShadowMaps()
 {
-	Shader shadow = ShaderManager::instance()->getShader("Shadow");
-	shadow.bind();
+	std::shared_ptr<Shader> shadow = ShaderManager::instance()->getShader("Shadow");
+	shadow->bind();
 	Light* light;
 	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
@@ -99,8 +99,8 @@ Scene::updateShadowMaps()
 		light->lightView = glm::lookAt(light->position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		light->lightSpace = light->lightProjection * light->lightView;
 
-		shadow.setMat4("P", light->lightProjection);
-		shadow.setMat4("V", light->lightView);
+		shadow->setMat4("P", light->lightProjection);
+		shadow->setMat4("V", light->lightView);
 		this->render(shadow);
 	}
 

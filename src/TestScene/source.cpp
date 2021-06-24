@@ -280,9 +280,9 @@ int main(void)
 	scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 	obj_light.setModel(glm::translate(glm::mat4(1), l1.position));
 
-	ShaderManager::instance()->getShader("Post").bind();
-	ShaderManager::instance()->getShader("Post").setInt("screenTexture", 0);
-	ShaderManager::instance()->getShader("Post").setInt("lightTexture", 1);
+	ShaderManager::instance()->getShader("Post")->bind();
+	ShaderManager::instance()->getShader("Post")->setInt("screenTexture", 0);
+	ShaderManager::instance()->getShader("Post")->setInt("lightTexture", 1);
 
 	Skybox sky = Skybox::createObject(skybox);
 
@@ -329,7 +329,7 @@ int main(void)
 		//Render scene
 		if (frameID == 0)
 		{
-			ShaderManager::instance()->getShader("Normal").bind();
+			ShaderManager::instance()->getShader("Normal")->bind();
 			map.render(scene, sky, ShaderManager::instance()->getShader("Normal"));
 		}
 
@@ -342,38 +342,38 @@ int main(void)
 
 		sky.render(camera);
 
-		ShaderManager::instance()->getShader("Reflection").bind();
-		ShaderManager::instance()->getShader("Reflection").setInt("cubemap", 0);
-		ShaderManager::instance()->getShader("Reflection").setVec3("camera_position", camera.getPosition());
+		ShaderManager::instance()->getShader("Reflection")->bind();
+		ShaderManager::instance()->getShader("Reflection")->setInt("cubemap", 0);
+		ShaderManager::instance()->getShader("Reflection")->setVec3("camera_position", camera.getPosition());
 		map.getCubeMap()->bind();
-		ShaderManager::instance()->getShader("Reflection").setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Reflection")->setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
 		sphere.render();
 		
 		//Light
-		ShaderManager::instance()->getShader("Normal").bind();
-		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Normal")->bind();
+		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
 		if (debug_callback.getDebug())
 		{
-			ShaderManager::instance()->getShader("DisplayNormal").bind();
-			ShaderManager::instance()->getShader("DisplayNormal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+			ShaderManager::instance()->getShader("DisplayNormal")->bind();
+			ShaderManager::instance()->getShader("DisplayNormal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 
 			scene.render(ShaderManager::instance()->getShader("DisplayNormal"));
 
 			glPointSize(5);
 
-			ShaderManager::instance()->getShader("DisplayVertices").bind();
-			ShaderManager::instance()->getShader("DisplayVertices").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+			ShaderManager::instance()->getShader("DisplayVertices")->bind();
+			ShaderManager::instance()->getShader("DisplayVertices")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 
 			scene.render(ShaderManager::instance()->getShader("DisplayVertices"));
 
 			glLineWidth(5);
 
-			ShaderManager::instance()->getShader("DisplayEdges").bind();
-			ShaderManager::instance()->getShader("DisplayEdges").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+			ShaderManager::instance()->getShader("DisplayEdges")->bind();
+			ShaderManager::instance()->getShader("DisplayEdges")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 
 			scene.render(ShaderManager::instance()->getShader("DisplayEdges"));
 		}
@@ -382,10 +382,10 @@ int main(void)
 
 		obj_light.render(ShaderManager::instance()->getShader("Normal"));
 
-		ShaderManager::instance()->getShader("Volume").bind();
-		ShaderManager::instance()->getShader("Volume").setMVP(glm::translate(glm::mat4(1), glm::vec3(20, 0, -20)), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Volume").setVec3("lightPos", l1.position);
-		ShaderManager::instance()->getShader("Volume").setVec3("viewPos", camera.getPosition());
+		ShaderManager::instance()->getShader("Volume")->bind();
+		ShaderManager::instance()->getShader("Volume")->setMVP(glm::translate(glm::mat4(1), glm::vec3(20, 0, -20)), camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Volume")->setVec3("lightPos", l1.position);
+		ShaderManager::instance()->getShader("Volume")->setVec3("viewPos", camera.getPosition());
 		vol_tex->bind();
 		light.render();
 		
@@ -398,8 +398,8 @@ int main(void)
 		//Render to quad
 		fbo->unbind();
 		GL::clear();
-		ShaderManager::instance()->getShader("Post").bind();
-		ShaderManager::instance()->getShader("Post").setFloat("exposure", exposure_callback.getExposure());
+		ShaderManager::instance()->getShader("Post")->bind();
+		ShaderManager::instance()->getShader("Post")->setFloat("exposure", exposure_callback.getExposure());
 		fbo->getTexture(0)->bind(0);
 		//lights[0].shadow_map.getTexture().bind();
 		quad.render();

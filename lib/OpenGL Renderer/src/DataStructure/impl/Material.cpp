@@ -24,34 +24,34 @@ Material::destroyObject(Material& object)
 }
 
 void 
-Material::bind(Shader shader)
+Material::bind(std::shared_ptr<Shader> shader)
 {
-	shader.bind();
-	shader.setBool(_name + ".useTextures", useTextures);
+	shader->bind();
+	shader->setBool(_name + ".useTextures", useTextures);
 	if (useTextures)
 	{
-		shader.setInt(_name + ".diffuse_map", 0);
+		shader->setInt(_name + ".diffuse_map", 0);
 		texture_diffuse->bind(0);
 		
-		shader.setInt(_name + ".specular_map", 1);
+		shader->setInt(_name + ".specular_map", 1);
 		texture_specular->bind(1);
 		
-		shader.setInt(_name + ".normal_map", 2);
+		shader->setInt(_name + ".normal_map", 2);
 		texture_normal->bind(2);
 
-		shader.setInt(_name + ".height_map", 3);
+		shader->setInt(_name + ".height_map", 3);
 		texture_height->bind(3);
 
-		shader.setFloat(_name + ".shininess", shininess);
+		shader->setFloat(_name + ".shininess", shininess);
 	}
 	else
 	{
-		shader.setVec3(_name + ".ambient", ambient);
-		shader.setVec3(_name + ".diffuse", diffuse);
-		shader.setVec3(_name + ".specular", specular);
-		shader.setFloat(_name + ".shininess", shininess);
+		shader->setVec3(_name + ".ambient", ambient);
+		shader->setVec3(_name + ".diffuse", diffuse);
+		shader->setVec3(_name + ".specular", specular);
+		shader->setFloat(_name + ".shininess", shininess);
 	}
-	shader.setInt(_name + ".type", _type);
-	shader.setFloat(_name + ".roughness", roughness);
-	shader.setFloat(_name + ".refractive_index", refractive_index);
+	shader->setInt(_name + ".type", _type);
+	shader->setFloat(_name + ".roughness", roughness);
+	shader->setFloat(_name + ".refractive_index", refractive_index);
 }

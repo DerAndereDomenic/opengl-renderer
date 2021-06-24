@@ -16,10 +16,6 @@ ShaderManager::instance()
 void
 ShaderManager::destroyObject(ShaderManager& manager)
 {
-	for (std::pair<std::string, Shader> shader : manager._shader)
-	{
-		Shader::destroyObject(shader.second);
-	}
 	manager._shader.clear();
 
 	delete manager._instance;
@@ -32,17 +28,17 @@ ShaderManager::addShader(const std::string& name, const bool geometry)
 	const std::string vertexPath = SHADER_DIRECTORY + name + ".vert";
 	const std::string fragmentPath = SHADER_DIRECTORY + name + ".frag";
 
-	Shader shader;
+	std::shared_ptr<Shader> shader;
 	if (geometry)
 	{
 		const std::string geometryPath = SHADER_DIRECTORY + name + ".geom";
-		shader = Shader::createObject(vertexPath, geometryPath, fragmentPath);
+		shader = std::make_shared<Shader>(vertexPath, geometryPath, fragmentPath);
 	}
 	else
 	{
-		shader = Shader::createObject(vertexPath.c_str(), fragmentPath.c_str());
+		shader = std::make_shared<Shader>(vertexPath.c_str(), fragmentPath.c_str());
 	}
-	_shader.insert(std::pair<std::string, Shader>(name, shader));
+	_shader.insert(std::pair<std::string, std::shared_ptr<Shader>>(name, shader));
 }
 
 void
@@ -54,7 +50,6 @@ ShaderManager::removeShader(const std::string& name)
 		LOGGER::ERROR("Shader with name: " + name + " does not exist. Rejecting...\n");
 		return;
 	}
-	Shader::destroyObject(it->second);
 	_shader.erase(it);
 }
 
@@ -63,12 +58,12 @@ ShaderManager::addComputeShader(const std::string& name)
 {
 	const std::string computePath = SHADER_DIRECTORY + name + ".glsl";
 
-	Shader shader = Shader::createObject(computePath);
+	std::shared_ptr<Shader> shader = Shader::createComputeShader(computePath);
 
-	_shader.insert(std::pair<std::string, Shader>(name, shader));
+	_shader.insert(std::pair<std::string, std::shared_ptr<Shader>>(name, shader));
 }
 
-Shader
+std::shared_ptr<Shader>
 ShaderManager::getShader(const std::string& name)
 {
 	return _shader[name];

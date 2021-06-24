@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <string>
 #include <OpenGLRendererConfig.h>
+#include <memory>
 
 class ShaderManager
 {
@@ -51,7 +52,7 @@ class ShaderManager
 		*	\param[in] name The name of the shader
 		*	\return The Shader with the specified name
 		*/
-		Shader
+		std::shared_ptr<Shader>
 		getShader(const std::string& name);
 
 		/**
@@ -61,15 +62,15 @@ class ShaderManager
 		void
 		setShaderDir(const std::string& path);
 	private:
-		static ShaderManager* _instance;						/**<< The ShaderManager instance*/
+		static ShaderManager* _instance;										/**<< The ShaderManager instance*/
 
-		ShaderManager() = default;								/**<< Make constructor private*/
+		ShaderManager() = default;												/**<< Make constructor private*/
 
-		ShaderManager(const ShaderManager&);					/**<< Make constructor private*/
+		ShaderManager(const ShaderManager&);									/**<< Make constructor private*/
 
-		std::unordered_map<std::string, Shader> _shader;		/**<< The container holding the shaders*/
+		std::unordered_map<std::string, std::shared_ptr<Shader>> _shader;		/**<< The container holding the shaders*/
 
-		std::string SHADER_DIRECTORY = SHADER_SOURCE_PATH; /**<< The path to the shader files*/
+		std::string SHADER_DIRECTORY = SHADER_SOURCE_PATH;						/**<< The path to the shader files*/
 };
 
 #endif
