@@ -18,15 +18,13 @@ public:
 	*	\brief Create a render buffer object
 	*	\param[in] width The width of the buffer
 	*	\param[in] height The height of the buffer
-	*	\return The object
 	*/
-	static RenderBuffer createObject(const uint32_t& width, const uint32_t& height);
+	RenderBuffer(const uint32_t& width, const uint32_t& height);
 
 	/**
 	*	\brief Destroy a render buffer object
-	*	\param[in] rbo The object to be destroyed
 	*/
-	static void destroyObject(RenderBuffer& rbo);
+	~RenderBuffer();
 
 	/**
 	*	\brief Binds the render buffer

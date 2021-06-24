@@ -18,7 +18,6 @@ FrameBuffer::~FrameBuffer()
 	_height = 0;
 	glDeleteFramebuffers(1, &_ID);
 	_render_textures.clear();
-	RenderBuffer::destroyObject(_depth_stencil);
 }
 
 void
@@ -51,8 +50,8 @@ void
 FrameBuffer::attachRenderBuffer()
 {
 	bind();
-	_depth_stencil = RenderBuffer::createObject(_width, _height);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depth_stencil.getID());
+	_depth_stencil = std::make_shared<RenderBuffer>(_width, _height);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depth_stencil->getID());
 }
 
 void

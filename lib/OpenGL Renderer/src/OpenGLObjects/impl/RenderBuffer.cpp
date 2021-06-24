@@ -2,22 +2,16 @@
 
 #include <GL/glew.h>
 
-RenderBuffer 
-RenderBuffer::createObject(const uint32_t& width, const uint32_t& height)
+RenderBuffer::RenderBuffer(const uint32_t& width, const uint32_t& height)
 {
-	RenderBuffer result;
-
-	glGenRenderbuffers(1, &result._ID);
-	glBindRenderbuffer(GL_RENDERBUFFER, result._ID);
+	glGenRenderbuffers(1, &_ID);
+	glBindRenderbuffer(GL_RENDERBUFFER, _ID);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-
-	return result;
 }
 
-void 
-RenderBuffer::destroyObject(RenderBuffer& rbo)
+RenderBuffer::~RenderBuffer()
 {
-	glDeleteRenderbuffers(1, &rbo._ID);
+	glDeleteRenderbuffers(1, &_ID);
 }
 
 void 

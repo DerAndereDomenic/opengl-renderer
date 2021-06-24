@@ -100,7 +100,7 @@ public:
 private:
 	uint32_t _ID = 0;												/**<< The internal OpenGL handle for the fbo*/
 	std::vector<std::shared_ptr<Texture>> _render_textures = {};	/**<< The Color textures of this fbo*/
-	RenderBuffer _depth_stencil = {};								/**<< The depth and stencil buffer of this fbo*/
+	std::shared_ptr<RenderBuffer> _depth_stencil = {};				/**<< The depth and stencil buffer of this fbo*/
 
 	uint32_t _width = 0;											/**<< The width of the Framebuffer*/
 	uint32_t _height = 0;											/**<< The height of the Framebuffer*/
