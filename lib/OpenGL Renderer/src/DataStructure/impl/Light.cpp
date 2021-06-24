@@ -3,38 +3,28 @@
 #include <glm/gtx/transform.hpp>
 #include <Shader/Shader.h>
 
-Light 
-Light::createObject(const glm::vec3& position, 
-					const bool& castShadows, 
-					const uint32_t& shadow_resx, 
-					const uint32_t& shadow_resy, 
-					const float& near, 
-					const float& far)
+ Light::Light(const glm::vec3& position, 
+			  const bool& castShadows, 
+			  const uint32_t& shadow_resx, 
+			  const uint32_t& shadow_resy, 
+			  const float& near, 
+			  const float& far)
 {
-	Light result;
-
-	result.position = position;
-	result.castShadows = castShadows;
+	this->position = position;
+	this->castShadows = castShadows;
 
 	if (castShadows)
 	{
-		result.shadow_map = std::make_shared<FrameBuffer>(shadow_resx, shadow_resy);
-		result.shadow_map->attachDepthMap();
-		result.shadow_map->disableColor();
-		result.shadow_map->verify();
-		result.shadow_map->unbind();
+		shadow_map = std::make_shared<FrameBuffer>(shadow_resx, shadow_resy);
+		shadow_map->attachDepthMap();
+		shadow_map->disableColor();
+		shadow_map->verify();
+		shadow_map->unbind();
 
-		result.lightProjection = glm::perspective(360.0f, static_cast<float>(shadow_resx) / static_cast<float>(shadow_resy), near, far);
-		result.lightView = glm::lookAt(position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		result.lightSpace = result.lightProjection * result.lightView;
+		lightProjection = glm::perspective(360.0f, static_cast<float>(shadow_resx) / static_cast<float>(shadow_resy), near, far);
+		lightView = glm::lookAt(position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		lightSpace = lightProjection * lightView;
 	}
-	return result;
-}
-
-void 
-Light::destroyObject(Light& light)
-{
-
 }
 
 void 

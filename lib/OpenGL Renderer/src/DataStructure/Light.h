@@ -25,22 +25,14 @@ class Light
 		*	\param[in] shadow_resy The y resolution of the shadow map
 		*	\param[in] near The near plane
 		*	\param[in] far The far plane
-		*	\return The light object
 		*/
-		static
-		Light createObject(const glm::vec3& position, 
-						   const bool& castShadows = false, 
-						   const uint32_t& shadow_resx = 0, 
-						   const uint32_t& shadow_resy = 0, 
-						   const float& near = 0, 
-						   const float& far = 0);
+		Light(const glm::vec3& position, 
+			  const bool& castShadows = false, 
+			  const uint32_t& shadow_resx = 0, 
+			  const uint32_t& shadow_resy = 0, 
+			  const float& near = 0, 
+			  const float& far = 0);
 
-		/**
-		*	\brief Destroys a light object
-		*	\param[in] light The object to destroy
-		*/
-		static
-		void destroyObject(Light& light);
 
 		/**
 		*	\brief Adds the light to the specified shader

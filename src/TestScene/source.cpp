@@ -202,22 +202,22 @@ int main(void)
 
 	RenderObject obj_light = RenderObject::createObject(light, mat_lamp, glm::translate(glm::mat4(1), glm::vec3(20, 0, 0)));
 
-	Light l1 = Light::createObject(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20,0,0,1), true, shadow_width, shadow_height, near, far);
+	Light l1 = Light(glm::rotate(glm::mat4(1), 3.14159f / 4.0f, glm::vec3(0, 0, 1)) * glm::vec4(20,0,0,1), true, shadow_width, shadow_height, near, far);
 	l1.ambient = glm::vec3(0.1f);
 	l1.diffuse = glm::vec3(500.0f );
 	l1.specular = glm::vec3(500.0f);
 
-	Light l2 = Light::createObject(glm::vec3(0.0f, 0.2f, 0));
+	Light l2 = Light(glm::vec3(0.0f, 0.2f, 0));
 	l2.ambient = glm::vec3(0);
 	l2.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
 	l2.specular = glm::vec3(1.0f, 0.0f, 0.0f);
 
-	Light l3 = Light::createObject(glm::vec3(-3, 0.2f, 2));
+	Light l3 = Light(glm::vec3(-3, 0.2f, 2));
 	l3.ambient = glm::vec3(0);
 	l3.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
 	l3.specular = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	Light l4 = Light::createObject(glm::vec3(0, 20, 20), true, shadow_width, shadow_height, near, far);
+	Light l4 = Light(glm::vec3(0, 20, 20), true, shadow_width, shadow_height, near, far);
 	l4.ambient = glm::vec3(0.1f);
 	l4.diffuse = glm::vec3(500.0f);
 	l4.specular = glm::vec3(500.0f);

@@ -33,7 +33,7 @@ Things I want to address in a refactoring stage: <br>
     * [x] - Scene
     * [ ] - RenderWindow
     * [ ] - RenderObject
-    * [ ] - Light
+    * [x] - Light
     * [x] - RenderBuffer
     * [x] - ParticleRenderer
     * [x] - Mesh
