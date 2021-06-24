@@ -37,7 +37,7 @@ ParticleRenderer::createObject(const glm::vec3& position, const uint32_t& num_pa
 		result._attributes[4 * i + 3] = result._particles[i].timeAlive;
 	}
 
-	result._instanceArray = VertexBuffer::createObject(result._attributes, num_particles * 4, GL_DYNAMIC_DRAW);
+	result._instanceArray = std::make_shared<VertexBuffer>(result._attributes, num_particles * 4, GL_DYNAMIC_DRAW);
 	VertexBufferLayout layout;
 	layout.add(GL_FLOAT, 3);
 	layout.add(GL_FLOAT, 1);
@@ -55,7 +55,7 @@ ParticleRenderer::destroyObject(ParticleRenderer& object)
 	Texture::destroyObject(object._texture);
 	object._particles.clear();
 	VertexArray::destroyObject(object._vao);
-	VertexBuffer::destroyObject(object._instanceArray);
+	//VertexBuffer::destroyObject(object._instanceArray);
 	delete[] object._attributes;
 }
 
@@ -76,7 +76,7 @@ ParticleRenderer::update(const float& deltaTime)
 		_attributes[4 * i + 3] = _particles[i].timeAlive/_timeAlive;
 	}
 
-	_instanceArray.changeData(_attributes, 4 * _particles.size());
+	_instanceArray->changeData(_attributes, 4 * _particles.size());
 }
 
 void 

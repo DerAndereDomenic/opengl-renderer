@@ -20,7 +20,7 @@ void
 Mesh::destroyObject(Mesh& mesh)
 {
 	VertexArray::destroyObject(mesh._vao);
-	VertexBuffer::destroyObject(mesh._vbo);
+	//VertexBuffer::destroyObject(mesh._vbo);
 	IndexBuffer::destroyObject(mesh._ibo);
 	mesh._vertex_count = 0;
 	mesh._indices.clear();
@@ -30,7 +30,7 @@ Mesh::destroyObject(Mesh& mesh)
 void 
 Mesh::create()
 {
-	_vbo = VertexBuffer::createObject(_vertices.data(), _vertices.size());
+	_vbo = std::make_shared<VertexBuffer>(_vertices.data(), _vertices.size());
 	_vao = VertexArray::createObject();
 	_vao.addBuffer(_vbo, _layout);
 	_ibo = IndexBuffer::createObject(_indices.data(), _indices.size());

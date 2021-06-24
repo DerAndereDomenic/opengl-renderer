@@ -20,13 +20,12 @@ public:
 	*	\param[in] data The Vertices Data
 	*	\param[in] count The count of elements in the array
 	*/
-	static VertexBuffer createObject(const float* data, const uint32_t& count, const GLenum& usage = GL_STATIC_DRAW);
+	VertexBuffer(const float* data, const uint32_t& count, const GLenum& usage = GL_STATIC_DRAW);
 
 	/**
 	*	\brief Destroys the Vertex Buffer object
-	*	\param[in] vbo The object
 	*/
-	static void destroyObject(VertexBuffer& vbo);
+	~VertexBuffer();
 
 	/**
 	*	\brief Bind the Buffer

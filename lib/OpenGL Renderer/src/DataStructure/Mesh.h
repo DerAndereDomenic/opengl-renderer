@@ -4,6 +4,7 @@
 #include <Renderer/RenderWindow.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include <memory>
 #define VERTEX_SIZE 16
 
 /**
@@ -89,15 +90,15 @@ private:
 	*/
 	void calculateTangent(const uint32_t& index1, const uint32_t& index2, const uint32_t& index3);
 
-	std::vector<float> _vertices; /**<< A buffer to safe vertex information*/
-	std::vector<uint32_t> _indices; /**<< A buffer to safe index information*/
+	std::vector<float> _vertices;			/**<< A buffer to safe vertex information*/
+	std::vector<uint32_t> _indices;			/**<< A buffer to safe index information*/
 
-	uint32_t _vertex_count; /**<< The count of vertices in the mesh*/
+	uint32_t _vertex_count;					/**<< The count of vertices in the mesh*/
 
-	VertexArray _vao; /**<< The vertex array object of the mesh*/
-	VertexBuffer _vbo; /**<< The vertex buffer object of the mesh*/
-	IndexBuffer _ibo; /**<< The index buffer object of the mesh*/
-	VertexBufferLayout _layout; /**<< The layout of the vertex buffer object*/
+	VertexArray _vao;						/**<< The vertex array object of the mesh*/
+	std::shared_ptr<VertexBuffer> _vbo;		/**<< The vertex buffer object of the mesh*/
+	IndexBuffer _ibo;						/**<< The index buffer object of the mesh*/
+	VertexBufferLayout _layout;				/**<< The layout of the vertex buffer object*/
 
 	bool _calcTangent = false;
 };

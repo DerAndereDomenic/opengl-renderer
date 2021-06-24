@@ -1,24 +1,19 @@
 #include <OpenGLObjects/VertexBuffer.h>
-
-VertexBuffer 
-VertexBuffer::createObject(const float* data, const uint32_t& count, const GLenum& usage)
+ 
+VertexBuffer::VertexBuffer(const float* data, const uint32_t& count, const GLenum& usage)
 {
-	VertexBuffer result;
-	glGenBuffers(1, &result._ID);
-	glBindBuffer(GL_ARRAY_BUFFER, result._ID);
+	glGenBuffers(1, &_ID);
+	glBindBuffer(GL_ARRAY_BUFFER, _ID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*count, data, usage);
 
-	result._size = count * sizeof(float);
-	result._count = count;
-
-	return result;
+	_size = count * sizeof(float);
+	_count = count;
 }
 
-void 
-VertexBuffer::destroyObject(VertexBuffer& vbo)
+VertexBuffer::~VertexBuffer()
 {
-	glDeleteBuffers(1, &vbo._ID);
-	vbo._size = 0;
+	glDeleteBuffers(1, &_ID);
+	_size = 0;
 }
 
 void 

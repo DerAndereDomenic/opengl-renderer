@@ -55,9 +55,9 @@ VertexArray::setCount(const uint32_t& count)
 }
 
 void 
-VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout)
+VertexArray::addBuffer(const std::shared_ptr<VertexBuffer> vbo, const VertexBufferLayout &layout)
 {
-	vbo.bind();
+	vbo->bind();
 	bind();
 	uint32_t offset = 0;
 	for (uint32_t i = 0; i < layout.getElements().size(); ++i)
@@ -68,11 +68,11 @@ VertexArray::addBuffer(const VertexBuffer &vbo, const VertexBufferLayout &layout
 		offset += element._count * BufferElement::getSizeOfType(element._type);
 		++_attribCount;
 	}
-	_count = vbo.getCount();
+	_count = vbo->getCount();
 }
 
 void 
-VertexArray::addInstanceBuffer(const VertexBuffer& vbo, const VertexBufferLayout& layout)
+VertexArray::addInstanceBuffer(const std::shared_ptr<VertexBuffer> vbo, const VertexBufferLayout& layout)
 {
 	addBuffer(vbo, layout);
 	for (uint32_t i = 0; i < layout.getElements().size(); ++i)

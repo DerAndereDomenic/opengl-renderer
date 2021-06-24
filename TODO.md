@@ -24,7 +24,7 @@ Things I want to address in a refactoring stage: <br>
     * [ ] - Camera
 * [ ] - Rework the destroy/create process of Objects
     * [ ] - VRRenderer
-    * [ ] - VertexBuffer
+    * [x] - VertexBuffer
     * [ ] - VertexArray
     * [ ] - Texture
     * [ ] - TextRenderer

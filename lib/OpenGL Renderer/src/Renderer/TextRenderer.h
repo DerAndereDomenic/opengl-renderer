@@ -5,6 +5,7 @@
 #include <OpenGLObjects/Texture.h>
 #include <glm/glm.hpp>
 #include <unordered_map>
+#include <memory>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -66,12 +67,12 @@ class TextRenderer
 		*/
 		void loadCharacter(const uint8_t& c);
 
-		FT_Library _ft;										/**<< The internal FreeType library object*/
-		FT_Face _face;										/**<< The internal FreeType face object*/
-		std::unordered_map<uint8_t, Character> _characters;	/**<< The internal character structure, storing textures, etc.*/
-		VertexArray _vao;									/**<< The vao to render the text*/
-		VertexBuffer _vbo;									/**<< The vbo to render the text*/
-		glm::mat4 _projection;								/**<< The orthographic projection to render the text*/
+		FT_Library _ft;														/**<< The internal FreeType library object*/
+		FT_Face _face;														/**<< The internal FreeType face object*/
+		std::unordered_map<uint8_t, Character> _characters;					/**<< The internal character structure, storing textures, etc.*/
+		VertexArray _vao;													/**<< The vao to render the text*/
+		std::shared_ptr<VertexBuffer> _vbo;									/**<< The vbo to render the text*/
+		glm::mat4 _projection;												/**<< The orthographic projection to render the text*/
 };
 
 #endif

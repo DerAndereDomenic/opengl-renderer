@@ -29,7 +29,7 @@ TextRenderer::createObject(const uint32_t& width, const uint32_t& height)
 		1.0f, 1.0f, 1.0f, 0.0f
 	};
 
-	result._vbo = VertexBuffer::createObject(vertices, 6 * 4);
+	result._vbo = std::make_shared<VertexBuffer>(vertices, 6 * 4);
 	result._vao = VertexArray::createObject();
 	result._vao.addBuffer(result._vbo, layout);
 
@@ -51,7 +51,7 @@ TextRenderer::destroyObject(TextRenderer& object)
 	object._characters.clear();
 	FT_Done_Face(object._face);
 	FT_Done_FreeType(object._ft);
-	VertexBuffer::destroyObject(object._vbo);
+	//VertexBuffer::destroyObject(object._vbo);
 	VertexArray::destroyObject(object._vao);
 }
 
