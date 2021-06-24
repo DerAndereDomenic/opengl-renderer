@@ -23,5 +23,23 @@ Things I want to address in a refactoring stage: <br>
     * [ ] - EnvironmentMap
     * [ ] - Camera
 * [ ] - Rework the destroy/create process of Objects
+    * [ ] - VRRenderer
+    * [ ] - VertexBuffer
+    * [ ] - VertexArray
+    * [ ] - Texture
+    * [ ] - TextRenderer
+    * [ ] - Skybox
+    * [ ] - Shader
+    * [ ] - Scene
+    * [ ] - RenderWindow
+    * [ ] - RenderObject
+    * [ ] - RenderBuffer
+    * [ ] - ParticleRenderer
+    * [ ] - Mesh
+    * [ ] - IndexBuffer
+    * [ ] - GBuffer
+    * [ ] - FrameBuffer
+    * [ ] - EnvironmentMap
+    * [ ] - Camera
 * [ ] - Update scene representation
 * [ ] - Remove KeyHandler class
