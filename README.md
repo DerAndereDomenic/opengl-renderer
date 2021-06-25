@@ -9,8 +9,8 @@ If you are still interested in building the project, all necessary libraries are
 TODO
 ============
 Here, I list some things I'd like to implement in the future.
-* [] - A forward renderer class that handles all steps to create forward renderings. For this an update of the Material system is probably useful:
-    * [] - Update Materials system
-* [] - A deferred renderer class, similar to the forward renderer
-* [] - Bloom Pipeline
-* [] - SSAO
+* [ ] - A forward renderer class that handles all steps to create forward renderings. For this an update of the Material system is probably useful:
+    * [ ] - Update Materials system
+* [ ] - A deferred renderer class, similar to the forward renderer
+* [ ] - Bloom Pipeline
+* [ ] - SSAO
