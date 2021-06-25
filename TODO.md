@@ -22,7 +22,7 @@ Things I want to address in a refactoring stage: <br>
     * [ ] - FrameBuffer
     * [ ] - EnvironmentMap
     * [ ] - Camera
-* [ ] - Rework the destroy/create process of Objects
+* [x] - Rework the destroy/create process of Objects
     * [x] - VRRenderer
     * [x] - VertexBuffer
     * [x] - VertexArray

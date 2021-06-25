@@ -15,26 +15,26 @@ int main()
     LOGGER::setProject("Deferred Renderer", "1.0");
     LOGGER::start();
 
-    Camera camera = Camera::createObject(static_cast<float>(width)/static_cast<float>(height), 0.01f, 100.0f);
-    RenderWindow window = RenderWindow::createObject(width, height, "DeferredRenderer", &camera);
+    Camera camera = Camera(static_cast<float>(width)/static_cast<float>(height), 0.01f, 100.0f);
+    RenderWindow window = RenderWindow(width, height, "DeferredRenderer", &camera);
     WindowClose close_callback(&window);
     window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 
     GL::enableDebugOutput();
 
-    Mesh crate = MeshHelper::cubeMesh(glm::vec4(1));
-    crate.create();
-    Texture diffuse_texture = Texture::createObject(RESOURCE_PATH + "crate_diffuse.png");
-    Texture specuar_texture = Texture::createObject(RESOURCE_PATH + "crate_specular.png");
+    std::shared_ptr<Mesh> crate = MeshHelper::cubeMesh(glm::vec4(1));
+    crate->create();
+    Texture diffuse_texture = Texture(RESOURCE_PATH + "crate_diffuse.png");
+    Texture specuar_texture = Texture(RESOURCE_PATH + "crate_specular.png");
 
     ShaderManager::instance()->addShader("GeometryDeferred");
     ShaderManager::instance()->addShader("LightDeferred");
 
-    GBuffer gbuffer = GBuffer::createObject(width, height);
+    GBuffer gbuffer = GBuffer(width, height);
     GL::updateDrawBuffers(3);
 
-    Mesh quad = MeshHelper::quadMesh(2);
-    quad.create();
+    std::shared_ptr<Mesh> quad = MeshHelper::quadMesh(2);
+    quad->create();
 
     //Disable blending when using deferred rendering
     glDisable(GL_BLEND);
@@ -43,30 +43,27 @@ int main()
     {
         gbuffer.bind();
         GL::clear();
-        ShaderManager::instance()->getShader("GeometryDeferred").bind();
-        ShaderManager::instance()->getShader("GeometryDeferred").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-        ShaderManager::instance()->getShader("GeometryDeferred").setInt("texture_diffuse", 0);
-        ShaderManager::instance()->getShader("GeometryDeferred").setInt("texture_specular", 1);
+        ShaderManager::instance()->getShader("GeometryDeferred")->bind();
+        ShaderManager::instance()->getShader("GeometryDeferred")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+        ShaderManager::instance()->getShader("GeometryDeferred")->setInt("texture_diffuse", 0);
+        ShaderManager::instance()->getShader("GeometryDeferred")->setInt("texture_specular", 1);
         diffuse_texture.bind(0);
         specuar_texture.bind(1);
-        crate.render();
+        crate->render();
         FrameBuffer::bindDefault();
 
         GL::clear();
-        ShaderManager::instance()->getShader("LightDeferred").bind();
-        ShaderManager::instance()->getShader("LightDeferred").setVec3("viewPos", camera.getPosition());
-        ShaderManager::instance()->getShader("LightDeferred").setInt("gPosition", 0);
-        ShaderManager::instance()->getShader("LightDeferred").setInt("gNormal", 1);
-        ShaderManager::instance()->getShader("LightDeferred").setInt("gAlbedoSpec", 2);
+        ShaderManager::instance()->getShader("LightDeferred")->bind();
+        ShaderManager::instance()->getShader("LightDeferred")->setVec3("viewPos", camera.getPosition());
+        ShaderManager::instance()->getShader("LightDeferred")->setInt("gPosition", 0);
+        ShaderManager::instance()->getShader("LightDeferred")->setInt("gNormal", 1);
+        ShaderManager::instance()->getShader("LightDeferred")->setInt("gAlbedoSpec", 2);
         gbuffer.bindTextures();
-        quad.render();
+        quad->render();
 
         window.spinOnce();
     }
 
-    RenderWindow::destroyObject(window);
-    Camera::destroyObject(camera);
-    GBuffer::destroyObject(gbuffer);
     ShaderManager::destroyObject(*ShaderManager::instance());
 
     LOGGER::end();

@@ -17,8 +17,8 @@ int main()
 	uint32_t width = 1280, height = 720;
 	float water_height = 4;
 
-	Camera camera = Camera::createObject( width / height, 0.01f, 500);
-	RenderWindow window = RenderWindow::createObject(width, height, "WaterScene", &camera);
+	Camera camera = Camera( width / height, 0.01f, 500);
+	RenderWindow window = RenderWindow(width, height, "WaterScene", &camera);
 
 	GL::enableDebugOutput();
 
@@ -29,18 +29,18 @@ int main()
 	ShaderManager::instance()->addShader("Normal");
 	ShaderManager::instance()->addShader("Water");
 
-	Mesh water = MeshHelper::quadMesh(6);
-	water.create();
+	std::shared_ptr<Mesh> water = MeshHelper::quadMesh(6);
+	water->create();
 	glm::mat4 rotate = glm::translate(glm::vec3(0,water_height,0)) * glm::rotate(-3.14159f / 2.0f, glm::vec3(1, 0, 0));
 
 	std::vector<std::string> names;
-	std::vector<Mesh> meshes;
+	std::vector<std::shared_ptr<Mesh>> meshes;
 	std::vector<Material> material;
 	std::vector<glm::mat4> models;
 
 	names.push_back("Terrain");
 	meshes = ObjLoader::loadObj(RESOURCE_PATH + "terrain.obj");
-	Material terrain = Material::createObject("materialmap", LAMBERT);
+	Material terrain = Material("materialmap", LAMBERT);
 	terrain.ambient = glm::vec3(0.1, 0.1, 0.1);
 	terrain.diffuse = glm::vec3(1, 1, 1);
 	terrain.specular = glm::vec3(1, 1, 1);
@@ -50,9 +50,9 @@ int main()
 	models.push_back(glm::mat4(1));
 
 	names.push_back("Box");
-	Mesh box_mesh = MeshHelper::cuboidMesh(glm::vec4(1), 1, 10, 1);
+	std::shared_ptr<Mesh> box_mesh = MeshHelper::cuboidMesh(glm::vec4(1), 1, 10, 1);
 	meshes.push_back(box_mesh);
-	Material box_material = Material::createObject("materialmap");
+	Material box_material = Material("materialmap");
 	box_material.ambient = glm::vec3(0.1, 0, 0);
 	box_material.diffuse = glm::vec3(1, 0, 0);
 	box_material.specular = glm::vec3(1, 0, 0);
@@ -62,21 +62,21 @@ int main()
 	models.push_back(glm::translate(glm::vec3(-4,7,-4)));
 	
 
-	Scene scene = Scene::createObject(names, meshes, material, models);
+	Scene scene = Scene(names, meshes, material, models);
 
-	Light light = Light::createObject(glm::vec3(10, 30, 10), false);
+	Light light = Light(glm::vec3(10, 30, 10), false);
 	light.ambient = glm::vec3(1.0f);
 	light.diffuse = glm::vec3(700.0f);
 	light.specular = glm::vec3(700.0f);
 
 	scene.addLight(&light);
 
-	FrameBuffer reflection = FrameBuffer::createObject(width, height);
+	FrameBuffer reflection = FrameBuffer(width, height);
 	reflection.attachColor();
 	reflection.attachRenderBuffer();
 	reflection.verify();
 
-	FrameBuffer refraction = FrameBuffer::createObject(width, height);
+	FrameBuffer refraction = FrameBuffer(width, height);
 	refraction.attachColor();
 	refraction.attachRenderBuffer();
 	refraction.verify();
@@ -89,10 +89,10 @@ int main()
 
 		refraction.bind();
 		GL::clear();
-		ShaderManager::instance()->getShader("Normal").bind();
-		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal").setVec4("plane", glm::vec4(0, -1, 0, -water_height));
+		ShaderManager::instance()->getShader("Normal")->bind();
+		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::instance()->getShader("Normal")->setVec4("plane", glm::vec4(0, -1, 0, -water_height));
 
 		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 		scene.render(ShaderManager::instance()->getShader("Normal"));
@@ -104,9 +104,9 @@ int main()
 
 		reflection.bind();
 		GL::clear();
-		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal").setVec4("plane", glm::vec4(0, 1, 0, water_height));
+		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::instance()->getShader("Normal")->setVec4("plane", glm::vec4(0, 1, 0, water_height));
 
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
@@ -115,33 +115,27 @@ int main()
 		camera.teleport(position);
 
 		FrameBuffer::bindDefault();
-		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal").setVec4("plane", glm::vec4(0, 1, 0, -100));
+		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::instance()->getShader("Normal")->setVec4("plane", glm::vec4(0, 1, 0, -100));
 
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
-		ShaderManager::instance()->getShader("Water").bind();
-		ShaderManager::instance()->getShader("Water").setMVP(rotate, camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Water").setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Water").setInt("reflection", 0);
-		ShaderManager::instance()->getShader("Water").setInt("refraction", 1);
+		ShaderManager::instance()->getShader("Water")->bind();
+		ShaderManager::instance()->getShader("Water")->setMVP(rotate, camera.getView(), camera.getProjection());
+		ShaderManager::instance()->getShader("Water")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::instance()->getShader("Water")->setInt("reflection", 0);
+		ShaderManager::instance()->getShader("Water")->setInt("refraction", 1);
 
-		reflection.getTexture().bind(0);
-		refraction.getTexture().bind(1);
+		reflection.getTexture()->bind(0);
+		refraction.getTexture()->bind(1);
 
-		water.render();
+		water->render();
 
 		window.spinOnce();
 	}
 
-	RenderWindow::destroyObject(window);
-	Camera::destroyObject(camera);
-	Scene::destroyObject(scene);
-	FrameBuffer::destroyObject(reflection);
-	FrameBuffer::destroyObject(refraction);
 	ShaderManager::destroyObject(*ShaderManager::instance());
-	Mesh::destroyObject(water);
 
 	LOGGER::end();
 

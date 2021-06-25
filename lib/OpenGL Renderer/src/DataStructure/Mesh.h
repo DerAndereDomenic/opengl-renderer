@@ -16,7 +16,7 @@
 *	3 - float: Normal
 *	3 - float: Tangent
 *
-*	The tangent may be (0,0,0) if bool calcTangent = false in Mesh::createObject()
+*	The tangent may be (0,0,0) if bool calcTangent = false in Mesh()
 */
 class Mesh
 {

@@ -236,14 +236,14 @@ int main()
     LOGGER::start();
 
     const uint32_t width = 1280, height = 720;
-    RenderWindow window = RenderWindow::createObject(width, height, "Laplace");
+    RenderWindow window = RenderWindow(width, height, "Laplace");
     WindowClose close_callback(&window);
 
     GL::enableDebugOutput();
 
     window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 
-    Mesh mesh = Mesh::createObject();
+    Mesh mesh = Mesh();
     glm::vec3 vertices[6] =
     {
         glm::vec3(0.0f, 0.0f, 0.0f)/5.0f,
@@ -335,7 +335,7 @@ int main()
     }
     mesh.create();
 
-    Shader basic = Shader::createObject(SHADER_SOURCE_PATH + "basic.vert", SHADER_SOURCE_PATH + "basic.frag");
+    Shader basic = Shader(SHADER_SOURCE_PATH + "basic.vert", SHADER_SOURCE_PATH + "basic.frag");
     
     while (window.isOpen())
     {
@@ -348,10 +348,6 @@ int main()
 
         window.spinOnce();
     }
-
-    RenderWindow::destroyObject(window);
-    Mesh::destroyObject(mesh);
-    Shader::destroyObject(basic);
 
     LOGGER::end();
 

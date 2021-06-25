@@ -12,17 +12,17 @@
 #include <DLogger/Logger.h>
 #include <Core/GLFunctions.h>
 
-Scene generateScene()
+std::shared_ptr<Scene> generateScene()
 {
 	std::vector<std::string> names;
-	std::vector<Mesh> meshes;
+	std::vector<std::shared_ptr<Mesh>> meshes;
 	std::vector<Material> materials;
 	std::vector<glm::mat4> models;
 
 	names.push_back("Ball");
 	meshes.push_back(ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0]);
 	models.push_back(glm::mat4(1));
-	Material ball_mat = Material::createObject("materialmap", PHONG);
+	Material ball_mat = Material("materialmap", PHONG);
 	ball_mat.useTextures = false;
 	ball_mat.diffuse = glm::vec4(1, 1, 0, 1);
 	ball_mat.ambient = glm::vec4(1, 1, 0, 1);
@@ -33,7 +33,7 @@ Scene generateScene()
 	names.push_back("Plane");
 	meshes.push_back(ObjLoader::loadObj(RESOURCE_PATH + "plane.obj")[0]);
 	models.push_back(glm::scale(glm::translate(glm::mat4(1), glm::vec3(0, -1, 0)), glm::vec3(500, 500, 500)));
-	Material plane_mat = Material::createObject("materialmap");
+	Material plane_mat = Material("materialmap");
 	plane_mat.useTextures = false;
 	plane_mat.diffuse = glm::vec4(1, 0, 1, 1);
 	plane_mat.ambient = glm::vec4(1, 0, 1, 1);
@@ -41,9 +41,9 @@ Scene generateScene()
 	plane_mat.shininess = 0.4f * 128.0f;
 	materials.push_back(plane_mat);
 
-	Scene scene = Scene::createObject(names, meshes, materials, models);
+	Scene scene = Scene(names, meshes, materials, models);
 
-	return scene;
+	return std::make_shared<Scene>(scene);
 }
 
 int main()
@@ -53,7 +53,7 @@ int main()
 
 	unsigned int width = 1280, height = 720;
 
-	RenderWindow window = RenderWindow::createObject(width, height, "Dancing Ball");
+	RenderWindow window = RenderWindow(width, height, "Dancing Ball");
 
 	GL::enableDebugOutput();
 
@@ -63,14 +63,14 @@ int main()
 
 	ShaderManager::instance()->addShader("Normal");
 	
-	Scene scene = generateScene();
-	Light light = Light::createObject(glm::vec3(10, 10, 10), true, 2000, 2000, 0.1f, 500.0f);
+	std::shared_ptr<Scene> scene = generateScene();
+	Light light = Light(glm::vec3(10, 10, 10), true, 2000, 2000, 0.1f, 500.0f);
 	light.ambient = glm::vec3(0.1f);
 	light.diffuse = glm::vec3(400.0f);
 	light.specular = glm::vec3(400.0f);
-	scene.addLight(&light);
+	scene->addLight(&light);
 
-	RenderObject& ball = scene.getObject("Ball");
+	std::shared_ptr<RenderObject> ball = scene->getObject("Ball");
 
 	//SIMULATION-----------------------------------------------------------------------------------------------
 	const unsigned int simulation_steps = 10000;
@@ -79,7 +79,7 @@ int main()
 	const float DAMPING = 1.15f;
 	glm::vec3 v(0, 0, 1.0f);
 	glm::vec3 p(0, 5, 0);
-	ball.setModel(glm::translate(glm::mat4(1), p));
+	ball->setModel(glm::translate(glm::mat4(1), p));
 
 	double currentTime = 0;
 	double lastTime = 0;
@@ -120,24 +120,24 @@ int main()
 		view = glm::lookAt(camera_pos, p, glm::vec3(0, 1, 0));
 		//if (glm::length(v) < 0.0001f)std::cout << p.y << std::endl;
 
-		ball.setModel(glm::translate(glm::mat4(1), p));
+		ball->setModel(glm::translate(glm::mat4(1), p));
 
 		GL::clear();
 
 		GL::setViewport(2000, 2000);
 
-		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
-		scene.updateShadowMaps();
+		scene->passLights2Shader(ShaderManager::instance()->getShader("Normal"));
+		scene->updateShadowMaps();
 
 		window.resetViewport();
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		ShaderManager::instance()->getShader("Normal").bind();
-		ShaderManager::instance()->getShader("Normal").setVec3("viewPos", camera_pos);
-		ShaderManager::instance()->getShader("Normal").setMVP(glm::mat4(1), view, projection);
+		ShaderManager::instance()->getShader("Normal")->bind();
+		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera_pos);
+		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), view, projection);
 
-		scene.render(ShaderManager::instance()->getShader("Normal"));
+		scene->render(ShaderManager::instance()->getShader("Normal"));
 
 		window.spinOnce();
 
@@ -147,9 +147,7 @@ int main()
 		}
 	}
 
-	RenderWindow::destroyObject(window);
 	KeyManager::instance()->destroy();
-	Scene::destroyObject(scene);
 
 	LOGGER::end();
 
