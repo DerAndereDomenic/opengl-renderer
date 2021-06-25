@@ -46,7 +46,7 @@ int main(void)
 	float far = 500.0f;
 
 	Camera camera = Camera(static_cast<float>(width)/static_cast<float>(height), near, far);
-	RenderWindow window = RenderWindow::createObject(width, height, "Render Window", &camera);
+	RenderWindow window = RenderWindow(width, height, "Render Window", &camera);
 
 	GL::enableDebugOutput();
 
@@ -428,7 +428,6 @@ int main(void)
 	}
 
 	ShaderManager::destroyObject(*ShaderManager::instance());
-	RenderWindow::destroyObject(window);
 	KeyManager::destroy();
 
 	LOGGER::end();

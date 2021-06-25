@@ -4,66 +4,60 @@
 #include <Core/Platform.h>
 #include <IO/KeyManager.h>
 
-RenderWindow 
-RenderWindow::createObject(const uint32_t& width, const uint32_t& height, const std::string& title, Camera* camera)
+ RenderWindow::RenderWindow(const uint32_t& width, const uint32_t& height, const std::string& title, Camera* camera)
 {
-	RenderWindow result;
-
-	result._width = width;
-	result._height = height;
-	result._aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
-	result._camera = camera;
+	_width = width;
+	_height = height;
+	_aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
+	_camera = camera;
 
 	if (!glfwInit())
 	{
 		LOGGER::ERROR("RENDERER::GLFWINIT::ERROR\n");
 	}
 
-	result._window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-	if (!result._window)
+	_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+	if (!_window)
 	{
 		glfwTerminate();
 		LOGGER::ERROR("RENDERER::WINDOW::ERROR\n");
 	}
 
-	glfwMakeContextCurrent(result._window);
+	glfwMakeContextCurrent(_window);
 
 	if (glewInit() != GLEW_OK)
 	{
 		LOGGER::ERROR("RENDERER::GLEWINIT::ERROR\n");
 	}
 
-	glfwSetInputMode(result._window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	result._isOpen = true;
+	_isOpen = true;
 
-	result._active_keys.insert(std::make_pair(GLFW_MOUSE_BUTTON_LEFT, false));
+	_active_keys.insert(std::make_pair(GLFW_MOUSE_BUTTON_LEFT, false));
 
-	result._textRenderer = std::make_shared<TextRenderer>(width, height);
-	result._textRenderer->loadFont((RESOURCE_PATH + "Hack-Regular.ttf").c_str(), 16);
+	_textRenderer = std::make_shared<TextRenderer>(width, height);
+	_textRenderer->loadFont((RESOURCE_PATH + "Hack-Regular.ttf").c_str(), 16);
     
-    KeyManager::instance()->setup(result);
-
-	return result;
+    KeyManager::instance()->setup(*this);
 }
 
-void 
-RenderWindow::destroyObject(RenderWindow& window)
+ RenderWindow::~RenderWindow()
 {
-	window._width = 0;
-	window._height = 0;
-	window._aspect_ratio = 0.0f;
-	window._isOpen = false;
-	window._key_callbacks.clear();
-	window._button_callbacks.clear();
-	window._active_keys.clear();
-	if (window._window != nullptr)
+	_width = 0;
+	_height = 0;
+	_aspect_ratio = 0.0f;
+	_isOpen = false;
+	_key_callbacks.clear();
+	_button_callbacks.clear();
+	_active_keys.clear();
+	if (_window != nullptr)
 	{
-		window.close();
+		close();
 	}
 }
 

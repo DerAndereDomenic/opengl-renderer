@@ -44,15 +44,13 @@ public:
 	*	\param[in] height The height of the window
 	*	\param[in] title The title of the window
 	*	\param[in] camera A camera
-	*	\return The given window
 	*/
-	static RenderWindow createObject(const uint32_t& width, const uint32_t& height, const std::string& title, Camera* camera = nullptr);
+	RenderWindow(const uint32_t& width, const uint32_t& height, const std::string& title, Camera* camera = nullptr);
 
 	/**
 	*	\brief Destroys the given window
-	*	\param[in] The window to be destroyed
 	*/
-	static void destroyObject(RenderWindow& window);
+	~RenderWindow();
 
 	/**
 	*	\brief Closes the window
