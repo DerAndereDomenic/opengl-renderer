@@ -1,5 +1,7 @@
 BUILD_DIR="build"
-DLOGGER_DIR="lib/DLogger"
+
+git submodule init
+git submodule update
 
 first_build=false
 
@@ -8,7 +10,8 @@ do
     case "${OPTION}"
     in
         --setup) ;&
-        -s) first_build=true;;
+        -s) first_build=true;
+		rm -rf "$BUILD_DIR";;
     esac
 done
 
@@ -18,20 +21,9 @@ if [ ! -d "$BUILD_DIR" ]; then
 	first_build=true
 fi
 
-if [ ! -d "$DLOGGER_DIR" ]; then
-	echo "Cloning DLogger...";
-	cd lib
-	git clone --depth 1 https://gitlab.com/DerAndereDomenic/dlogger.git 
-	cd dlogger
-	rm -r -f .git
-	cd ../..
-	mv lib/dlogger "${DLOGGER_DIR}"
-	first_build=true
-fi
-
 cd "$BUILD_DIR"
 
 if [ "$first_build" = true ] ; then
-    cmake ..
+    cmake .. -Wno-dev -DBUILD_SHARED_LIBS=OFF -DASSIMP_BUILD_ASSIMP_TOOLS=OFF -DASSIMP_BUILD_TESTS=OFF
 fi
 cmake --build .

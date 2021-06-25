@@ -20,6 +20,8 @@ set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 
 set(BUILD_SHARED_LIBS OFF)
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
+set(ASSIMP_BUILD_TESTS OFF)
 add_subdirectory(external/assimp)
 add_subdirectory(external/freetype)
 add_subdirectory(external/glfw)
