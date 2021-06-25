@@ -1,24 +1,16 @@
 OpenGL Renderer
 ===============
-A basic Renderer wrapping OpenGL functions. Comes with different demos using the framework
+This is a hobby project, testing different real time rendering algorithms. I mostly followed the Tutorial of https://learnopengl.com and implemented the different algorithms into a framework. It is not meant to build actual 3D graphics applications with it.
 
-Building:
+Building
 ============
-The framework is build using CMake.
+If you are still interested in building the project, all necessary libraries are included as git submodules. Running the build script should do the job. While, in principle, this should also work for Linux systems, I only tested it on Windows.
 
-**Windows:** <br>
-The library comes with all needed dependencies compiled for MSVC 2019.
-
-**Linux/Ubuntu** <br>
-The following libraries and its dependencies have to be installed
-* GLFW
-* GLEW
-* ASSIMP
-* FREETYPE
-
-After cloning/installing the necessary libraries run the script <br>
-```sh build.sh```<br>
-to build the project. When executing the script for the first time the setup routine is called, creating the <samp>build</samp> and <samp>bin</samp> folder containing build files and the executables. The project uses [DLogger](https://gitlab.com/DerAndereDomenic/dlogger) for logging. The repository is cloned and configured when running the script for the first time.
-Calling<br>
-```sh build.sh --setup```<br>
-will call the setup routine again.
+TODO
+============
+Here, I list some things I'd like to implement in the future.
+* [] - A forward renderer class that handles all steps to create forward renderings. For this an update of the Material system is probably useful:
+    * [] - Update Materials system
+* [] - A deferred renderer class, similar to the forward renderer
+* [] - Bloom Pipeline
+* [] - SSAO
