@@ -10,7 +10,6 @@ RenderObject::RenderObject(std::shared_ptr<Mesh> mesh, Material material, glm::m
  
 RenderObject::~RenderObject()
 {
-	Material::destroyObject(_material);
 	_model = glm::mat4(1);
 }
 

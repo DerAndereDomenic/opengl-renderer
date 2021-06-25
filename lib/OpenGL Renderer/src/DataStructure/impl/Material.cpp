@@ -1,26 +1,22 @@
 #include "DataStructure/Material.h"
 #include "Shader/Shader.h"
 
-Material
-Material::createObject(const std::string& name, MaterialType type)
+Material::Material(const std::string& name, MaterialType type)
 {
-	Material result;
-	result._name = name;
-	result._type = type;
-	return result;
+	_name = name;
+	_type = type;
 }
-
-void 
-Material::destroyObject(Material& object)
+ 
+Material::~Material()
 {
-	if (object.useTextures)
+	if (useTextures)
 	{
-		object.useTextures = false;
+		useTextures = false;
 	}
-	object.ambient = glm::vec3(0, 0, 0);
-	object.diffuse = glm::vec3(0, 0, 0);
-	object.specular = glm::vec3(0, 0, 0);
-	object.shininess = 0;
+	ambient = glm::vec3(0, 0, 0);
+	diffuse = glm::vec3(0, 0, 0);
+	specular = glm::vec3(0, 0, 0);
+	shininess = 0;
 }
 
 void 

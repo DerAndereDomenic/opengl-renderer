@@ -29,13 +29,13 @@ public:
 	*	\brief Create an object with a given name
 	*	\param[in] name The name of the material (used in shader)
 	*/
-	static Material createObject(const std::string& name, MaterialType type = MaterialType::PHONG);
+	Material(const std::string& name, MaterialType type = MaterialType::PHONG);
 
 	/**
 	*	\brief Destroys the object
 	*	\note Also destroys the texture instances
 	*/
-	static void destroyObject(Material& object);
+	~Material();
 
 	/**
 	*	\brief Binds the material (i.e. the textures)

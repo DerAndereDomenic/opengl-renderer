@@ -89,7 +89,7 @@ int main(void)
 	std::shared_ptr<Mesh> crate = MeshHelper::cubeMesh(glm::vec4(0, 0, 0, 1));
 	meshes.push_back(crate);
 
-	Material mat_crate = Material::createObject("materialmap");
+	Material mat_crate = Material("materialmap");
 	mat_crate.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "crate_diffuse.png");
 	mat_crate.texture_specular = std::make_shared<Texture>(RESOURCE_PATH + "crate_specular.png");
 	mat_crate.useTextures = true;
@@ -103,7 +103,7 @@ int main(void)
 	std::shared_ptr<Mesh> table = ObjLoader::loadObj(RESOURCE_PATH + "table/simple-table.obj", true)[0];
 	meshes.push_back(table);
 
-	Material mat_table = Material::createObject("materialmap");
+	Material mat_table = Material("materialmap");
 	mat_table.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "table/table_diffuse.png");
 	mat_table.texture_specular = std::make_shared<Texture>(RESOURCE_PATH + "table/table_specular.png");
 	mat_table.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "table/table_normal.png");
@@ -118,7 +118,7 @@ int main(void)
 	std::shared_ptr<Mesh> wall = MeshHelper::cuboidMesh(glm::vec4(0, 0, 0, 1), 10.0f, 10.0f, 0.2f, true);
 	meshes.push_back(wall);
 
-	Material mat_brick = Material::createObject("materialmap");
+	Material mat_brick = Material("materialmap");
 	mat_brick.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "brickwall.png");
 	mat_brick.texture_specular = mat_brick.texture_diffuse;
 	mat_brick.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "brickwall_normal.png");
@@ -133,7 +133,7 @@ int main(void)
 	std::shared_ptr<Mesh> mesh = MeshHelper::cuboidMesh(glm::vec4(1, 0, 0, 1), 10.0f, 0.2f, 10.0f, true);
 	meshes.push_back(mesh);
 
-	Material mat_fabric = Material::createObject("materialmap");
+	Material mat_fabric = Material("materialmap");
 	mat_fabric.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "fabric.png");
 	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
 	mat_fabric.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "fabric_normal.png");
@@ -148,7 +148,7 @@ int main(void)
 	std::shared_ptr<Mesh> suzanne = ObjLoader::loadObj(RESOURCE_PATH + "suzanne_blender.obj")[0];
 	meshes.push_back(suzanne);
 
-	Material mat_suzanne = Material::createObject("materialmap");
+	Material mat_suzanne = Material("materialmap");
 	mat_suzanne.ambient = glm::vec3(0.24725f, 0.1995f, 0.0745f);
 	mat_suzanne.diffuse = glm::vec3(0.75164f, 0.60648f, 0.22648f);
 	mat_suzanne.specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
@@ -165,7 +165,7 @@ int main(void)
 	std::shared_ptr<Mesh> sphere_brdf = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
 	meshes.push_back(sphere_brdf);
 
-	Material mat_brdf = Material::createObject("materialmap", MaterialType::GGX);
+	Material mat_brdf = Material("materialmap", MaterialType::GGX);
 	mat_brdf.ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 	mat_brdf.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	mat_brdf.specular = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -181,7 +181,7 @@ int main(void)
 	std::shared_ptr<Mesh> mobius_mesh = ObjLoader::loadObj(RESOURCE_PATH + "mobius.obj")[0];
 	meshes.push_back(mobius_mesh);
 
-	Material mat_mobius = Material::createObject("materialmap", MaterialType::PHONG);
+	Material mat_mobius = Material("materialmap", MaterialType::PHONG);
 	mat_mobius.ambient = glm::vec3(0.05f, 0.05f, 0.1f);
 	mat_mobius.diffuse = glm::vec3(0.7f, 0.7f, 1.0f);
 	mat_mobius.specular = glm::vec3(0.7f, 0.7f, 1.0f);
@@ -194,7 +194,7 @@ int main(void)
 	std::shared_ptr<Mesh> light = MeshHelper::cubeMesh(glm::vec4(1, 1, 1, 1));
 	light->create();
 
-	Material mat_lamp = Material::createObject("materialmap");
+	Material mat_lamp = Material("materialmap");
 	mat_lamp.ambient = glm::vec3(10, 10, 10);
 	mat_lamp.diffuse = glm::vec3(1, 1, 1);
 	mat_lamp.specular = glm::vec3(1, 1, 1);
