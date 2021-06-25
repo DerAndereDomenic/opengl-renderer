@@ -25,9 +25,9 @@
 
 	glfwMakeContextCurrent(_window);
 
-	if (glewInit() != GLEW_OK)
+	if (!gladLoadGL())
 	{
-		LOGGER::ERROR("RENDERER::GLEWINIT::ERROR\n");
+		LOGGER::ERROR("RENDERER::GLADINIT::ERROR\n");
 	}
 
 	glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

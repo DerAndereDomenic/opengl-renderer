@@ -1,7 +1,7 @@
 #ifndef __OPENGLRENDERER_OPENGL_OBJECTS_TEXTURE_H
 #define __OPENGLRENDERER_OPENGL_OBJECTS_TEXTURE_H
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <vector>
 #include <string>
 #include <memory>

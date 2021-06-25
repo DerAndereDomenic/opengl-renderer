@@ -1,7 +1,7 @@
 #ifndef __OPENGLRENDERER_SHADER_SHADER_H
 #define __OPENGLRENDERER_SHADER_SHADER_H
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include <string>
 #include <memory>

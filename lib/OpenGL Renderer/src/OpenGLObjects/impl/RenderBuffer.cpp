@@ -1,6 +1,6 @@
 #include <OpenGLObjects/RenderBuffer.h>
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 RenderBuffer::RenderBuffer(const uint32_t& width, const uint32_t& height)
 {

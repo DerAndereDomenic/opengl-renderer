@@ -1,5 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
-
 #include <OpenGLObjects/Texture.h>
 #include <stb_image.h>
 #include <iostream>

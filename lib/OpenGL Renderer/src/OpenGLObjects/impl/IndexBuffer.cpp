@@ -1,5 +1,5 @@
 #include <OpenGLObjects/IndexBuffer.h>
-#include <GL/glew.h>
+#include <glad/glad.h>
 
  
 IndexBuffer::IndexBuffer(const uint32_t* data, const uint32_t& count)

@@ -3,7 +3,6 @@
 #include <Core/GLFunctions.h>
 #include <DLogger/Logger.h>
 
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <OpenGLObjects/FrameBuffer.h>
