@@ -123,7 +123,7 @@ vec3 brdf_ggx(Light plight, vec3 lightDir, vec3 viewDir, Material material, vec3
 
 	float shadow = plight.cast_shadow == 1 ? shadowCalculation(frag_position_light_space[pass], plight.shadow_map) : 0;
 
-	return (1-shadow)*ndf*vis*fresnel_schlick(material.specular, LdotH);
+	return (1-shadow)*ndf*vis*fresnel_schlick(material.diffuse, LdotH);
 }
 
 //-------------------------------------------
@@ -146,7 +146,6 @@ vec3 brdf_phong(Light plight, vec3 lightDir, vec3 viewDir, Material material, ve
 }
 
 void main(){
-
 	Material object_material;
 
 	if(materialmap.useTextures)
