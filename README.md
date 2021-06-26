@@ -14,3 +14,4 @@ Here, I list some things I'd like to implement in the future.
 * [ ] - A deferred renderer class, similar to the forward renderer
 * [ ] - Bloom Pipeline
 * [ ] - SSAO
+* [ ] - Scene Loading, until now only models can be loaded but no materials
