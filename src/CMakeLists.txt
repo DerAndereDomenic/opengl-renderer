@@ -21,3 +21,7 @@ endif()
 if(BUILD_DEFERREDRENDERER)
 	add_subdirectory(DeferredRenderer)
 endif()
+
+if(BUILD_DUMPPROJECT)
+	add_subdirectory(DumpProject)
+endif()

@@ -1,0 +1,3 @@
+add_executable(DumpProject source.cpp)
+
+target_link_libraries(DumpProject OpenGLRendererLib)
