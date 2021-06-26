@@ -77,8 +77,8 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	LOGGER::DEBUG("Started scene setup!\n");
 
-	Model model(RESOURCE_PATH + "cornell_box.gltf");
-	Light light = Light(glm::vec3(0, 9.5, 0));
+	Model model(RESOURCE_PATH + "Sponza/Sponza.gltf");
+	Light light = Light(glm::vec3(0, 15.0f, 0));
 	light.ambient = glm::vec3(0.1f);
 	light.diffuse = glm::vec3(500.0f );
 	light.specular = glm::vec3(500.0f);
