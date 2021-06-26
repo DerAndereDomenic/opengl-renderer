@@ -1,8 +1,9 @@
 #include <DataStructure/Model.h>
 #include <DLogger/Logger.h>
 
-Model::Model(const std::string& path, const bool& calcTangents)
+Model::Model(const std::string& path, const glm::mat4& model = glm::mat4(1), const bool& calcTangents)
 {
+	_model = model;
 	loadModel(path, calcTangents);
 }
 
@@ -21,7 +22,7 @@ Model::render(const std::shared_ptr<Shader> shader)
 	{
 		std::pair<std::shared_ptr<Mesh>, int32_t> mesh_mat = meshes[i];
 		materials[mesh_mat.second]->bind(shader);
-		shader->setMat4("M", glm::mat4(1));
+		shader->setMat4("M", _model);
 		mesh_mat.first->render();
 	}
 }

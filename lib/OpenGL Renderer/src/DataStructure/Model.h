@@ -23,7 +23,7 @@ class Model
 		*	\param[in] path The path to the file (gltf works best)
 		*	\param[in] calcTangents If tangents (for normal mapping) should be calculated
 		*/
-		Model(const std::string& path, const bool& calcTangents = false);
+		Model(const std::string& path, const glm::mat4& model = glm::mat4(1), const bool& calcTangents = false);
 
 		/**
 		*	\brief Destructor
@@ -36,6 +36,13 @@ class Model
 		*/
 		void 
 		render(const std::shared_ptr<Shader> shader);
+
+		/**
+		*	\brief Get the model matrix
+		*	\return The model matrix
+		*/
+		inline glm::mat4
+		getModel() { return _model; }
 
 	private:
 		/**
@@ -75,6 +82,7 @@ class Model
 		std::vector<std::pair<std::shared_ptr<Mesh>, int32_t>> meshes;		/**<< A vector with meshes and index to the material */
 		std::vector<std::shared_ptr<Material>> materials;					/**<< A vector with materials */
 		std::string directory;												/**<< The model directory */
+		glm::mat4 _model;													/**<< The model matrix */
 };
 
 #endif
