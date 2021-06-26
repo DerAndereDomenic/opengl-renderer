@@ -32,7 +32,10 @@ struct Light
 
 struct MaterialMap
 {
-	bool useTextures;
+	bool useDiffuseTextures;
+	bool useSpecularTextures;
+	bool useHeightTextures;
+	bool useNormalTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;
@@ -148,25 +151,33 @@ vec3 brdf_phong(Light plight, vec3 lightDir, vec3 viewDir, Material material, ve
 void main(){
 	Material object_material;
 
-	if(materialmap.useTextures)
+	if(materialmap.useDiffuseTextures)
 	{
 		object_material.ambient = vec3(texture(materialmap.diffuse_map, frag_tex));
 		object_material.diffuse = vec3(texture(materialmap.diffuse_map, frag_tex));
-		object_material.specular = vec3(texture(materialmap.specular_map, frag_tex));
 	}
 	else
 	{
 		object_material.ambient = materialmap.ambient;
 		object_material.diffuse = materialmap.diffuse;
+	}
+
+	if(materialmap.useSpecularTextures)
+	{
+		object_material.specular = vec3(texture(materialmap.specular_map, frag_tex));
+	}
+	else
+	{
 		object_material.specular = materialmap.specular;
 	}
+
 	object_material.shininess = materialmap.shininess;
 	object_material.roughness = materialmap.roughness;
 
 
 	vec3 normal = texture(materialmap.normal_map, frag_tex).rgb;
 	vec3 norm;
-	if(length(normal) == 0 || !materialmap.useTextures)
+	if(!materialmap.useNormalTextures)
 	{
 		norm = frag_TBN[2];
 	}

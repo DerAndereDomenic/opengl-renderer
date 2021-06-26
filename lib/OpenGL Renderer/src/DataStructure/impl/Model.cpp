@@ -97,40 +97,37 @@ Model::loadMaterials(const aiScene* scene)
 
 		aiMaterial* material = scene->mMaterials[i];
 
+		aiString str;
 		//Diffuse Texture
 		if (material->GetTextureCount(aiTextureType_DIFFUSE) == 1)
 		{
-			aiString str;
 			material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
 			mat->texture_diffuse = std::make_shared<Texture>(directory + "/" + str.C_Str());
-			mat->useTextures = true;
+			mat->useDiffuseTextures = true;
 		}
 
 		//Specular Texture
 		if (material->GetTextureCount(aiTextureType_SPECULAR) == 1)
 		{
-			aiString str;
 			material->GetTexture(aiTextureType_SPECULAR, 0, &str);
 			mat->texture_specular = std::make_shared<Texture>(directory + "/" + str.C_Str());
-			mat->useTextures = true;
+			mat->useSpecularTextures = true;
 		}
 
 		//Height Texture
 		if (material->GetTextureCount(aiTextureType_HEIGHT) == 1)
 		{
-			aiString str;
 			material->GetTexture(aiTextureType_HEIGHT, 0, &str);
 			mat->texture_height = std::make_shared<Texture>(directory + "/" + str.C_Str());
-			mat->useTextures = true;
+			mat->useHeightTextures = true;
 		}
 
 		//Normal Texture
 		if (material->GetTextureCount(aiTextureType_NORMALS) == 1)
 		{
-			aiString str;
 			material->GetTexture(aiTextureType_NORMALS, 0, &str);
 			mat->texture_normal = std::make_shared<Texture>(directory + "/" + str.C_Str());
-			mat->useTextures = true;
+			mat->useNormalTextures = true;
 		}
 
 		aiColor3D color;
@@ -162,14 +159,11 @@ Model::loadMaterials(const aiScene* scene)
 		}
 
 		//Load albedos
-		if (!mat->useTextures)
-		{
-			material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-			mat->diffuse = glm::vec3(color.r, color.g, color.b);
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+		mat->diffuse = glm::vec3(color.r, color.g, color.b);
 
-			material->Get(AI_MATKEY_COLOR_SPECULAR, color);
-			mat->specular = glm::vec3(color.r, color.g, color.b);
-		}
+		material->Get(AI_MATKEY_COLOR_SPECULAR, color);
+		mat->specular = glm::vec3(color.r, color.g, color.b);
 
 		materials.push_back(mat);
 	}

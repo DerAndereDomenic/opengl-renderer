@@ -9,10 +9,6 @@ Material::Material(const std::string& name, MaterialType type)
  
 Material::~Material()
 {
-	if (useTextures)
-	{
-		useTextures = false;
-	}
 	ambient = glm::vec3(0, 0, 0);
 	diffuse = glm::vec3(0, 0, 0);
 	specular = glm::vec3(0, 0, 0);
@@ -23,30 +19,45 @@ void
 Material::bind(std::shared_ptr<Shader> shader)
 {
 	shader->bind();
-	shader->setBool(_name + ".useTextures", useTextures);
-	if (useTextures)
+	shader->setBool(_name + ".useDiffuseTextures", useDiffuseTextures);
+	shader->setBool(_name + ".useSpecularTextures", useSpecularTextures);
+	shader->setBool(_name + ".useNormalTextures", useNormalTextures);
+	shader->setBool(_name + ".useHeightTextures", useHeightTextures);
+	if (useDiffuseTextures)
 	{
 		shader->setInt(_name + ".diffuse_map", 0);
 		texture_diffuse->bind(0);
-		
-		shader->setInt(_name + ".specular_map", 1);
-		texture_specular->bind(1);
-		
-		shader->setInt(_name + ".normal_map", 2);
-		texture_normal->bind(2);
-
-		shader->setInt(_name + ".height_map", 3);
-		texture_height->bind(3);
-
-		shader->setFloat(_name + ".shininess", shininess);
 	}
 	else
 	{
-		shader->setVec3(_name + ".ambient", ambient);
 		shader->setVec3(_name + ".diffuse", diffuse);
-		shader->setVec3(_name + ".specular", specular);
-		shader->setFloat(_name + ".shininess", shininess);
 	}
+		
+	if (useSpecularTextures)
+	{
+		shader->setInt(_name + ".specular_map", 1);
+		texture_specular->bind(1);
+	}
+	else
+	{
+		shader->setVec3(_name + ".specular", specular);
+	}
+
+	if (useNormalTextures)
+	{
+		shader->setInt(_name + ".normal_map", 2);
+		texture_normal->bind(2);
+	}
+		
+	if (useHeightTextures)
+	{
+		shader->setInt(_name + ".height_map", 3);
+		texture_height->bind(3);
+	}
+
+	shader->setFloat(_name + ".shininess", shininess);
+	shader->setVec3(_name + ".ambient", ambient);
+	shader->setFloat(_name + ".shininess", shininess);
 	shader->setInt(_name + ".type", _type);
 	shader->setFloat(_name + ".roughness", roughness);
 	shader->setFloat(_name + ".refractive_index", refractive_index);

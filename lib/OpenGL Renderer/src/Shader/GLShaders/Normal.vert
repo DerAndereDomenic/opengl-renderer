@@ -20,7 +20,10 @@ out vec3 frag_viewDir;
 //
 struct MaterialMap
 {
-	bool useTextures;
+	bool useDiffuseTextures;
+	bool useSpecularTextures;
+	bool useHeightTextures;
+	bool useNormalTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;
@@ -69,7 +72,7 @@ void main()
 	mat3 TBN = mat3(T, B, N);
 
 	//Displacement
-	if(materialmap.useTextures)
+	if(materialmap.useHeightTextures)
 	{
 		float stretchfactor = 10.0;
 		float displacement = texture(materialmap.height_map, tex.xy).r;

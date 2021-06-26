@@ -43,7 +43,10 @@ public:
 	*/
 	void bind(std::shared_ptr<Shader> shader);
 
-	bool useTextures = false;														/**<< Toggle the use of textures*/
+	bool useDiffuseTextures = false;												/**<< Toggle the use of diffuse textures*/
+	bool useSpecularTextures = false;												/**<< Toggle the use of specular textures*/
+	bool useNormalTextures = false;													/**<< Toggle the use of normal textures*/
+	bool useHeightTextures = false;													/**<< Toggle the use of height textures*/
 	glm::vec3 ambient = glm::vec3(0, 0, 0);											/**<< The ambient part of the material*/
 	glm::vec3 diffuse = glm::vec3(0, 0, 0);											/**<< The diffuse part of the material*/
 	glm::vec3 specular = glm::vec3(0, 0, 0);										/**<< The specular part of the material*/

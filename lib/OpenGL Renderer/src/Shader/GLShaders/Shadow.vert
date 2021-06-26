@@ -9,7 +9,7 @@ uniform mat4 P;
 
 struct MaterialMap
 {
-	bool useTextures;
+	bool useHeightTextures;
 	sampler2D height_map;
 };
 
@@ -20,7 +20,7 @@ void main()
 	vec3 frag_position = (M*vec4(position,1)).xyz;
 	vec3 N = normalize(vec3(M*vec4(normal, 0)));
 
-	if(materialmap.useTextures)
+	if(materialmap.useHeightTextures)
 	{
 		float displacement = texture(materialmap.height_map, tex.xy).r;
 		frag_position += 10* displacement * N;
