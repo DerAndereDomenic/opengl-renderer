@@ -82,7 +82,7 @@ int main(void)
 
 	Model model(RESOURCE_PATH + "Sponza/Sponza.gltf", glm::mat4(1), true);
 
-	Light light = Light(glm::vec3(0, 15.0f, 0));
+	Light light = Light(glm::vec3(5.0f, 15.0f, 0), true, shadow_width, shadow_height, 0.01f, 500.0f);
 	light.ambient = glm::vec3(0.1f);
 	light.diffuse = glm::vec3(500.0f );
 	light.specular = glm::vec3(500.0f);
@@ -135,7 +135,9 @@ int main(void)
 		currentTime = glfwGetTime();
 
 		//----------------------------------------------------------------------------------------------
-		window.resetViewport();
+		GL::setViewport(shadow_width, shadow_height);
+		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
+		scene.updateShadowMaps();
 
 		window.resetViewport();
 		fbo->bind();
@@ -145,7 +147,6 @@ int main(void)
 		ShaderManager::instance()->getShader("Normal")->bind();
 		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
 		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		light.addToShader(ShaderManager::instance()->getShader("Normal"), 0);
 		scene.render(ShaderManager::instance()->getShader("Normal"));
 
 		//Render to quad
