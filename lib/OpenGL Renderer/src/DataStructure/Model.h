@@ -15,22 +15,29 @@ class Model
 	public:
 		Model() = default;
 
-		Model(const std::string& path);
+		Model(const std::string& path, const bool& calcTangents = false);
 
 		~Model();
 
-		void render(const std::shared_ptr<Shader> shader);
+		void 
+		render(const std::shared_ptr<Shader> shader);
 
 	private:
-		void loadModel(const std::string& path);
+		void 
+		loadModel(const std::string& path, const bool& calcTangents);
 
-		void processNode(aiNode* node, const aiScene *scene);
+		void 
+		processNode(aiNode* node, const aiScene *scene, const bool& calcTangents);
 
-		Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+		std::shared_ptr<Mesh> 
+		processMesh(aiMesh* mesh, const aiScene* scene, const bool& calcTangents);
 
-		std::vector<std::shared_ptr<Texture>> loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName);
+		void
+		loadMaterials(const aiScene* scene);
 
 		std::vector<std::shared_ptr<Mesh>> meshes;
+
+		std::vector<std::shared_ptr<Material>> materials;
 
 		std::string directory;
 };
