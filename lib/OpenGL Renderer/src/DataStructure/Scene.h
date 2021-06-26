@@ -8,6 +8,7 @@
 #include <DataStructure/Material.h>
 #include <DataStructure/RenderObject.h>
 #include <DataStructure/Light.h>
+#include <DataStructure/Model.h>
 #include <Shader/Shader.h>
 #include <glm/glm.hpp>
 
@@ -33,6 +34,16 @@ public:
 		  std::vector<std::shared_ptr<Mesh>> meshes,
 		  std::vector<Material> materials,
 		  std::vector<glm::mat4> models);
+
+	/**
+	*	\brief Creates a scene with the given data to create RenderObjects
+	*	\param[in] names The names of the objects (used to access them later from the scene)
+	*	\param[in] models The vector with all the models from the scene
+	*	\note: The indices have to coincide in all vectors with the given object
+	*		   So (names[i], models[i]) defines one object
+	*/
+	Scene(std::vector<std::string> names,
+		  std::vector<std::shared_ptr<Model>> models);
 
 	/**
 	*	\brief Destroys the scene by clearing all buffers and destroying all internal objects like meshes
@@ -71,8 +82,9 @@ public:
 	std::shared_ptr<RenderObject> getObject(std::string name);
 
 private:
-	std::unordered_map<std::string, std::shared_ptr<RenderObject>> _objects = {}; /**<< Hash Map to maintain the objects in this scene*/
-	std::vector<Light*> _lights = {};
+	std::unordered_map<std::string, std::shared_ptr<RenderObject>> _objects = {};		/**<< Hash Map to maintain the objects in this scene*/
+	std::unordered_map<std::string, std::shared_ptr<Model>> _models = {};				/**<< The models */
+	std::vector<Light*> _lights = {};													/**<< The lights in the scene */
 };
 
 #endif

@@ -77,7 +77,7 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	LOGGER::DEBUG("Started scene setup!\n");
 
-	Model model(RESOURCE_PATH + "Sponza/Sponza.gltf", true);
+	Model model(RESOURCE_PATH + "Sponza/Sponza.gltf", glm::mat4(1), true);
 	Light light = Light(glm::vec3(0, 15.0f, 0));
 	light.ambient = glm::vec3(0.1f);
 	light.diffuse = glm::vec3(500.0f );

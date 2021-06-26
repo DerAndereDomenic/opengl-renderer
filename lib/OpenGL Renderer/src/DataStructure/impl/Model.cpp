@@ -1,7 +1,7 @@
 #include <DataStructure/Model.h>
 #include <DLogger/Logger.h>
 
-Model::Model(const std::string& path, const glm::mat4& model = glm::mat4(1), const bool& calcTangents)
+Model::Model(const std::string& path, const glm::mat4& model, const bool& calcTangents)
 {
 	_model = model;
 	loadModel(path, calcTangents);

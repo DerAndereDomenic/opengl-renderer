@@ -28,6 +28,27 @@ Scene::Scene(std::vector<std::string> names,
 
 	ShaderManager::instance()->addShader("Shadow");
 }
+
+Scene::Scene(std::vector<std::string> names,
+			 std::vector<std::shared_ptr<Model>> models)
+{
+	uint32_t size_names = names.size();
+	uint32_t size_meshes = models.size();
+
+	if (size_names != size_meshes)
+	{
+		LOGGER::ERROR("ERROR::SCENE: The sizes of the given buffers is not equal: ("
+			+ std::to_string(size_names) + ", " + std::to_string(size_meshes) + ")\n");
+		return;
+	}
+
+	for (uint32_t i = 0; i < size_names; ++i)
+	{
+		_models.insert(std::make_pair(names[i], models[i]));
+	}
+
+	ShaderManager::instance()->addShader("Shadow");
+}
  
 Scene::~Scene()
 {
@@ -45,6 +66,11 @@ Scene::render(std::shared_ptr<Shader> shader)
 	}
 
 	for (auto it = _objects.begin(); it != _objects.end(); ++it)
+	{
+		it->second->render(shader);
+	}
+
+	for(auto it = _models.begin(); it != _models.end(); ++it)
 	{
 		it->second->render(shader);
 	}
