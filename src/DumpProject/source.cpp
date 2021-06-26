@@ -11,6 +11,7 @@
 #include <DataStructure/RenderObject.h>
 #include <DataStructure/Skybox.h>
 #include <DataStructure/Scene.h>
+#include <DataStructure/Model.h>
 #include <Shader/ShaderManager.h>
 #include <IO/KeyManager.h>
 #include <IO/ObjLoader.h>
@@ -76,6 +77,12 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	LOGGER::DEBUG("Started scene setup!\n");
 
+	Model model(RESOURCE_PATH + "cornell_box.gltf");
+	Light light = Light(glm::vec3(0, 9.5, 0));
+	light.ambient = glm::vec3(0.1f);
+	light.diffuse = glm::vec3(500.0f );
+	light.specular = glm::vec3(500.0f);
+
 	std::shared_ptr<Mesh> quad = MeshHelper::quadMesh(2.0f);
 
 	quad->create();
@@ -122,7 +129,11 @@ int main(void)
 
 		fbo->clear();
 		
-
+		ShaderManager::instance()->getShader("Normal")->bind();
+		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		light.addToShader(ShaderManager::instance()->getShader("Normal"), 0);
+		model.render(ShaderManager::instance()->getShader("Normal"));
 
 		//Render to quad
 		fbo->unbind();
