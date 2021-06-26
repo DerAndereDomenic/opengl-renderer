@@ -15,7 +15,15 @@ Model::~Model()
 void 
 Model::render(const std::shared_ptr<Shader> shader)
 {
+	shader->bind();
 
+	for(uint32_t i = 0; i < meshes.size(); ++i)
+	{
+		std::pair<std::shared_ptr<Mesh>, int32_t> mesh_mat = meshes[i];
+		materials[mesh_mat.second]->bind(shader);
+		shader->setMat4("M", glm::mat4(1));
+		mesh_mat.first->render();
+	}
 }
 
 void 
