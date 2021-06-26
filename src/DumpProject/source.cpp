@@ -77,11 +77,24 @@ int main(void)
 	//---------------------------------------------------------------------------------//
 	LOGGER::DEBUG("Started scene setup!\n");
 
+	std::vector<std::string> names;
+	std::vector<std::shared_ptr<Model>> models;
+
 	Model model(RESOURCE_PATH + "Sponza/Sponza.gltf", glm::mat4(1), true);
+
 	Light light = Light(glm::vec3(0, 15.0f, 0));
 	light.ambient = glm::vec3(0.1f);
 	light.diffuse = glm::vec3(500.0f );
 	light.specular = glm::vec3(500.0f);
+
+	names.push_back("Sponza");
+	models.push_back(std::make_shared<Model>(model));
+
+	Scene scene(names, models);
+	scene.addLight(&light);
+
+	names.clear();
+	models.clear();
 
 	std::shared_ptr<Mesh> quad = MeshHelper::quadMesh(2.0f);
 
@@ -133,7 +146,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
 		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
 		light.addToShader(ShaderManager::instance()->getShader("Normal"), 0);
-		model.render(ShaderManager::instance()->getShader("Normal"));
+		scene.render(ShaderManager::instance()->getShader("Normal"));
 
 		//Render to quad
 		fbo->unbind();
