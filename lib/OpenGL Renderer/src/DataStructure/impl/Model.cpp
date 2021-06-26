@@ -51,7 +51,6 @@ Model::processNode(aiNode* node, const aiScene *scene, const bool& calcTangents)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		int32_t matIndex = mesh->mMaterialIndex >= 0 ? mesh->mMaterialIndex : -1;
-
 		meshes.push_back(std::make_pair(processMesh(mesh, scene, calcTangents), matIndex));
 	}
 
@@ -82,6 +81,8 @@ Model::processMesh(aiMesh* mesh, const aiScene* scene, const bool& calcTangents)
 		aiFace face = mesh->mFaces[i];
 		output_mesh->addTriangle(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
 	}
+
+	output_mesh->create();
 
 	return output_mesh;
 }
