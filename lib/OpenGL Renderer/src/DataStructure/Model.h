@@ -35,7 +35,7 @@ class Model
 		void
 		loadMaterials(const aiScene* scene);
 
-		std::vector<std::shared_ptr<Mesh>> meshes;
+		std::vector<std::pair<std::shared_ptr<Mesh>, int32_t>> meshes;
 
 		std::vector<std::shared_ptr<Material>> materials;
 

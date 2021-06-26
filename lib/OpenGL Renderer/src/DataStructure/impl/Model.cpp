@@ -8,7 +8,8 @@ Model::Model(const std::string& path, const bool& calcTangents)
 
 Model::~Model()
 {
-
+	meshes.clear();
+	materials.clear();
 }
 
 void 
@@ -41,7 +42,9 @@ Model::processNode(aiNode* node, const aiScene *scene, const bool& calcTangents)
 	for(uint32_t i = 0; i < node->mNumMeshes; ++i)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(processMesh(mesh, scene, calcTangents));
+		int32_t matIndex = mesh->mMaterialIndex >= 0 ? mesh->mMaterialIndex : -1;
+
+		meshes.push_back(std::make_pair(processMesh(mesh, scene, calcTangents), matIndex));
 	}
 
 	for (uint32_t i = 0; i < node->mNumChildren; ++i)
