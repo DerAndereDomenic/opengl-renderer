@@ -91,7 +91,8 @@ int main(void)
 	Material mat_crate = Material("materialmap");
 	mat_crate.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "crate_diffuse.png");
 	mat_crate.texture_specular = std::make_shared<Texture>(RESOURCE_PATH + "crate_specular.png");
-	mat_crate.useTextures = true;
+	mat_crate.useDiffuseTextures = true;
+    mat_crate.useSpecularTextures = true;
 	mat_crate.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_crate);
 
@@ -107,7 +108,9 @@ int main(void)
 	mat_table.texture_specular = std::make_shared<Texture>(RESOURCE_PATH + "table/table_specular.png");
 	mat_table.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "table/table_normal.png");
 	mat_table.shininess = 128.0f * 0.4f;
-	mat_table.useTextures = true;
+	mat_table.useDiffuseTextures = true;
+    mat_table.useSpecularTextures = true;
+    mat_table.useNormalTextures = true;
 	materials.push_back(mat_table);
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(-3, 0, 2)));
@@ -121,7 +124,9 @@ int main(void)
 	mat_brick.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "brickwall.png");
 	mat_brick.texture_specular = mat_brick.texture_diffuse;
 	mat_brick.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "brickwall_normal.png");
-	mat_brick.useTextures = true;
+	mat_brick.useDiffuseTextures = true;
+    mat_brick.useSpecularTextures = true;
+    mat_brick.useNormalTextures = true;
 	mat_brick.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_brick);
 
@@ -136,7 +141,9 @@ int main(void)
 	mat_fabric.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "fabric.png");
 	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
 	mat_fabric.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "fabric_normal.png");
-	mat_fabric.useTextures = true;
+	mat_fabric.useDiffuseTextures = true;
+    mat_fabric.useSpecularTextures = true;
+    mat_fabric.useNormalTextures = true;
 	mat_fabric.shininess = 0.4f * 128.0f;
 	materials.push_back(mat_fabric);
 

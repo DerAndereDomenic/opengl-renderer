@@ -23,7 +23,6 @@ std::shared_ptr<Scene> generateScene()
 	meshes.push_back(ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0]);
 	models.push_back(glm::mat4(1));
 	Material ball_mat = Material("materialmap", PHONG);
-	ball_mat.useTextures = false;
 	ball_mat.diffuse = glm::vec4(1, 1, 0, 1);
 	ball_mat.ambient = glm::vec4(1, 1, 0, 1);
 	ball_mat.specular = glm::vec4(1, 1, 0, 1);
@@ -34,7 +33,6 @@ std::shared_ptr<Scene> generateScene()
 	meshes.push_back(ObjLoader::loadObj(RESOURCE_PATH + "plane.obj")[0]);
 	models.push_back(glm::scale(glm::translate(glm::mat4(1), glm::vec3(0, -1, 0)), glm::vec3(500, 500, 500)));
 	Material plane_mat = Material("materialmap");
-	plane_mat.useTextures = false;
 	plane_mat.diffuse = glm::vec4(1, 0, 1, 1);
 	plane_mat.ambient = glm::vec4(1, 0, 1, 1);
 	plane_mat.specular = glm::vec4(1, 0, 1, 1);

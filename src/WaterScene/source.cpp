@@ -45,7 +45,6 @@ int main()
 	terrain.diffuse = glm::vec3(1, 1, 1);
 	terrain.specular = glm::vec3(1, 1, 1);
 	terrain.shininess = 0.4f * 128.0f;
-	terrain.useTextures = false;
 	material.push_back(terrain);
 	models.push_back(glm::mat4(1));
 
@@ -57,7 +56,6 @@ int main()
 	box_material.diffuse = glm::vec3(1, 0, 0);
 	box_material.specular = glm::vec3(1, 0, 0);
 	box_material.shininess = 0.4f * 128.0f;
-	box_material.useTextures = false;
 	material.push_back(box_material);
 	models.push_back(glm::translate(glm::vec3(-4,7,-4)));
 	
