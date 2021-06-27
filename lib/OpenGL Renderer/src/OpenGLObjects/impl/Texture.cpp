@@ -11,7 +11,7 @@ Texture::Texture(const std::string& file_path)
 	int32_t width;
 	int32_t height;
 	int32_t nr_channels;
-
+	stbi_set_flip_vertically_on_load(true);
 	uint8_t* data = stbi_load(file_path.c_str(), &width, &height, &nr_channels, 0);
 
 	if (data)
