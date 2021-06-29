@@ -163,8 +163,17 @@ int main(void)
 
 	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 7, 0)));
 
+	names.push_back("Glass");
+
 	std::shared_ptr<Mesh> sphere = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
-	sphere->create();
+	meshes.push_back(sphere);
+
+	Material mat_glass = Material("materialmap", GLASS);
+	mat_glass.dynamic = false;
+	mat_glass.environment = std::make_shared<EnvironmentMap>(glm::vec3(0, 5, 0));
+	materials.push_back(mat_glass);
+
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)));
 
 	names.push_back("BRDF Sphere");
 
@@ -280,8 +289,6 @@ int main(void)
 	fbo->verify();
 	fbo->unbind();
 
-	EnvironmentMap map = EnvironmentMap(glm::vec3(0, 5, 0));
-
 	scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
 	obj_light.setModel(glm::translate(glm::mat4(1), l1.position));
 
@@ -309,11 +316,12 @@ int main(void)
 
 		//----------------------------------------------------------------------------------------------
 		window.resetViewport();
+		std::shared_ptr<RenderObject> glass = scene.getObject("Glass");
 		//Render scene
 		if (frameID == 0)
 		{
 			ShaderManager::instance()->getShader("Normal")->bind();
-			map.render(scene, sky, ShaderManager::instance()->getShader("Normal"));
+			glass->getMaterial().environment->render(scene, sky, ShaderManager::instance()->getShader("Normal"));
 		}
 
 		window.resetViewport();
@@ -328,7 +336,7 @@ int main(void)
 		ShaderManager::instance()->getShader("Reflection")->bind();
 		ShaderManager::instance()->getShader("Reflection")->setInt("cubemap", 0);
 		ShaderManager::instance()->getShader("Reflection")->setVec3("camera_position", camera.getPosition());
-		map.getCubeMap()->bind();
+		glass->getMaterial().environment->getCubeMap()->bind();
 		ShaderManager::instance()->getShader("Reflection")->setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
 		sphere->render();
 		

@@ -67,7 +67,8 @@ Scene::render(std::shared_ptr<Shader> shader)
 
 	for (auto it = _objects.begin(); it != _objects.end(); ++it)
 	{
-		it->second->render(shader);
+		if(it->second->getMaterial()._type != GLASS)
+			it->second->render(shader);
 	}
 
 	for(auto it = _models.begin(); it != _models.end(); ++it)
