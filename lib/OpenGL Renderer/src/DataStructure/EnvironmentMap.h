@@ -27,7 +27,7 @@ public:
 	*	\brief Create an environment map at the given position
 	*	\param[in] position The position of the environment map
 	*/
-	EnvironmentMap(glm::vec3 position);
+	EnvironmentMap(const glm::vec3& position);
 
 	/**
 	*	\brief Renders the given scene onto the cube map
@@ -35,6 +35,12 @@ public:
 	*	\param[in] shader The shader used to render the scene
 	*/
 	void render(Scene scene, Skybox skybox, std::shared_ptr<Shader> shader);
+
+	/**
+	*	\brief Set the position of the environment map
+	*	\param[in] position The new position
+	*/
+	void setPosition(const glm::vec3& position);
 
 	/**
 	*	\brief Get the cubemap texture

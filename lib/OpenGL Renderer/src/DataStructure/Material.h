@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 #include "OpenGLObjects/Texture.h"
 #include <memory>
-#include <DataStructure/EnvironmentMap.h>
 
+class EnvironmentMap;
 class Shader;
 
 enum MaterialType
@@ -59,7 +59,7 @@ public:
 	std::shared_ptr<Texture> texture_specular = std::make_shared<Texture>();			/**<< The specular texture*/
 	std::shared_ptr<Texture> texture_normal = std::make_shared<Texture>();				/**<< The normal map texture*/
 	std::shared_ptr<Texture> texture_height = std::make_shared<Texture>();				/**<< The displacement map texture*/
-	std::shared_ptr<EnvironmentMap> environment = std::make_shared<EnvironmentMap>();	/**<< The environment map */
+	std::shared_ptr<EnvironmentMap> environment;										/**<< The environment map */
 
 	MaterialType _type = MaterialType::PHONG;											/**<< The material type*/
 

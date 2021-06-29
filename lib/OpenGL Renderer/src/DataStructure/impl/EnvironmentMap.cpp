@@ -1,6 +1,6 @@
 #include <DataStructure/EnvironmentMap.h>
 
-EnvironmentMap::EnvironmentMap(glm::vec3 position)
+EnvironmentMap::EnvironmentMap(const glm::vec3& position)
 {
 	EnvironmentMap result;
 	_camera = std::make_shared<Camera>(position, 90.0f, 1.0f, 0.1f, 100.0f);
@@ -8,6 +8,12 @@ EnvironmentMap::EnvironmentMap(glm::vec3 position)
 	_environment_map = std::make_shared<FrameBuffer>(1024, 1024);
 	_environment_map->attachRenderBuffer();
 	_environment_map->unbind();
+}
+
+void
+EnvironmentMap::setPosition(const glm::vec3& position)
+{
+	_camera->teleport(position);
 }
 
 void 
