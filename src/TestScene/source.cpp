@@ -266,7 +266,6 @@ int main(void)
 	ShaderManager::instance()->addShader("Normal");
 	ShaderManager::instance()->addShader("CubeMap");
 	ShaderManager::instance()->addShader("Reflection");
-	ShaderManager::instance()->addShader("Volume");
 	ShaderManager::instance()->addShader("DisplayNormal", true);
 	ShaderManager::instance()->addShader("DisplayVertices", true);
 	ShaderManager::instance()->addShader("DisplayEdges", true);
@@ -291,28 +290,6 @@ int main(void)
 	ShaderManager::instance()->getShader("Post")->setInt("lightTexture", 1);
 
 	Skybox sky = Skybox(skybox);
-
-	uint32_t res = 512;
-	float halfres = static_cast<float>(res) / 2.0f;
-	float* vol_data = new float[res * res * res];
-	for (uint32_t i = 0; i < res * res * res; ++i)
-	{
-		int32_t x = i % res - res/2;
-		int32_t y = (i / res)% res - res/2;
-		int32_t z = i / (res * res) - res/2;
-		float _x = 2.0f * static_cast<float>(x) / static_cast<float>(res);
-		float _y = 2.0f * static_cast<float>(y) / static_cast<float>(res);
-		float _z = 2.0f * static_cast<float>(z) / static_cast<float>(res);
-		float norm = sqrtf(_x * _x + _y * _y + _z * _z);
-		if (norm > 1.0f) vol_data[i] = 0;
-		else
-		{
-			vol_data[i] = 0.01f;
-		}
-	}
-	std::shared_ptr<Texture> vol_tex = Texture::createTexture(res, res, res, vol_data, GL_RED, GL_RED, GL_FLOAT);
-
-	delete[] vol_data;
 
 	uint32_t frameID = 0;
 
@@ -387,16 +364,8 @@ int main(void)
 		//Render light
 
 		obj_light.render(ShaderManager::instance()->getShader("Normal"));
-
-		ShaderManager::instance()->getShader("Volume")->bind();
-		ShaderManager::instance()->getShader("Volume")->setMVP(glm::translate(glm::mat4(1), glm::vec3(20, 0, -20)), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Volume")->setVec3("lightPos", l1.position);
-		ShaderManager::instance()->getShader("Volume")->setVec3("viewPos", camera.getPosition());
-		vol_tex->bind();
 		light->render();
 		
-
-
 		particleRenderer.update(window.DELTA_TIME());
 		particleRenderer.render(camera);
 
