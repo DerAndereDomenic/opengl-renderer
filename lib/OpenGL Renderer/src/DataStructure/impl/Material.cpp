@@ -1,5 +1,6 @@
 #include "DataStructure/Material.h"
 #include "Shader/Shader.h"
+#include <DataStructure/EnvironmentMap.h>
 
 Material::Material(const std::string& name, MaterialType type)
 {
@@ -53,6 +54,12 @@ Material::bind(std::shared_ptr<Shader> shader)
 	{
 		shader->setInt(_name + ".height_map", 3);
 		texture_height->bind(3);
+	}
+
+	if (_type == GLASS)
+	{
+		shader->setInt(_name + ".environment", 4);
+		environment->getCubeMap()->bind(4);
 	}
 
 	shader->setFloat(_name + ".shininess", shininess);
