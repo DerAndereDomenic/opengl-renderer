@@ -25,6 +25,10 @@ Texture::Texture(const std::string& file_path)
 		{
 			channels = GL_RGB;
 		}
+		else if (nr_channels == 1)
+		{
+			channels = GL_RED;
+		}
 		else
 		{
 			LOGGER::ERROR("ERROR::TEXTURE Wrong format. Number of channels: " + std::to_string(nr_channels) + ". Only 3 or 4 are supported\n");
