@@ -36,10 +36,11 @@ int main()
 	names.push_back("Sphere");
 	meshes = ObjLoader::loadObj("res/sphere.obj");
 	Material sphere = Material("materialmap", GGX);
-	sphere.ambient = glm::vec3(0.1, 0.0, 0.0);
+	sphere.ambient = glm::vec3(0.1 ,0 ,0);
 	sphere.diffuse = glm::vec3(1, 0, 0);
 	sphere.specular = glm::vec3(1, 0, 0);
-	sphere.roughness = 0.5f;
+	sphere.roughness = 0.01f;
+	sphere.metallic = 0.5f;
 
 	material.push_back(sphere);
 	models.push_back(glm::mat4(1));
@@ -49,8 +50,8 @@ int main()
 
 	Light light = Light(glm::vec3(10, 30, 10), false);
 	light.ambient = glm::vec3(1.0f);
-	light.diffuse = glm::vec3(700.0f);
-	light.specular = glm::vec3(700.0f);
+	light.diffuse = glm::vec3(1000.0f);
+	light.specular = glm::vec3(1000.0f);
 
 	scene.addLight(&light);
 

@@ -95,7 +95,7 @@ float shadowCalculation(vec4 fragPositionLightSpace, sampler2D shadowMap)
 //-------------GGX---------------------------
 vec3 fresnel_schlick(const vec3 F0, const float VdotH)
 {
-	return F0 + (1 - F0)*pow(max(0,1.0-VdotH), 5.0f);
+	return F0 + (1 - F0)*pow(clamp(1.0-VdotH, 0.0f, 1.0f), 5.0f);
 }
 
 float D_GGX(const float NdotH, const float roughness)
@@ -113,7 +113,7 @@ float V_SmithJohnGGX(float NdotL, float NdotV, float roughness)
 	return 0.5/(lambdaL+lambdaV);
 }
 
-vec3 brdf_ggx(Light plight, vec3 lightDir, vec3 viewDir, Material material, vec3 normal, int pass)
+vec3 brdf_ggx(Light plight, vec3 lightDir, vec3 viewDir, Material material, vec3 F0, vec3 normal, int pass)
 {
 	vec3 H = normalize(lightDir + viewDir);
 	float NdotH = max(0,dot(normal, H));
@@ -129,8 +129,13 @@ vec3 brdf_ggx(Light plight, vec3 lightDir, vec3 viewDir, Material material, vec3
 	float vis = V_SmithJohnGGX(NdotL, NdotV, material.roughness);
 
 	float shadow = plight.cast_shadow == 1 ? shadowCalculation(frag_position_light_space[pass], plight.shadow_map) : 0;
+	
+	vec3 F = fresnel_schlick(F0 , LdotH);
 
-	return (1-shadow)*ndf*vis*fresnel_schlick(material.diffuse, LdotH);
+	vec3 kD = vec3(1) - F;
+	kD *= 1.0 - material.metallic;
+
+	return (1-shadow)*(ndf*vis*F + kD * material.diffuse / PI);
 }
 
 //-------------------------------------------
@@ -202,6 +207,10 @@ void main(){
 	
 	vec3 result = vec3(0);
 	vec3 viewDir = normalize(frag_viewDir);
+
+	vec3 F0 = vec3(0.04);
+	F0 = mix(F0, object_material.diffuse, object_material.metallic);
+
 	for(int i = 0; i < LIGHTS; ++i)
 	{
 		vec3 lightDir = normalize(lights_frag[i].position - frag_position);
@@ -217,12 +226,15 @@ void main(){
 				result += brdf_lambert(lights_frag[i], lightDir, object_material, norm, i)*lights_frag[i].diffuse/(r*r)*NdotL;
 				break;
 			case GGX:
-				result += brdf_ggx(lights_frag[i], lightDir, viewDir, object_material, norm, i)*lights_frag[i].specular/(r*r)*NdotL;
+				
+				result += brdf_ggx(lights_frag[i], lightDir, viewDir, object_material, F0, norm, i)*lights_frag[i].specular/(r*r)*NdotL;
 				break;
 		}
-		result += object_material.ambient*lights_frag[i].ambient;
 		
 	}
+
+	result += vec3(0.03) * object_material.ambient;	
+
 	FragColor = vec4(result, 1.0);
 
 }
