@@ -36,10 +36,12 @@ struct MaterialMap
 	bool useSpecularTextures;
 	bool useHeightTextures;
 	bool useNormalTextures;
+	bool useMetallicTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;
 	sampler2D height_map;
+	sampler2D metallic_map;
 
 	vec3 ambient;
 	vec3 diffuse;
@@ -49,6 +51,7 @@ struct MaterialMap
 
 	float shininess;
 	float roughness;
+	float metallic;
 	float refractive_index;
 };
 
@@ -60,6 +63,7 @@ struct Material
 	vec3 specular;
 	float shininess;
 	float roughness;
+	float metallic;
 };
 
 //
@@ -169,6 +173,15 @@ void main(){
 	else
 	{
 		object_material.specular = materialmap.specular;
+	}
+
+	if(materialmap.useMetallicTextures)
+	{
+		object_material.metallic = texture(materialmap.metallic_map, frag_tex).r;
+	}
+	else
+	{
+		object_material.metallic = materialmap.metallic;
 	}
 
 	object_material.shininess = materialmap.shininess;

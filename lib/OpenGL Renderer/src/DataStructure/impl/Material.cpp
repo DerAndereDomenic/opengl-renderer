@@ -56,10 +56,19 @@ Material::bind(std::shared_ptr<Shader> shader)
 		texture_height->bind(3);
 	}
 
+	if(useMetallicTextures)
+	{
+		shader->setInt(_name + ".metallic_map", 4);
+	}
+	else
+	{
+		shader->setFloat(_name + ".metallic", metallic);
+	}
+
 	if (_type == GLASS)
 	{
-		shader->setInt(_name + ".environment", 4);
-		environment->getCubeMap()->bind(4);
+		shader->setInt(_name + ".environment", 5);
+		environment->getCubeMap()->bind(5);
 	}
 
 	shader->setFloat(_name + ".shininess", shininess);
@@ -68,4 +77,5 @@ Material::bind(std::shared_ptr<Shader> shader)
 	shader->setInt(_name + ".type", _type);
 	shader->setFloat(_name + ".roughness", roughness);
 	shader->setFloat(_name + ".refractive_index", refractive_index);
+	shader->setFloat(_name + ".metallic", metallic);
 }

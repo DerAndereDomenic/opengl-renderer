@@ -24,10 +24,12 @@ struct MaterialMap
 	bool useSpecularTextures;
 	bool useHeightTextures;
 	bool useNormalTextures;
+	bool useMetallicTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;
 	sampler2D height_map;
+	sampler2D metallic_map;
 
 	vec3 ambient;
 	vec3 diffuse;
@@ -37,6 +39,7 @@ struct MaterialMap
 
 	float shininess;
 	float roughness;
+	float metallic;
 	float refractive_index;
 };
 

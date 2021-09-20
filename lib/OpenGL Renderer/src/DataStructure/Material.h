@@ -49,6 +49,7 @@ public:
 	bool useSpecularTextures = false;													/**<< Toggle the use of specular textures*/
 	bool useNormalTextures = false;														/**<< Toggle the use of normal textures*/
 	bool useHeightTextures = false;														/**<< Toggle the use of height textures*/
+	bool useMetallicTextures = false;													/**<< Toggle the use of metallic textures */
 	bool dynamic = false;																/**<< If the environment map of this object should be updated*/
 
 	glm::vec3 ambient = glm::vec3(0, 0, 0);												/**<< The ambient part of the material*/
@@ -59,12 +60,14 @@ public:
 	std::shared_ptr<Texture> texture_specular = std::make_shared<Texture>();			/**<< The specular texture*/
 	std::shared_ptr<Texture> texture_normal = std::make_shared<Texture>();				/**<< The normal map texture*/
 	std::shared_ptr<Texture> texture_height = std::make_shared<Texture>();				/**<< The displacement map texture*/
+	std::shared_ptr<Texture> texture_metallic = std::make_shared<Texture>();			/**<< The metallic texture */
 	std::shared_ptr<EnvironmentMap> environment;										/**<< The environment map */
 
 	MaterialType _type = MaterialType::PHONG;											/**<< The material type*/
 
 	float shininess = 0;																/**<< The shininess of the material*/
 	float roughness = 0;																/**<< The roughness of the material (GGX)*/
+	float metallic = 0;
 	float refractive_index = 1;															/**<< The refractive index*/
 private:
 	std::string _name;
