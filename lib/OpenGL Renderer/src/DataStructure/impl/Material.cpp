@@ -24,6 +24,8 @@ Material::bind(std::shared_ptr<Shader> shader)
 	shader->setBool(_name + ".useSpecularTextures", useSpecularTextures);
 	shader->setBool(_name + ".useNormalTextures", useNormalTextures);
 	shader->setBool(_name + ".useHeightTextures", useHeightTextures);
+	shader->setBool(_name + ".useMetallicTextures", useMetallicTextures);
+	shader->setBool(_name + ".useRoughnessTextures", useRoughnessTextures);
 	if (useDiffuseTextures)
 	{
 		shader->setInt(_name + ".diffuse_map", 0);
@@ -59,6 +61,7 @@ Material::bind(std::shared_ptr<Shader> shader)
 	if(useMetallicTextures)
 	{
 		shader->setInt(_name + ".metallic_map", 4);
+		texture_metallic->bind(4);
 	}
 	else
 	{
@@ -68,6 +71,7 @@ Material::bind(std::shared_ptr<Shader> shader)
 	if(useRoughnessTextures)
 	{
 		shader->setInt(_name + ".roughness_map", 5);
+		texture_roughness->bind(5);
 	}
 	else
 	{
