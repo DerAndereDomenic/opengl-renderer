@@ -37,11 +37,13 @@ struct MaterialMap
 	bool useHeightTextures;
 	bool useNormalTextures;
 	bool useMetallicTextures;
+	bool useRoughnessTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;
 	sampler2D height_map;
 	sampler2D metallic_map;
+	sampler2D roughness_map;
 
 	vec3 ambient;
 	vec3 diffuse;
@@ -190,7 +192,15 @@ void main(){
 	}
 
 	object_material.shininess = materialmap.shininess;
-	object_material.roughness = materialmap.roughness;
+
+	if(materialmap.useRoughnessTextures)
+	{
+		object_material.roughness = texture(materialmap.roughness_map, frag_tex).r;
+	}
+	else
+	{
+		object_material.roughness = materialmap.roughness;
+	}
 
 
 	vec3 normal = texture(materialmap.normal_map, frag_tex).rgb;

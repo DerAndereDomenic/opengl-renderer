@@ -62,7 +62,7 @@ Scene::render(std::shared_ptr<Shader> shader)
 	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
 		if (!_lights[i]->castShadows) continue;
-		_lights[i]->shadow_map->getTexture()->bind(6 + i);
+		_lights[i]->shadow_map->getTexture()->bind(7 + i);
 	}
 
 	for (auto it = _objects.begin(); it != _objects.end(); ++it)
