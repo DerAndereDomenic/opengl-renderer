@@ -33,6 +33,7 @@ Light::addToShader(std::shared_ptr<Shader> shader, const uint32_t& lightID)
 	shader->bind();
 	shader->setLight("lights_frag[" + std::to_string(lightID) + "]", *(this));
 	shader->setMat4("lights_vert[" + std::to_string(lightID) + "].lightSpaceMatrix", lightSpace);
-	shader->setInt("lights_frag[" + std::to_string(lightID) + "].shadow_map", 4 + lightID);
+	if(castShadows)
+		shader->setInt("lights_frag[" + std::to_string(lightID) + "].shadow_map", 6 + lightID);
 	shader->setInt("lights_frag[" + std::to_string(lightID) + "].cast_shadow", castShadows ? 1:0);
 }
