@@ -247,7 +247,7 @@ int main(void)
 		"back.jpg"
 	};
 
-	std::shared_ptr<Texture> skybox = std::make_shared<Texture>("res/skybox/", faces);
+	std::shared_ptr<Texture> skybox_texture = std::make_shared<Texture>("res/skybox/", faces);
 
 	std::shared_ptr<Mesh> quad = MeshHelper::quadMesh(2.0f);
 
@@ -295,8 +295,8 @@ int main(void)
 	ShaderManager::getShader("Post")->setInt("screenTexture", 0);
 	ShaderManager::getShader("Post")->setInt("lightTexture", 1);
 
-	EnvironmentMap skybox_map(glm::vec3(0));
-	skybox_map.setCubeMap(skybox);
+	std::shared_ptr<EnvironmentMap> skybox_map = std::make_shared<EnvironmentMap>(glm::vec3(0));
+	skybox_map->setCubeMap(skybox_texture);
 
 	uint32_t frameID = 0;
 
@@ -321,7 +321,8 @@ int main(void)
 		if (frameID == 0)
 		{
 			ShaderManager::getShader("Normal")->bind();
-			glass->getMaterial().environment->renderTo(nullptr, &skybox_map, ShaderManager::getShader("Normal"), ShaderManager::getShader("Skybox"));
+			glass->getMaterial().environment->setSkybox(skybox_map);
+			glass->getMaterial().environment->renderTo(&scene, ShaderManager::getShader("Normal"), ShaderManager::getShader("Skybox"));
 		}
 
 		window.resetViewport();
@@ -331,7 +332,7 @@ int main(void)
 		//Skybox
 		//Use vertex data of the light block
 
-		skybox_map.renderSkybox(&camera, ShaderManager::getShader("Skybox"));
+		skybox_map->renderAsSkybox(&camera, ShaderManager::getShader("Skybox"));
 
 		ShaderManager::getShader("Reflection")->bind();
 		ShaderManager::getShader("Reflection")->setInt("cubemap", 0);

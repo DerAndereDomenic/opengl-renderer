@@ -37,14 +37,14 @@ public:
 	*	\param[in] scene_shader The shader the scene should be rendered with
 	*	\param[in] skybox_shader The shader the skybox should be rendered with
 	*/
-	void renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<Shader>& scene_shader, std::shared_ptr<Shader>& skybox_shader);
+	void renderTo(Scene* scene, std::shared_ptr<Shader>& scene_shader, std::shared_ptr<Shader>& skybox_shader);
 
 	/**
 	*	\brief Renders the cubemap as a skybox
 	*	\param[in] camera The fps camera
 	*	\param[in] skybox_shader The shader used to render the skybox
 	*/
-	void renderSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader);
+	void renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader);
 
 	/**
 	*	\brief Set the position of the environment map
@@ -54,9 +54,15 @@ public:
 
 	/**
 	*	\brief Set a cubemap texture
-	*	\param[in] cube_map The cube map texture
+	*	\param[in] skybox An optional skybox
 	*/
-	void setCubeMap(std::shared_ptr<Texture> cube_map);
+	void setSkybox(std::shared_ptr<EnvironmentMap>& skybox);
+
+	/**
+	*	\brief Set the cube map
+	*	\param[in] cube_map The cube map
+	*/
+	void setCubeMap(std::shared_ptr<Texture>& cube_map);
 
 	/**
 	*	\brief Get the cubemap texture
@@ -67,6 +73,7 @@ public:
 private:
 	std::shared_ptr<Texture> _cube_map = {};				/**<< The texture cube map*/
 	std::shared_ptr<FrameBuffer> _environment_map = {};		/**<< The framebuffer used to render to the cubemap*/
+	std::shared_ptr<EnvironmentMap> _skybox;						/**<< The skybox */
 	std::shared_ptr<Camera> _camera = {};					/**<< The camera of the environment map used to the scene*/
 	uint32_t _width, _height;								/**<< The resolution */
 	std::shared_ptr<Mesh> _cube;							/**<< A generic cube Mesh to render the skybox*/

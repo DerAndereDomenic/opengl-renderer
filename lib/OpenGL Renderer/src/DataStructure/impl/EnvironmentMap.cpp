@@ -9,7 +9,7 @@ EnvironmentMap::EnvironmentMap(const glm::vec3& position, const uint32_t& width,
 {
 	_camera = std::make_shared<Camera>(position, 90.0f, 1.0f, 0.1f, 100.0f);
 	_cube_map = Texture::createTexture(width, height, (void*)NULL, CUBEMAP);
-	_environment_map = std::make_shared<FrameBuffer>(1024, 1024);
+	_environment_map = std::make_shared<FrameBuffer>(width, height);
 	_environment_map->attachRenderBuffer();
 	_environment_map->unbind();
 
@@ -17,11 +17,9 @@ EnvironmentMap::EnvironmentMap(const glm::vec3& position, const uint32_t& width,
 	_cube->create();
 }
 
-void EnvironmentMap::setCubeMap(std::shared_ptr<Texture> cube_map)
+void EnvironmentMap::setSkybox(std::shared_ptr<EnvironmentMap>& skybox)
 {
-	_cube_map = cube_map;
-	_width = cube_map->getWidth();
-	_height = cube_map->getHeight();
+	_skybox = skybox;
 }
 
 void
@@ -31,7 +29,15 @@ EnvironmentMap::setPosition(const glm::vec3& position)
 }
 
 void 
-EnvironmentMap::renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<Shader>& scene_shader, std::shared_ptr<Shader>& skybox_shader)
+EnvironmentMap::setCubeMap(std::shared_ptr<Texture>& cube_map)
+{
+	_cube_map = cube_map;
+	_width = cube_map->getWidth();
+	_height = cube_map->getHeight();
+}
+
+void 
+EnvironmentMap::renderTo(Scene* scene, std::shared_ptr<Shader>& scene_shader, std::shared_ptr<Shader>& skybox_shader)
 {
 	_environment_map->bind();
 	glViewport(0, 0, _width, _height);
@@ -41,8 +47,8 @@ EnvironmentMap::renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<S
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, _cube_map->getID(), 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		_camera->updateDirection(angles[i].pitch, angles[i].yaw);
-		if(skybox)
-			skybox->renderSkybox(_camera.get(), skybox_shader);
+		if(_skybox)
+			_skybox->renderAsSkybox(_camera.get(), skybox_shader);
 		scene_shader->bind();
 		scene_shader->setMVP(glm::mat4(1), _camera->getView(), _camera->getProjection());
 		if(scene != nullptr)
@@ -52,7 +58,7 @@ EnvironmentMap::renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<S
 }
 
 void
-EnvironmentMap::renderSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader) 
+EnvironmentMap::renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader) 
 {
 	GL::disableDepthWriting();
 	skybox_shader->bind();

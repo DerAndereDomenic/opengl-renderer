@@ -89,16 +89,26 @@ int main()
 
 	std::shared_ptr<Texture> skybox = std::make_shared<Texture>("res/skybox/", faces);
 
-	EnvironmentMap skybox_map(glm::vec3(0));
-	skybox_map.setCubeMap(skybox);
+	std::shared_ptr<EnvironmentMap> skybox_map = std::make_shared<EnvironmentMap>(glm::vec3(0));
+	skybox_map->setCubeMap(skybox);
+	glDepthFunc(GL_LEQUAL);  
+	std::shared_ptr<Texture> irradiance = Texture::createTexture(32, 32, (float*)NULL, CUBEMAP, GL_RGB16F, RGB, GL_FLOAT);
+	EnvironmentMap irradiance_map(glm::vec3(0), 32, 32);
+	irradiance_map.setSkybox(skybox_map);
+	irradiance_map.setCubeMap(irradiance);
+	irradiance_map.renderTo(nullptr, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
+	//irradiance_map.setCubeMap(skybox);
+
+	//irradiance_map.renderTo(nullptr, &skybox_map, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
 
 	while (window.isOpen())
 	{
+		GL::setViewport(width, height);
 		hdr.bind();
 
 		GL::clear();
 
-		skybox_map.renderSkybox(&camera, ShaderManager::getShader("Skybox"));
+		irradiance_map.renderAsSkybox(&camera, ShaderManager::getShader("Skybox"));
 
 		ShaderManager::getShader("Normal")->bind();
 		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
