@@ -321,7 +321,7 @@ int main(void)
 		if (frameID == 0)
 		{
 			ShaderManager::getShader("Normal")->bind();
-			glass->getMaterial().environment->renderTo(&scene, &skybox_map, ShaderManager::getShader("Normal"));
+			glass->getMaterial().environment->renderTo(nullptr, &skybox_map, ShaderManager::getShader("Normal"), ShaderManager::getShader("Skybox"));
 		}
 
 		window.resetViewport();
@@ -331,7 +331,7 @@ int main(void)
 		//Skybox
 		//Use vertex data of the light block
 
-		skybox_map.renderSkybox(&camera);
+		skybox_map.renderSkybox(&camera, ShaderManager::getShader("Skybox"));
 
 		ShaderManager::getShader("Reflection")->bind();
 		ShaderManager::getShader("Reflection")->setInt("cubemap", 0);

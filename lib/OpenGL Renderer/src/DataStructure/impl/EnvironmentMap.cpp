@@ -31,7 +31,7 @@ EnvironmentMap::setPosition(const glm::vec3& position)
 }
 
 void 
-EnvironmentMap::renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<Shader>& shader)
+EnvironmentMap::renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<Shader>& scene_shader, std::shared_ptr<Shader>& skybox_shader)
 {
 	_environment_map->bind();
 	glViewport(0, 0, _width, _height);
@@ -42,22 +42,22 @@ EnvironmentMap::renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<S
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		_camera->updateDirection(angles[i].pitch, angles[i].yaw);
 		if(skybox)
-			skybox->renderSkybox(_camera.get());
-		shader->bind();
-		shader->setMVP(glm::mat4(1), _camera->getView(), _camera->getProjection());
-		if(shader)
-			scene->render(shader);
+			skybox->renderSkybox(_camera.get(), skybox_shader);
+		scene_shader->bind();
+		scene_shader->setMVP(glm::mat4(1), _camera->getView(), _camera->getProjection());
+		if(scene != nullptr)
+			scene->render(scene_shader);
 	}
 	_environment_map->unbind();
 }
 
 void
-EnvironmentMap::renderSkybox(Camera* camera) 
+EnvironmentMap::renderSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader) 
 {
 	GL::disableDepthWriting();
-	ShaderManager::getShader("Skybox")->bind();
+	skybox_shader->bind();
 	_cube_map->bind(0);
-	ShaderManager::getShader("Skybox")->setMVP(glm::mat4(1),
+	skybox_shader->setMVP(glm::mat4(1),
 		glm::mat4(glm::mat3(camera->getView())),
 		camera->getProjection());
 	_cube->render();

@@ -34,15 +34,17 @@ public:
 	*	\brief Renders the given scene onto the cube map
 	*	\param[in] scene The scene to be rendered
 	*	\param[in] skybox An optional skybox
-	*	\param[in] shader The shader used to render the scene
+	*	\param[in] scene_shader The shader the scene should be rendered with
+	*	\param[in] skybox_shader The shader the skybox should be rendered with
 	*/
-	void renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<Shader>& shader);
+	void renderTo(Scene* scene, EnvironmentMap* skybox, std::shared_ptr<Shader>& scene_shader, std::shared_ptr<Shader>& skybox_shader);
 
 	/**
 	*	\brief Renders the cubemap as a skybox
 	*	\param[in] camera The fps camera
+	*	\param[in] skybox_shader The shader used to render the skybox
 	*/
-	void renderSkybox(Camera* camera);
+	void renderSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader);
 
 	/**
 	*	\brief Set the position of the environment map

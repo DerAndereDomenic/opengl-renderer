@@ -8,7 +8,7 @@
 #include <DLogger/Logger.h>
 #include <DataStructure/MeshHelper.h>
 #include <glm/gtx/transform.hpp>
-#include <DataStructure/Skybox.h>
+#include <DataStructure/EnvironmentMap.h>
 
 int main()
 {
@@ -28,6 +28,7 @@ int main()
 
 	ShaderManager::addShader("Normal");
 	ShaderManager::addShader("Post");
+	ShaderManager::addShader("Skybox");
 
 	std::vector<std::string> names;
 	std::vector<std::shared_ptr<Mesh>> meshes;
@@ -87,7 +88,8 @@ int main()
 
 	std::shared_ptr<Texture> skybox = std::make_shared<Texture>("res/skybox/", faces);
 
-	Skybox sky(skybox);
+	EnvironmentMap skybox_map(glm::vec3(0));
+	skybox_map.setCubeMap(skybox);
 
 	while (window.isOpen())
 	{
@@ -95,7 +97,7 @@ int main()
 
 		GL::clear();
 
-		sky.render(&camera);
+		skybox_map.renderSkybox(&camera, ShaderManager::getShader("Skybox"));
 
 		ShaderManager::getShader("Normal")->bind();
 		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
