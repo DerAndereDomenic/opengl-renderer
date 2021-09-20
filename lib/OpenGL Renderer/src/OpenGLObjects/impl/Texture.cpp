@@ -59,6 +59,7 @@ Texture::Texture(const std::string& file_path, const std::vector<std::string>& f
 	glBindTexture(GL_TEXTURE_CUBE_MAP, _ID);
 
 	int32_t width, height, nr_channels;
+	stbi_set_flip_vertically_on_load(true);
 	for (uint32_t i = 0; i < faces.size(); ++i)
 	{
 		std::string path = (file_path + faces[i]);
