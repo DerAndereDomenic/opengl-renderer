@@ -34,13 +34,22 @@ int main()
 	std::vector<glm::mat4> models;
 
 	names.push_back("Sphere");
-	meshes = ObjLoader::loadObj("res/sphere.obj");
+	meshes = ObjLoader::loadObj("res/sphere.obj", true);
 	Material sphere = Material("materialmap", GGX);
-	sphere.ambient = glm::vec3(0.1 ,0 ,0);
-	sphere.diffuse = glm::vec3(1, 0, 0);
-	sphere.specular = glm::vec3(1, 0, 0);
-	sphere.roughness = 0.01f;
-	sphere.metallic = 0.5f;
+	sphere.useDiffuseTextures = true;
+	sphere.useMetallicTextures = true;
+	sphere.useNormalTextures = false;
+	sphere.useRoughnessTextures = true;
+
+	sphere.texture_diffuse = std::make_shared<Texture>("res/rustediron2_basecolor.png");
+	sphere.texture_metallic = std::make_shared<Texture>("res/rustediron2_metallic.png");
+	sphere.texture_normal = std::make_shared<Texture>("res/rustediron2_normal.png");
+	sphere.texture_roughness = std::make_shared<Texture>("res/rustediron2_roughness.png");
+	//sphere.ambient = glm::vec3(0.1 ,0 ,0);
+	//sphere.diffuse = glm::vec3(1, 0, 0);
+	//sphere.specular = glm::vec3(1, 0, 0);
+	//sphere.roughness = 0.01f;
+	//sphere.metallic = 0.5f;
 
 	material.push_back(sphere);
 	models.push_back(glm::mat4(1));
