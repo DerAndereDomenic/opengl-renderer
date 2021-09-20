@@ -13,6 +13,7 @@ option(BUILD_WATERSCENE "Build a test scene displaying water rendering" ON)
 option(BUILD_GEOMETRYPROCESSING "Build the geometry processing application" ON)
 option(BUILD_DEFERREDRENDERER "Build the deferred rendering application" ON)
 option(BUILD_DUMPPROJECT "Build a dump project to test different features" ON)
+option(BUILD_PBR "Build the pbr application" ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 set(OpenGL_GL_PREFERENCE GLVND)

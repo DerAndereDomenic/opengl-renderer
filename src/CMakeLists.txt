@@ -25,3 +25,7 @@ endif()
 if(BUILD_DUMPPROJECT)
 	add_subdirectory(DumpProject)
 endif()
+
+if(BUILD_PBR)
+	add_subdirectory(PBR)
+endif()
