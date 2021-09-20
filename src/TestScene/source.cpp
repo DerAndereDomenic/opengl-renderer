@@ -8,7 +8,6 @@
 #include <DataStructure/Mesh.h>
 #include <DataStructure/MeshHelper.h>
 #include <DataStructure/RenderObject.h>
-#include <DataStructure/Skybox.h>
 #include <DataStructure/Scene.h>
 #include <Shader/ShaderManager.h>
 #include <IO/KeyManager.h>
@@ -277,6 +276,7 @@ int main(void)
 	ShaderManager::addShader("DisplayNormal", true);
 	ShaderManager::addShader("DisplayVertices", true);
 	ShaderManager::addShader("DisplayEdges", true);
+	ShaderManager::addShader("Skybox");
 
 	std::shared_ptr<TextRenderer> textRenderer = window.getTextRenderer();
 
@@ -295,7 +295,8 @@ int main(void)
 	ShaderManager::getShader("Post")->setInt("screenTexture", 0);
 	ShaderManager::getShader("Post")->setInt("lightTexture", 1);
 
-	Skybox sky = Skybox(skybox);
+	EnvironmentMap skybox_map(glm::vec3(0));
+	skybox_map.setCubeMap(skybox);
 
 	uint32_t frameID = 0;
 
@@ -320,7 +321,7 @@ int main(void)
 		if (frameID == 0)
 		{
 			ShaderManager::getShader("Normal")->bind();
-			glass->getMaterial().environment->render(scene, sky, ShaderManager::getShader("Normal"));
+			glass->getMaterial().environment->renderTo(&scene, &skybox_map, ShaderManager::getShader("Normal"));
 		}
 
 		window.resetViewport();
@@ -330,7 +331,7 @@ int main(void)
 		//Skybox
 		//Use vertex data of the light block
 
-		sky.render(std::make_shared<Camera>(camera));
+		skybox_map.renderSkybox(&camera);
 
 		ShaderManager::getShader("Reflection")->bind();
 		ShaderManager::getShader("Reflection")->setInt("cubemap", 0);
