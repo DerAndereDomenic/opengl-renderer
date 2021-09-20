@@ -138,13 +138,11 @@ int main()
 
 		window.spinOnce();
 
-		if (KeyManager::instance()->isKeyDown(GLFW_KEY_ESCAPE))
+		if (KeyManager::isKeyDown(GLFW_KEY_ESCAPE))
 		{
 			window.close();
 		}
 	}
-
-	KeyManager::instance()->destroy();
 
 	LOGGER::end();
 

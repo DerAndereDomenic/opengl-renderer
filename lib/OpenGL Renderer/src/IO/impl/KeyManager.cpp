@@ -1,48 +1,29 @@
 #include <IO/KeyManager.h>
 
-KeyManager* KeyManager::_instance = 0;
-
-KeyManager*
-KeyManager::instance()
-{
-	if (_instance == nullptr)
-	{
-		_instance = new KeyManager();
-	}
-	return _instance;
-}
-
-void 
-KeyManager::destroy()
-{
-	if (_instance != nullptr)
-	{
-		delete _instance;
-	}
-}
+KeyManager* KeyManager::_instance = new KeyManager;
 
 bool
-KeyManager::isKeyDown(const uint32_t& key)
+KeyManager::isKeyDownImpl(const uint32_t& key)
 {
 	return glfwGetKey(_window.getWindow(), key) == GLFW_PRESS;
 }
 
 bool
-KeyManager::leftClicked()
+KeyManager::leftClickedImpl()
 {
 	int32_t state = glfwGetMouseButton(_window.getWindow(), GLFW_MOUSE_BUTTON_LEFT);
 	return state == GLFW_PRESS;
 }
 
 bool
-KeyManager::rightClicked()
+KeyManager::rightClickedImpl()
 {
 	int32_t state = glfwGetMouseButton(_window.getWindow(), GLFW_MOUSE_BUTTON_RIGHT);
 	return state == GLFW_PRESS;
 }
 
 void
-KeyManager::setup(const RenderWindow& window)
+KeyManager::setupImpl(const RenderWindow& window)
 {
 	_window = window;
 }

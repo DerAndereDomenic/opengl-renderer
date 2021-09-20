@@ -41,19 +41,19 @@ void
 Camera::processInput(const float& deltaTime, const double& xpos, const double& ypos)
 {
 	float cameraSpeed = 4.0f*deltaTime;
-	if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_SHIFT))
+	if (KeyManager::isKeyDown(GLFW_KEY_LEFT_SHIFT))
 		cameraSpeed *= 8.0f;
-	if (KeyManager::instance()->isKeyDown(GLFW_KEY_W))
+	if (KeyManager::isKeyDown(GLFW_KEY_W))
 		_cameraPos += cameraSpeed * _cameraFront;
-	if (KeyManager::instance()->isKeyDown(GLFW_KEY_S))
+	if (KeyManager::isKeyDown(GLFW_KEY_S))
 		_cameraPos -= cameraSpeed * _cameraFront;
-	if (KeyManager::instance()->isKeyDown(GLFW_KEY_A))
+	if (KeyManager::isKeyDown(GLFW_KEY_A))
 		_cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
-	if (KeyManager::instance()->isKeyDown(GLFW_KEY_D))
+	if (KeyManager::isKeyDown(GLFW_KEY_D))
 		_cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
-	if (KeyManager::instance()->isKeyDown(GLFW_KEY_SPACE))
+	if (KeyManager::isKeyDown(GLFW_KEY_SPACE))
 		_cameraPos += cameraSpeed * _cameraUp;
-	if (KeyManager::instance()->isKeyDown(GLFW_KEY_LEFT_CONTROL))
+	if (KeyManager::isKeyDown(GLFW_KEY_LEFT_CONTROL))
 		_cameraPos -= cameraSpeed * _cameraUp;
 
 

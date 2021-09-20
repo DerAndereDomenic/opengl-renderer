@@ -409,8 +409,6 @@ int main(void)
 		++frameID;
 	}
 
-	KeyManager::destroy();
-
 	LOGGER::end();
 
 	return 0;

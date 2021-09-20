@@ -42,7 +42,7 @@
 	_textRenderer = std::make_shared<TextRenderer>(width, height);
 	_textRenderer->loadFont("res/Hack-Regular.ttf", 16);
     
-    KeyManager::instance()->setup(*this);
+    KeyManager::setup(*this);
 }
 
  RenderWindow::~RenderWindow()
