@@ -26,12 +26,14 @@ struct MaterialMap
 	bool useNormalTextures;
 	bool useMetallicTextures;
 	bool useRoughnessTextures;
+	bool useIrradianceTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;
 	sampler2D height_map;
 	sampler2D metallic_map;
 	sampler2D roughness_map;
+	samplerCube irradiance_map;
 
 	vec3 ambient;
 	vec3 diffuse;

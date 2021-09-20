@@ -38,12 +38,14 @@ struct MaterialMap
 	bool useNormalTextures;
 	bool useMetallicTextures;
 	bool useRoughnessTextures;
+	bool useIrradianceTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;
 	sampler2D height_map;
 	sampler2D metallic_map;
 	sampler2D roughness_map;
+	samplerCube irradiance_map;
 
 	vec3 ambient;
 	vec3 diffuse;
@@ -169,7 +171,7 @@ void main(){
 	}
 	else
 	{
-		object_material.ambient = materialmap.ambient/10;
+		object_material.ambient = materialmap.ambient;
 		object_material.diffuse = materialmap.diffuse;
 	}
 
@@ -243,7 +245,17 @@ void main(){
 		
 	}
 
-	result += vec3(0.03) * object_material.ambient;	
+	if(materialmap.useIrradianceTextures)
+	{
+		vec3 kS = fresnel_schlick(F0, max(0,dot(norm, viewDir)));
+		vec3 kD = 1.0 - kS;
+		kD *= 1.0 - object_material.metallic;
+		vec3 irradiance = texture(materialmap.irradiance_map, norm).rgb;
+		vec3 diffuse = irradiance * object_material.diffuse;
+		object_material.ambient = (kD * diffuse);
+	}
+
+	result += object_material.ambient;	
 
 	FragColor = vec4(result, 1.0);
 
