@@ -26,8 +26,8 @@ int main()
 
 	window.registerKeyCallback(GLFW_KEY_ESCAPE, &close_callback);
 
-	ShaderManager::instance()->addShader("Normal");
-	ShaderManager::instance()->addShader("Water");
+	ShaderManager::addShader("Normal");
+	ShaderManager::addShader("Water");
 
 	std::shared_ptr<Mesh> water = MeshHelper::quadMesh(6);
 	water->create();
@@ -87,13 +87,13 @@ int main()
 
 		refraction.bind();
 		GL::clear();
-		ShaderManager::instance()->getShader("Normal")->bind();
-		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal")->setVec4("plane", glm::vec4(0, -1, 0, -water_height));
+		ShaderManager::getShader("Normal")->bind();
+		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		ShaderManager::getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::getShader("Normal")->setVec4("plane", glm::vec4(0, -1, 0, -water_height));
 
-		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
-		scene.render(ShaderManager::instance()->getShader("Normal"));
+		scene.passLights2Shader(ShaderManager::getShader("Normal"));
+		scene.render(ShaderManager::getShader("Normal"));
 
 		//Change camera
 		camera.invertPitch();
@@ -102,28 +102,28 @@ int main()
 
 		reflection.bind();
 		GL::clear();
-		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal")->setVec4("plane", glm::vec4(0, 1, 0, water_height));
+		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		ShaderManager::getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::getShader("Normal")->setVec4("plane", glm::vec4(0, 1, 0, water_height));
 
-		scene.render(ShaderManager::instance()->getShader("Normal"));
+		scene.render(ShaderManager::getShader("Normal"));
 
 		//Change camera back
 		camera.invertPitch();
 		camera.teleport(position);
 
 		FrameBuffer::bindDefault();
-		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal")->setVec4("plane", glm::vec4(0, 1, 0, -100));
+		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		ShaderManager::getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::getShader("Normal")->setVec4("plane", glm::vec4(0, 1, 0, -100));
 
-		scene.render(ShaderManager::instance()->getShader("Normal"));
+		scene.render(ShaderManager::getShader("Normal"));
 
-		ShaderManager::instance()->getShader("Water")->bind();
-		ShaderManager::instance()->getShader("Water")->setMVP(rotate, camera.getView(), camera.getProjection());
-		ShaderManager::instance()->getShader("Water")->setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Water")->setInt("reflection", 0);
-		ShaderManager::instance()->getShader("Water")->setInt("refraction", 1);
+		ShaderManager::getShader("Water")->bind();
+		ShaderManager::getShader("Water")->setMVP(rotate, camera.getView(), camera.getProjection());
+		ShaderManager::getShader("Water")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::getShader("Water")->setInt("reflection", 0);
+		ShaderManager::getShader("Water")->setInt("refraction", 1);
 
 		reflection.getTexture()->bind(0);
 		refraction.getTexture()->bind(1);
@@ -132,8 +132,6 @@ int main()
 
 		window.spinOnce();
 	}
-
-	ShaderManager::destroyObject(*ShaderManager::instance());
 
 	LOGGER::end();
 

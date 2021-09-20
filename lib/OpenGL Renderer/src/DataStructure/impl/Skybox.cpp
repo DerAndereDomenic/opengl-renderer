@@ -9,18 +9,18 @@
 	_cube = MeshHelper::cubeMesh(glm::vec4(1));
 	_cube->create();
 
-	ShaderManager::instance()->addShader("Skybox");
-	ShaderManager::instance()->getShader("Skybox")->bind();
-	ShaderManager::instance()->getShader("Skybox")->setInt("skybox", 0);
+	ShaderManager::addShader("Skybox");
+	ShaderManager::getShader("Skybox")->bind();
+	ShaderManager::getShader("Skybox")->setInt("skybox", 0);
 }
 
 void
 Skybox::render(std::shared_ptr<Camera> camera) 
 {
 	GL::disableDepthWriting();
-	ShaderManager::instance()->getShader("Skybox")->bind();
+	ShaderManager::getShader("Skybox")->bind();
 	_cubemap->bind(0);
-	ShaderManager::instance()->getShader("Skybox")->setMVP(glm::mat4(1),
+	ShaderManager::getShader("Skybox")->setMVP(glm::mat4(1),
 		glm::mat4(glm::mat3(camera->getView())),
 		camera->getProjection());
 	_cube->render();
@@ -31,9 +31,9 @@ void
 Skybox::render(const glm::mat4& view, const glm::mat4& projection)
 {
 	GL::disableDepthWriting();
-	ShaderManager::instance()->getShader("Skybox")->bind();
+	ShaderManager::getShader("Skybox")->bind();
 	_cubemap->bind(0);
-	ShaderManager::instance()->getShader("Skybox")->setMVP(glm::mat4(1),
+	ShaderManager::getShader("Skybox")->setMVP(glm::mat4(1),
 		glm::mat4(glm::mat3(view)),
 		projection);
 	_cube->render();

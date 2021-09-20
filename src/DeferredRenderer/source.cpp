@@ -26,8 +26,8 @@ int main()
     Texture diffuse_texture = Texture("res/crate_diffuse.png");
     Texture specuar_texture = Texture("res/crate_specular.png");
 
-    ShaderManager::instance()->addShader("GeometryDeferred");
-    ShaderManager::instance()->addShader("LightDeferred");
+    ShaderManager::addShader("GeometryDeferred");
+    ShaderManager::addShader("LightDeferred");
 
     GBuffer gbuffer = GBuffer(width, height);
     GL::updateDrawBuffers(3);
@@ -42,28 +42,26 @@ int main()
     {
         gbuffer.bind();
         GL::clear();
-        ShaderManager::instance()->getShader("GeometryDeferred")->bind();
-        ShaderManager::instance()->getShader("GeometryDeferred")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-        ShaderManager::instance()->getShader("GeometryDeferred")->setInt("texture_diffuse", 0);
-        ShaderManager::instance()->getShader("GeometryDeferred")->setInt("texture_specular", 1);
+        ShaderManager::getShader("GeometryDeferred")->bind();
+        ShaderManager::getShader("GeometryDeferred")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+        ShaderManager::getShader("GeometryDeferred")->setInt("texture_diffuse", 0);
+        ShaderManager::getShader("GeometryDeferred")->setInt("texture_specular", 1);
         diffuse_texture.bind(0);
         specuar_texture.bind(1);
         crate->render();
         FrameBuffer::bindDefault();
 
         GL::clear();
-        ShaderManager::instance()->getShader("LightDeferred")->bind();
-        ShaderManager::instance()->getShader("LightDeferred")->setVec3("viewPos", camera.getPosition());
-        ShaderManager::instance()->getShader("LightDeferred")->setInt("gPosition", 0);
-        ShaderManager::instance()->getShader("LightDeferred")->setInt("gNormal", 1);
-        ShaderManager::instance()->getShader("LightDeferred")->setInt("gAlbedoSpec", 2);
+        ShaderManager::getShader("LightDeferred")->bind();
+        ShaderManager::getShader("LightDeferred")->setVec3("viewPos", camera.getPosition());
+        ShaderManager::getShader("LightDeferred")->setInt("gPosition", 0);
+        ShaderManager::getShader("LightDeferred")->setInt("gNormal", 1);
+        ShaderManager::getShader("LightDeferred")->setInt("gAlbedoSpec", 2);
         gbuffer.bindTextures();
         quad->render();
 
         window.spinOnce();
     }
-
-    ShaderManager::destroyObject(*ShaderManager::instance());
 
     LOGGER::end();
 

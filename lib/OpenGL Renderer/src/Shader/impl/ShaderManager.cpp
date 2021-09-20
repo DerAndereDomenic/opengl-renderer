@@ -1,29 +1,10 @@
 #include <Shader/ShaderManager.h>
 #include <DLogger/Logger.h>
 
-ShaderManager* ShaderManager::_instance = 0;
-
-ShaderManager*
-ShaderManager::instance()
-{
-	if (_instance == nullptr)
-	{
-		_instance =  new ShaderManager();
-	}
-	return _instance;
-}
+ShaderManager* ShaderManager::_instance = new ShaderManager;
 
 void
-ShaderManager::destroyObject(ShaderManager& manager)
-{
-	manager._shader.clear();
-
-	delete manager._instance;
-}
-
-
-void
-ShaderManager::addShader(const std::string& name, const bool geometry)
+ShaderManager::addShaderImpl(const std::string& name, const bool geometry)
 {
 	const std::string vertexPath = SHADER_DIRECTORY + name + ".vert";
 	const std::string fragmentPath = SHADER_DIRECTORY + name + ".frag";
@@ -42,19 +23,19 @@ ShaderManager::addShader(const std::string& name, const bool geometry)
 }
 
 void
-ShaderManager::removeShader(const std::string& name)
+ShaderManager::removeShaderImpl(const std::string& name)
 {
 	auto it = _shader.find(name);
 	if (it == _shader.end())
 	{
-		LOGGER::ERROR("Shader with name: " + name + " does not exist. Rejecting...\n");
+		LOGGER::ERROR("Shader with name: " + name + " does not exist. Rejecting...");
 		return;
 	}
 	_shader.erase(it);
 }
 
 void 
-ShaderManager::addComputeShader(const std::string& name)
+ShaderManager::addComputeShaderImpl(const std::string& name)
 {
 	const std::string computePath = SHADER_DIRECTORY + name + ".glsl";
 
@@ -64,13 +45,13 @@ ShaderManager::addComputeShader(const std::string& name)
 }
 
 std::shared_ptr<Shader>
-ShaderManager::getShader(const std::string& name)
+ShaderManager::getShaderImpl(const std::string& name)
 {
 	return _shader[name];
 }
 
 void 
-ShaderManager::setShaderDir(const std::string& path)
+ShaderManager::setShaderDirImpl(const std::string& path)
 {
 	SHADER_DIRECTORY = path;
 }

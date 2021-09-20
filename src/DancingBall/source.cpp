@@ -58,7 +58,7 @@ int main()
 	glm::mat4 view = glm::lookAt(camera_pos, glm::vec3(0,0,0), glm::vec3(0, 1, 0));
 	glm::mat4 projection = glm::perspective(glm::radians(90.0f), static_cast<float>(width) / static_cast<float>(height), 0.01f, 100.0f);
 
-	ShaderManager::instance()->addShader("Normal");
+	ShaderManager::addShader("Normal");
 	
 	std::shared_ptr<Scene> scene = generateScene();
 	Light light = Light(glm::vec3(10, 10, 10), true, 2000, 2000, 0.1f, 500.0f);
@@ -123,18 +123,18 @@ int main()
 
 		GL::setViewport(2000, 2000);
 
-		scene->passLights2Shader(ShaderManager::instance()->getShader("Normal"));
+		scene->passLights2Shader(ShaderManager::getShader("Normal"));
 		scene->updateShadowMaps();
 
 		window.resetViewport();
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		ShaderManager::instance()->getShader("Normal")->bind();
-		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera_pos);
-		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), view, projection);
+		ShaderManager::getShader("Normal")->bind();
+		ShaderManager::getShader("Normal")->setVec3("viewPos", camera_pos);
+		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), view, projection);
 
-		scene->render(ShaderManager::instance()->getShader("Normal"));
+		scene->render(ShaderManager::getShader("Normal"));
 
 		window.spinOnce();
 

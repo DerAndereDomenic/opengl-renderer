@@ -32,7 +32,7 @@ TextRenderer::TextRenderer(const uint32_t& width, const uint32_t& height)
 
 	_projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
 
-	ShaderManager::instance()->addShader("Text");
+	ShaderManager::addShader("Text");
 }
 
 TextRenderer::~TextRenderer()
@@ -45,7 +45,7 @@ TextRenderer::~TextRenderer()
 void 
 TextRenderer::render(const std::string& text, float x, float y, const float& scale, const glm::vec3& color)
 {
-	std::shared_ptr<Shader> text_shader = ShaderManager::instance()->getShader("Text");
+	std::shared_ptr<Shader> text_shader = ShaderManager::getShader("Text");
 	text_shader->bind();
 	text_shader->setVec3("textColor", color);
 	text_shader->setMat4("projection", _projection);

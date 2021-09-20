@@ -26,7 +26,7 @@ Scene::Scene(std::vector<std::string> names,
 		_objects.insert(std::make_pair(names[i], std::make_shared<RenderObject>(meshes[i], materials[i], models[i])));
 	}
 
-	ShaderManager::instance()->addShader("Shadow");
+	ShaderManager::addShader("Shadow");
 }
 
 Scene::Scene(std::vector<std::string> names,
@@ -47,7 +47,7 @@ Scene::Scene(std::vector<std::string> names,
 		_models.insert(std::make_pair(names[i], models[i]));
 	}
 
-	ShaderManager::instance()->addShader("Shadow");
+	ShaderManager::addShader("Shadow");
 }
  
 Scene::~Scene()
@@ -95,7 +95,7 @@ Scene::passLights2Shader(std::shared_ptr<Shader> shader)
 void 
 Scene::updateShadowMaps()
 {
-	std::shared_ptr<Shader> shadow = ShaderManager::instance()->getShader("Shadow");
+	std::shared_ptr<Shader> shadow = ShaderManager::getShader("Shadow");
 	shadow->bind();
 	Light* light;
 	for (uint32_t i = 0; i < _lights.size(); ++i)

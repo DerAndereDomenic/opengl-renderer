@@ -104,8 +104,8 @@ int main(void)
 	//                              RENDERING SETUP                                    //
 	//---------------------------------------------------------------------------------//
 	LOGGER::DEBUG("Start Renderer setup!\n");
-	ShaderManager::instance()->addShader("Post");
-	ShaderManager::instance()->addShader("Normal");
+	ShaderManager::addShader("Post");
+	ShaderManager::addShader("Normal");
 
 	std::shared_ptr<TextRenderer> textRenderer = window.getTextRenderer();
 
@@ -117,9 +117,9 @@ int main(void)
 
 	EnvironmentMap map = EnvironmentMap(glm::vec3(0, 5, 0));
 
-	ShaderManager::instance()->getShader("Post")->bind();
-	ShaderManager::instance()->getShader("Post")->setInt("screenTexture", 0);
-	ShaderManager::instance()->getShader("Post")->setInt("lightTexture", 1);
+	ShaderManager::getShader("Post")->bind();
+	ShaderManager::getShader("Post")->setInt("screenTexture", 0);
+	ShaderManager::getShader("Post")->setInt("lightTexture", 1);
 
 	uint32_t frameID = 0;
 
@@ -135,7 +135,7 @@ int main(void)
 
 		//----------------------------------------------------------------------------------------------
 		GL::setViewport(shadow_width, shadow_height);
-		scene.passLights2Shader(ShaderManager::instance()->getShader("Normal"));
+		scene.passLights2Shader(ShaderManager::getShader("Normal"));
 		scene.updateShadowMaps();
 
 		window.resetViewport();
@@ -143,16 +143,16 @@ int main(void)
 
 		fbo->clear();
 		
-		ShaderManager::instance()->getShader("Normal")->bind();
-		ShaderManager::instance()->getShader("Normal")->setVec3("viewPos", camera.getPosition());
-		ShaderManager::instance()->getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
-		scene.render(ShaderManager::instance()->getShader("Normal"));
+		ShaderManager::getShader("Normal")->bind();
+		ShaderManager::getShader("Normal")->setVec3("viewPos", camera.getPosition());
+		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
+		scene.render(ShaderManager::getShader("Normal"));
 
 		//Render to quad
 		fbo->unbind();
 		GL::clear();
-		ShaderManager::instance()->getShader("Post")->bind();
-		ShaderManager::instance()->getShader("Post")->setFloat("exposure", exposure_callback.getExposure());
+		ShaderManager::getShader("Post")->bind();
+		ShaderManager::getShader("Post")->setFloat("exposure", exposure_callback.getExposure());
 		fbo->getTexture(0)->bind(0);
 		//lights[0].shadow_map.getTexture().bind();
 		quad->render();
@@ -180,7 +180,6 @@ int main(void)
 		++frameID;
 	}
 
-	ShaderManager::destroyObject(*ShaderManager::instance());
 	KeyManager::destroy();
 
 	LOGGER::end();
