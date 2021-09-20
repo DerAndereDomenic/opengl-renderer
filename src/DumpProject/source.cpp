@@ -8,7 +8,6 @@
 #include <DataStructure/Mesh.h>
 #include <DataStructure/MeshHelper.h>
 #include <DataStructure/RenderObject.h>
-#include <DataStructure/Skybox.h>
 #include <DataStructure/Scene.h>
 #include <DataStructure/Model.h>
 #include <Shader/ShaderManager.h>
