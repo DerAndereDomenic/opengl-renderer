@@ -15,7 +15,7 @@
 }
 
 void
-Skybox::render(std::shared_ptr<Camera> camera) 
+Skybox::render(Camera* camera) 
 {
 	GL::disableDepthWriting();
 	ShaderManager::getShader("Skybox")->bind();
