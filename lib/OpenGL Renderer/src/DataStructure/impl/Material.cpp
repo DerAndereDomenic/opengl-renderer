@@ -26,6 +26,7 @@ Material::bind(std::shared_ptr<Shader> shader)
 	shader->setBool(_name + ".useHeightTextures", useHeightTextures);
 	shader->setBool(_name + ".useMetallicTextures", useMetallicTextures);
 	shader->setBool(_name + ".useRoughnessTextures", useRoughnessTextures);
+	shader->setBool(_name + ".useIrradianceTextures", useIrradianceTextures);
 	if (useDiffuseTextures)
 	{
 		shader->setInt(_name + ".diffuse_map", 0);
@@ -78,14 +79,22 @@ Material::bind(std::shared_ptr<Shader> shader)
 		shader->setFloat(_name + ".roughness", roughness);
 	}
 
-	if (_type == GLASS)
+	if(useIrradianceTextures)
 	{
-		shader->setInt(_name + ".environment", 6);
-		environment->getCubeMap()->bind(6);
+		shader->setInt(_name + ".irradiance_map", 6);
+		texture_irradiance->getCubeMap()->bind(6);
+	}
+	else
+	{
+		shader->setVec3(_name + ".ambient", ambient);
 	}
 
-	shader->setFloat(_name + ".shininess", shininess);
-	shader->setVec3(_name + ".ambient", ambient);
+	if (_type == GLASS)
+	{
+		shader->setInt(_name + ".environment", 7);
+		environment->getCubeMap()->bind(7);
+	}
+
 	shader->setFloat(_name + ".shininess", shininess);
 	shader->setInt(_name + ".type", _type);
 	shader->setFloat(_name + ".refractive_index", refractive_index);

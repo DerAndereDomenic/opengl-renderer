@@ -51,6 +51,7 @@ public:
 	bool useHeightTextures = false;														/**<< Toggle the use of height textures*/
 	bool useMetallicTextures = false;													/**<< Toggle the use of metallic textures */
 	bool useRoughnessTextures = false;													/**<< Toggle the use of roughness textures */
+	bool useIrradianceTextures= false;													/**<< Toggle the use of irradiance textures */
 	bool dynamic = false;																/**<< If the environment map of this object should be updated*/
 
 	glm::vec3 ambient = glm::vec3(0, 0, 0);												/**<< The ambient part of the material*/
@@ -63,6 +64,7 @@ public:
 	std::shared_ptr<Texture> texture_height = std::make_shared<Texture>();				/**<< The displacement map texture*/
 	std::shared_ptr<Texture> texture_metallic = std::make_shared<Texture>();			/**<< The metallic texture */
 	std::shared_ptr<Texture> texture_roughness = std::make_shared<Texture>();			/**<< The roughness texture */
+	std::shared_ptr<EnvironmentMap> texture_irradiance;									/**<< The irradiance map */
 	std::shared_ptr<EnvironmentMap> environment;										/**<< The environment map */
 
 	MaterialType _type = MaterialType::PHONG;											/**<< The material type*/
