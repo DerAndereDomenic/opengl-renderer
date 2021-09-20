@@ -39,20 +39,22 @@ int main()
 	names.push_back("Sphere");
 	meshes = ObjLoader::loadObj("res/sphere.obj", true);
 	Material sphere = Material("materialmap", GGX);
-	sphere.useDiffuseTextures = true;
-	sphere.useMetallicTextures = true;
+	sphere.useDiffuseTextures = false;
+	sphere.useMetallicTextures = false;
 	sphere.useNormalTextures = false;
-	sphere.useRoughnessTextures = true;
+	sphere.useRoughnessTextures = false;
+	sphere.useIrradianceTextures = true;
 
-	sphere.texture_diffuse = std::make_shared<Texture>("res/rustediron2_basecolor.png");
-	sphere.texture_metallic = std::make_shared<Texture>("res/rustediron2_metallic.png");
-	sphere.texture_normal = std::make_shared<Texture>("res/rustediron2_normal.png");
-	sphere.texture_roughness = std::make_shared<Texture>("res/rustediron2_roughness.png");
-	//sphere.ambient = glm::vec3(0.1 ,0 ,0);
-	//sphere.diffuse = glm::vec3(1, 0, 0);
-	//sphere.specular = glm::vec3(1, 0, 0);
-	//sphere.roughness = 0.01f;
-	//sphere.metallic = 0.5f;
+	//sphere.texture_diffuse = std::make_shared<Texture>("res/rustediron2_basecolor.png");
+	//sphere.texture_metallic = std::make_shared<Texture>("res/rustediron2_metallic.png");
+	//sphere.texture_normal = std::make_shared<Texture>("res/rustediron2_normal.png");
+	//sphere.texture_roughness = std::make_shared<Texture>("res/rustediron2_roughness.png");
+	sphere.texture_irradiance = std::make_shared<EnvironmentMap>(glm::vec3(0), 32, 32);
+	sphere.ambient = glm::vec3(0.1 ,0.1 ,0.1);
+	sphere.diffuse = glm::vec3(1, 1, 1);
+	sphere.specular = glm::vec3(1, 1, 1);
+	sphere.roughness = 1.0f;
+	sphere.metallic = 0.5f;
 
 	material.push_back(sphere);
 	models.push_back(glm::mat4(1));
@@ -93,10 +95,9 @@ int main()
 	skybox_map->setCubeMap(skybox);
 	glDepthFunc(GL_LEQUAL);  
 	std::shared_ptr<Texture> irradiance = Texture::createTexture(32, 32, (float*)NULL, CUBEMAP, GL_RGB16F, RGB, GL_FLOAT);
-	EnvironmentMap irradiance_map(glm::vec3(0), 32, 32);
-	irradiance_map.setSkybox(skybox_map);
-	irradiance_map.setCubeMap(irradiance);
-	irradiance_map.renderTo(nullptr, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
+	sphere.texture_irradiance->setSkybox(skybox_map);
+	sphere.texture_irradiance->setCubeMap(irradiance);
+	sphere.texture_irradiance->renderTo(nullptr, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
 	//irradiance_map.setCubeMap(skybox);
 
 	//irradiance_map.renderTo(nullptr, &skybox_map, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
@@ -108,7 +109,7 @@ int main()
 
 		GL::clear();
 
-		irradiance_map.renderAsSkybox(&camera, ShaderManager::getShader("Skybox"));
+		skybox_map->renderAsSkybox(&camera, ShaderManager::getShader("Skybox"));
 
 		ShaderManager::getShader("Normal")->bind();
 		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
