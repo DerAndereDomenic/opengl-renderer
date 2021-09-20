@@ -164,12 +164,12 @@ void main(){
 
 	if(materialmap.useDiffuseTextures)
 	{
-		object_material.ambient = vec3(texture(materialmap.diffuse_map, frag_tex));
-		object_material.diffuse = vec3(texture(materialmap.diffuse_map, frag_tex));
+		object_material.ambient = vec3(texture(materialmap.diffuse_map, frag_tex))/10;
+		object_material.diffuse = vec3(texture(materialmap.diffuse_map, frag_tex).rgb);
 	}
 	else
 	{
-		object_material.ambient = materialmap.ambient;
+		object_material.ambient = materialmap.ambient/10;
 		object_material.diffuse = materialmap.diffuse;
 	}
 
