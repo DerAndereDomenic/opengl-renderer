@@ -29,6 +29,7 @@ int main()
 	ShaderManager::addShader("Normal");
 	ShaderManager::addShader("Post");
 	ShaderManager::addShader("Skybox");
+	ShaderManager::addShader("CubeMapConvolution");
 
 	std::vector<std::string> names;
 	std::vector<std::shared_ptr<Mesh>> meshes;
