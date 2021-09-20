@@ -1,3 +1,5 @@
 add_executable(GeometryProcessing source.cpp)
 
 target_link_libraries(GeometryProcessing OpenGLRendererLib)
+
+set_target_properties(GeometryProcessing PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")

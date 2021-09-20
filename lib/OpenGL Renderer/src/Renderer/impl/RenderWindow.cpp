@@ -1,4 +1,3 @@
-#include <OpenGLRendererConfig.h>
 #include <Renderer/RenderWindow.h>
 #include <DLogger/Logger.h>
 #include <Core/Platform.h>
@@ -41,7 +40,7 @@
 	_active_keys.insert(std::make_pair(GLFW_MOUSE_BUTTON_LEFT, false));
 
 	_textRenderer = std::make_shared<TextRenderer>(width, height);
-	_textRenderer->loadFont((RESOURCE_PATH + "Hack-Regular.ttf").c_str(), 16);
+	_textRenderer->loadFont("res/Hack-Regular.ttf", 16);
     
     KeyManager::instance()->setup(*this);
 }

@@ -39,7 +39,7 @@ int main()
 	std::vector<glm::mat4> models;
 
 	names.push_back("Terrain");
-	meshes = ObjLoader::loadObj(RESOURCE_PATH + "terrain.obj");
+	meshes = ObjLoader::loadObj("res/terrain.obj");
 	Material terrain = Material("materialmap", LAMBERT);
 	terrain.ambient = glm::vec3(0.1, 0.1, 0.1);
 	terrain.diffuse = glm::vec3(1, 1, 1);

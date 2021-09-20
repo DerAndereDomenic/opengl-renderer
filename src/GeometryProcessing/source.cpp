@@ -1,4 +1,3 @@
-#include <OpenGLRendererConfig.h>
 #include <Core/Platform.h>
 #include <Core/GLFunctions.h>
 #include <DLogger/Logger.h>
@@ -232,7 +231,7 @@ void graphlaplacef(float** L, const float* f, float* graphlapacef_values)
 
 int main()
 {
-    LOGGER::setProject("Geometry Processing", std::to_string(OpenGLRenderer_VERSION_MAJOR) + "." + std::to_string(OpenGLRenderer_VERSION_MINOR));
+    LOGGER::setProject("Geometry Processing", "1.0");
     LOGGER::start();
 
     const uint32_t width = 1280, height = 720;
@@ -335,7 +334,7 @@ int main()
     }
     mesh.create();
 
-    Shader basic = Shader(SHADER_SOURCE_PATH + "basic.vert", SHADER_SOURCE_PATH + "basic.frag");
+    Shader basic = Shader("lib/OpenGL Renderer/src/Shader/GLShaders/basic.vert", "lib/OpenGL Renderer/src/Shader/GLShaders/basic.frag");
     
     while (window.isOpen())
     {

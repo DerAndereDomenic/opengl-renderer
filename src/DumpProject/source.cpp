@@ -1,4 +1,3 @@
-#include <OpenGLRendererConfig.h>
 #include <Core/Platform.h>
 #include <Core/GLFunctions.h>
 #include <DLogger/Logger.h>
@@ -32,7 +31,7 @@
 
 int main(void)
 {
-	LOGGER::setProject("OpenGL Renderer", std::to_string(OpenGLRenderer_VERSION_MAJOR) + "." + std::to_string(OpenGLRenderer_VERSION_MINOR));
+	LOGGER::setProject("OpenGL Renderer", "1.0");
 	LOGGER::start();
 
 
@@ -80,7 +79,7 @@ int main(void)
 	std::vector<std::string> names;
 	std::vector<std::shared_ptr<Model>> models;
 
-	Model model(RESOURCE_PATH + "Sponza/Sponza.gltf", glm::mat4(1), true);
+	Model model("res/Sponza/Sponza.gltf", glm::mat4(1), true);
 
 	Light light = Light(glm::vec3(5.0f, 15.0f, 0), true, shadow_width, shadow_height, 0.01f, 500.0f);
 	light.ambient = glm::vec3(0.1f);

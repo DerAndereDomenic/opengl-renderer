@@ -1,4 +1,3 @@
-#include <OpenGLRendererConfig.h>
 #include <Core/Platform.h>
 #include <Core/GLFunctions.h>
 #include <DLogger/Logger.h>
@@ -31,7 +30,7 @@
 
 int main(void)
 {
-	LOGGER::setProject("OpenGL Renderer", std::to_string(OpenGLRenderer_VERSION_MAJOR) + "." + std::to_string(OpenGLRenderer_VERSION_MINOR));
+	LOGGER::setProject("OpenGL Renderer", "1.0");
 	LOGGER::start();
 
 
@@ -89,8 +88,8 @@ int main(void)
 	meshes.push_back(crate);
 
 	Material mat_crate = Material("materialmap");
-	mat_crate.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "crate_diffuse.png");
-	mat_crate.texture_specular = std::make_shared<Texture>(RESOURCE_PATH + "crate_specular.png");
+	mat_crate.texture_diffuse = std::make_shared<Texture>("res/crate_diffuse.png");
+	mat_crate.texture_specular = std::make_shared<Texture>("res/crate_specular.png");
 	mat_crate.useDiffuseTextures = true;
     mat_crate.useSpecularTextures = true;
 	mat_crate.shininess = 0.4f * 128.0f;
@@ -100,13 +99,13 @@ int main(void)
 
 	names.push_back("Table");
 
-	std::shared_ptr<Mesh> table = ObjLoader::loadObj(RESOURCE_PATH + "table/simple-table.obj", true)[0];
+	std::shared_ptr<Mesh> table = ObjLoader::loadObj("res/table/simple-table.obj", true)[0];
 	meshes.push_back(table);
 
 	Material mat_table = Material("materialmap");
-	mat_table.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "table/table_diffuse.png");
-	mat_table.texture_specular = std::make_shared<Texture>(RESOURCE_PATH + "table/table_specular.png");
-	mat_table.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "table/table_normal.png");
+	mat_table.texture_diffuse = std::make_shared<Texture>("res/table/table_diffuse.png");
+	mat_table.texture_specular = std::make_shared<Texture>("res/table/table_specular.png");
+	mat_table.texture_normal = std::make_shared<Texture>("res/table/table_normal.png");
 	mat_table.shininess = 128.0f * 0.4f;
 	mat_table.useDiffuseTextures = true;
     mat_table.useSpecularTextures = true;
@@ -121,9 +120,9 @@ int main(void)
 	meshes.push_back(wall);
 
 	Material mat_brick = Material("materialmap");
-	mat_brick.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "brickwall.png");
+	mat_brick.texture_diffuse = std::make_shared<Texture>("res/brickwall.png");
 	mat_brick.texture_specular = mat_brick.texture_diffuse;
-	mat_brick.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "brickwall_normal.png");
+	mat_brick.texture_normal = std::make_shared<Texture>("res/brickwall_normal.png");
 	mat_brick.useDiffuseTextures = true;
     mat_brick.useSpecularTextures = true;
     mat_brick.useNormalTextures = true;
@@ -138,9 +137,9 @@ int main(void)
 	meshes.push_back(mesh);
 
 	Material mat_fabric = Material("materialmap");
-	mat_fabric.texture_diffuse = std::make_shared<Texture>(RESOURCE_PATH + "fabric.png");
+	mat_fabric.texture_diffuse = std::make_shared<Texture>("res/fabric.png");
 	mat_fabric.texture_specular = mat_fabric.texture_diffuse;
-	mat_fabric.texture_normal = std::make_shared<Texture>(RESOURCE_PATH + "fabric_normal.png");
+	mat_fabric.texture_normal = std::make_shared<Texture>("res/fabric_normal.png");
 	mat_fabric.useDiffuseTextures = true;
     mat_fabric.useSpecularTextures = true;
     mat_fabric.useNormalTextures = true;
@@ -151,7 +150,7 @@ int main(void)
 
 	names.push_back("suzanne");
 
-	std::shared_ptr<Mesh> suzanne = ObjLoader::loadObj(RESOURCE_PATH + "suzanne_blender.obj")[0];
+	std::shared_ptr<Mesh> suzanne = ObjLoader::loadObj("res/suzanne_blender.obj")[0];
 	meshes.push_back(suzanne);
 
 	Material mat_suzanne = Material("materialmap");
@@ -165,7 +164,7 @@ int main(void)
 
 	names.push_back("Glass");
 
-	std::shared_ptr<Mesh> sphere = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
+	std::shared_ptr<Mesh> sphere = ObjLoader::loadObj("res/sphere.obj")[0];
 	meshes.push_back(sphere);
 
 	Material mat_glass = Material("materialmap", GLASS);
@@ -177,7 +176,7 @@ int main(void)
 
 	names.push_back("BRDF Sphere");
 
-	std::shared_ptr<Mesh> sphere_brdf = ObjLoader::loadObj(RESOURCE_PATH + "sphere.obj")[0];
+	std::shared_ptr<Mesh> sphere_brdf = ObjLoader::loadObj("res/sphere.obj")[0];
 	meshes.push_back(sphere_brdf);
 
 	Material mat_brdf = Material("materialmap", MaterialType::GGX);
@@ -193,7 +192,7 @@ int main(void)
 
 	names.push_back("Mobius");
 
-	std::shared_ptr<Mesh> mobius_mesh = ObjLoader::loadObj(RESOURCE_PATH + "mobius.obj")[0];
+	std::shared_ptr<Mesh> mobius_mesh = ObjLoader::loadObj("res/mobius.obj")[0];
 	meshes.push_back(mobius_mesh);
 
 	Material mat_mobius = Material("materialmap", MaterialType::PHONG);
@@ -237,7 +236,7 @@ int main(void)
 	l4.diffuse = glm::vec3(500.0f);
 	l4.specular = glm::vec3(500.0f);
 
-	std::shared_ptr<Texture> particleTexture = std::make_shared<Texture>(RESOURCE_PATH + "smoke.png");
+	std::shared_ptr<Texture> particleTexture = std::make_shared<Texture>("res/smoke.png");
 
 	std::vector<std::string> faces =
 	{
@@ -249,7 +248,7 @@ int main(void)
 		"back.jpg"
 	};
 
-	std::shared_ptr<Texture> skybox = std::make_shared<Texture>(RESOURCE_PATH + "skybox/", faces);
+	std::shared_ptr<Texture> skybox = std::make_shared<Texture>("res/skybox/", faces);
 
 	std::shared_ptr<Mesh> quad = MeshHelper::quadMesh(2.0f);
 

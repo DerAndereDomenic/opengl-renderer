@@ -4,7 +4,6 @@
 #include <Core/GLFunctions.h>
 #include <GUI/WindowClose.h>
 #include <DataStructure/MeshHelper.h>
-#include <OpenGLRendererConfig.h>
 #include <Shader/ShaderManager.h>
 #include <OpenGLObjects/GBuffer.h>
 
@@ -24,8 +23,8 @@ int main()
 
     std::shared_ptr<Mesh> crate = MeshHelper::cubeMesh(glm::vec4(1));
     crate->create();
-    Texture diffuse_texture = Texture(RESOURCE_PATH + "crate_diffuse.png");
-    Texture specuar_texture = Texture(RESOURCE_PATH + "crate_specular.png");
+    Texture diffuse_texture = Texture("res/crate_diffuse.png");
+    Texture specuar_texture = Texture("res/crate_specular.png");
 
     ShaderManager::instance()->addShader("GeometryDeferred");
     ShaderManager::instance()->addShader("LightDeferred");
