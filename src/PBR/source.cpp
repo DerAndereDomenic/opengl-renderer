@@ -8,6 +8,7 @@
 #include <DLogger/Logger.h>
 #include <DataStructure/MeshHelper.h>
 #include <glm/gtx/transform.hpp>
+#include <DataStructure/Skybox.h>
 
 int main()
 {
@@ -74,11 +75,27 @@ int main()
 	std::shared_ptr<Mesh> screen_quad = MeshHelper::quadMesh(2.0f);
 	screen_quad->create();
 
+	std::vector<std::string> faces =
+	{
+		"right.jpg",
+		"left.jpg",
+		"top.jpg",
+		"bottom.jpg",
+		"front.jpg",
+		"back.jpg"
+	};
+
+	std::shared_ptr<Texture> skybox = std::make_shared<Texture>("res/skybox/", faces);
+
+	Skybox sky(skybox);
+
 	while (window.isOpen())
 	{
 		hdr.bind();
 
 		GL::clear();
+
+		sky.render(&camera);
 
 		ShaderManager::getShader("Normal")->bind();
 		ShaderManager::getShader("Normal")->setMVP(glm::mat4(1), camera.getView(), camera.getProjection());
