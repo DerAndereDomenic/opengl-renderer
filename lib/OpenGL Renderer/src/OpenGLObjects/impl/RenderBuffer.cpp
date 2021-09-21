@@ -15,6 +15,13 @@ RenderBuffer::~RenderBuffer()
 }
 
 void 
+RenderBuffer::setResolution(const uint32_t& width, const uint32_t& height)
+{
+	bind();
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
+}
+
+void 
 RenderBuffer::bind() const
 {
 	glBindRenderbuffer(GL_RENDERBUFFER, _ID);

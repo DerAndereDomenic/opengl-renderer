@@ -37,6 +37,13 @@ public:
 	void unbind() const;
 
 	/**
+	*	\brief Change the resolution of the render buffer
+	*	\param[in] width The new width
+	*	\param[in] height The new height
+	*/
+	void setResolution(const uint32_t& width, const uint32_t& height);
+
+	/**
 	*	\brief Unbind the buffer (bind default)
 	*	\note: Does the same as unbind but isn't tied to an object
 	*/
