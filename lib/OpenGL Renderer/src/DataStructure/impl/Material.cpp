@@ -83,6 +83,8 @@ Material::bind(std::shared_ptr<Shader> shader)
 	{
 		shader->setInt(_name + ".irradiance_map", 6);
 		texture_irradiance->getCubeMap()->bind(6);
+		shader->setInt(_name + "LUD", 7);
+		LUD->bind(7);
 	}
 	else
 	{
@@ -91,8 +93,8 @@ Material::bind(std::shared_ptr<Shader> shader)
 
 	if (_type == GLASS)
 	{
-		shader->setInt(_name + ".environment", 7);
-		environment->getCubeMap()->bind(7);
+		shader->setInt(_name + ".environment", 8);
+		environment->getCubeMap()->bind(8);
 	}
 
 	shader->setFloat(_name + ".shininess", shininess);

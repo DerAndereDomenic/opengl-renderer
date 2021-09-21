@@ -46,6 +46,7 @@ struct MaterialMap
 	sampler2D metallic_map;
 	sampler2D roughness_map;
 	samplerCube irradiance_map;
+	sampler2D LUD;
 
 	vec3 ambient;
 	vec3 diffuse;

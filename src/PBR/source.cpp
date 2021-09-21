@@ -91,9 +91,8 @@ int main()
 		"back.jpg"
 	};
 
-	std::shared_ptr<Texture> LUD = Texture::createTexture(512, 512, (float*)nullptr, TEXTURE, GL_RGB16F, GL_RGB, GL_FLOAT);
 	FrameBuffer capture_buffer(512, 512);
-	capture_buffer.attachColor(LUD);
+	capture_buffer.attachColor(sphere.LUD);
 	capture_buffer.attachRenderBuffer();
 	capture_buffer.verify();
 	FrameBuffer::bindDefault();
