@@ -99,9 +99,12 @@ int main()
 	sphere.texture_irradiance->setSkybox(skybox_map);
 	sphere.texture_irradiance->setCubeMap(irradiance);
 	sphere.texture_irradiance->renderTo(nullptr, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
-	//irradiance_map.setCubeMap(skybox);
-
-	//irradiance_map.renderTo(nullptr, &skybox_map, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
+	
+	std::shared_ptr<Texture> prefilter = Texture::createTexture(128, 128, (float*)NULL, CUBEMAP, GL_RGB16F, RGB, GL_FLOAT);
+	EnvironmentMap prefilter_map(glm::vec3(0));
+	prefilter_map.setCubeMap(prefilter);
+	prefilter_map.setSkybox(skybox_map);
+	prefilter_map.prefilter(ShaderManager::getShader("Prefilter"));
 
 	while (window.isOpen())
 	{
