@@ -103,6 +103,11 @@ vec3 fresnel_schlick(const vec3 F0, const float VdotH)
 	return F0 + (1 - F0)*pow(clamp(1.0-VdotH, 0.0f, 1.0f), 5.0f);
 }
 
+vec3 fresnel_schlick_roughness(const vec3 F0, const float VdotH, float roughness)
+{
+	return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(clamp(1.0 - VdotH, 0.0, 1.0), 5.0);
+}
+
 float D_GGX(const float NdotH, const float roughness)
 {
 	float a2 = roughness * roughness;
@@ -248,7 +253,7 @@ void main(){
 
 	if(materialmap.useIrradianceTextures)
 	{
-		vec3 kS = fresnel_schlick(F0, max(0,dot(norm, viewDir)));
+		vec3 kS = fresnel_schlick_roughness(F0, max(0,dot(norm, viewDir)), object_material.roughness);
 		vec3 kD = 1.0 - kS;
 		kD *= 1.0 - object_material.metallic;
 		vec3 irradiance = texture(materialmap.irradiance_map, norm).rgb;
