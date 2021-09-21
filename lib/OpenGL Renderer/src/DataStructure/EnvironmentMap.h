@@ -47,6 +47,12 @@ public:
 	void renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader);
 
 	/**
+	*	\brief Renders the given scene onto the cube map
+	*	\param[in] prefilter_shader The prefilter shader
+	*/
+	void prefilter(std::shared_ptr<Shader> prefilter_shader);
+
+	/**
 	*	\brief Set the position of the environment map
 	*	\param[in] position The new position
 	*/

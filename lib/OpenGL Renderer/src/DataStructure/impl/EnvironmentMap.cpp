@@ -57,6 +57,36 @@ EnvironmentMap::renderTo(Scene* scene, std::shared_ptr<Shader>& scene_shader, st
 	_environment_map->unbind();
 }
 
+void 
+EnvironmentMap::prefilter(std::shared_ptr<Shader> prefilter_shader)
+{
+	_environment_map->bind();
+	uint32_t max_mip_levels = 5;
+	prefilter_shader->bind();
+
+	for(uint32_t mip = 0; mip < max_mip_levels; ++mip)
+	{
+		uint32_t width = 128 * std::pow(0.5, mip);
+		uint32_t height = 128 * std::pow(0.5, mip);
+
+		_environment_map->getRenderBuffer()->setResolution(width, height);
+		GL::setViewport(width, height);
+
+		float roughness = (float)mip / (float)(max_mip_levels - 1);
+		prefilter_shader->setFloat("roughness", roughness);
+
+		for(uint32_t i = 0; i < 6; ++i)
+		{
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, _cube_map->getID(), mip);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			_camera->updateDirection(angles[i].pitch, angles[i].yaw);
+			if (_skybox)
+				_skybox->renderAsSkybox(_camera.get(), prefilter_shader);
+		}
+	}
+	_environment_map->unbind();
+}
+
 void
 EnvironmentMap::renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader) 
 {
