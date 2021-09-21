@@ -90,6 +90,13 @@ int main()
 		"back.jpg"
 	};
 
+	std::shared_ptr<Texture> LUD = Texture::createTexture(512, 512, (float*)nullptr, TEXTURE, GL_RG16F, GL_RG, GL_FLOAT);
+	FrameBuffer capture_buffer(512, 512);
+	capture_buffer.attachColor(LUD);
+	capture_buffer.attachRenderBuffer();
+	capture_buffer.verify();
+	FrameBuffer::bindDefault();
+
 	std::shared_ptr<Texture> skybox = std::make_shared<Texture>("res/skybox/", faces);
 
 	std::shared_ptr<EnvironmentMap> skybox_map = std::make_shared<EnvironmentMap>(glm::vec3(0));
