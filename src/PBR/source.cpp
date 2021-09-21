@@ -52,11 +52,12 @@ int main()
 	//sphere.texture_normal = std::make_shared<Texture>("res/rustediron2_normal.png");
 	//sphere.texture_roughness = std::make_shared<Texture>("res/rustediron2_roughness.png");
 	sphere.texture_irradiance = std::make_shared<EnvironmentMap>(glm::vec3(0), 32, 32);
+	sphere.texture_prefilter = std::make_shared<EnvironmentMap>(glm::vec3(0), 128, 128);
 	sphere.ambient = glm::vec3(0.1 ,0.1 ,0.1);
 	sphere.diffuse = glm::vec3(1, 1, 1);
 	sphere.specular = glm::vec3(1, 1, 1);
-	sphere.roughness = 1.0f;
-	sphere.metallic = 0.5f;
+	sphere.roughness = 0.5f;
+	sphere.metallic = 1.0f;
 
 	material.push_back(sphere);
 	models.push_back(glm::mat4(1));
@@ -92,7 +93,7 @@ int main()
 	};
 
 	FrameBuffer capture_buffer(512, 512);
-	capture_buffer.attachColor(sphere.LUD);
+	capture_buffer.attachColor(sphere.LUT);
 	capture_buffer.attachRenderBuffer();
 	capture_buffer.verify();
 	FrameBuffer::bindDefault();
@@ -108,10 +109,9 @@ int main()
 	sphere.texture_irradiance->renderTo(nullptr, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
 	
 	std::shared_ptr<Texture> prefilter = Texture::createTexture(128, 128, (float*)NULL, CUBEMAP, GL_RGB16F, RGB, GL_FLOAT);
-	EnvironmentMap prefilter_map(glm::vec3(0));
-	prefilter_map.setCubeMap(prefilter);
-	prefilter_map.setSkybox(skybox_map);
-	prefilter_map.prefilter(ShaderManager::getShader("Prefilter"));
+	sphere.texture_prefilter->setCubeMap(prefilter);
+	sphere.texture_prefilter->setSkybox(skybox_map);
+	sphere.texture_prefilter->prefilter(ShaderManager::getShader("Prefilter"));
 
 	GL::setViewport(512, 512);
 	capture_buffer.bind();

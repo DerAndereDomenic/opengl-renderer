@@ -46,7 +46,8 @@ struct MaterialMap
 	sampler2D metallic_map;
 	sampler2D roughness_map;
 	samplerCube irradiance_map;
-	sampler2D LUD;
+	samplerCube prefilter_map;
+	sampler2D LUT;
 
 	vec3 ambient;
 	vec3 diffuse;
@@ -225,6 +226,7 @@ void main(){
 	
 	vec3 result = vec3(0);
 	vec3 viewDir = normalize(frag_viewDir);
+	vec3 R = reflect(-viewDir, norm);
 
 	vec3 F0 = vec3(0.04);
 	F0 = mix(F0, object_material.diffuse, object_material.metallic);
@@ -253,15 +255,26 @@ void main(){
 
 	if(materialmap.useIrradianceTextures)
 	{
-		vec3 kS = fresnel_schlick_roughness(F0, max(0,dot(norm, viewDir)), object_material.roughness);
+		vec3 F = fresnel_schlick_roughness(F0, max(dot(norm,viewDir), 0), object_material.roughness);
+
+		vec3 kS = F;
 		vec3 kD = 1.0 - kS;
 		kD *= 1.0 - object_material.metallic;
+
 		vec3 irradiance = texture(materialmap.irradiance_map, norm).rgb;
 		vec3 diffuse = irradiance * object_material.diffuse;
-		object_material.ambient = (kD * diffuse);
+
+		const float MAX_REFLECTION_LOD = 4.0;
+		vec3 prefilteredColor = textureLod(materialmap.prefilter_map, R, object_material.roughness * MAX_REFLECTION_LOD).rgb;
+		vec2 brdf = texture(materialmap.LUT, vec2(max(dot(norm,viewDir), 0.0), object_material.roughness)).rg;
+		vec3 specular = prefilteredColor * (F * brdf.x + brdf.y);
+
+		object_material.ambient = (kD * diffuse + specular);
+
+		
 	}
 
-	result += object_material.ambient;	
+	result += object_material.ambient;
 
 	FragColor = vec4(result, 1.0);
 
