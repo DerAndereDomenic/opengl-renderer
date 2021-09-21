@@ -97,6 +97,12 @@ public:
 	*	\return The Texture for the Color attachment
 	*/
 	inline std::shared_ptr<Texture> getTexture(const uint32_t& index = 0) { return _render_textures[index]; }
+
+	/**
+	*	\brief Get the render buffer object
+	*	\return The depth and stencil buffer
+	*/
+	inline std::shared_ptr<RenderBuffer> getRenderBuffer() { return _depth_stencil; }
 private:
 	uint32_t _ID = 0;												/**<< The internal OpenGL handle for the fbo*/
 	std::vector<std::shared_ptr<Texture>> _render_textures = {};	/**<< The Color textures of this fbo*/
