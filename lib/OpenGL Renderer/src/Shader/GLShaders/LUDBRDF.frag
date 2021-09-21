@@ -1,6 +1,6 @@
 #version 330 core
 
-out vec2 FragColor;
+out vec4 FragColor;
 
 in vec2 texCoords;
 
@@ -93,5 +93,5 @@ vec2 integrateBRDF(float NdotV, float roughness)
 
 void main()
 {
-	FragColor = integrateBRDF(texCoords.x, texCoords.y);
+	FragColor = vec4(integrateBRDF(texCoords.x, texCoords.y), 0, 1);
 }

@@ -91,7 +91,7 @@ int main()
 		"back.jpg"
 	};
 
-	std::shared_ptr<Texture> LUD = Texture::createTexture(512, 512, (float*)nullptr, TEXTURE, GL_RG16F, GL_RG, GL_FLOAT);
+	std::shared_ptr<Texture> LUD = Texture::createTexture(512, 512, (float*)nullptr, TEXTURE, GL_RGB16F, GL_RGB, GL_FLOAT);
 	FrameBuffer capture_buffer(512, 512);
 	capture_buffer.attachColor(LUD);
 	capture_buffer.attachRenderBuffer();
@@ -113,6 +113,15 @@ int main()
 	prefilter_map.setCubeMap(prefilter);
 	prefilter_map.setSkybox(skybox_map);
 	prefilter_map.prefilter(ShaderManager::getShader("Prefilter"));
+
+	GL::setViewport(512, 512);
+	capture_buffer.bind();
+	capture_buffer.clear();
+	ShaderManager::getShader("LUDBRDF")->bind();
+
+	screen_quad->render();
+
+	FrameBuffer::bindDefault();
 
 	while (window.isOpen())
 	{
@@ -139,7 +148,6 @@ int main()
 		ShaderManager::getShader("Post")->setFloat("exposure", 1.0f);
 
 		hdr.getTexture()->bind();
-
 		screen_quad->render();
 
 		window.spinOnce();
