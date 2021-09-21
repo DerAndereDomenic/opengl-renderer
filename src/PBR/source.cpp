@@ -31,6 +31,7 @@ int main()
 	ShaderManager::addShader("Skybox");
 	ShaderManager::addShader("CubeMapConvolution");
 	ShaderManager::addShader("Prefilter");
+	ShaderManager::addShader("LUDBRDF");
 
 	std::vector<std::string> names;
 	std::vector<std::shared_ptr<Mesh>> meshes;
