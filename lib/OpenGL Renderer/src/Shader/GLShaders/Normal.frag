@@ -38,7 +38,7 @@ struct MaterialMap
 	bool useNormalTextures;
 	bool useMetallicTextures;
 	bool useRoughnessTextures;
-	bool useIrradianceTextures;
+	bool useIBLTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;
@@ -303,7 +303,7 @@ void main(){
 		
 	}
 
-	if(materialmap.useIrradianceTextures)
+	if(materialmap.useIBLTextures)
 	{
 		vec3 F = fresnel_schlick_roughness(F0, max(dot(norm,viewDir), 0), object_material.roughness);
 

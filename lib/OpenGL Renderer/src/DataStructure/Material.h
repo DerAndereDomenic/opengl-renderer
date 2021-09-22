@@ -51,7 +51,7 @@ public:
 	bool useHeightTextures = false;														/**<< Toggle the use of height textures*/
 	bool useMetallicTextures = false;													/**<< Toggle the use of metallic textures */
 	bool useRoughnessTextures = false;													/**<< Toggle the use of roughness textures */
-	bool useIrradianceTextures= false;													/**<< Toggle the use of irradiance textures */
+	bool useIBLTextures= false;															/**<< Toggle the use of IBL */
 	bool dynamic = false;																/**<< If the environment map of this object should be updated*/
 
 	glm::vec3 ambient = glm::vec3(0, 0, 0);												/**<< The ambient part of the material*/
@@ -64,8 +64,10 @@ public:
 	std::shared_ptr<Texture> texture_height = std::make_shared<Texture>();				/**<< The displacement map texture*/
 	std::shared_ptr<Texture> texture_metallic = std::make_shared<Texture>();			/**<< The metallic texture */
 	std::shared_ptr<Texture> texture_roughness = std::make_shared<Texture>();			/**<< The roughness texture */
-	std::shared_ptr<EnvironmentMap> texture_irradiance;									/**<< The irradiance map */
-	std::shared_ptr<EnvironmentMap> texture_prefilter;									/**<< The prefiltered texture */
+	std::shared_ptr<Texture> texture_irradiance =										/**<< The irradiance map */
+		Texture::createTexture(32, 32, (float*)NULL, CUBEMAP, GL_RGB16F, RGB, GL_FLOAT);		
+	std::shared_ptr<Texture> texture_prefilter =										/**<< The prefiltered texture */
+		Texture::createTexture(128, 128, (float*)NULL, CUBEMAP, GL_RGB16F, RGB, GL_FLOAT);
 	std::shared_ptr<Texture> LUT =														/**<< The LUT texture */
 		Texture::createTexture(512, 512, (float*)nullptr, TEXTURE, GL_RGB16F, GL_RGB, GL_FLOAT);
 	std::shared_ptr<EnvironmentMap> environment;										/**<< The environment map */

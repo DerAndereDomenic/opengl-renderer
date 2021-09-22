@@ -26,7 +26,7 @@ struct MaterialMap
 	bool useNormalTextures;
 	bool useMetallicTextures;
 	bool useRoughnessTextures;
-	bool useIrradianceTextures;
+	bool useIBLTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
 	sampler2D normal_map;

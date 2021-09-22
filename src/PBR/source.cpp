@@ -45,14 +45,14 @@ int main()
 	sphere.useMetallicTextures = false;
 	sphere.useNormalTextures = false;
 	sphere.useRoughnessTextures = false;
-	sphere.useIrradianceTextures = true;
+	sphere.useIBLTextures = true;
 
 	//sphere.texture_diffuse = std::make_shared<Texture>("res/rustediron2_basecolor.png");
 	//sphere.texture_metallic = std::make_shared<Texture>("res/rustediron2_metallic.png");
 	//sphere.texture_normal = std::make_shared<Texture>("res/rustediron2_normal.png");
 	//sphere.texture_roughness = std::make_shared<Texture>("res/rustediron2_roughness.png");
-	sphere.texture_irradiance = std::make_shared<EnvironmentMap>(glm::vec3(0), 32, 32);
-	sphere.texture_prefilter = std::make_shared<EnvironmentMap>(glm::vec3(0), 128, 128);
+	//sphere.texture_irradiance = std::make_shared<EnvironmentMap>(glm::vec3(0), 32, 32);
+	//sphere.texture_prefilter = std::make_shared<EnvironmentMap>(glm::vec3(0), 128, 128);
 	sphere.ambient = glm::vec3(0.1 ,0.1 ,0.1);
 	sphere.diffuse = glm::vec3(1, 1, 1);
 	sphere.specular = glm::vec3(1, 1, 1);
@@ -103,15 +103,16 @@ int main()
 	std::shared_ptr<EnvironmentMap> skybox_map = std::make_shared<EnvironmentMap>(glm::vec3(0));
 	skybox_map->setCubeMap(skybox);
 	glDepthFunc(GL_LEQUAL);  
-	std::shared_ptr<Texture> irradiance = Texture::createTexture(32, 32, (float*)NULL, CUBEMAP, GL_RGB16F, RGB, GL_FLOAT);
-	sphere.texture_irradiance->setSkybox(skybox_map);
-	sphere.texture_irradiance->setCubeMap(irradiance);
-	sphere.texture_irradiance->renderTo(nullptr, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
+
+	EnvironmentMap irradiance_map(glm::vec3(0));
+	irradiance_map.setSkybox(skybox_map);
+	irradiance_map.setCubeMap(sphere.texture_irradiance);
+	irradiance_map.renderTo(nullptr, ShaderManager::getShader("Normal"), ShaderManager::getShader("CubeMapConvolution"));
 	
-	std::shared_ptr<Texture> prefilter = Texture::createTexture(128, 128, (float*)NULL, CUBEMAP, GL_RGB16F, RGB, GL_FLOAT);
-	sphere.texture_prefilter->setCubeMap(prefilter);
-	sphere.texture_prefilter->setSkybox(skybox_map);
-	sphere.texture_prefilter->prefilter(ShaderManager::getShader("Prefilter"));
+	EnvironmentMap prefilter_map(glm::vec3(0));
+	prefilter_map.setSkybox(skybox_map);
+	prefilter_map.setCubeMap(sphere.texture_prefilter);
+	prefilter_map.prefilter(ShaderManager::getShader("Prefilter"));
 
 	GL::setViewport(512, 512);
 	capture_buffer.bind();

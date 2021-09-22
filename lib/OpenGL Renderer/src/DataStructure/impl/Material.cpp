@@ -26,7 +26,7 @@ Material::bind(std::shared_ptr<Shader> shader)
 	shader->setBool(_name + ".useHeightTextures", useHeightTextures);
 	shader->setBool(_name + ".useMetallicTextures", useMetallicTextures);
 	shader->setBool(_name + ".useRoughnessTextures", useRoughnessTextures);
-	shader->setBool(_name + ".useIrradianceTextures", useIrradianceTextures);
+	shader->setBool(_name + ".useIBLTextures", useIBLTextures);
 	if (useDiffuseTextures)
 	{
 		shader->setInt(_name + ".diffuse_map", 0);
@@ -79,14 +79,14 @@ Material::bind(std::shared_ptr<Shader> shader)
 		shader->setFloat(_name + ".roughness", roughness);
 	}
 
-	if(useIrradianceTextures)
+	if(useIBLTextures)
 	{
 		shader->setInt(_name + ".irradiance_map", 6);
-		texture_irradiance->getCubeMap()->bind(6);
+		texture_irradiance->bind(6);
 		shader->setInt(_name + ".LUT", 7);
 		LUT->bind(7);
 		shader->setInt(_name + ".prefilter_map", 8);
-		texture_prefilter->getCubeMap()->bind(8);
+		texture_prefilter->bind(8);
 	}
 	else
 	{
