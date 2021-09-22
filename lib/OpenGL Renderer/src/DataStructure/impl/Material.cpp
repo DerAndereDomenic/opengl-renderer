@@ -6,6 +6,11 @@ Material::Material(const std::string& name, MaterialType type)
 {
 	_name = name;
 	_type = type;
+
+	texture_prefilter->bind();
+	glTexParameteri(CUBEMAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	texture_prefilter->generateMipmap();
+	texture_prefilter->unbind();
 }
  
 Material::~Material()

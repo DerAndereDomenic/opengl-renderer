@@ -107,6 +107,12 @@ Texture::~Texture()
 	_ID = 0;
 }
 
+void
+Texture::generateMipmap() const
+{
+	glGenerateMipmap(_target);
+}
+
 void 
 Texture::bind(const uint32_t& tex) const
 {
