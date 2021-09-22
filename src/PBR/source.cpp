@@ -31,7 +31,7 @@ int main()
 	ShaderManager::addShader("Skybox");
 	ShaderManager::addShader("CubeMapConvolution");
 	ShaderManager::addShader("Prefilter");
-	ShaderManager::addShader("LUDBRDF");
+	ShaderManager::addShader("LUTBRDF");
 
 	std::vector<std::string> names;
 	std::vector<std::shared_ptr<Mesh>> meshes;
@@ -56,8 +56,8 @@ int main()
 	sphere.ambient = glm::vec3(0.1 ,0.1 ,0.1);
 	sphere.diffuse = glm::vec3(1, 1, 1);
 	sphere.specular = glm::vec3(1, 1, 1);
-	sphere.roughness = 0.5f;
-	sphere.metallic = 1.0f;
+	sphere.roughness = 0.4f;
+	sphere.metallic = 0.8f;
 
 	material.push_back(sphere);
 	models.push_back(glm::mat4(1));
@@ -116,7 +116,7 @@ int main()
 	GL::setViewport(512, 512);
 	capture_buffer.bind();
 	capture_buffer.clear();
-	ShaderManager::getShader("LUDBRDF")->bind();
+	ShaderManager::getShader("LUTBRDF")->bind();
 
 	screen_quad->render();
 

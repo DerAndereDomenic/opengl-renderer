@@ -66,7 +66,7 @@ public:
 	std::shared_ptr<Texture> texture_roughness = std::make_shared<Texture>();			/**<< The roughness texture */
 	std::shared_ptr<EnvironmentMap> texture_irradiance;									/**<< The irradiance map */
 	std::shared_ptr<EnvironmentMap> texture_prefilter;									/**<< The prefiltered texture */
-	std::shared_ptr<Texture> LUT =														/**<< The LUD texture */
+	std::shared_ptr<Texture> LUT =														/**<< The LUT texture */
 		Texture::createTexture(512, 512, (float*)nullptr, TEXTURE, GL_RGB16F, GL_RGB, GL_FLOAT);
 	std::shared_ptr<EnvironmentMap> environment;										/**<< The environment map */
 
