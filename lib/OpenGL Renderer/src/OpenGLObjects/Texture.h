@@ -30,8 +30,9 @@ public:
 	/**
 	*	\brief Creates a Texture and fills it with data from file_path
 	*	\param[in] file_path Path to the texture data
+	*	\param[in] hdr If it is a hdr image
 	*/
-	Texture(const std::string& file_path);
+	Texture(const std::string& file_path, const bool& hdr = false);
 
 	/**
 	*	\brief Creates a Cubemap texture

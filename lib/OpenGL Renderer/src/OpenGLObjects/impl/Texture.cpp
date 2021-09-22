@@ -3,7 +3,7 @@
 #include <iostream>
 #include <DLogger/Logger.h>
 
-Texture::Texture(const std::string& file_path)
+Texture::Texture(const std::string& file_path, const bool& hdr)
 {
 	glGenTextures(1, &_ID);
 	glBindTexture(GL_TEXTURE_2D, _ID);
@@ -12,28 +12,73 @@ Texture::Texture(const std::string& file_path)
 	int32_t height;
 	int32_t nr_channels;
 	stbi_set_flip_vertically_on_load(true);
-	uint8_t* data = stbi_load(file_path.c_str(), &width, &height, &nr_channels, 0);
+
+	void* data;
+
+	uint32_t format, internal_format, type;
+
+	if(!hdr)
+	{
+		data = (uint8_t*)stbi_load(file_path.c_str(), &width, &height, &nr_channels, 0);
+	}
+	else 
+	{
+		data = (float*)stbi_loadf(file_path.c_str(), &width, &height, &nr_channels, 0);
+	}
+	
 
 	if (data)
 	{
-		uint32_t channels;
 		if (nr_channels == 4)
 		{
-			channels = GL_RGBA;
+			if(!hdr)
+			{
+				format = GL_RGBA;
+				internal_format = GL_RGBA;
+				type = GL_UNSIGNED_BYTE;
+			}
+			else
+			{
+				format = GL_RGBA;
+				internal_format = GL_RGBA16F;
+				type = GL_FLOAT;
+			}
 		}
 		else if (nr_channels == 3)
 		{
-			channels = GL_RGB;
+			if(!hdr)
+			{
+				format = GL_RGB;
+				internal_format = GL_RGB;
+				type = GL_UNSIGNED_BYTE;
+			}
+			else
+			{
+				format = GL_RGB;
+				internal_format = GL_RGB16F;
+				type = GL_FLOAT;
+			}
 		}
 		else if (nr_channels == 1)
 		{
-			channels = GL_RED;
+			if(!hdr)
+			{
+				format = GL_RED;
+				internal_format = GL_RED;
+				type = GL_UNSIGNED_BYTE;
+			}
+			else
+			{
+				format = GL_RED;
+				internal_format = GL_R16F;
+				type = GL_FLOAT;
+			}
 		}
 		else
 		{
-			LOGGER::ERROR("ERROR::TEXTURE Wrong format. Number of channels: " + std::to_string(nr_channels) + ". Only 3 or 4 are supported\n");
+			LOGGER::ERROR("ERROR::TEXTURE Wrong format. Number of channels: " + std::to_string(nr_channels) + ". Only 1, 3 or 4 are supported\n");
 		}
-		glTexImage2D(GL_TEXTURE_2D, 0, channels, width, height, 0, channels, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, format, type, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
