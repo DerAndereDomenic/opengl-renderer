@@ -98,5 +98,5 @@ EnvironmentMap::renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_s
 		camera->getProjection());
 	_cube->render();
 	GL::enableDepthWriting();
-	_cube_map->bindDefault(0);
+	_cube_map->unbind(0);
 }

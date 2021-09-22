@@ -118,7 +118,7 @@ void
 Texture::unbind(const uint32_t& tex) const
 {
 	glActiveTexture(GL_TEXTURE0 + tex);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(_target, 0);
 }
 
 void

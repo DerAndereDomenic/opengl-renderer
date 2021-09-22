@@ -340,6 +340,7 @@ int main(void)
 		glass->getMaterial().environment->getCubeMap()->bind();
 		ShaderManager::getShader("Reflection")->setMVP(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)), camera.getView(), camera.getProjection());
 		sphere->render();
+		glass->getMaterial().environment->getCubeMap()->unbind();
 		
 		//Light
 		ShaderManager::getShader("Normal")->bind();
