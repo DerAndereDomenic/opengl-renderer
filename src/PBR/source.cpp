@@ -32,6 +32,7 @@ int main()
 	ShaderManager::addShader("CubeMapConvolution");
 	ShaderManager::addShader("Prefilter");
 	ShaderManager::addShader("LUTBRDF");
+	ShaderManager::addShader("ERtoCube");
 
 	std::vector<std::string> names;
 	std::vector<std::shared_ptr<Mesh>> meshes;
@@ -99,6 +100,7 @@ int main()
 	FrameBuffer::bindDefault();
 
 	std::shared_ptr<Texture> skybox = std::make_shared<Texture>("res/skybox/", faces);
+	std::shared_ptr<Texture> hdr_equirect = std::make_shared<Texture>("res/main_building.hdr", true);
 
 	std::shared_ptr<EnvironmentMap> skybox_map = std::make_shared<EnvironmentMap>(glm::vec3(0));
 	skybox_map->setCubeMap(skybox);
