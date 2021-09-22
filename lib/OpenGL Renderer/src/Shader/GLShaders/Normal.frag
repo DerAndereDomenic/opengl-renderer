@@ -38,6 +38,7 @@ struct MaterialMap
 	bool useNormalTextures;
 	bool useMetallicTextures;
 	bool useRoughnessTextures;
+	bool useAmbienOcclusionTextures;
 	bool useIBLTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
@@ -45,6 +46,7 @@ struct MaterialMap
 	sampler2D height_map;
 	sampler2D metallic_map;
 	sampler2D roughness_map;
+	sampler2D ambient_map;
 	samplerCube irradiance_map;
 	samplerCube prefilter_map;
 	sampler2D LUT;
@@ -67,6 +69,7 @@ struct Material
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
+	vec3 ao;
 	float shininess;
 	float roughness;
 	float metallic;
@@ -232,6 +235,15 @@ void main(){
 		object_material.diffuse = materialmap.diffuse;
 	}
 
+	if(materialmap.useAmbienOcclusionTextures)
+	{
+		object_material.ao = texture(materialmap.ambient_map, frag_tex).rgb;	
+	}
+	else
+	{
+		object_material.ao = vec3(1);
+	}
+
 	if(materialmap.useSpecularTextures)
 	{
 		object_material.specular = vec3(texture(materialmap.specular_map, frag_tex));
@@ -319,7 +331,7 @@ void main(){
 		vec2 brdf = texture(materialmap.LUT, vec2(max(dot(norm,viewDir), 0.0), object_material.roughness)).rg;
 		vec3 specular = prefilteredColor * (F * brdf.x + brdf.y);
 
-		object_material.ambient = (kD * diffuse + specular);
+		object_material.ambient = (kD * diffuse + specular) * object_material.ao;
 	}
 
 	result += object_material.ambient;

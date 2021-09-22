@@ -26,6 +26,7 @@ struct MaterialMap
 	bool useNormalTextures;
 	bool useMetallicTextures;
 	bool useRoughnessTextures;
+	bool useAmbienOcclusionTextures;
 	bool useIBLTextures;
 	sampler2D diffuse_map;
 	sampler2D specular_map;
@@ -33,6 +34,7 @@ struct MaterialMap
 	sampler2D height_map;
 	sampler2D metallic_map;
 	sampler2D roughness_map;
+	sampler2D ambient_map;
 	samplerCube irradiance_map;
 	samplerCube prefilter_map;
 	sampler2D LUT;
@@ -83,7 +85,7 @@ void main()
 	//Displacement
 	if(materialmap.useHeightTextures)
 	{
-		float stretchfactor = 10.0;
+		float stretchfactor = 0.1;
 		float displacement = texture(materialmap.height_map, tex.xy).r;
 		frag_position += stretchfactor * displacement * N;
 	}

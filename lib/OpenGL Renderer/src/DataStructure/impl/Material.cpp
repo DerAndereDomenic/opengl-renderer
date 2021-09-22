@@ -32,6 +32,7 @@ Material::bind(std::shared_ptr<Shader> shader)
 	shader->setBool(_name + ".useMetallicTextures", useMetallicTextures);
 	shader->setBool(_name + ".useRoughnessTextures", useRoughnessTextures);
 	shader->setBool(_name + ".useIBLTextures", useIBLTextures);
+	shader->setBool(_name + ".useAmbienOcclusionTextures", useAmbienOcclusionTextures);
 	if (useDiffuseTextures)
 	{
 		shader->setInt(_name + ".diffuse_map", 0);
@@ -98,10 +99,16 @@ Material::bind(std::shared_ptr<Shader> shader)
 		shader->setVec3(_name + ".ambient", ambient);
 	}
 
+	if(useAmbienOcclusionTextures)
+	{
+		shader->setInt(_name + ".ambient_map", 9);
+		texture_ao->bind(9);
+	}
+
 	if (_type == GLASS)
 	{
-		shader->setInt(_name + ".environment", 9);
-		environment->getCubeMap()->bind(9);
+		shader->setInt(_name + ".environment", 10);
+		environment->getCubeMap()->bind(10);
 	}
 
 	shader->setFloat(_name + ".shininess", shininess);
