@@ -109,24 +109,59 @@ vec3 fresnel_schlick_roughness(const vec3 F0, const float VdotH, float roughness
 	return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(clamp(1.0 - VdotH, 0.0, 1.0), 5.0);
 }
 
-float D_GGX(const float NdotH, const float roughness)
+/*float D_GGX(const float NdotH, const float roughness)
 {
 	float a2 = roughness * roughness;
 	float d = (NdotH * a2 - NdotH) * NdotH + 1.0f;
 	return a2/(PI*d*d);
-}
+}*/
 
-float V_SmithJohnGGX(float NdotL, float NdotV, float roughness)
+/*float V_SmithJohnGGX(float NdotL, float NdotV, float roughness)
 {
 	float a2 = roughness * roughness;
 	float lambdaV = NdotL*sqrt(NdotV*NdotV*(1-a2)+a2);
 	float lambdaL = NdotV*sqrt(NdotL*NdotL*(1-a2)+a2);
 	return 0.5/(lambdaL+lambdaV);
+}*/
+
+float DistributionGGX(vec3 N, vec3 H, float roughness)
+{
+	float a = roughness * roughness;
+	float a2 = a * a;
+	float NdotH = max(dot(N,H), 0.0);
+	float NdotH2 = NdotH * NdotH;
+
+	float nom = a2;
+	float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+	denom = PI * denom * denom;
+
+	return nom/denom;
+}
+
+float GeometrySchlickGGX(float NdotV, float roughness)
+{
+	float r = (roughness + 1.0);
+	float k = (r*r)/8.0;
+
+	float nom = NdotV;
+	float denom = NdotV * (1.0 - k) + k;
+
+	return nom/denom;
+}
+
+float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
+{
+	float NdotV = max(dot(N,V), 0.0);
+	float NdotL = max(dot(N,L), 0.0);
+	float ggx2 = GeometrySchlickGGX(NdotV, roughness);
+	float ggx1 = GeometrySchlickGGX(NdotL, roughness);
+
+	return ggx1 * ggx2;
 }
 
 vec3 brdf_ggx(Light plight, vec3 lightDir, vec3 viewDir, Material material, vec3 F0, vec3 normal, int pass)
 {
-	vec3 H = normalize(lightDir + viewDir);
+	/*vec3 H = normalize(lightDir + viewDir);
 	float NdotH = max(0,dot(normal, H));
 	float LdotH = max(0,dot(lightDir, H));
 	float NdotV = dot(normal,viewDir);
@@ -144,9 +179,24 @@ vec3 brdf_ggx(Light plight, vec3 lightDir, vec3 viewDir, Material material, vec3
 	vec3 F = fresnel_schlick(F0 , LdotH);
 
 	vec3 kD = vec3(1) - F;
+	kD *= 1.0 - material.metallic;*/
+
+	vec3 H = normalize(lightDir + viewDir);
+
+	float NDF = DistributionGGX(normal, H, material.roughness);
+	float G = GeometrySmith(normal, viewDir, lightDir, material.roughness);
+	vec3 F = fresnel_schlick(F0, max(dot(H,viewDir), 0.0));
+
+	vec3 numerator = NDF * G * F;
+	float denominator = 4.0 * max(dot(normal,viewDir), 0.0) * max(dot(normal,lightDir), 0.0) + 0.0001;
+	vec3 specular = numerator/denominator;
+
+	vec3 kS = F;
+	vec3 kD = vec3(1.0) - kS;
 	kD *= 1.0 - material.metallic;
 
-	return (1-shadow)*(ndf*vis*F + kD * material.diffuse / PI);
+	float shadow = plight.cast_shadow == 1 ? shadowCalculation(frag_position_light_space[pass], plight.shadow_map) : 0;
+	return (1-shadow)*(specular + kD * material.diffuse / PI);
 }
 
 //-------------------------------------------
@@ -266,12 +316,10 @@ void main(){
 
 		const float MAX_REFLECTION_LOD = 4.0;
 		vec3 prefilteredColor = textureLod(materialmap.prefilter_map, R, object_material.roughness * MAX_REFLECTION_LOD).rgb;
-		vec2 brdf = texture(materialmap.LUT, vec2(max(dot(norm,viewDir), 0.0), object_material.roughness)).rg;
+		vec2 brdf = textureLod(materialmap.LUT, vec2(max(dot(norm,viewDir), 0.0), object_material.roughness), 0).rg;
 		vec3 specular = prefilteredColor * (F * brdf.x + brdf.y);
 
 		object_material.ambient = (kD * diffuse + specular);
-
-		
 	}
 
 	result += object_material.ambient;

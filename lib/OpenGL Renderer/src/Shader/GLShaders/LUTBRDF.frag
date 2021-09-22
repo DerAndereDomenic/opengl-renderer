@@ -43,12 +43,24 @@ vec3 importance_sample_GGX(vec2 xi, vec3 N, float roughness)
     return normalize(sampleVec);
 }
 
-float V_SmithJohnGGX(float NdotL, float NdotV, float roughness)
+float GeometrySchlickGGX(float NdotV, float roughness)
 {
-	float a2 = roughness * roughness;
-	float lambdaV = NdotL*sqrt(NdotV*NdotV*(1-a2)+a2);
-	float lambdaL = NdotV*sqrt(NdotL*NdotL*(1-a2)+a2);
-	return 0.5/(lambdaL+lambdaV);
+    float k = (roughness*roughness) / 2.0;
+
+    float nom   = NdotV;
+    float denom = NdotV * (1.0 - k) + k;
+
+    return nom / denom;
+}
+// ----------------------------------------------------------------------------
+float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
+{
+    float NdotV = max(dot(N, V), 0.0);
+    float NdotL = max(dot(N, L), 0.0);
+    float ggx2 = GeometrySchlickGGX(NdotV, roughness);
+    float ggx1 = GeometrySchlickGGX(NdotL, roughness);
+
+    return ggx1 * ggx2;
 }
 
 vec2 integrateBRDF(float NdotV, float roughness)
@@ -76,7 +88,7 @@ vec2 integrateBRDF(float NdotV, float roughness)
 
         if(NdotL > 0.0)
         {
-            float G = V_SmithJohnGGX(NdotL, NdotV, roughness);
+            float G = GeometrySmith(N, V, L, roughness);
             float G_vis = (G * VdotH) / (NdotH * NdotV);
             float Fc = pow(1.0 - VdotH, 5.0);
             
