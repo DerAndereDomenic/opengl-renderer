@@ -23,7 +23,7 @@ int main(void)
 	LOGGER::setProject("VR Viewer", "1.0");
 	LOGGER::start();
 
-	const float scale = 0.2f;
+	const float scale = 1.0f;
 	glm::mat4 scaling_matrix = glm::scale(glm::mat4(1), glm::vec3(scale));
 
 	uint32_t width = 1280;
@@ -129,8 +129,17 @@ int main(void)
 
 	models.push_back(glm::translate(scaling_matrix, glm::vec3(0, 7, 0)));
 
+	names.push_back("Glass");
+
 	std::shared_ptr<Mesh> sphere = ObjLoader::loadObj("res/sphere.obj")[0];
-	sphere->create();
+	meshes.push_back(sphere);
+
+	Material mat_glass = Material("materialmap", GLASS);
+	mat_glass.dynamic = false;
+	mat_glass.environment = std::make_shared<EnvironmentMap>(glm::vec3(0, 5, 0));
+	materials.push_back(mat_glass);
+
+	models.push_back(glm::translate(glm::mat4(1), glm::vec3(0, 5, 0)));
 
 	names.push_back("BRDF Sphere");
 
@@ -312,7 +321,7 @@ int main(void)
 		ShaderManager::getShader("Reflection")->setInt("cubemap", 0);
 		ShaderManager::getShader("Reflection")->setVec3("camera_position", renderer.position());
 		glass->getMaterial().environment->getCubeMap()->bind();
-		ShaderManager::getShader("Reflection")->setMVP(glm::translate(scaling_matrix, glm::vec3(0, 5, 0)), renderer.leftView(), renderer.leftProjection());
+		ShaderManager::getShader("Reflection")->setMVP(glm::translate(scaling_matrix, glm::vec3(0, 5, 0)), renderer.rightView(), renderer.rightProjection());
 		sphere->render();
 		glass->getMaterial().environment->getCubeMap()->unbind();
 
