@@ -241,7 +241,17 @@ int main(void)
 
 	ParticleRenderer particleRenderer = ParticleRenderer(glm::vec3(-1, 0, 0)*scale, 10000, 2, particleTexture);
 
-	//FBO?
+	FrameBuffer fbo_left(renderer.getWidth(), renderer.getHeight());
+	fbo_left.attachHDR();
+	fbo_left.attachRenderBuffer();
+	fbo_left.verify();
+
+	FrameBuffer fbo_right(renderer.getWidth(), renderer.getHeight());
+	fbo_right.attachHDR();
+	fbo_right.attachRenderBuffer();
+	fbo_right.verify();
+
+	FrameBuffer::bindDefault();
 
 	scene.passLights2Shader(ShaderManager::getShader("Normal"));
 	obj_light->setModel(glm::translate(glm::mat4(1), l1.position));
@@ -280,7 +290,7 @@ int main(void)
 
 		GL::setViewport(renderer.getWidth(), renderer.getHeight());
 
-		renderer.getRenderTargetLeft()->bind();
+		fbo_left.bind();
 		GL::clear();
 		//Skybox
 		//Use vertex data of the light block
@@ -310,7 +320,7 @@ int main(void)
 
 		//RIGHT EYE--------------------------------------------------------------------------------------------------------
 
-		renderer.getRenderTargetRight()->bind();
+		fbo_right.bind();
 		GL::clear();
 		//Skybox
 		//Use vertex data of the light block
@@ -338,6 +348,23 @@ int main(void)
 
 		//particleRenderer.update(window.DELTA_TIME());
 		particleRenderer.render(renderer.rightView(), renderer.rightProjection());
+
+		renderer.getRenderTargetLeft()->bind();
+		GL::clear();
+		ShaderManager::getShader("Post")->bind();
+		ShaderManager::getShader("Post")->setFloat("exposure", 1.0f);
+		ShaderManager::getShader("Post")->setInt("screenTexture", 0);
+		fbo_left.getTexture()->bind();
+		quad->render();
+
+		renderer.getRenderTargetRight()->bind();
+		GL::clear();
+		ShaderManager::getShader("Post")->bind();
+		ShaderManager::getShader("Post")->setFloat("exposure", 1.0f);
+		ShaderManager::getShader("Post")->setInt("screenTexture", 0);
+		fbo_right.getTexture()->bind();
+		quad->render();
+		
 
 		FrameBuffer::bindDefault();
 		window.resetViewport();
