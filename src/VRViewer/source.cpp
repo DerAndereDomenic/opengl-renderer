@@ -204,18 +204,6 @@ int main(void)
 
 	std::shared_ptr<Texture> particleTexture = std::make_shared<Texture>("res/smoke.png");
 
-	std::vector<std::string> faces =
-	{
-		"right.jpg",
-		"left.jpg",
-		"top.jpg",
-		"bottom.jpg",
-		"front.jpg",
-		"back.jpg"
-	};
-
-	std::shared_ptr<Texture> skybox_texture = std::make_shared<Texture>("res/skybox/", faces);
-
 	Scene scene = Scene(names, meshes, materials, models);
 	names.clear();
 	meshes.clear();
@@ -238,6 +226,7 @@ int main(void)
 	ShaderManager::addShader("Reflection");
 	ShaderManager::addShader("VRScreen");
 	ShaderManager::addShader("Skybox");
+	ShaderManager::addShader("ERtoCube");
 
 	ParticleRenderer particleRenderer = ParticleRenderer(glm::vec3(-1, 0, 0)*scale, 10000, 2, particleTexture);
 
@@ -256,8 +245,17 @@ int main(void)
 	scene.passLights2Shader(ShaderManager::getShader("Normal"));
 	obj_light->setModel(glm::translate(glm::mat4(1), l1.position));
 
-	std::shared_ptr<EnvironmentMap> skybox_map = std::make_shared<EnvironmentMap>(glm::vec3(0));
-	skybox_map->setCubeMap(skybox_texture);
+	glDepthFunc(GL_LEQUAL); 
+
+	std::shared_ptr<Texture> hdr_equirect = std::make_shared<Texture>("res/main_building.hdr", true);
+	std::shared_ptr<Texture> hdr_cubemap = Texture::createTexture(2048, 2048, (float*)nullptr, CUBEMAP, GL_RGBA16F, GL_RGBA, GL_FLOAT);
+	std::shared_ptr<EnvironmentMap> dummy_cm = std::make_shared<EnvironmentMap>(glm::vec3(0), 2048, 2048);
+	dummy_cm->setCubeMap(hdr_equirect);
+
+	std::shared_ptr<EnvironmentMap> skybox_map = std::make_shared<EnvironmentMap>(glm::vec3(0), 2048, 2048);
+	skybox_map->setCubeMap(hdr_cubemap);
+	skybox_map->setSkybox(dummy_cm);
+	skybox_map->renderTo(nullptr, ShaderManager::getShader("Normal"), ShaderManager::getShader("ERtoCube"));
 
 	std::shared_ptr<Mesh> quad = MeshHelper::quadMesh(2.0f);
 
