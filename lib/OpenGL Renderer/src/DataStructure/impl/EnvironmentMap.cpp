@@ -90,12 +90,18 @@ EnvironmentMap::prefilter(std::shared_ptr<Shader> prefilter_shader)
 void
 EnvironmentMap::renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader) 
 {
+	renderAsSkybox(camera->getView(), camera->getProjection(), skybox_shader);
+}
+
+void 
+EnvironmentMap::renderAsSkybox(const glm::mat4& view, const glm::mat4& projection, std::shared_ptr<Shader>& skybox_shader)
+{
 	GL::disableDepthWriting();
 	skybox_shader->bind();
 	_cube_map->bind(0);
 	skybox_shader->setMVP(glm::mat4(1),
-		glm::mat4(glm::mat3(camera->getView())),
-		camera->getProjection());
+		glm::mat4(glm::mat3(view)),
+		projection);
 	_cube->render();
 	GL::enableDepthWriting();
 	_cube_map->unbind(0);

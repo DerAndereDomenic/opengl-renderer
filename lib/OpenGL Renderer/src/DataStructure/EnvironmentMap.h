@@ -47,6 +47,14 @@ public:
 	void renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader);
 
 	/**
+	*	\brief Renders the cubemap as a skybox
+	*	\param[in] view The view matrix
+	*	\param[in] projection The projection matrix
+	*	\param[in] skybox_shader The shader used to render the skybox
+	*/
+	void renderAsSkybox(const glm::mat4& view, const glm::mat4& projection, std::shared_ptr<Shader>& skybox_shader);
+
+	/**
 	*	\brief Renders the given scene onto the cube map
 	*	\param[in] prefilter_shader The prefilter shader
 	*/
