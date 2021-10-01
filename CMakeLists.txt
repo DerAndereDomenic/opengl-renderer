@@ -26,6 +26,9 @@ add_subdirectory(external/assimp)
 add_subdirectory(external/freetype)
 add_subdirectory(external/glfw)
 add_subdirectory(external/DLogger)
+if(BUILD_VR_VIEWER)
+	add_subdirectory(external/openvr)
+endif()
 
 add_library(glad STATIC external/glad/src/glad.c)
 
@@ -40,9 +43,17 @@ include_directories("lib/OpenGL Renderer/src"
 					external/stb
 					external/glad/include
 					external/DLogger/include)
+					
+if(BUILD_VR_VIEWER)
+	include_directories(external/openvr/headers
+						external/openvr/src/vrcommon)
+endif()
 
 
 link_libraries(OpenGL::GL glad glfw assimp freetype DLogger)	
+if(BUILD_VR_VIEWER)
+	link_libraries(openvr)
+endif()
 add_subdirectory(lib)
 
 add_subdirectory(src)	
