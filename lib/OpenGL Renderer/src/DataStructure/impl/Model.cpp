@@ -14,7 +14,7 @@ Model::~Model()
 }
 
 void 
-Model::render(const std::shared_ptr<Shader> shader)
+Model::render(const std::shared_ptr<Shader>& shader)
 {
 	shader->bind();
 

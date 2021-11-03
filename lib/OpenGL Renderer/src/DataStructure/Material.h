@@ -31,7 +31,7 @@ public:
 	*	\brief Create an object with a given name
 	*	\param[in] name The name of the material (used in shader)
 	*/
-	Material(const std::string& name, MaterialType type = MaterialType::PHONG);
+	Material(const std::string& name, const MaterialType& type = MaterialType::PHONG);
 
 	/**
 	*	\brief Destroys the object
@@ -43,7 +43,7 @@ public:
 	*	\brief Binds the material (i.e. the textures)
 	*	\param[in] shader The shader the material should get binded to
 	*/
-	void bind(std::shared_ptr<Shader> shader);
+	void bind(const std::shared_ptr<Shader>& shader);
 
 	bool useDiffuseTextures = false;													/**<< Toggle the use of diffuse textures*/
 	bool useSpecularTextures = false;													/**<< Toggle the use of specular textures*/

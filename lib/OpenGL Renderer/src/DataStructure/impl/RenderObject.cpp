@@ -1,7 +1,7 @@
 #include "DataStructure/RenderObject.h"
 
  
-RenderObject::RenderObject(std::shared_ptr<Mesh> mesh, Material material, glm::mat4 model)
+RenderObject::RenderObject(const std::shared_ptr<Mesh>& mesh, const Material& material, const glm::mat4& model)
 {
 	_mesh = mesh;
 	_material = material;
@@ -14,7 +14,7 @@ RenderObject::~RenderObject()
 }
 
 void 
-RenderObject::render(std::shared_ptr<Shader> shader)
+RenderObject::render(const std::shared_ptr<Shader>& shader)
 {
 	_material.bind(shader);
 	shader->setMat4("M", _model);
@@ -22,7 +22,7 @@ RenderObject::render(std::shared_ptr<Shader> shader)
 }
 
 void 
-RenderObject::setModel(glm::mat4 model)
+RenderObject::setModel(const glm::mat4& model)
 {
 	_model = model;
 }

@@ -30,7 +30,7 @@ FrameBuffer::attachColor()
 }
 
 void
-FrameBuffer::attachColor(const std::shared_ptr<Texture> color_buffer)
+FrameBuffer::attachColor(const std::shared_ptr<Texture>& color_buffer)
 {
 	bind();
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + _render_textures.size(), GL_TEXTURE_2D, color_buffer->getID(), 0);

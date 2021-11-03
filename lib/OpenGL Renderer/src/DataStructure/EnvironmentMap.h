@@ -33,18 +33,18 @@ public:
 	/**
 	*	\brief Renders the given scene onto the cube map
 	*	\param[in] scene The scene to be rendered
-	*	\param[in] skybox An optional skybox
 	*	\param[in] scene_shader The shader the scene should be rendered with
-	*	\param[in] skybox_shader The shader the skybox should be rendered with
+	*	\param[in] skybox_shader The shader the skybox should be rendered with (if one is present)
+	*	\note To use a skybox call setSkybox()
 	*/
-	void renderTo(Scene* scene, std::shared_ptr<Shader>& scene_shader, std::shared_ptr<Shader>& skybox_shader);
+	void renderTo(Scene* scene, const std::shared_ptr<Shader>& scene_shader, const std::shared_ptr<Shader>& skybox_shader);
 
 	/**
 	*	\brief Renders the cubemap as a skybox
 	*	\param[in] camera The fps camera
 	*	\param[in] skybox_shader The shader used to render the skybox
 	*/
-	void renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader);
+	void renderAsSkybox(Camera* camera, const std::shared_ptr<Shader>& skybox_shader);
 
 	/**
 	*	\brief Renders the cubemap as a skybox
@@ -52,13 +52,13 @@ public:
 	*	\param[in] projection The projection matrix
 	*	\param[in] skybox_shader The shader used to render the skybox
 	*/
-	void renderAsSkybox(const glm::mat4& view, const glm::mat4& projection, std::shared_ptr<Shader>& skybox_shader);
+	void renderAsSkybox(const glm::mat4& view, const glm::mat4& projection, const std::shared_ptr<Shader>& skybox_shader);
 
 	/**
-	*	\brief Renders the given scene onto the cube map
+	*	\brief Prefilter a cube map
 	*	\param[in] prefilter_shader The prefilter shader
 	*/
-	void prefilter(std::shared_ptr<Shader> prefilter_shader);
+	void prefilter(const std::shared_ptr<Shader>& prefilter_shader);
 
 	/**
 	*	\brief Set the position of the environment map
@@ -67,16 +67,18 @@ public:
 	void setPosition(const glm::vec3& position);
 
 	/**
-	*	\brief Set a cubemap texture
-	*	\param[in] skybox An optional skybox
+	*	\brief Set the skybox
+	*	\param[in] skybox The skybox that is used when rendering the scene
 	*/
-	void setSkybox(std::shared_ptr<EnvironmentMap>& skybox);
+	void setSkybox(const std::shared_ptr<EnvironmentMap>& skybox);
 
 	/**
 	*	\brief Set the cube map
 	*	\param[in] cube_map The cube map
+	*	\note: The cube map holds the data of the environment map, i.e. the result
+	*	of renderTo is written into this texture
 	*/
-	void setCubeMap(std::shared_ptr<Texture>& cube_map);
+	void setCubeMap(const std::shared_ptr<Texture>& cube_map);
 
 	/**
 	*	\brief Get the cubemap texture

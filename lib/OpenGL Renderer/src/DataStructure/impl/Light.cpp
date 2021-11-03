@@ -28,7 +28,7 @@
 }
 
 void 
-Light::addToShader(std::shared_ptr<Shader> shader, const uint32_t& lightID)
+Light::addToShader(const std::shared_ptr<Shader>& shader, const uint32_t& lightID)
 {
 	shader->bind();
 	shader->setLight("lights_frag[" + std::to_string(lightID) + "]", *(this));

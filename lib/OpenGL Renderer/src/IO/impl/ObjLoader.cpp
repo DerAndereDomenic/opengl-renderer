@@ -5,7 +5,7 @@
 #include <DLogger/Logger.h>
 
 std::vector<std::shared_ptr<Mesh>>
-ObjLoader::loadObj(const std::string& path, const bool calcTangent)
+ObjLoader::loadObj(const std::string& path, const bool& calcTangent)
 {
 	std::vector<std::shared_ptr<Mesh>> meshes;
 

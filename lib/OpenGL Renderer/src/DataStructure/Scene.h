@@ -30,10 +30,10 @@ public:
 	*	\note: The indices have to coincide in all vectors with the given object
 	*		   So (names[i], meshes[i], materials[i], models[i]) defines one object
 	*/
-	Scene(std::vector<std::string> names,
-		  std::vector<std::shared_ptr<Mesh>> meshes,
-		  std::vector<Material> materials,
-		  std::vector<glm::mat4> models);
+	Scene(const std::vector<std::string>& names,
+		  const std::vector<std::shared_ptr<Mesh>>& meshes,
+		  const std::vector<Material>& materials,
+		  const std::vector<glm::mat4>& models);
 
 	/**
 	*	\brief Creates a scene with the given data to create RenderObjects
@@ -42,8 +42,8 @@ public:
 	*	\note: The indices have to coincide in all vectors with the given object
 	*		   So (names[i], models[i]) defines one object
 	*/
-	Scene(std::vector<std::string> names,
-		  std::vector<std::shared_ptr<Model>> models);
+	Scene(const std::vector<std::string>& names,
+		  const std::vector<std::shared_ptr<Model>>& models);
 
 	/**
 	*	\brief Destroys the scene by clearing all buffers and destroying all internal objects like meshes
@@ -54,7 +54,7 @@ public:
 	*	\brief Renders the scene with the given shader
 	*	\param[in] shader The shader to render the scene
 	*/
-	void render(std::shared_ptr<Shader> shader);
+	void render(const std::shared_ptr<Shader>& shader);
 
 	/**
 	*	\brief Add a light source to the scene
@@ -66,7 +66,7 @@ public:
 	*	\brief Initializes the given shader with the light sources of the scene
 	*	\param[in] shader The shader where we want to pass the light information to
 	*/
-	void passLights2Shader(std::shared_ptr<Shader> shader);
+	void passLights2Shader(const std::shared_ptr<Shader>& shader);
 
 	/**
 	*	\brief Updates the shadow maps of the light sources in the scene
@@ -79,7 +79,7 @@ public:
 	*	\param[in] name The name of the object given when creating the scene
 	*	\return The corresponding object;
 	*/
-	std::shared_ptr<RenderObject> getObject(std::string name);
+	std::shared_ptr<RenderObject> getObject(const std::string& name);
 
 private:
 	std::unordered_map<std::string, std::shared_ptr<RenderObject>> _objects = {};		/**<< Hash Map to maintain the objects in this scene*/

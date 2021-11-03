@@ -51,7 +51,7 @@ VertexArray::setCount(const uint32_t& count)
 }
 
 void 
-VertexArray::addBuffer(const std::shared_ptr<VertexBuffer> vbo, const VertexBufferLayout &layout)
+VertexArray::addBuffer(const std::shared_ptr<VertexBuffer>& vbo, const VertexBufferLayout& layout)
 {
 	vbo->bind();
 	bind();
@@ -68,7 +68,7 @@ VertexArray::addBuffer(const std::shared_ptr<VertexBuffer> vbo, const VertexBuff
 }
 
 void 
-VertexArray::addInstanceBuffer(const std::shared_ptr<VertexBuffer> vbo, const VertexBufferLayout& layout)
+VertexArray::addInstanceBuffer(const std::shared_ptr<VertexBuffer>& vbo, const VertexBufferLayout& layout)
 {
 	addBuffer(vbo, layout);
 	for (uint32_t i = 0; i < layout.getElements().size(); ++i)
@@ -79,7 +79,7 @@ VertexArray::addInstanceBuffer(const std::shared_ptr<VertexBuffer> vbo, const Ve
 }
 
 void 
-VertexArray::setIndexBuffer(const std::shared_ptr<IndexBuffer> ibo)
+VertexArray::setIndexBuffer(const std::shared_ptr<IndexBuffer>& ibo)
 {
 	_ibo = ibo;
 	_hasIBO = true;

@@ -22,7 +22,7 @@ Button::setText(const std::string& text)
 }
 
 void 
-Button::render(std::shared_ptr<TextRenderer> renderer, const ButtonMode& mode) const
+Button::render(const std::shared_ptr<TextRenderer>& renderer, const ButtonMode& mode) const
 {
 	if (mode == ButtonMode::IDLE)
 	{

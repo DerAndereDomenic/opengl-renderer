@@ -1,7 +1,7 @@
 #include <DataStructure/MeshHelper.h>
 
 std::shared_ptr<Mesh>
-MeshHelper::cubeMesh(glm::vec4 color, const bool calcTangent)
+MeshHelper::cubeMesh(const glm::vec4& color, const bool& calcTangent)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(calcTangent);
 	float x = 0.0f, y = 0.0f, z = 0.0f;
@@ -72,7 +72,7 @@ MeshHelper::cubeMesh(glm::vec4 color, const bool calcTangent)
 }
 
 std::shared_ptr<Mesh>
-MeshHelper::cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ, const bool calcTangent)
+MeshHelper::cuboidMesh(const glm::vec4& color, const float& lenX, const float& lenY, const float& lenZ, const bool& calcTangent)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(calcTangent);
 	float x = 0.0f, y = 0.0f, z = 0.0f;
@@ -143,7 +143,7 @@ MeshHelper::cuboidMesh(glm::vec4 color, float lenX, float lenY, float lenZ, cons
 }
 
 std::shared_ptr<Mesh> 
-MeshHelper::quadMesh(float size, const bool calcTangent)
+MeshHelper::quadMesh(const float& size, const bool& calcTangent)
 {
 	const float halfSize = size / 2;
 	std::shared_ptr<Mesh> quad = std::make_shared<Mesh>(calcTangent);

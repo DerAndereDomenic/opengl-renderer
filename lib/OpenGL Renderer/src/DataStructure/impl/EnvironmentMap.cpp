@@ -17,7 +17,7 @@ EnvironmentMap::EnvironmentMap(const glm::vec3& position, const uint32_t& width,
 	_cube->create();
 }
 
-void EnvironmentMap::setSkybox(std::shared_ptr<EnvironmentMap>& skybox)
+void EnvironmentMap::setSkybox(const std::shared_ptr<EnvironmentMap>& skybox)
 {
 	_skybox = skybox;
 }
@@ -29,7 +29,7 @@ EnvironmentMap::setPosition(const glm::vec3& position)
 }
 
 void 
-EnvironmentMap::setCubeMap(std::shared_ptr<Texture>& cube_map)
+EnvironmentMap::setCubeMap(const std::shared_ptr<Texture>& cube_map)
 {
 	_cube_map = cube_map;
 	_width = cube_map->getWidth();
@@ -37,7 +37,7 @@ EnvironmentMap::setCubeMap(std::shared_ptr<Texture>& cube_map)
 }
 
 void 
-EnvironmentMap::renderTo(Scene* scene, std::shared_ptr<Shader>& scene_shader, std::shared_ptr<Shader>& skybox_shader)
+EnvironmentMap::renderTo(Scene* scene, const std::shared_ptr<Shader>& scene_shader, const std::shared_ptr<Shader>& skybox_shader)
 {
 	_environment_map->bind();
 	glViewport(0, 0, _width, _height);
@@ -58,7 +58,7 @@ EnvironmentMap::renderTo(Scene* scene, std::shared_ptr<Shader>& scene_shader, st
 }
 
 void 
-EnvironmentMap::prefilter(std::shared_ptr<Shader> prefilter_shader)
+EnvironmentMap::prefilter(const std::shared_ptr<Shader>& prefilter_shader)
 {
 	_environment_map->bind();
 	uint32_t max_mip_levels = 5;
@@ -88,13 +88,13 @@ EnvironmentMap::prefilter(std::shared_ptr<Shader> prefilter_shader)
 }
 
 void
-EnvironmentMap::renderAsSkybox(Camera* camera, std::shared_ptr<Shader>& skybox_shader) 
+EnvironmentMap::renderAsSkybox(Camera* camera, const std::shared_ptr<Shader>& skybox_shader) 
 {
 	renderAsSkybox(camera->getView(), camera->getProjection(), skybox_shader);
 }
 
 void 
-EnvironmentMap::renderAsSkybox(const glm::mat4& view, const glm::mat4& projection, std::shared_ptr<Shader>& skybox_shader)
+EnvironmentMap::renderAsSkybox(const glm::mat4& view, const glm::mat4& projection, const std::shared_ptr<Shader>& skybox_shader)
 {
 	GL::disableDepthWriting();
 	skybox_shader->bind();

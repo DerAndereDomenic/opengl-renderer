@@ -20,7 +20,7 @@ public:
 	*	\param[in] material The material of the object
 	*	\param[in] model The model matrix
 	*/
-	RenderObject(std::shared_ptr<Mesh> mesh, Material material, glm::mat4 model);
+	RenderObject(const std::shared_ptr<Mesh>& mesh, const Material& material, const glm::mat4& model);
 	
 	/**
 	*	\brief Destroy the given RenderObject
@@ -31,13 +31,13 @@ public:
 	*	\brief Renders the object
 	*	\param[in] shader The shader that should be used for rendering
 	*/
-	void render(std::shared_ptr<Shader> shader);
+	void render(const std::shared_ptr<Shader>& shader);
 
 	/**
 	*	\brief Update the model matrix
 	*	\param[in] model The new model matrix
 	*/
-	void setModel(glm::mat4 model);
+	void setModel(const glm::mat4& model);
 
 	/**
 	*	\brief Returns the attached material

@@ -38,7 +38,7 @@ class ParticleRenderer
 		*	\param[in] time_alive The maximum time a particle should stay alive
 		*	\param[in] texture The texture of an particle
 		*/
-		ParticleRenderer(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const std::shared_ptr<Texture> texture);
+		ParticleRenderer(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const std::shared_ptr<Texture>& texture);
 
 		/**
 		*	\brief Destroys the object

@@ -17,7 +17,7 @@ Particle::Particle(const glm::vec3& position, const float& time_alive)
 	timeAlive = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)*time_alive;
 }
  
-ParticleRenderer::ParticleRenderer(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const std::shared_ptr<Texture> texture)
+ParticleRenderer::ParticleRenderer(const glm::vec3& position, const uint32_t& num_particles, const float& time_alive, const std::shared_ptr<Texture>& texture)
 {
 	_texture = texture;
 	_position = position;

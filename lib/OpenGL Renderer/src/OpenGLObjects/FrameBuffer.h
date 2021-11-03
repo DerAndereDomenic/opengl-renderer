@@ -38,7 +38,7 @@ public:
 	*	\brief Attaches a color texture to the Framebuffer
 	*	\param[in] color_buffer The texture that should be added
 	*/
-	void attachColor(const std::shared_ptr<Texture> color_buffer);
+	void attachColor(const std::shared_ptr<Texture>& color_buffer);
 
 	/**
 	*	\brief Attaches a hdr texture (floating point texture) to the Framebuffer

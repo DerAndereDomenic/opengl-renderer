@@ -60,20 +60,20 @@ public:
 	*	\param[in] vbo The Vertex Buffer
 	*	\param[in] layout The Layout for the Vertex Buffer
 	*/
-	void addBuffer(const std::shared_ptr<VertexBuffer> vbo, const VertexBufferLayout &layout);
+	void addBuffer(const std::shared_ptr<VertexBuffer>& vbo, const VertexBufferLayout& layout);
 
 	/**
 	*	\brief Add an instance array to the vao
 	*	\param[in] vbo The instanced array vbo
 	*	\param[in] layout The Layout for the Vertex Buffer
 	*/
-	void addInstanceBuffer(const std::shared_ptr<VertexBuffer> vbo, const VertexBufferLayout& layout);
+	void addInstanceBuffer(const std::shared_ptr<VertexBuffer>& vbo, const VertexBufferLayout& layout);
 
 	/**
 	*	\brief Add a Layout for the given Vertex Buffer object and add an Index buffer to the vao
 	*	\param[in] ibo The Index Buffer
 	*/
-	void setIndexBuffer(const std::shared_ptr<IndexBuffer> ibo);
+	void setIndexBuffer(const std::shared_ptr<IndexBuffer>& ibo);
 
 	/**
 	*	\brief Sets the number of elements in the underlying vertex buffer

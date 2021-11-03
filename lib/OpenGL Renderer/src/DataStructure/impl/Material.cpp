@@ -2,7 +2,7 @@
 #include "Shader/Shader.h"
 #include <DataStructure/EnvironmentMap.h>
 
-Material::Material(const std::string& name, MaterialType type)
+Material::Material(const std::string& name, const MaterialType& type)
 {
 	_name = name;
 	_type = type;
@@ -22,7 +22,7 @@ Material::~Material()
 }
 
 void 
-Material::bind(std::shared_ptr<Shader> shader)
+Material::bind(const std::shared_ptr<Shader>& shader)
 {
 	shader->bind();
 	shader->setBool(_name + ".useDiffuseTextures", useDiffuseTextures);

@@ -12,7 +12,7 @@ namespace Math
 	*	\return a(1-t)+tb
 	*/
 	template<typename T>
-	T lerp(T a, T b, float t);
+	T lerp(const T& a, const T& b, const float& t);
 
 	/**
 	*	\brief A smoothstep function used for interpolation
@@ -21,7 +21,7 @@ namespace Math
 	*	\note: See https://en.wikipedia.org/wiki/Smoothstep
 	*/
 	template<typename T>
-	T smoothstep(T x);
+	T smoothstep(const T& x);
 
 	/**
 	*	\brief A smooth linear interpolation
@@ -32,7 +32,7 @@ namespace Math
 	*	\note: See https://en.wikipedia.org/wiki/Perlin_noise
 	*/
 	template<typename T>
-	T smoothlerp(T a, T b, T t);
+	T smoothlerp(const T& a, const T& b, const T& t);
 };
 
 #include <Math/impl/FunctionsDetail.h>

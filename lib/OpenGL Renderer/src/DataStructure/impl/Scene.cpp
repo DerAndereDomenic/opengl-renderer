@@ -3,10 +3,10 @@
 #include <glm/gtx/transform.hpp>
 #include <DLogger/Logger.h>
  
-Scene::Scene(std::vector<std::string> names,
-			 std::vector<std::shared_ptr<Mesh>> meshes,
-			 std::vector<Material> materials,
-			 std::vector<glm::mat4> models)
+Scene::Scene(const std::vector<std::string>& names,
+			 const std::vector<std::shared_ptr<Mesh>>& meshes,
+			 const std::vector<Material>& materials,
+			 const std::vector<glm::mat4>& models)
 {
 	uint32_t size_names = names.size();
 	uint32_t size_meshes = meshes.size();
@@ -29,8 +29,8 @@ Scene::Scene(std::vector<std::string> names,
 	ShaderManager::addShader("Shadow");
 }
 
-Scene::Scene(std::vector<std::string> names,
-			 std::vector<std::shared_ptr<Model>> models)
+Scene::Scene(const std::vector<std::string>& names,
+			 const std::vector<std::shared_ptr<Model>>& models)
 {
 	uint32_t size_names = names.size();
 	uint32_t size_meshes = models.size();
@@ -57,7 +57,7 @@ Scene::~Scene()
 }
 
 void 
-Scene::render(std::shared_ptr<Shader> shader)
+Scene::render(const std::shared_ptr<Shader>& shader)
 {
 	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
@@ -84,7 +84,7 @@ Scene::addLight(Light* light)
 }
 
 void
-Scene::passLights2Shader(std::shared_ptr<Shader> shader)
+Scene::passLights2Shader(const std::shared_ptr<Shader>& shader)
 {
 	for (uint32_t i = 0; i < _lights.size(); ++i)
 	{
@@ -120,7 +120,7 @@ Scene::updateShadowMaps()
 }
 
 std::shared_ptr<RenderObject>
-Scene::getObject(std::string name)
+Scene::getObject(const std::string& name)
 {
 	return _objects[name];
 }

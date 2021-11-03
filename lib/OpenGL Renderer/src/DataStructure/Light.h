@@ -39,7 +39,7 @@ class Light
 		*	\param[in] shader The shader where the light should be added
 		*	\param[in] lightID The ID of the light (i.e. the position in the light array used by the shader)
 		*/
-		void addToShader(std::shared_ptr<Shader> shader, const uint32_t& lightID);
+		void addToShader(const std::shared_ptr<Shader>& shader, const uint32_t& lightID);
 
 		//Member variables
 		glm::vec3 position;								/**<< The position of the light*/

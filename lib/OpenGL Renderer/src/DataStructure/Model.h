@@ -35,7 +35,7 @@ class Model
 		*	\param[in] shader The shader
 		*/
 		void 
-		render(const std::shared_ptr<Shader> shader);
+		render(const std::shared_ptr<Shader>& shader);
 
 		/**
 		*	\brief Get the model matrix
